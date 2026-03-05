@@ -14,7 +14,7 @@
 
 **Files:**
 - Create: `package.json`
-- Create: `bunfig.toml`
+- Create: `bunfig.toml` (빈 파일 또는 기본 설정)
 - Create: `packages/shared/package.json`
 - Create: `packages/shared/src/index.ts`
 - Create: `packages/server/package.json`
@@ -241,7 +241,9 @@ Expected: `Server running on http://localhost:3001`
     "@genie-cv/shared": "workspace:*",
     "react": "^19",
     "react-dom": "^19",
-    "react-router": "^7"
+    "react-router": "^7",
+    "react-markdown": "^9",
+    "rehype-highlight": "^7"
   },
   "devDependencies": {
     "@types/react": "^19",
@@ -275,7 +277,12 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    fs: {
+      allow: [resolve(__dirname, "../../data")],
+    },
   },
+  // 빌드 시 data/content/notes/ 를 dist/content/notes/로 복사
+  // vite-plugin-static-copy 또는 빌드 후 스크립트로 처리
 });
 ```
 
@@ -402,7 +409,7 @@ Create: `public/logos/*.svg` (기술 로고 파일들)
 
 **Step 3: BlogPostPage 생성**
 
-브레드크럼(Projects > 프로젝트명 > 개발 노트) → 제목 + 날짜 + 읽기 시간 + 태그 → 마크다운 렌더링 본문 (H2, 본문, 코드 블록). 본문은 `data/content/notes/{id}.md`를 런타임 fetch 후 react-markdown으로 렌더링.
+브레드크럼(Projects > 프로젝트명 > 개발 노트) → 제목 + 날짜 + 읽기 시간 + 태그 → 마크다운 렌더링 본문 (H2, 본문, 코드 블록). 본문은 `data/content/notes/{id}.md`를 런타임 fetch 후 react-markdown + rehype-highlight로 렌더링. dev에서는 vite fs.allow로 접근, 프로덕션에서는 빌드 시 `dist/content/notes/`로 복사.
 
 **Step 4: 라우팅 연결 확인**
 
@@ -503,7 +510,7 @@ const ROUTE_MAP: Record<string, string> = {
 };
 
 export function mapCitations(
-  results: Array<{ text: string; source: string }>
+  results: Array<{ text: string; source: string; metadata: { projectSlug?: string } }>
 ): Citation[] {
   return results.map((r) => ({
     text: r.text.slice(0, 100),
@@ -511,8 +518,8 @@ export function mapCitations(
     route:
       ROUTE_MAP[r.source] ||
       (r.source.startsWith("notes/") || r.source.startsWith("architectures/notes/")
-        ? `/projects/${inferProjectSlug(r.source)}/notes/${extractId(r.source)}`
-        : `/projects/${extractId(r.source)}`),
+        ? `/projects/${r.metadata.projectSlug}/notes/${r.source.split("/").pop()?.replace(/\.(md|mmd)$/, "")}`
+        : `/projects/${r.source.replace(/^(projects\/|architectures\/projects\/)/, "").replace(/\.(md|mmd)$/, "")}`),
   }));
 }
 ```
@@ -632,7 +639,7 @@ graph LR
 
 **Step 4: embed.ts 생성**
 
-`data/content/` MD + `data/architectures/` Mermaid + `data/qna.json` (Q→A 텍스트 변환) 읽기 → 청크 분할 → Gemini Embedding → LanceDB 저장.
+`data/content/` MD + `data/architectures/` Mermaid + `data/qna.json` (Q→A 텍스트 변환) 읽기 → 청크 분할 → Gemini Embedding → LanceDB 저장. 메타데이터에 `source`(파일 경로) + `projectSlug`(노트의 경우 소속 프로젝트, `projects.json`에서 매핑) 포함.
 
 **Step 5: 실행 확인**
 
@@ -691,8 +698,9 @@ server {
 
 ```
 Task 1 (모노레포) → Task 2 (서버) → Task 7 (knowledge) → Task 8 (agent) → Task 9 (chat route)
-Task 1 (모노레포) → Task 3 (클라이언트) → Task 4 (사이드바/Dashboard) → Task 5 (Projects/Detail/Blog)
+Task 1 (모노레포) → Task 3 (클라이언트) → Task 10 (데이터/콘텐츠) → Task 4 (사이드바/Dashboard) → Task 5 (Projects/Detail/Blog)
 Task 5 → Task 6 (Q&A/Chat 페이지)
-Task 1 (모노레포) → Task 10 (데이터/임베딩/콘텐츠)
-Task 6 + Task 9 + Task 10 → Task 11 (배포)
+Task 6 + Task 9 → Task 11 (배포)
 ```
+
+> Task 10을 Task 3 직후에 배치: 프론트엔드 UI(Task 4~6)가 JSON 데이터를 import해야 하므로 데이터 파일이 먼저 존재해야 함.

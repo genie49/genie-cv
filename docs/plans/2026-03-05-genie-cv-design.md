@@ -162,7 +162,7 @@ packages/client/src/
 `scripts/embed.ts`:
 1. `data/content/` MD + `data/architectures/` Mermaid + `data/qna.json` (텍스트 변환)을 읽어서 청크 분할
 2. Gemini Embedding API로 벡터화
-3. LanceDB에 저장 (메타데이터: 원본 파일명, 프론트 라우트 매핑 포함)
+3. LanceDB에 저장 (메타데이터: source 파일경로 + projectSlug(노트 소속 프로젝트) 포함)
 4. 임베딩된 DB를 `packages/server/db/`에 배치
 
 ### 데이터 관리 전략
@@ -228,8 +228,9 @@ const ROUTE_MAP: Record<string, string> = {
   "experience.md": "/",
   "qna.json": "/qna",
 };
-// projects/*.md -> /projects/{slug}
-// notes/*.md -> /projects/{projectSlug}/notes/{noteId}
+// projects/*.md, architectures/projects/*.mmd -> /projects/{slug}
+// notes/*.md, architectures/notes/*.mmd -> /projects/{projectSlug}/notes/{noteId}
+// 노트의 projectSlug은 임베딩 시 메타데이터에 저장
 ```
 
 ## 배포
