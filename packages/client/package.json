@@ -9,10 +9,11 @@
   },
   "dependencies": {
     "@genie-cv/shared": "workspace:*",
+    "lucide-react": "^0.577.0",
     "react": "^19",
     "react-dom": "^19",
-    "react-router": "^7",
     "react-markdown": "^9",
+    "react-router": "^7",
     "rehype-highlight": "^7"
   },
   "devDependencies": {

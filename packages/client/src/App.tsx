@@ -1,24 +1,24 @@
 import { Routes, Route } from "react-router";
-
-function Placeholder({ name }: { name: string }) {
-  return <div className="p-8 text-zinc-500">{name}</div>;
-}
+import Sidebar from "./components/layout/Sidebar";
+import DashboardPage from "./pages/DashboardPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import ProjectDetailPage from "./pages/ProjectDetailPage";
+import BlogPostPage from "./pages/BlogPostPage";
+import QnAPage from "./pages/QnAPage";
+import ChatPage from "./pages/ChatPage";
 
 export default function App() {
   return (
     <div className="flex h-screen">
-      <aside className="w-[260px] border-r border-zinc-200 bg-zinc-50 p-6">
-        <p className="text-sm font-semibold text-zinc-900">김형진</p>
-        <p className="text-xs text-zinc-500">AI Engineer</p>
-      </aside>
+      <Sidebar />
       <main className="flex-1 overflow-auto bg-white">
         <Routes>
-          <Route path="/" element={<Placeholder name="Dashboard" />} />
-          <Route path="/projects" element={<Placeholder name="Projects" />} />
-          <Route path="/projects/:slug" element={<Placeholder name="Project Detail" />} />
-          <Route path="/projects/:slug/notes/:id" element={<Placeholder name="Blog Post" />} />
-          <Route path="/qna" element={<Placeholder name="Q&A" />} />
-          <Route path="/chat" element={<Placeholder name="AI Chat" />} />
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/:slug" element={<ProjectDetailPage />} />
+          <Route path="/projects/:slug/notes/:id" element={<BlogPostPage />} />
+          <Route path="/qna" element={<QnAPage />} />
+          <Route path="/chat" element={<ChatPage />} />
         </Routes>
       </main>
     </div>
