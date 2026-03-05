@@ -30,7 +30,11 @@ genie-cv/
 │   ├── server/          # ElysiaJS + LangChain + LanceDB
 │   └── shared/          # 공유 타입
 ├── data/
-│   └── content/         # 이력서/프로젝트/개발노트 MD 파일
+│   ├── projects.json    # 프론트엔드 소스 (프로젝트 메타, 기능, 노트 목록)
+│   ├── qna.json         # 프론트엔드 소스 (셀프 Q&A)
+│   ├── profile.json     # 프론트엔드 소스 (프로필, 학력, 경력)
+│   ├── content/         # RAG 임베딩용 MD 파일
+│   └── architectures/   # Mermaid 아키텍처 파일 (RAG + 참조용)
 ├── scripts/
 │   └── embed.ts         # Gemini embedding -> LanceDB 저장
 ├── design/
@@ -107,6 +111,14 @@ packages/client/src/
 │   │   ├── ProjectCard.tsx     # 프로젝트 미리보기 카드
 │   │   ├── EducationPanel.tsx  # Education 패널
 │   │   └── ExperiencePanel.tsx # Experience 패널
+│   ├── diagrams/               # 커스텀 아키텍처 다이어그램 (프로젝트/노트별)
+│   │   ├── projects/           # 프로젝트별 커스텀 React+SVG
+│   │   │   ├── AiPortfolioChatbotArch.tsx
+│   │   │   └── FinanceDashboardArch.tsx
+│   │   └── notes/              # 개발 노트별 커스텀 React+SVG
+│   │       ├── RagPipelineArch.tsx
+│   │       ├── SseStreamingArch.tsx
+│   │       └── LangGraphAgentArch.tsx
 │   └── ui/                     # 공통 UI 컴포넌트
 ├── hooks/
 │   └── useChat.ts              # SSE 스트리밍 + 상태 관리
@@ -148,28 +160,59 @@ packages/client/src/
 ## 임베딩 파이프라인
 
 `scripts/embed.ts`:
-1. `data/content/` 내 MD 파일들을 읽어서 청크 분할
+1. `data/content/` 내 MD 파일 + `data/architectures/` 내 Mermaid 파일을 읽어서 청크 분할
 2. Gemini Embedding API로 벡터화
 3. LanceDB에 저장 (메타데이터: 원본 파일명, 프론트 라우트 매핑 포함)
 4. 임베딩된 DB를 `packages/server/db/`에 배치
 
-### 콘텐츠 구조
+### 데이터 관리 전략
+
+**원칙: JSON은 프론트엔드, MD는 RAG**
+
+프론트엔드 렌더링 데이터와 RAG 임베딩 데이터를 분리. JSON은 프론트엔드가 직접 import하여 사용. MD는 RAG 임베딩 파이프라인에서만 사용.
 
 ```
-data/content/
-├── about.md                    # 자기소개
-├── education.md                # 학력 (한양대학교 데이터사이언스학과)
-├── experience.md               # 경력/활동
-├── qna.md                      # 셀프 Q&A 항목들
-├── projects/
-│   ├── ai-portfolio-chatbot.md # 프로젝트 소개
-│   ├── finance-dashboard.md
-│   └── ...
-└── notes/                      # 개발 노트 (프로젝트별)
-    ├── rag-pipeline.md
-    ├── sse-streaming.md
-    └── langgraph-agent.md
+data/
+├── projects.json              # 프론트엔드 소스 (프로젝트 메타, 기능, 개발 노트 목록)
+├── qna.json                   # 프론트엔드 소스 (셀프 Q&A 항목들)
+├── profile.json               # 프론트엔드 소스 (프로필, 학력, 경력, About)
+├── content/                   # RAG 임베딩용 MD 파일
+│   ├── about.md               # 자기소개
+│   ├── education.md           # 학력 (한양대학교 데이터사이언스학과)
+│   ├── experience.md          # 경력/활동
+│   ├── qna.md                 # 셀프 Q&A 항목들
+│   ├── projects/              # 프로젝트별 상세 설명
+│   │   ├── ai-portfolio-chatbot.md
+│   │   ├── finance-dashboard.md
+│   │   └── ...
+│   └── notes/                 # 개발 노트
+│       ├── rag-pipeline.md
+│       ├── sse-streaming.md
+│       └── langgraph-agent.md
+└── architectures/             # Mermaid 아키텍처 파일 (.mmd)
+    ├── projects/              # 프로젝트별 대표 아키텍처
+    │   ├── ai-portfolio-chatbot.mmd
+    │   └── finance-dashboard.mmd
+    └── notes/                 # 개발 노트별 아키텍처
+        ├── rag-pipeline.mmd
+        ├── sse-streaming.mmd
+        └── langgraph-agent.mmd
 ```
+
+### 프로젝트 아키텍처 다이어그램
+
+**Mermaid 파일 (data/architectures/):**
+- 프로젝트별 대표 아키텍처 1개 + 개발 노트별 아키텍처 1개
+- `.mmd` 파일로 관리 (RAG 임베딩 시 텍스트로 포함)
+- 아키텍처 관련 질문에 RAG가 답변 가능
+
+**프론트엔드 UI (커스텀 React+SVG):**
+- 각 프로젝트/개발 노트마다 개별 커스텀 컴포넌트 생성
+- `components/diagrams/projects/` + `components/diagrams/notes/`
+- 실제 기술 로고 SVG 파일 사용 (public/logos/)
+- 노드(로고+라벨) + 엣지(화살표+라벨) + 그룹(박스) 렌더링
+- Mermaid 파일은 참조용이며, UI는 Mermaid를 불러오지 않고 독립적으로 제작
+- Projects 카드 썸네일: 축소 버전 / Detail 히어로: 풀사이즈
 
 ## 인용 라우트 매핑
 
