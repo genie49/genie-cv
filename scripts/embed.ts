@@ -76,39 +76,27 @@ function splitByH2(content: string, source: string, projectSlug?: string): Chunk
   return chunks;
 }
 
-// Gemini Embedding API 호출
+// Gemini Embedding SDK 호출
 async function embed(texts: string[]): Promise<number[][]> {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:batchEmbedContents?key=${GOOGLE_API_KEY}`;
+  const { GoogleGenAI } = await import("@google/genai");
+  const ai = new GoogleGenAI({ apiKey: GOOGLE_API_KEY });
 
-  // 배치 크기 제한 (최대 100개)
   const batchSize = 100;
   const allEmbeddings: number[][] = [];
 
   for (let i = 0; i < texts.length; i += batchSize) {
     const batch = texts.slice(i, i + batchSize);
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        requests: batch.map((text) => ({
-          model: "models/text-embedding-004",
-          content: { parts: [{ text }] },
-        })),
-      }),
+    const response = await ai.models.embedContent({
+      model: "gemini-embedding-001",
+      contents: batch,
+      taskType: "RETRIEVAL_DOCUMENT",
     });
 
-    if (!res.ok) {
-      const error = await res.text();
-      throw new Error(`Gemini Embedding API 에러: ${res.status} ${error}`);
-    }
-
-    const data = await res.json();
     allEmbeddings.push(
-      ...data.embeddings.map((e: { values: number[] }) => e.values)
+      ...response.embeddings!.map((e) => e.values as number[])
     );
 
     if (i + batchSize < texts.length) {
-      // Rate limiting
       await new Promise((r) => setTimeout(r, 500));
     }
   }

@@ -1,11 +1,8 @@
-import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
+import { GoogleGenAI } from "@google/genai";
 import { getTable } from "./loader";
 import { env } from "../config/env";
 
-const embeddings = new GoogleGenerativeAIEmbeddings({
-  apiKey: env.GOOGLE_API_KEY,
-  modelName: "text-embedding-004",
-});
+const ai = new GoogleGenAI({ apiKey: env.GOOGLE_API_KEY });
 
 export interface SearchResult {
   text: string;
@@ -17,7 +14,12 @@ export async function retrieve(
   query: string,
   topK = 5
 ): Promise<SearchResult[]> {
-  const vector = await embeddings.embedQuery(query);
+  const response = await ai.models.embedContent({
+    model: "gemini-embedding-001",
+    contents: query,
+    taskType: "RETRIEVAL_QUERY",
+  });
+  const vector = response.embeddings![0].values!;
   const table = await getTable();
   const results = await table.search(vector).limit(topK).toArray();
   return results.map((r) => ({
