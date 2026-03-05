@@ -75,14 +75,35 @@ packages/server/src/
 
 - 요청: `{ message: string, history: ChatMessage[] }`
 - 응답: SSE 스트리밍
-- 마지막에 인용 정보: `{ citations: [{ text, source, route }] }`
+- 마지막에 인용 정보: `{ citations: [{ index, text, source, route, label }] }`
 
-### RAG 흐름
+### RAG 흐름 + Citation Grounding
 
-1. 사용자 질문 -> Gemini embedding으로 벡터화
-2. LanceDB에서 관련 MD 청크 검색
-3. 검색된 컨텍스트 + 질문을 Grok 4.1에 전달
-4. 스트리밍 응답 + 인용 소스에 프론트 라우트 매핑
+1. 사용자 질문 → Agent(Grok 4.1)가 RAG Tool 호출 여부 판단
+2. RAG Tool: Gemini Embedding으로 쿼리 벡터화 → LanceDB 유사도 검색 (top-5)
+3. 검색 결과를 **번호 + 출처 라벨** 포함하여 LLM 컨텍스트로 전달:
+   - `"[1] (projects/ai-portfolio-chatbot.md) RAG 기반 AI 챗봇..."`
+   - `"[2] (notes/rag-pipeline.md) LanceDB와 Gemini..."`
+4. LLM이 응답 생성 시 `[1]`, `[2]` 등 인용 번호를 자연스럽게 포함
+5. 스트리밍 완료 후 검색 결과 메타데이터로 citations 이벤트 생성
+6. 프론트엔드: `[1]` → 클릭 가능한 `<Link to={route}>` 변환 + 하단 참고 소스 목록
+
+### Citation 프론트 라우트 매핑
+
+```
+source                                         → route
+──────────────────────────────────────────────────────────────────
+about.md                                       → /
+education.md                                   → /
+experience.md                                  → /
+qna.json                                       → /qna
+projects/ai-portfolio-chatbot.md               → /projects/ai-portfolio-chatbot
+notes/rag-pipeline.md                          → /projects/{projectSlug}/notes/rag-pipeline
+architectures/projects/ai-portfolio-chatbot.mmd → /projects/ai-portfolio-chatbot
+architectures/notes/rag-pipeline.mmd           → /projects/{projectSlug}/notes/rag-pipeline
+```
+
+노트/아키텍처 노트의 `projectSlug`은 임베딩 시 메타데이터에 저장되어 있음.
 
 ## 프론트엔드 구조
 
@@ -219,7 +240,41 @@ data/
 - Mermaid 파일은 참조용이며, UI는 Mermaid를 불러오지 않고 독립적으로 제작
 - Projects 카드 썸네일: 축소 버전 / Detail 히어로: 풀사이즈
 
-## 인용 라우트 매핑
+## 인용(Citation) 시스템
+
+### 공유 타입
+
+```typescript
+export interface Citation {
+  index: number;     // [1], [2] 등 응답 내 인용 번호
+  text: string;      // 검색된 청크 미리보기 (100자)
+  source: string;    // 원본 파일 경로 (e.g. "notes/rag-pipeline.md")
+  route: string;     // 프론트엔드 라우트 (e.g. "/projects/ai-portfolio-chatbot/notes/rag-pipeline")
+  label: string;     // 표시용 라벨 (e.g. "RAG 파이프라인 구축기")
+}
+```
+
+### RAG Tool → LLM 컨텍스트 전달 형식
+
+```
+[1] (projects/ai-portfolio-chatbot.md)
+RAG 기반 AI 챗봇이 탑재된 개인 이력서/포트폴리오 웹사이트...
+
+---
+
+[2] (notes/rag-pipeline.md)
+LanceDB와 Gemini Embedding을 활용한 RAG 파이프라인...
+```
+
+LLM이 응답에 `[1]`, `[2]`를 자연스럽게 포함하도록 시스템 프롬프트에 규칙 명시.
+
+### 프론트엔드 렌더링
+
+- 응답 텍스트의 `[숫자]` 패턴을 정규식으로 파싱 → `<Link to={route}>[숫자]</Link>` 변환
+- 응답 하단에 참고 소스 목록 (label + route) 표시
+- 클릭 시 react-router로 해당 프로젝트/개발 노트 페이지 이동
+
+### 라우트 매핑 규칙
 
 ```typescript
 const ROUTE_MAP: Record<string, string> = {
