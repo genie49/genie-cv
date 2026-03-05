@@ -6,7 +6,46 @@ interface Props {
   citations?: Citation[];
 }
 
-export default function ChatMessage({ message, citations }: Props) {
+function renderContent(content: string, citations: Citation[]) {
+  if (citations.length === 0) return content;
+
+  const parts: (string | { index: number; route: string })[] = [];
+  let lastIndex = 0;
+  const regex = /\[(\d+)\]/g;
+  let match;
+
+  while ((match = regex.exec(content)) !== null) {
+    const num = parseInt(match[1], 10);
+    const citation = citations.find((c) => c.index === num);
+    if (citation) {
+      if (match.index > lastIndex) {
+        parts.push(content.slice(lastIndex, match.index));
+      }
+      parts.push({ index: num, route: citation.route });
+      lastIndex = match.index + match[0].length;
+    }
+  }
+  if (lastIndex < content.length) {
+    parts.push(content.slice(lastIndex));
+  }
+
+  return parts.map((part, i) =>
+    typeof part === "string" ? (
+      part
+    ) : (
+      <Link
+        key={i}
+        to={part.route}
+        className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-zinc-200 text-[10px] font-medium text-zinc-600 hover:bg-zinc-300"
+        title={citations.find((c) => c.index === part.index)?.label}
+      >
+        {part.index}
+      </Link>
+    )
+  );
+}
+
+export default function ChatMessage({ message, citations = [] }: Props) {
   const isUser = message.role === "user";
 
   return (
@@ -19,18 +58,18 @@ export default function ChatMessage({ message, citations }: Props) {
         }`}
       >
         <p className="whitespace-pre-wrap text-[13px] leading-relaxed">
-          {message.content}
+          {renderContent(message.content, citations)}
         </p>
-        {citations && citations.length > 0 && (
-          <div className="mt-3 flex flex-col gap-1 border-t border-zinc-200 pt-2">
-            <span className="text-[11px] text-zinc-400">참고:</span>
-            {citations.map((c, i) => (
+        {citations.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2 border-t border-zinc-200 pt-2">
+            {citations.map((c) => (
               <Link
-                key={i}
+                key={c.index}
                 to={c.route}
-                className="text-[11px] text-zinc-500 underline hover:text-zinc-700"
+                className="flex items-center gap-1 rounded-md bg-zinc-100 px-2 py-0.5 text-[11px] text-zinc-500 hover:bg-zinc-200 hover:text-zinc-700"
               >
-                {c.source}
+                <span className="font-medium">[{c.index}]</span>
+                {c.label}
               </Link>
             ))}
           </div>
