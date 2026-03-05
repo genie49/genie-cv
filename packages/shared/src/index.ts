@@ -4,9 +4,11 @@ export interface ChatMessage {
 }
 
 export interface Citation {
+  index: number;
   text: string;
   source: string;
   route: string;
+  label: string;
 }
 
 export interface ChatRequest {
