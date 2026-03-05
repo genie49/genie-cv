@@ -1,0 +1,17 @@
+{
+  "name": "@genie-cv/server",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target bun",
+    "start": "bun dist/index.js"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "latest",
+    "@genie-cv/shared": "workspace:*",
+    "@lancedb/lancedb": "^0.26.2",
+    "@sinclair/typebox": "^0.34.48",
+    "elysia": "latest"
+  }
+}

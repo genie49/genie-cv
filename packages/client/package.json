@@ -1,0 +1,27 @@
+{
+  "name": "@genie-cv/client",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@genie-cv/shared": "workspace:*",
+    "react": "^19",
+    "react-dom": "^19",
+    "react-router": "^7",
+    "react-markdown": "^9",
+    "rehype-highlight": "^7"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4",
+    "tailwindcss": "^4",
+    "@tailwindcss/vite": "^4",
+    "typescript": "^5",
+    "vite": "^6"
+  }
+}

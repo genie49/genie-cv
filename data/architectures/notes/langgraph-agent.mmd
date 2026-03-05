@@ -1,0 +1,6 @@
+graph TD
+    Start([START]) --> Agent[Agent Node<br/>Grok 4.1]
+    Agent --> Decision{Tool Call?}
+    Decision -->|Yes| RAGTool[RAG Search Tool]
+    RAGTool --> Agent
+    Decision -->|No| End([END])
