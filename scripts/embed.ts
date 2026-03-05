@@ -4,7 +4,7 @@ import { join, relative, basename } from "path";
 const DATA_DIR = join(import.meta.dir, "../data");
 const CONTENT_DIR = join(DATA_DIR, "content");
 const ARCH_DIR = join(DATA_DIR, "architectures");
-const DB_DIR = join(import.meta.dir, "../packages/server/db");
+const DB_DIR = join(import.meta.dir, "../apps/server/db");
 
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 if (!GOOGLE_API_KEY) {
