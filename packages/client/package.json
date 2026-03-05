@@ -8,6 +8,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@genie-cv/shared": "workspace:*"
+    "@genie-cv/shared": "workspace:*",
+    "react": "^19",
+    "react-dom": "^19",
+    "react-router": "^7",
+    "react-markdown": "^9",
+    "rehype-highlight": "^7"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4",
+    "tailwindcss": "^4",
+    "@tailwindcss/vite": "^4",
+    "typescript": "^5",
+    "vite": "^6"
   }
 }
