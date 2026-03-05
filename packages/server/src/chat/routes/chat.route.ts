@@ -1,5 +1,5 @@
 import { Elysia } from "elysia";
-import { isAIMessageChunk } from "@langchain/core/messages";
+import { AIMessageChunk } from "@langchain/core/messages";
 import { agent } from "../../agent/graph";
 import {
   getLastSearchResults,
@@ -29,7 +29,7 @@ export const chatRoute = new Elysia().post(
 
     for await (const [msg, _metadata] of stream) {
       if (
-        isAIMessageChunk(msg) &&
+        msg instanceof AIMessageChunk &&
         typeof msg.content === "string" &&
         msg.content
       ) {

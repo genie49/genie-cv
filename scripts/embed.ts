@@ -89,7 +89,7 @@ async function embed(texts: string[]): Promise<number[][]> {
     const response = await ai.models.embedContent({
       model: "gemini-embedding-001",
       contents: batch,
-      taskType: "RETRIEVAL_DOCUMENT",
+      config: { taskType: "RETRIEVAL_DOCUMENT" },
     });
 
     allEmbeddings.push(

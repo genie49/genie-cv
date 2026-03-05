@@ -17,7 +17,7 @@ export async function retrieve(
   const response = await ai.models.embedContent({
     model: "gemini-embedding-001",
     contents: query,
-    taskType: "RETRIEVAL_QUERY",
+    config: { taskType: "RETRIEVAL_QUERY" },
   });
   const vector = response.embeddings![0].values!;
   const table = await getTable();
