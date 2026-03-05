@@ -249,8 +249,6 @@ Expected: `Server running on http://localhost:3001`
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^4",
-    "autoprefixer": "^10",
-    "postcss": "^8",
     "tailwindcss": "^4",
     "@tailwindcss/vite": "^4",
     "typescript": "^5",
@@ -673,7 +671,24 @@ CMD ["bun", "run", "--filter", "server", "start"]
 
 **Step 2: client Dockerfile 생성**
 
-Vite 빌드 후 nginx로 정적 파일 서빙.
+Vite 빌드 후 nginx로 정적 파일 서빙. `data/content/notes/`를 빌드 결과물에 복사하여 노트 MD를 nginx가 서빙할 수 있도록 함.
+
+```dockerfile
+FROM node:20-slim AS build
+WORKDIR /app
+COPY package.json bun.lock ./
+COPY packages/shared ./packages/shared
+COPY packages/client ./packages/client
+COPY data ./data
+RUN npm i -g bun && bun install --frozen-lockfile
+RUN cd packages/client && bun run build
+
+FROM nginx:alpine
+COPY --from=build /app/packages/client/dist /usr/share/nginx/html
+COPY --from=build /app/data/content/notes /usr/share/nginx/html/content/notes
+COPY packages/client/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+```
 
 **Step 3: nginx.conf 생성 (SPA 라우팅)**
 
