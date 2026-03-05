@@ -1,8 +1,8 @@
-# Genie CV - 개인 이력서/포트폴리오 + AI 챗봇 사이트
+# 김형진 CV - 개인 이력서/포트폴리오 + AI 챗봇 사이트
 
 ## 개요
 
-개인 이력서와 포트폴리오를 포함하는 웹사이트. RAG 기반 AI 챗봇이 방문자의 질문에 본인의 경력/프로젝트 데이터를 기반으로 답변한다.
+개인 이력서와 포트폴리오를 포함하는 웹사이트. RAG 기반 AI 챗봇이 방문자의 질문에 본인의 경력/프로젝트 데이터를 기반으로 답변한다. SaaS 어드민 대시보드 스타일로, 개발자 방문자가 최소한의 스크롤로 정보를 효율적으로 탐색할 수 있도록 설계.
 
 ## 기술 스택
 
@@ -28,11 +28,13 @@ genie-cv/
 ├── packages/
 │   ├── client/          # Vite + React + Tailwind
 │   ├── server/          # ElysiaJS + LangChain + LanceDB
-│   └── shared/          # 공유 타입 (ChatMessage, Citation, Project 등)
+│   └── shared/          # 공유 타입
 ├── data/
-│   └── content/         # 이력서/프로젝트 MD 파일
+│   └── content/         # 이력서/프로젝트/개발노트 MD 파일
 ├── scripts/
 │   └── embed.ts         # Gemini embedding -> LanceDB 저장
+├── design/
+│   └── design.pen       # Pencil UI 디자인
 ├── package.json
 └── bunfig.toml
 ```
@@ -80,29 +82,32 @@ packages/server/src/
 
 ## 프론트엔드 구조
 
+SaaS 어드민 대시보드 스타일. 고정 사이드바 + 메인 콘텐츠 영역.
+
 ```
 packages/client/src/
 ├── main.tsx
 ├── App.tsx                     # React Router 설정
 ├── pages/
-│   ├── Home.tsx                # 메인 싱글 페이지
-│   └── ProjectDetail.tsx       # 프로젝트 상세 페이지
-├── sections/                   # 메인 페이지 섹션
-│   ├── Hero.tsx
-│   ├── About.tsx
-│   ├── Skills.tsx
-│   ├── Experience.tsx
-│   ├── Projects.tsx
-│   └── Education.tsx
+│   ├── DashboardPage.tsx       # / (About + Tech Stack + Projects 미리보기 + Education/Experience)
+│   ├── ProjectsPage.tsx        # /projects (2열 그리드, 인피니티 스크롤)
+│   ├── ProjectDetailPage.tsx   # /projects/:slug (상세 + 개발 노트 목록)
+│   ├── BlogPostPage.tsx        # /projects/:slug/notes/:id (개발 노트 상세)
+│   ├── QnAPage.tsx             # /qna (셀프 Q&A 아코디언)
+│   └── ChatPage.tsx            # /chat (AI 챗 전용 페이지)
 ├── components/
-│   ├── chat/                   # AI 챗 플로팅 위젯
-│   │   ├── ChatWidget.tsx      # 플로팅 버튼 + 패널
+│   ├── layout/
+│   │   └── Sidebar.tsx         # 고정 사이드바 (프로필 + 네비 + 링크)
+│   ├── chat/
 │   │   ├── ChatMessage.tsx     # 메시지 버블 (인용 링크 포함)
 │   │   └── ChatInput.tsx       # 입력창
-│   ├── ui/                     # 공통 UI
-│   └── layout/
-│       ├── Header.tsx
-│       └── Footer.tsx
+│   ├── dashboard/
+│   │   ├── AboutPanel.tsx      # About 패널
+│   │   ├── TechStackPanel.tsx  # Tech Stack collapsible 패널
+│   │   ├── ProjectCard.tsx     # 프로젝트 미리보기 카드
+│   │   ├── EducationPanel.tsx  # Education 패널
+│   │   └── ExperiencePanel.tsx # Experience 패널
+│   └── ui/                     # 공통 UI 컴포넌트
 ├── hooks/
 │   └── useChat.ts              # SSE 스트리밍 + 상태 관리
 ├── styles/
@@ -111,17 +116,34 @@ packages/client/src/
     └── api.ts                  # API 클라이언트
 ```
 
-### 페이지 구성 (하이브리드)
+### 페이지 구성 (SaaS 대시보드)
 
-- **메인 (`/`)**: Hero, About, Skills, Experience, Projects, Education 섹션을 하나의 페이지에 나열
-- **프로젝트 상세 (`/projects/:slug`)**: 개별 프로젝트 상세 페이지
-- **AI 챗**: 전 페이지에 플로팅 위젯으로 표시. 인용 클릭 시 해당 페이지/섹션으로 `react-router` 네비게이션
+- **Dashboard (`/`)**: About + Tech Stack (collapsible) + Projects 미리보기 3개 + Education + Experience
+- **Projects (`/projects`)**: 2열 그리드 카드, 인피니티 스크롤
+- **Project Detail (`/projects/:slug`)**: 프로젝트 상세 + 개발 노트 목록
+- **Blog Post (`/projects/:slug/notes/:id`)**: 개발 노트 상세 (마크다운 렌더링)
+- **Q&A (`/qna`)**: 셀프 Q&A 아코디언 (자기소개서 대체)
+- **AI Chat (`/chat`)**: AI 챗 전용 페이지 (플로팅 위젯이 아닌 독립 페이지)
+
+### 사이드바 네비게이션
+
+고정 사이드바에 다음 항목:
+- 프로필 (아바타 + 이름 + 역할)
+- About, Projects, Q&A, AI Chat
+- 하단: GitHub, Email 링크
 
 ### 디자인 스타일
 
-- 미니멀/모던
+- SaaS 어드민 대시보드 스타일
+- 미니멀/모던, 높은 정보 밀도, 최소 스크롤
+- 흑백 기반 컬러 (Zinc 팔레트)
 - Tailwind CSS
-- Pencil 도구로 상세 UI 디자인 진행 예정
+- Pencil 디자인 완료 (design/design.pen)
+
+### Tech Stack Collapsible
+
+- 접힌 상태: AI/ML, BACKEND, DB/MESSAGE 3개 카테고리만 표시
+- 열린 상태: + FRONTEND, DEVOPS/INFRA 추가 (5개 전체)
 
 ## 임베딩 파이프라인
 
@@ -131,8 +153,47 @@ packages/client/src/
 3. LanceDB에 저장 (메타데이터: 원본 파일명, 프론트 라우트 매핑 포함)
 4. 임베딩된 DB를 `packages/server/db/`에 배치
 
+### 콘텐츠 구조
+
+```
+data/content/
+├── about.md                    # 자기소개
+├── education.md                # 학력 (한양대학교 데이터사이언스학과)
+├── experience.md               # 경력/활동
+├── qna.md                      # 셀프 Q&A 항목들
+├── projects/
+│   ├── ai-portfolio-chatbot.md # 프로젝트 소개
+│   ├── finance-dashboard.md
+│   └── ...
+└── notes/                      # 개발 노트 (프로젝트별)
+    ├── rag-pipeline.md
+    ├── sse-streaming.md
+    └── langgraph-agent.md
+```
+
+## 인용 라우트 매핑
+
+```typescript
+const ROUTE_MAP: Record<string, string> = {
+  "about.md": "/",
+  "education.md": "/",
+  "experience.md": "/",
+  "qna.md": "/qna",
+};
+// projects/*.md -> /projects/{slug}
+// notes/*.md -> /projects/{projectSlug}/notes/{noteId}
+```
+
 ## 배포
 
 Railway에서 모노레포 기반 두 개 서비스:
 - **client**: Vite 빌드 후 정적 파일 서빙
 - **server**: ElysiaJS 서버 실행
+
+## 프로필 정보
+
+- 이름: 김형진
+- 역할: AI Engineer
+- 이메일: kimgenie0409@gmail.com
+- GitHub: github.com/genie49
+- 학력: 한양대학교 데이터사이언스학과 4학년 재학중 (2021~)
