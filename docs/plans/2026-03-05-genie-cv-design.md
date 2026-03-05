@@ -160,7 +160,7 @@ packages/client/src/
 ## 임베딩 파이프라인
 
 `scripts/embed.ts`:
-1. `data/content/` 내 MD 파일 + `data/architectures/` 내 Mermaid 파일을 읽어서 청크 분할
+1. `data/content/` MD + `data/architectures/` Mermaid + `data/qna.json` (텍스트 변환)을 읽어서 청크 분할
 2. Gemini Embedding API로 벡터화
 3. LanceDB에 저장 (메타데이터: 원본 파일명, 프론트 라우트 매핑 포함)
 4. 임베딩된 DB를 `packages/server/db/`에 배치
@@ -169,7 +169,7 @@ packages/client/src/
 
 **원칙: JSON은 프론트엔드, MD는 RAG**
 
-프론트엔드 렌더링 데이터와 RAG 임베딩 데이터를 분리. JSON은 프론트엔드가 직접 import하여 사용. MD는 RAG 임베딩 파이프라인에서만 사용.
+프론트엔드 렌더링 데이터와 RAG 임베딩 데이터를 분리. JSON은 프론트엔드가 직접 import하여 사용. MD는 RAG 임베딩 파이프라인에서만 사용. Q&A는 `qna.json`을 Single Source of Truth로 관리하고, 임베딩 시 텍스트 변환하여 RAG에 포함 (별도 MD 없음).
 
 ```
 data/
@@ -180,7 +180,6 @@ data/
 │   ├── about.md               # 자기소개
 │   ├── education.md           # 학력 (한양대학교 데이터사이언스학과)
 │   ├── experience.md          # 경력/활동
-│   ├── qna.md                 # 셀프 Q&A 항목들
 │   ├── projects/              # 프로젝트별 상세 설명
 │   │   ├── ai-portfolio-chatbot.md
 │   │   ├── finance-dashboard.md
@@ -221,7 +220,7 @@ const ROUTE_MAP: Record<string, string> = {
   "about.md": "/",
   "education.md": "/",
   "experience.md": "/",
-  "qna.md": "/qna",
+  "qna.json": "/qna",
 };
 // projects/*.md -> /projects/{slug}
 // notes/*.md -> /projects/{projectSlug}/notes/{noteId}
