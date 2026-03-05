@@ -8,6 +8,9 @@
     "start": "bun dist/index.js"
   },
   "dependencies": {
-    "@genie-cv/shared": "workspace:*"
+    "@elysiajs/cors": "latest",
+    "@genie-cv/shared": "workspace:*",
+    "@sinclair/typebox": "^0.34.48",
+    "elysia": "latest"
   }
 }
