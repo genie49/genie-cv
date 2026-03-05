@@ -1,0 +1,31 @@
+{
+  "name": "김형진",
+  "role": "AI Engineer",
+  "email": "kimgenie0409@gmail.com",
+  "github": "https://github.com/genie49",
+  "about": "AI와 소프트웨어 엔지니어링을 결합하여 실용적인 제품을 만드는 것에 관심이 많습니다. LLM 기반 애플리케이션 개발, RAG 파이프라인 구축, 풀스택 웹 개발 경험을 보유하고 있습니다.",
+  "education": [
+    {
+      "school": "한양대학교",
+      "major": "데이터사이언스학과",
+      "degree": "학사",
+      "period": "2021 ~ 재학중",
+      "status": "4학년 재학중"
+    }
+  ],
+  "experience": [
+    {
+      "title": "AI 엔지니어 인턴",
+      "company": "Sample Company",
+      "period": "2025.01 ~ 2025.06",
+      "description": "LLM 기반 사내 챗봇 개발 및 RAG 파이프라인 구축"
+    }
+  ],
+  "techStack": {
+    "AI/ML": ["LangChain", "LangGraph", "RAG", "Gemini", "Grok", "HuggingFace"],
+    "BACKEND": ["ElysiaJS", "FastAPI", "Node.js", "Bun"],
+    "DB/MESSAGE": ["LanceDB", "PostgreSQL", "Redis", "Kafka"],
+    "FRONTEND": ["React", "Next.js", "Tailwind CSS", "TypeScript"],
+    "DEVOPS/INFRA": ["Docker", "Railway", "GitHub Actions", "Linux"]
+  }
+}

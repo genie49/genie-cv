@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant C as Client
+    participant S as ElysiaJS
+    participant A as Agent
+    participant L as LLM
+
+    C->>S: POST /api/chat
+    S->>A: invoke(message)
+    A->>L: stream(prompt)
+    loop Token Streaming
+        L-->>A: token
+        A-->>S: token
+        S-->>C: SSE data: token
+    end
+    S-->>C: SSE data: citations
+    S-->>C: SSE data: done

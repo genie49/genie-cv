@@ -10,6 +10,7 @@
   "dependencies": {
     "@elysiajs/cors": "latest",
     "@genie-cv/shared": "workspace:*",
+    "@lancedb/lancedb": "^0.26.2",
     "@sinclair/typebox": "^0.34.48",
     "elysia": "latest"
   }
