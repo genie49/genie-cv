@@ -1,7 +1,7 @@
 {
   "name": "genie-cv",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "dev:client": "bun --filter '@genie-cv/client' dev",
     "dev:server": "bun --filter '@genie-cv/server' dev",

@@ -5,7 +5,7 @@
     "": {
       "name": "genie-cv",
     },
-    "packages/client": {
+    "apps/client": {
       "name": "@genie-cv/client",
       "version": "0.0.1",
       "dependencies": {
@@ -27,7 +27,7 @@
         "vite": "^6",
       },
     },
-    "packages/server": {
+    "apps/server": {
       "name": "@genie-cv/server",
       "version": "0.0.1",
       "dependencies": {
@@ -149,9 +149,9 @@
 
     "@esbuild/win32-x64": ["@esbuild/win32-x64@0.25.12", "", { "os": "win32", "cpu": "x64" }, "sha512-alJC0uCZpTFrSL0CCDjcgleBXPnCrEAhTBILpeAp7M/OFgoqtAetfBzX0xM00MUsVVPpVjlPuMbREqnZCXaTnA=="],
 
-    "@genie-cv/client": ["@genie-cv/client@workspace:packages/client"],
+    "@genie-cv/client": ["@genie-cv/client@workspace:apps/client"],
 
-    "@genie-cv/server": ["@genie-cv/server@workspace:packages/server"],
+    "@genie-cv/server": ["@genie-cv/server@workspace:apps/server"],
 
     "@genie-cv/shared": ["@genie-cv/shared@workspace:packages/shared"],
 
