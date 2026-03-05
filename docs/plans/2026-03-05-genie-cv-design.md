@@ -169,7 +169,13 @@ packages/client/src/
 
 **원칙: JSON은 프론트엔드, MD는 RAG**
 
-프론트엔드 렌더링 데이터와 RAG 임베딩 데이터를 분리. JSON은 프론트엔드가 직접 import하여 사용. MD는 RAG 임베딩 파이프라인에서만 사용. Q&A는 `qna.json`을 Single Source of Truth로 관리하고, 임베딩 시 텍스트 변환하여 RAG에 포함 (별도 MD 없음).
+프론트엔드 렌더링 데이터와 RAG 임베딩 데이터를 분리.
+
+- **JSON**: 프론트엔드가 Vite alias(`@data`)로 직접 import하여 사용
+- **MD**: RAG 임베딩 파이프라인에서만 사용
+- **Q&A**: `qna.json`을 Single Source of Truth로 관리, 임베딩 시 텍스트 변환 (별도 MD 없음)
+- **프로필**: `profile.json`(구조화 데이터)과 `about.md`/`education.md`(서술형 RAG용) 분리 유지. 용도가 다르므로 보완 관계
+- **개발 노트 본문**: `projects.json`에는 노트 메타(제목, 날짜, 태그)만 포함. 본문은 `data/content/notes/*.md`를 런타임 fetch + 마크다운 렌더링. RAG용 MD와 프론트 본문이 동일 파일이라 중복 없음
 
 ```
 data/

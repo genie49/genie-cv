@@ -115,16 +115,19 @@ export interface Project {
   description: string;
   tags: string[];
   period: string;
-  thumbnail?: string;
+  github?: string;
+  demo?: string;
+  features: { title: string; description: string }[];
+  notes: BlogPostMeta[];
 }
 
-export interface BlogPost {
+export interface BlogPostMeta {
   id: string;
   projectSlug: string;
   title: string;
   date: string;
   tags: string[];
-  content: string;
+  summary: string;
 }
 
 export interface QnAItem {
@@ -259,11 +262,17 @@ Expected: `Server running on http://localhost:3001`
 `packages/client/vite.config.ts`:
 ```typescript
 import { defineConfig } from "vite";
+import { resolve } from "path";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@data": resolve(__dirname, "../../data"),
+    },
+  },
   server: {
     port: 5173,
   },
@@ -313,6 +322,9 @@ Expected: Vite dev server on http://localhost:5173
 
 ### Task 4: 사이드바 + Dashboard 페이지
 
+> Pencil 디자인(design/design.pen) 참조하며 Tailwind 스타일 바로 적용.
+> 디자인 시스템: Zinc 팔레트, Outfit(헤딩)/Inter(본문), rounded-xl 카드, bg-zinc-50 border-zinc-100, 사이드바 bg-zinc-50 border-r
+
 **Files:**
 - Create: `packages/client/src/components/layout/Sidebar.tsx`
 - Create: `packages/client/src/pages/DashboardPage.tsx`
@@ -347,6 +359,8 @@ Pencil 디자인(design/design.pen Dashboard Layout)과 일치하는지 확인.
 ---
 
 ### Task 5: Projects 페이지 + Project Detail 페이지
+
+> Pencil 디자인 참조하며 Tailwind 스타일 바로 적용.
 
 **Files:**
 - Create: `packages/client/src/pages/ProjectsPage.tsx`
@@ -388,7 +402,7 @@ Create: `public/logos/*.svg` (기술 로고 파일들)
 
 **Step 3: BlogPostPage 생성**
 
-브레드크럼(Projects > 프로젝트명 > 개발 노트) → 제목 + 날짜 + 읽기 시간 + 태그 → 마크다운 렌더링 본문 (H2, 본문, 코드 블록).
+브레드크럼(Projects > 프로젝트명 > 개발 노트) → 제목 + 날짜 + 읽기 시간 + 태그 → 마크다운 렌더링 본문 (H2, 본문, 코드 블록). 본문은 `data/content/notes/{id}.md`를 런타임 fetch 후 react-markdown으로 렌더링.
 
 **Step 4: 라우팅 연결 확인**
 
@@ -399,6 +413,8 @@ Projects → 카드 클릭 → Detail → 개발 노트 클릭 → BlogPost. 뒤
 ---
 
 ### Task 6: Q&A 페이지 + AI Chat 페이지
+
+> Pencil 디자인 참조하며 Tailwind 스타일 바로 적용.
 
 **Files:**
 - Create: `packages/client/src/pages/QnAPage.tsx`
@@ -494,9 +510,9 @@ export function mapCitations(
     source: r.source,
     route:
       ROUTE_MAP[r.source] ||
-      (r.source.startsWith("notes/")
-        ? `/projects/${inferProjectSlug(r.source)}/notes/${r.source.replace("notes/", "").replace(".md", "")}`
-        : `/projects/${r.source.replace("projects/", "").replace(".md", "")}`),
+      (r.source.startsWith("notes/") || r.source.startsWith("architectures/notes/")
+        ? `/projects/${inferProjectSlug(r.source)}/notes/${extractId(r.source)}`
+        : `/projects/${extractId(r.source)}`),
   }));
 }
 ```
@@ -627,24 +643,7 @@ Expected: 각 파일별 청크 수 출력, LanceDB 저장 완료 메시지
 
 ---
 
-### Task 11: Pencil 디자인 → Tailwind 스타일 적용
-
-**Step 1: design/design.pen 참조하여 Tailwind 스타일 적용**
-
-디자인 시스템:
-- 컬러: Zinc 팔레트 기반 (흑백)
-- 폰트: Outfit(헤딩), Inter(본문)
-- 카드: rounded-xl, bg-zinc-50, border border-zinc-100
-- 태그: AI/ML은 bg-black text-white, 나머지는 bg-white border
-- 사이드바: bg-zinc-50, border-r
-
-**Step 2: 반응형 확인**
-
-**Step 3: Commit**
-
----
-
-### Task 12: Railway 배포 설정
+### Task 11: Railway 배포 설정
 
 **Files:**
 - Create: `packages/client/Dockerfile`
@@ -694,7 +693,6 @@ server {
 Task 1 (모노레포) → Task 2 (서버) → Task 7 (knowledge) → Task 8 (agent) → Task 9 (chat route)
 Task 1 (모노레포) → Task 3 (클라이언트) → Task 4 (사이드바/Dashboard) → Task 5 (Projects/Detail/Blog)
 Task 5 → Task 6 (Q&A/Chat 페이지)
-Task 1 (모노레포) → Task 10 (임베딩/콘텐츠)
-Task 6 + Task 9 → Task 11 (디자인 적용)
-Task 11 → Task 12 (배포)
+Task 1 (모노레포) → Task 10 (데이터/임베딩/콘텐츠)
+Task 6 + Task 9 + Task 10 → Task 11 (배포)
 ```
