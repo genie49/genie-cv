@@ -1,0 +1,34 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "genie-cv",
+    },
+    "packages/client": {
+      "name": "@genie-cv/client",
+      "version": "0.0.1",
+      "dependencies": {
+        "@genie-cv/shared": "workspace:*",
+      },
+    },
+    "packages/server": {
+      "name": "@genie-cv/server",
+      "version": "0.0.1",
+      "dependencies": {
+        "@genie-cv/shared": "workspace:*",
+      },
+    },
+    "packages/shared": {
+      "name": "@genie-cv/shared",
+      "version": "0.0.1",
+    },
+  },
+  "packages": {
+    "@genie-cv/client": ["@genie-cv/client@workspace:packages/client"],
+
+    "@genie-cv/server": ["@genie-cv/server@workspace:packages/server"],
+
+    "@genie-cv/shared": ["@genie-cv/shared@workspace:packages/shared"],
+  }
+}

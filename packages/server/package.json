@@ -1,0 +1,13 @@
+{
+  "name": "@genie-cv/server",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target bun",
+    "start": "bun dist/index.js"
+  },
+  "dependencies": {
+    "@genie-cv/shared": "workspace:*"
+  }
+}
