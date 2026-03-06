@@ -1,13 +1,14 @@
 import { NavLink } from "react-router";
 import { motion } from "motion/react";
-import { User, Folder, MessageCircle, Bot, Github, Mail } from "lucide-react";
+import { User, Folder, MessageCircle, Sparkles, Github, Mail } from "lucide-react";
 
 const navItems = [
   { to: "/", icon: User, label: "About" },
   { to: "/projects", icon: Folder, label: "Projects" },
   { to: "/qna", icon: MessageCircle, label: "Q&A" },
-  { to: "/chat", icon: Bot, label: "AI Chat" },
+  { to: "/chat", icon: Sparkles, label: "AI Chat" },
 ];
+
 
 export default function Sidebar() {
   return (
