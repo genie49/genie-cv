@@ -4,6 +4,10 @@
   "workspaces": {
     "": {
       "name": "genie-cv",
+      "devDependencies": {
+        "@google/genai": "^1.44.0",
+        "@lancedb/lancedb": "^0.26.2",
+      },
     },
     "apps/client": {
       "name": "@genie-cv/client",
