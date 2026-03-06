@@ -8224,6 +8224,23 @@
           ]
         }
       ]
+    },
+    {
+      "type": "frame",
+      "id": "gBEre",
+      "x": 2280,
+      "y": 0,
+      "name": "Favicon Design",
+      "clip": true,
+      "width": 512,
+      "height": 512,
+      "fill": {
+        "type": "image",
+        "enabled": true,
+        "url": "./images/generated-1772784398899.png",
+        "mode": "fill"
+      },
+      "cornerRadius": 100
     }
   ],
   "variables": {
