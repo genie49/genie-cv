@@ -52,21 +52,17 @@
                   "name": "profileImg",
                   "width": 80,
                   "height": 80,
-                  "fill": "#E4E4E7",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "./images/generated-1772780964133.png",
+                    "mode": "fill"
+                  },
                   "cornerRadius": 40,
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "HwO4p",
-                      "name": "profileImgTxt",
-                      "fill": "#71717A",
-                      "content": "G",
-                      "textAlign": "center",
-                      "fontFamily": "Outfit",
-                      "fontSize": 32,
-                      "fontWeight": "800"
-                    }
-                  ]
+                  "stroke": {
+                    "thickness": 2,
+                    "fill": "#F4F4F5"
+                  }
                 },
                 {
                   "type": "text",
@@ -284,7 +280,7 @@
                       "name": "aiNavIc1",
                       "width": 16,
                       "height": 16,
-                      "iconFontName": "bot",
+                      "iconFontName": "sparkles",
                       "iconFontFamily": "lucide",
                       "fill": "#71717A"
                     },
@@ -1595,21 +1591,17 @@
                   "name": "qnaAvatar",
                   "width": 80,
                   "height": 80,
-                  "fill": "#E4E4E7",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "./images/generated-1772780964133.png",
+                    "mode": "fill"
+                  },
                   "cornerRadius": 40,
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "9HVVa",
-                      "name": "qnaAvatarTxt",
-                      "fill": "#71717A",
-                      "content": "G",
-                      "textAlign": "center",
-                      "fontFamily": "Outfit",
-                      "fontSize": 32,
-                      "fontWeight": "800"
-                    }
-                  ]
+                  "stroke": {
+                    "thickness": 2,
+                    "fill": "#F4F4F5"
+                  }
                 },
                 {
                   "type": "text",
@@ -1813,7 +1805,7 @@
                       "name": "aiNavIc2",
                       "width": 16,
                       "height": 16,
-                      "iconFontName": "bot",
+                      "iconFontName": "sparkles",
                       "iconFontFamily": "lucide",
                       "fill": "#71717A"
                     },
@@ -2566,21 +2558,17 @@
                   "name": "chatAvatar",
                   "width": 80,
                   "height": 80,
-                  "fill": "#E4E4E7",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "./images/generated-1772780964133.png",
+                    "mode": "fill"
+                  },
                   "cornerRadius": 40,
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "f4Cxq",
-                      "name": "chatAvatarT",
-                      "fill": "#71717A",
-                      "content": "G",
-                      "textAlign": "center",
-                      "fontFamily": "Outfit",
-                      "fontSize": 32,
-                      "fontWeight": "800"
-                    }
-                  ]
+                  "stroke": {
+                    "thickness": 2,
+                    "fill": "#F4F4F5"
+                  }
                 },
                 {
                   "type": "text",
@@ -2749,7 +2737,7 @@
                       "name": "cn5i",
                       "width": 16,
                       "height": 16,
-                      "iconFontName": "bot",
+                      "iconFontName": "sparkles",
                       "iconFontFamily": "lucide",
                       "fill": "#FFFFFF"
                     },
@@ -2956,7 +2944,16 @@
                       "name": "welcomeIcon",
                       "width": 48,
                       "height": 48,
-                      "fill": "#000000",
+                      "fill": {
+                        "type": "gradient",
+                        "gradientType": "linear",
+                        "enabled": true,
+                        "rotation": 0,
+                        "size": {
+                          "height": 1
+                        },
+                        "colors": []
+                      },
                       "cornerRadius": 24,
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -2967,7 +2964,7 @@
                           "name": "welcomeIconT",
                           "width": 24,
                           "height": 24,
-                          "iconFontName": "bot",
+                          "iconFontName": "sparkles",
                           "iconFontFamily": "lucide",
                           "fill": "#FFFFFF"
                         }
@@ -3222,21 +3219,17 @@
                   "name": "pAv",
                   "width": 80,
                   "height": 80,
-                  "fill": "#E4E4E7",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "./images/generated-1772780964133.png",
+                    "mode": "fill"
+                  },
                   "cornerRadius": 40,
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "75LHC",
-                      "name": "pAvT",
-                      "fill": "#71717A",
-                      "content": "G",
-                      "textAlign": "center",
-                      "fontFamily": "Outfit",
-                      "fontSize": 32,
-                      "fontWeight": "800"
-                    }
-                  ]
+                  "stroke": {
+                    "thickness": 2,
+                    "fill": "#F4F4F5"
+                  }
                 },
                 {
                   "type": "text",
@@ -3405,7 +3398,7 @@
                       "name": "pn5i",
                       "width": 16,
                       "height": 16,
-                      "iconFontName": "bot",
+                      "iconFontName": "sparkles",
                       "iconFontFamily": "lucide",
                       "fill": "#71717A"
                     },
@@ -4771,8 +4764,17 @@
                   "name": "dAv",
                   "width": 80,
                   "height": 80,
-                  "fill": "#E4E4E7",
-                  "cornerRadius": 40
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "./images/generated-1772780964133.png",
+                    "mode": "fill"
+                  },
+                  "cornerRadius": 40,
+                  "stroke": {
+                    "thickness": 2,
+                    "fill": "#F4F4F5"
+                  }
                 },
                 {
                   "type": "text",
@@ -4941,7 +4943,7 @@
                       "name": "n5i",
                       "width": 16,
                       "height": 16,
-                      "iconFontName": "message-square",
+                      "iconFontName": "sparkles",
                       "iconFontFamily": "lucide",
                       "fill": "#71717A"
                     },
@@ -6027,8 +6029,17 @@
                   "name": "av",
                   "width": 80,
                   "height": 80,
-                  "fill": "#E4E4E7",
-                  "cornerRadius": 40
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "./images/generated-1772780964133.png",
+                    "mode": "fill"
+                  },
+                  "cornerRadius": 40,
+                  "stroke": {
+                    "thickness": 2,
+                    "fill": "#F4F4F5"
+                  }
                 },
                 {
                   "type": "text",
@@ -6197,7 +6208,7 @@
                       "name": "n5i",
                       "width": 16,
                       "height": 16,
-                      "iconFontName": "message-square",
+                      "iconFontName": "sparkles",
                       "iconFontFamily": "lucide",
                       "fill": "#71717A"
                     },
@@ -7470,6 +7481,134 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Gnx3t",
+      "x": 2040,
+      "y": 0,
+      "name": "Capybara Previews",
+      "width": 800,
+      "height": 260,
+      "fill": "#FFFFFF",
+      "cornerRadius": 16,
+      "gap": 20,
+      "padding": 20,
+      "children": [
+        {
+          "type": "frame",
+          "id": "4mDTT",
+          "name": "Style 1: Minimal",
+          "width": 200,
+          "height": 200,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "./images/generated-1772780871725.png",
+            "mode": "fill"
+          },
+          "cornerRadius": 100
+        },
+        {
+          "type": "frame",
+          "id": "ZU306",
+          "name": "Style 2: 3D Cute",
+          "width": 200,
+          "height": 200,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "./images/generated-1772780878421.png",
+            "mode": "fill"
+          },
+          "cornerRadius": 100
+        },
+        {
+          "type": "frame",
+          "id": "k360E",
+          "name": "Style 3: Watercolor",
+          "width": 200,
+          "height": 200,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "./images/generated-1772780889853.png",
+            "mode": "fill"
+          },
+          "cornerRadius": 100
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "B5IqB",
+      "x": 2040,
+      "y": 310,
+      "name": "Minimal Capybara Previews 2",
+      "width": 900,
+      "height": 260,
+      "fill": "#FFFFFF",
+      "cornerRadius": 16,
+      "gap": 20,
+      "padding": 20,
+      "children": [
+        {
+          "type": "frame",
+          "id": "BkMuo",
+          "name": "Style 1: Line Art",
+          "width": 200,
+          "height": 200,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "./images/generated-1772780944287.png",
+            "mode": "fill"
+          },
+          "cornerRadius": 100
+        },
+        {
+          "type": "frame",
+          "id": "W3MZk",
+          "name": "Style 2: Geometric",
+          "width": 200,
+          "height": 200,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "./images/generated-1772780951498.png",
+            "mode": "fill"
+          },
+          "cornerRadius": 100
+        },
+        {
+          "type": "frame",
+          "id": "fJmTB",
+          "name": "Style 3: Kawaii Flat",
+          "width": 200,
+          "height": 200,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "./images/generated-1772780957957.png",
+            "mode": "fill"
+          },
+          "cornerRadius": 100
+        },
+        {
+          "type": "frame",
+          "id": "XnlY4",
+          "name": "Style 4: With Orange",
+          "width": 200,
+          "height": 200,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "./images/generated-1772780964133.png",
+            "mode": "fill"
+          },
+          "cornerRadius": 100
         }
       ]
     }

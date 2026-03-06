@@ -22,7 +22,7 @@ export default function Sidebar() {
       >
         <div className="flex h-20 w-20 overflow-hidden rounded-full bg-zinc-200 border-2 border-zinc-100 shadow-sm">
           <img 
-            src="/design/images/generated-1772780964133.png" 
+            src="/images/profile.png" 
             alt="Profile" 
             className="h-full w-full object-cover"
           />
