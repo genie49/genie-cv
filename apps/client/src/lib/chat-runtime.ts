@@ -40,6 +40,11 @@ export const chatModelAdapter: ChatModelAdapter = {
     });
 
     if (!res.ok) {
+      if (res.status === 429) {
+        const body = await res.json();
+        yield { content: [{ type: "text" as const, text: body.data || "잠깐, 숨 좀 고를게요... 1분 후 다시 시도해주세요!" }] };
+        return;
+      }
       throw new Error(`Chat API error: ${res.status}`);
     }
 
@@ -66,6 +71,10 @@ export const chatModelAdapter: ChatModelAdapter = {
           citations = event.data;
           const withCitations = applyCitations(fullText, citations);
           yield { content: [{ type: "text" as const, text: withCitations }] };
+        } else if (event.type === "error") {
+          const errorText = event.data || "알 수 없는 오류가 발생했어요.";
+          yield { content: [{ type: "text" as const, text: errorText }] };
+          return;
         }
       }
     }

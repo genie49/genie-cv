@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import profile from "@data/profile.json";
 
 const COLLAPSED_CATEGORIES = ["AI/ML", "BACKEND", "DB/MESSAGE"];
@@ -21,33 +22,47 @@ export default function TechStackPanel() {
         </h2>
         <button
           onClick={() => setExpanded(!expanded)}
-          className="text-zinc-400 hover:text-zinc-600"
+          className="cursor-pointer text-zinc-400 hover:text-zinc-600"
         >
-          {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          <motion.div
+            animate={{ rotate: expanded ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <ChevronDown size={16} />
+          </motion.div>
         </button>
       </div>
       <div className="flex flex-col gap-4">
-        {categories.map(([category, items]) => (
-          <div key={category} className="flex flex-col gap-1.5">
-            <span className="text-[11px] font-semibold tracking-wider text-zinc-400">
-              {category}
-            </span>
-            <div className="flex flex-wrap gap-1">
-              {(items as string[]).map((item) => (
-                <span
-                  key={item}
-                  className={`rounded px-2 py-0.5 text-xs ${
-                    category === "AI/ML"
-                      ? "bg-black text-white"
-                      : "border border-zinc-200 bg-white text-zinc-500"
-                  }`}
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
+        <AnimatePresence mode="popLayout">
+          {categories.map(([category, items]) => (
+            <motion.div
+              key={category}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="flex flex-col gap-1.5"
+            >
+              <span className="text-[11px] font-semibold tracking-wider text-zinc-400">
+                {category}
+              </span>
+              <div className="flex flex-wrap gap-1">
+                {(items as string[]).map((item) => (
+                  <span
+                    key={item}
+                    className={`rounded px-2 py-0.5 text-xs ${
+                      category === "AI/ML"
+                        ? "bg-black text-white"
+                        : "border border-zinc-200 bg-white text-zinc-500"
+                    }`}
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router";
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import projects from "@data/projects.json";
@@ -32,7 +33,12 @@ export default function BlogPostPage() {
   }
 
   return (
-    <div className="flex flex-col gap-10 px-20 py-8">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="flex flex-col gap-10 px-20 py-8"
+    >
       {/* Breadcrumb */}
       <div className="flex items-center gap-1.5 text-[13px]">
         <Link to="/projects" className="text-zinc-400 hover:text-zinc-600">
@@ -50,7 +56,12 @@ export default function BlogPostPage() {
       </div>
 
       {/* Header */}
-      <div className="flex flex-col gap-3">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="flex flex-col gap-3"
+      >
         <h1 className="font-['Outfit'] text-[28px] font-extrabold tracking-tight text-black">
           {note.title}
         </h1>
@@ -67,7 +78,7 @@ export default function BlogPostPage() {
             </span>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Divider */}
       <div className="h-px w-full bg-zinc-100" />
@@ -76,12 +87,17 @@ export default function BlogPostPage() {
       {loading ? (
         <div className="text-sm text-zinc-400">로딩 중...</div>
       ) : (
-        <article className="prose prose-zinc max-w-none prose-headings:font-['Outfit'] prose-headings:font-bold prose-h2:text-xl prose-p:text-[15px] prose-p:leading-[1.8] prose-p:text-zinc-700 prose-pre:rounded-lg prose-pre:bg-zinc-900 prose-code:font-['JetBrains_Mono'] prose-code:text-[13px]">
+        <motion.article
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.4 }}
+          className="prose prose-zinc max-w-none prose-headings:font-['Outfit'] prose-headings:font-bold prose-h2:text-xl prose-p:text-[15px] prose-p:leading-[1.8] prose-p:text-zinc-700 prose-pre:rounded-lg prose-pre:bg-zinc-900 prose-code:font-['JetBrains_Mono'] prose-code:text-[13px]"
+        >
           <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
             {content}
           </ReactMarkdown>
-        </article>
+        </motion.article>
       )}
-    </div>
+    </motion.div>
   );
 }

@@ -3,7 +3,7 @@
   "role": "AI Engineer",
   "email": "kimgenie0409@gmail.com",
   "github": "https://github.com/genie49",
-  "about": "AI와 소프트웨어 엔지니어링을 결합하여 실용적인 제품을 만드는 것에 관심이 많습니다. LLM 기반 애플리케이션 개발, RAG 파이프라인 구축, 풀스택 웹 개발 경험을 보유하고 있습니다.",
+  "about": "한번 몰입하면 빠르게 결과물을 만들어내는 개발자입니다. AI 기술이 실제 비즈니스 가치를 만드는 과정에 강한 흥미를 가지고 있으며, 딥러닝 모델부터 LLM 기반 Multi-Agent 시스템, 풀스택 웹 서비스까지 아이디어를 프로덕트로 완성하는 전 과정을 경험했습니다.",
   "education": [
     {
       "school": "한양대학교",
@@ -15,10 +15,46 @@
   ],
   "experience": [
     {
-      "title": "AI 엔지니어 인턴",
-      "company": "Sample Company",
-      "period": "2025.01 ~ 2025.06",
-      "description": "LLM 기반 사내 챗봇 개발 및 RAG 파이프라인 구축"
+      "title": "백엔드/AI 엔지니어",
+      "company": "아이머스",
+      "period": "2025.09 ~ 2026.03",
+      "type": "현장실습생/인턴",
+      "description": "인플루언서-브랜드 매칭 AI 서비스 개발. 백엔드 및 AI 엔지니어링 담당"
+    },
+    {
+      "title": "풀스택 개발자",
+      "company": "스톰스터디",
+      "period": "2025.02 ~ 2025.08",
+      "type": "정규직",
+      "description": "영어 단어 학습 플랫폼 복귀 후 신규 기능 개발 및 서비스 운영. AI 기반 학습 기능 고도화, 사용자 피드백 반영한 UX 개선"
+    },
+    {
+      "title": "FE/AI 개발자",
+      "company": "핀구",
+      "period": "2024.12 ~ 2026.03",
+      "type": "창업팀 활동",
+      "description": "주식 투자 결정 보조 AI 서비스 개발. NestJS+Puppeteer 금융 데이터 크롤러, PostgreSQL+pgvector 벡터 DB 파이프라인 구축, LangGraph 기반 Multi-Agent 시스템 설계, FastAPI 백엔드 AWS EC2 배포, Next.js 채팅 UI 개발"
+    },
+    {
+      "title": "풀스택 개발자",
+      "company": "헬프터",
+      "period": "2024.11 ~ 2025.01",
+      "type": "정규직",
+      "description": "풀스택 웹 서비스 개발. 프론트엔드부터 백엔드까지 전반적인 서비스 구축 및 운영 담당"
+    },
+    {
+      "title": "군복무",
+      "company": "대한민국 육군",
+      "period": "2023.05 ~ 2024.10",
+      "type": "군복무",
+      "description": "군복무"
+    },
+    {
+      "title": "풀스택 개발자",
+      "company": "스톰스터디",
+      "period": "2021.02 ~ 2023.04",
+      "type": "프리랜서/정규직",
+      "description": "영어 단어 학습 플랫폼 '스톰스터디'의 풀스택 개발. PHP/Vanilla JS 레거시를 Next.js로 마이그레이션, TypeScript 전면 도입, MySQL DB 설계, Vercel AI SDK로 AI 학습 기능 및 개인화 알고리즘 구현"
     }
   ],
   "techStack": {
