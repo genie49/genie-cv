@@ -19,7 +19,7 @@ export default function ChatPage() {
         </div>
         <button
           onClick={() => runtime.switchToNewThread()}
-          className="flex items-center gap-1.5 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs text-zinc-500 hover:border-zinc-300 hover:text-zinc-700"
+          className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs text-zinc-500 hover:border-zinc-300 hover:text-zinc-700"
         >
           <RotateCcw size={12} />
           새 채팅
