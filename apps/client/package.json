@@ -12,6 +12,7 @@
     "@assistant-ui/react": "^0.12.15",
     "@genie-cv/shared": "workspace:*",
     "lucide-react": "^0.577.0",
+    "motion": "^12.35.0",
     "react": "^19",
     "react-dom": "^19",
     "react-markdown": "^9",
