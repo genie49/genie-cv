@@ -12,7 +12,7 @@ const navItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="flex w-[260px] shrink-0 flex-col border-r border-zinc-200 bg-zinc-50 px-6 py-8">
+    <aside className="hidden md:flex w-[260px] shrink-0 flex-col border-r border-zinc-200 bg-zinc-50 px-6 py-8">
       {/* Profile */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}

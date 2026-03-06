@@ -37,7 +37,7 @@ export default function BlogPostPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="flex flex-col gap-10 px-20 py-8"
+      className="flex flex-col gap-10 px-5 py-6 md:px-20 md:py-8"
     >
       {/* Breadcrumb */}
       <div className="flex items-center gap-1.5 text-[13px]">
