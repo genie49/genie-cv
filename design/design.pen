@@ -1455,7 +1455,7 @@
                               "id": "gKjFl",
                               "name": "expRole",
                               "fill": "#000000",
-                              "content": "AI 연구 인턴",
+                              "content": "백엔드/AI 엔지니어",
                               "fontFamily": "Inter",
                               "fontSize": 13,
                               "fontWeight": "600"
@@ -1465,7 +1465,7 @@
                               "id": "OfZXJ",
                               "name": "expCompany",
                               "fill": "#71717A",
-                              "content": "Tech Lab",
+                              "content": "아이머스",
                               "fontFamily": "Inter",
                               "fontSize": 12,
                               "fontWeight": "normal"
@@ -1473,14 +1473,47 @@
                           ]
                         },
                         {
-                          "type": "text",
-                          "id": "fmVvE",
-                          "name": "expPeriod",
-                          "fill": "#A1A1AA",
-                          "content": "2023.07 — 2023.12",
-                          "fontFamily": "Inter",
-                          "fontSize": 12,
-                          "fontWeight": "normal"
+                          "type": "frame",
+                          "id": "6EyaJ",
+                          "name": "expRight1",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "alignItems": "end",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "3Tit6",
+                              "name": "p1",
+                              "fill": "#A1A1AA",
+                              "content": "2025.09 — 2026.03",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "wGoWO",
+                              "name": "badge1",
+                              "fill": "#F4F4F5",
+                              "cornerRadius": 4,
+                              "padding": [
+                                2,
+                                6
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "iJWlt",
+                                  "name": "t1",
+                                  "fill": "#71717A",
+                                  "content": "현장실습생/인턴",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     },
@@ -1503,7 +1536,7 @@
                               "id": "rKPgI",
                               "name": "expRole2",
                               "fill": "#000000",
-                              "content": "오픈소스 컨트리뷰터",
+                              "content": "풀스택 개발자",
                               "fontFamily": "Inter",
                               "fontSize": 13,
                               "fontWeight": "600"
@@ -1513,7 +1546,7 @@
                               "id": "TSidm",
                               "name": "expOrg2",
                               "fill": "#71717A",
-                              "content": "LangChain.js",
+                              "content": "스톰스터디",
                               "fontFamily": "Inter",
                               "fontSize": 12,
                               "fontWeight": "normal"
@@ -1521,14 +1554,371 @@
                           ]
                         },
                         {
-                          "type": "text",
-                          "id": "mV2Cm",
-                          "name": "expPeriod2",
-                          "fill": "#A1A1AA",
-                          "content": "2024 —",
-                          "fontFamily": "Inter",
-                          "fontSize": 12,
-                          "fontWeight": "normal"
+                          "type": "frame",
+                          "id": "5PEsb",
+                          "name": "expRight2",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "alignItems": "end",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "xO8YN",
+                              "name": "p2",
+                              "fill": "#A1A1AA",
+                              "content": "2025.02 — 2025.08",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "g654r",
+                              "name": "badge2",
+                              "fill": "#F4F4F5",
+                              "cornerRadius": 4,
+                              "padding": [
+                                2,
+                                6
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "jV50v",
+                                  "name": "t2",
+                                  "fill": "#71717A",
+                                  "content": "정규직",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "If65H",
+                      "name": "expItem3",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "EhRTO",
+                          "name": "expItem3Left",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ck7Pi",
+                              "name": "exp3role",
+                              "fill": "#000000",
+                              "content": "FE/AI 개발자",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "C7A0Q",
+                              "name": "exp3company",
+                              "fill": "#71717A",
+                              "content": "핀구",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "hK60H",
+                          "name": "expRight3",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "alignItems": "end",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "PiX7d",
+                              "name": "p3",
+                              "fill": "#A1A1AA",
+                              "content": "2024.12 — 2026.03",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "c08o6",
+                              "name": "badge3",
+                              "fill": "#F4F4F5",
+                              "cornerRadius": 4,
+                              "padding": [
+                                2,
+                                6
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "NHXpV",
+                                  "name": "t3",
+                                  "fill": "#71717A",
+                                  "content": "창업팀 활동",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Tbhyg",
+                      "name": "expItem4",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "7EJGT",
+                          "name": "expItem4Left",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Pvpsp",
+                              "name": "exp4role",
+                              "fill": "#000000",
+                              "content": "풀스택 개발자",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "Riq5O",
+                              "name": "exp4company",
+                              "fill": "#71717A",
+                              "content": "헬프터",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "SKgB4",
+                          "name": "expRight4",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "alignItems": "end",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "eaO5f",
+                              "name": "p4",
+                              "fill": "#A1A1AA",
+                              "content": "2024.11 — 2025.01",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "2nUT2",
+                              "name": "badge4",
+                              "fill": "#F4F4F5",
+                              "cornerRadius": 4,
+                              "padding": [
+                                2,
+                                6
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "VVUYS",
+                                  "name": "t4",
+                                  "fill": "#71717A",
+                                  "content": "정규직",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "DjRb7",
+                      "name": "expItem6",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "XILtP",
+                          "name": "expItem6Left",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ep74T",
+                              "name": "exp6role",
+                              "fill": "#000000",
+                              "content": "군복무",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "J9uwg",
+                              "name": "exp6company",
+                              "fill": "#71717A",
+                              "content": "대한민국 육군",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "ymsgw",
+                          "name": "expRight5",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "alignItems": "end",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "MYIxf",
+                              "name": "p5",
+                              "fill": "#A1A1AA",
+                              "content": "2023.05 — 2024.10",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "glpsN",
+                              "name": "badge5",
+                              "fill": "#F4F4F5",
+                              "cornerRadius": 4,
+                              "padding": [
+                                2,
+                                6
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "9moh5",
+                                  "name": "t5",
+                                  "fill": "#71717A",
+                                  "content": "군복무",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "khM5T",
+                      "name": "expItem5",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "jNnY3",
+                          "name": "expItem5Left",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "B1ISg",
+                              "name": "exp5role",
+                              "fill": "#000000",
+                              "content": "풀스택 개발자",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "q9Hdp",
+                              "name": "exp5company",
+                              "fill": "#71717A",
+                              "content": "스톰스터디",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "IJCj3",
+                          "name": "expRight6",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "alignItems": "end",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "29MeA",
+                              "name": "p6",
+                              "fill": "#A1A1AA",
+                              "content": "2021.02 — 2023.04",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "KTNil",
+                              "name": "badge6",
+                              "fill": "#F4F4F5",
+                              "cornerRadius": 4,
+                              "padding": [
+                                2,
+                                6
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "94R0S",
+                                  "name": "t6",
+                                  "fill": "#71717A",
+                                  "content": "프리랜서/정규직",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     }
@@ -7486,129 +7876,352 @@
     },
     {
       "type": "frame",
-      "id": "Gnx3t",
-      "x": 2040,
-      "y": 0,
-      "name": "Capybara Previews",
-      "width": 800,
-      "height": 260,
+      "id": "oQqWb",
+      "x": 1540,
+      "y": 497,
+      "name": "Experience Gantt V2",
+      "width": 640,
+      "height": 340,
       "fill": "#FFFFFF",
-      "cornerRadius": 16,
+      "cornerRadius": 12,
+      "stroke": {
+        "thickness": 1,
+        "fill": "#F4F4F5"
+      },
+      "layout": "vertical",
       "gap": 20,
-      "padding": 20,
+      "padding": [
+        24,
+        28
+      ],
       "children": [
         {
           "type": "frame",
-          "id": "4mDTT",
-          "name": "Style 1: Minimal",
-          "width": 200,
-          "height": 200,
-          "fill": {
-            "type": "image",
-            "enabled": true,
-            "url": "./images/generated-1772780871725.png",
-            "mode": "fill"
-          },
-          "cornerRadius": 100
+          "id": "xCrwQ",
+          "name": "ganttHdr",
+          "width": "fill_container",
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "PYIs1",
+              "name": "htxt",
+              "fill": "#18181B",
+              "content": "Experience",
+              "fontFamily": "Outfit",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "frame",
+              "id": "owmUy",
+              "name": "ganttToggle",
+              "fill": "#18181B",
+              "cornerRadius": 6,
+              "padding": [
+                5,
+                12
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "uWTks",
+                  "name": "ttxt",
+                  "fill": "#FFFFFF",
+                  "content": "타임라인",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "frame",
-          "id": "ZU306",
-          "name": "Style 2: 3D Cute",
-          "width": 200,
-          "height": 200,
-          "fill": {
-            "type": "image",
-            "enabled": true,
-            "url": "./images/generated-1772780878421.png",
-            "mode": "fill"
-          },
-          "cornerRadius": 100
-        },
-        {
-          "type": "frame",
-          "id": "k360E",
-          "name": "Style 3: Watercolor",
-          "width": 200,
-          "height": 200,
-          "fill": {
-            "type": "image",
-            "enabled": true,
-            "url": "./images/generated-1772780889853.png",
-            "mode": "fill"
-          },
-          "cornerRadius": 100
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "B5IqB",
-      "x": 2040,
-      "y": 310,
-      "name": "Minimal Capybara Previews 2",
-      "width": 900,
-      "height": 260,
-      "fill": "#FFFFFF",
-      "cornerRadius": 16,
-      "gap": 20,
-      "padding": 20,
-      "children": [
-        {
-          "type": "frame",
-          "id": "BkMuo",
-          "name": "Style 1: Line Art",
-          "width": 200,
-          "height": 200,
-          "fill": {
-            "type": "image",
-            "enabled": true,
-            "url": "./images/generated-1772780944287.png",
-            "mode": "fill"
-          },
-          "cornerRadius": 100
-        },
-        {
-          "type": "frame",
-          "id": "W3MZk",
-          "name": "Style 2: Geometric",
-          "width": 200,
-          "height": 200,
-          "fill": {
-            "type": "image",
-            "enabled": true,
-            "url": "./images/generated-1772780951498.png",
-            "mode": "fill"
-          },
-          "cornerRadius": 100
-        },
-        {
-          "type": "frame",
-          "id": "fJmTB",
-          "name": "Style 3: Kawaii Flat",
-          "width": 200,
-          "height": 200,
-          "fill": {
-            "type": "image",
-            "enabled": true,
-            "url": "./images/generated-1772780957957.png",
-            "mode": "fill"
-          },
-          "cornerRadius": 100
-        },
-        {
-          "type": "frame",
-          "id": "XnlY4",
-          "name": "Style 4: With Orange",
-          "width": 200,
-          "height": 200,
-          "fill": {
-            "type": "image",
-            "enabled": true,
-            "url": "./images/generated-1772780964133.png",
-            "mode": "fill"
-          },
-          "cornerRadius": 100
+          "id": "Xx3oa",
+          "name": "chartArea",
+          "width": "fill_container",
+          "height": 260,
+          "layout": "none",
+          "children": [
+            {
+              "type": "frame",
+              "id": "FIbNB",
+              "x": 100,
+              "y": 16,
+              "name": "grid21",
+              "width": 1,
+              "height": 240,
+              "fill": "#F4F4F5"
+            },
+            {
+              "type": "frame",
+              "id": "EpdF6",
+              "x": 181,
+              "y": 16,
+              "name": "grid22",
+              "width": 1,
+              "height": 240,
+              "fill": "#F4F4F5"
+            },
+            {
+              "type": "frame",
+              "id": "ijGYm",
+              "x": 262,
+              "y": 16,
+              "name": "grid23",
+              "width": 1,
+              "height": 240,
+              "fill": "#F4F4F5"
+            },
+            {
+              "type": "frame",
+              "id": "cSjnJ",
+              "x": 343,
+              "y": 16,
+              "name": "grid24",
+              "width": 1,
+              "height": 240,
+              "fill": "#F4F4F5"
+            },
+            {
+              "type": "frame",
+              "id": "YJe2a",
+              "x": 424,
+              "y": 16,
+              "name": "grid25",
+              "width": 1,
+              "height": 240,
+              "fill": "#F4F4F5"
+            },
+            {
+              "type": "frame",
+              "id": "NvnGI",
+              "x": 505,
+              "y": 16,
+              "name": "grid26",
+              "width": 1,
+              "height": 240,
+              "fill": "#F4F4F5"
+            },
+            {
+              "type": "text",
+              "id": "nB3mV",
+              "x": 100,
+              "y": 0,
+              "name": "y21",
+              "fill": "#A1A1AA",
+              "content": "2021",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "hw5GJ",
+              "x": 181,
+              "y": 0,
+              "name": "y22",
+              "fill": "#A1A1AA",
+              "content": "2022",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "xraSv",
+              "x": 262,
+              "y": 0,
+              "name": "y23",
+              "fill": "#A1A1AA",
+              "content": "2023",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "DjpiI",
+              "x": 343,
+              "y": 0,
+              "name": "y24",
+              "fill": "#A1A1AA",
+              "content": "2024",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "ugm40",
+              "x": 424,
+              "y": 0,
+              "name": "y25",
+              "fill": "#A1A1AA",
+              "content": "2025",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "qOgM7",
+              "x": 505,
+              "y": 0,
+              "name": "y26",
+              "fill": "#A1A1AA",
+              "content": "2026",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "KRiYt",
+              "x": 0,
+              "y": 28,
+              "name": "lb1",
+              "fill": "#18181B",
+              "content": "스톰스터디",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "EyuU7",
+              "x": 107,
+              "y": 22,
+              "name": "bar1",
+              "width": 175,
+              "height": 24,
+              "fill": "#18181B",
+              "cornerRadius": 5,
+              "layout": "none"
+            },
+            {
+              "type": "text",
+              "id": "VuVCN",
+              "x": 0,
+              "y": 66,
+              "name": "lb2",
+              "fill": "#18181B",
+              "content": "군복무",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "d9mR5",
+              "x": 282,
+              "y": 60,
+              "name": "bar2",
+              "width": 115,
+              "height": 24,
+              "fill": "#71717A",
+              "cornerRadius": 5,
+              "layout": "none"
+            },
+            {
+              "type": "text",
+              "id": "nkte3",
+              "x": 0,
+              "y": 104,
+              "name": "lb3",
+              "fill": "#18181B",
+              "content": "헬프터",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "xhAmK",
+              "x": 397,
+              "y": 98,
+              "name": "bar3",
+              "width": 28,
+              "height": 24,
+              "fill": "#18181B",
+              "cornerRadius": 5
+            },
+            {
+              "type": "text",
+              "id": "kjnBJ",
+              "x": 0,
+              "y": 142,
+              "name": "lb4",
+              "fill": "#18181B",
+              "content": "스톰스터디",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "waPJZ",
+              "x": 425,
+              "y": 136,
+              "name": "bar4",
+              "width": 41,
+              "height": 24,
+              "fill": "#18181B",
+              "cornerRadius": 5,
+              "layout": "none"
+            },
+            {
+              "type": "text",
+              "id": "GNxiX",
+              "x": 0,
+              "y": 180,
+              "name": "lb5",
+              "fill": "#18181B",
+              "content": "아이머스",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "evrUY",
+              "x": 466,
+              "y": 174,
+              "name": "bar5",
+              "width": 47,
+              "height": 24,
+              "fill": "#0891B2",
+              "cornerRadius": 5,
+              "layout": "none"
+            },
+            {
+              "type": "text",
+              "id": "p6CYD",
+              "x": 0,
+              "y": 218,
+              "name": "lb6",
+              "fill": "#18181B",
+              "content": "핀구",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "rE4PU",
+              "x": 404,
+              "y": 212,
+              "name": "bar6",
+              "width": 109,
+              "height": 24,
+              "fill": "#7C3AED",
+              "cornerRadius": 5,
+              "layout": "none"
+            }
+          ]
         }
       ]
     }

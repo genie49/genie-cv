@@ -15,10 +15,46 @@
   ],
   "experience": [
     {
-      "title": "AI 엔지니어 인턴",
-      "company": "Sample Company",
-      "period": "2025.01 ~ 2025.06",
-      "description": "LLM 기반 사내 챗봇 개발 및 RAG 파이프라인 구축"
+      "title": "백엔드/AI 엔지니어",
+      "company": "아이머스",
+      "period": "2025.09 ~ 2026.03",
+      "type": "현장실습생/인턴",
+      "description": "백엔드/AI 엔지니어로 근무"
+    },
+    {
+      "title": "풀스택 개발자",
+      "company": "스톰스터디",
+      "period": "2025.02 ~ 2025.08",
+      "type": "정규직",
+      "description": "풀스택 개발자로 근무"
+    },
+    {
+      "title": "FE/AI 개발자",
+      "company": "핀구",
+      "period": "2024.12 ~ 2026.03",
+      "type": "창업팀 활동",
+      "description": "창업팀에서 FE/AI 개발자로 활동"
+    },
+    {
+      "title": "풀스택 개발자",
+      "company": "헬프터",
+      "period": "2024.11 ~ 2025.01",
+      "type": "정규직",
+      "description": "풀스택 개발자로 근무"
+    },
+    {
+      "title": "군복무",
+      "company": "대한민국 육군",
+      "period": "2023.05 ~ 2024.10",
+      "type": "군복무",
+      "description": "군복무"
+    },
+    {
+      "title": "풀스택 개발자",
+      "company": "스톰스터디",
+      "period": "2021.02 ~ 2023.04",
+      "type": "프리랜서/정규직",
+      "description": "스타트업에서 풀스택 개발자로 근무"
     }
   ],
   "techStack": {
