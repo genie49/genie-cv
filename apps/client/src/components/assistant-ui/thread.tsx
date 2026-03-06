@@ -5,6 +5,16 @@ import {
 } from "@assistant-ui/react";
 import { SendHorizontal } from "lucide-react";
 
+function TypingIndicator() {
+  return (
+    <div className="flex items-center gap-1 py-1">
+      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-zinc-400 [animation-delay:0ms]" />
+      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-zinc-400 [animation-delay:150ms]" />
+      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-zinc-400 [animation-delay:300ms]" />
+    </div>
+  );
+}
+
 function ThreadMessages() {
   return (
     <ThreadPrimitive.Messages
@@ -20,7 +30,9 @@ function UserMessage() {
   return (
     <div className="flex justify-end">
       <div className="max-w-[70%] rounded-2xl bg-black px-4 py-3 text-white">
-        <MessagePrimitive.Content />
+        <p className="whitespace-pre-wrap text-[13px] leading-relaxed">
+          <MessagePrimitive.Content />
+        </p>
       </div>
     </div>
   );
@@ -28,9 +40,19 @@ function UserMessage() {
 
 function AssistantMessage() {
   return (
-    <div className="flex justify-start">
-      <div className="max-w-[70%] rounded-2xl border border-zinc-100 bg-zinc-50 px-4 py-3 text-zinc-700">
-        <MessagePrimitive.Content />
+    <div className="flex items-start gap-3 justify-start">
+      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-black text-white text-xs">
+        ✦
+      </div>
+      <div className="max-w-[70%] rounded-2xl border border-zinc-100 bg-white px-4 py-3 text-zinc-700 shadow-sm">
+        <MessagePrimitive.If hasContent={true}>
+          <p className="whitespace-pre-wrap text-[13px] leading-relaxed">
+            <MessagePrimitive.Content />
+          </p>
+        </MessagePrimitive.If>
+        <MessagePrimitive.If hasContent={false}>
+          <TypingIndicator />
+        </MessagePrimitive.If>
       </div>
     </div>
   );
