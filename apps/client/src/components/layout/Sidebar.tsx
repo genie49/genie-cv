@@ -20,10 +20,12 @@ export default function Sidebar() {
         transition={{ duration: 0.4 }}
         className="flex flex-col items-center gap-4 pb-6"
       >
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-zinc-200">
-          <span className="font-['Outfit'] text-3xl font-extrabold text-zinc-500">
-            G
-          </span>
+        <div className="flex h-20 w-20 overflow-hidden rounded-full bg-zinc-200 border-2 border-zinc-100 shadow-sm">
+          <img 
+            src="/design/images/generated-1772780964133.png" 
+            alt="Profile" 
+            className="h-full w-full object-cover"
+          />
         </div>
         <p className="font-['Outfit'] text-[22px] font-extrabold text-black">
           김형진
