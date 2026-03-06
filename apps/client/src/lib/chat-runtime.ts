@@ -1,6 +1,18 @@
 import type { ChatModelAdapter } from "@assistant-ui/react";
+import type { Citation } from "@genie-cv/shared";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
+function applyCitations(text: string, citations: Citation[]): string {
+  let result = text;
+  for (const c of citations) {
+    result = result.replaceAll(
+      `[${c.index}]`,
+      `[\\[${c.index}\\] ${c.label}](${c.route})`
+    );
+  }
+  return result;
+}
 
 export const chatModelAdapter: ChatModelAdapter = {
   async *run({ messages, abortSignal }) {
@@ -35,6 +47,7 @@ export const chatModelAdapter: ChatModelAdapter = {
     const decoder = new TextDecoder();
     let buffer = "";
     let fullText = "";
+    let citations: Citation[] = [];
 
     while (true) {
       const { done, value } = await reader.read();
@@ -49,6 +62,10 @@ export const chatModelAdapter: ChatModelAdapter = {
         if (event.type === "token") {
           fullText += event.data;
           yield { content: [{ type: "text" as const, text: fullText }] };
+        } else if (event.type === "citations") {
+          citations = event.data;
+          const withCitations = applyCitations(fullText, citations);
+          yield { content: [{ type: "text" as const, text: withCitations }] };
         }
       }
     }
