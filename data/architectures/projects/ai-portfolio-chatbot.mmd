@@ -1,0 +1,11 @@
+graph LR
+    Client[React + Vite] -->|SSE| API[ElysiaJS]
+    API --> Agent[LangGraph Agent]
+    Agent --> RAG[LanceDB]
+    RAG -->|Gemini Embedding| Vectors[(Vector Store)]
+    Agent -->|Grok 4.1| LLM[xAI API]
+    subgraph Backend
+        API
+        Agent
+        RAG
+    end

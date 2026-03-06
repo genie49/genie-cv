@@ -1406,7 +1406,7 @@
                           "id": "hLmQJ",
                           "name": "eduPeriod",
                           "fill": "#A1A1AA",
-                          "content": "2022 — 재학중",
+                          "content": "2021 — 재학중",
                           "fontFamily": "Inter",
                           "fontSize": 12,
                           "fontWeight": "normal"
@@ -3590,7 +3590,12 @@
                           "name": "pc1Img",
                           "width": "fill_container",
                           "height": 160,
-                          "fill": "#E4E4E7"
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "./images/generated-1772691727232.png",
+                            "mode": "fill"
+                          }
                         },
                         {
                           "type": "frame",
@@ -3727,6 +3732,36 @@
                                   "fontFamily": "Inter",
                                   "fontSize": 12,
                                   "fontWeight": "500"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "GwFJT",
+                                  "name": "i1",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "kGPNw",
+                                  "name": "i1",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "Wlkn0",
+                                  "name": "i1",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
                                 }
                               ]
                             }
@@ -3754,7 +3789,12 @@
                           "name": "pc2Img",
                           "width": "fill_container",
                           "height": 160,
-                          "fill": "#E4E4E7"
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "./images/generated-1772691733837.png",
+                            "mode": "fill"
+                          }
                         },
                         {
                           "type": "frame",
@@ -3891,6 +3931,36 @@
                                   "fontFamily": "Inter",
                                   "fontSize": 12,
                                   "fontWeight": "500"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "GQRJY",
+                                  "name": "i2",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "8hggk",
+                                  "name": "i2",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "RdySs",
+                                  "name": "i2",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
                                 }
                               ]
                             }
@@ -3927,7 +3997,12 @@
                           "name": "pc3Img",
                           "width": "fill_container",
                           "height": 160,
-                          "fill": "#E4E4E7"
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "./images/generated-1772691741426.png",
+                            "mode": "fill"
+                          }
                         },
                         {
                           "type": "frame",
@@ -4064,6 +4139,36 @@
                                   "fontFamily": "Inter",
                                   "fontSize": 12,
                                   "fontWeight": "500"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "iOUI6",
+                                  "name": "i3",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "GQZGu",
+                                  "name": "i3",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "BIiUj",
+                                  "name": "i3",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
                                 }
                               ]
                             }
@@ -4091,7 +4196,12 @@
                           "name": "pc4Img",
                           "width": "fill_container",
                           "height": 160,
-                          "fill": "#E4E4E7"
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "./images/generated-1772691758759.png",
+                            "mode": "fill"
+                          }
                         },
                         {
                           "type": "frame",
@@ -4205,6 +4315,36 @@
                                   "fontFamily": "Inter",
                                   "fontSize": 12,
                                   "fontWeight": "500"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "v9wwk",
+                                  "name": "i4",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "mXDVS",
+                                  "name": "i4",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "FYxTs",
+                                  "name": "i4",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
                                 }
                               ]
                             }
@@ -4241,7 +4381,12 @@
                           "name": "pc5Img",
                           "width": "fill_container",
                           "height": 160,
-                          "fill": "#E4E4E7"
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "./images/generated-1772691766057.png",
+                            "mode": "fill"
+                          }
                         },
                         {
                           "type": "frame",
@@ -4355,6 +4500,36 @@
                                   "fontFamily": "Inter",
                                   "fontSize": 12,
                                   "fontWeight": "500"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "qiOKO",
+                                  "name": "i5",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "hyrHc",
+                                  "name": "i5",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "P3HUm",
+                                  "name": "i5",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
                                 }
                               ]
                             }
@@ -4382,7 +4557,12 @@
                           "name": "pc6Img",
                           "width": "fill_container",
                           "height": 160,
-                          "fill": "#E4E4E7"
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "./images/generated-1772691773906.png",
+                            "mode": "fill"
+                          }
                         },
                         {
                           "type": "frame",
@@ -4496,6 +4676,36 @@
                                   "fontFamily": "Inter",
                                   "fontSize": 12,
                                   "fontWeight": "500"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "4sT3k",
+                                  "name": "i6",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "ffCjY",
+                                  "name": "i6",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
+                                },
+                                {
+                                  "type": "icon_font",
+                                  "id": "2oaW1",
+                                  "name": "i6",
+                                  "width": 14,
+                                  "height": 14,
+                                  "iconFontName": "arrow-right",
+                                  "iconFontFamily": "lucide",
+                                  "fill": "#71717A"
                                 }
                               ]
                             }
@@ -4885,7 +5095,12 @@
               "name": "dHeroImg",
               "width": "fill_container",
               "height": 300,
-              "fill": "#E4E4E7",
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "./images/generated-1772691698395.png",
+                "mode": "fill"
+              },
               "cornerRadius": 12
             },
             {
@@ -6098,7 +6313,7 @@
           "width": "fill_container",
           "height": "fill_container",
           "layout": "vertical",
-          "gap": 24,
+          "gap": 40,
           "padding": [
             32,
             80
@@ -7258,5 +7473,31 @@
         }
       ]
     }
-  ]
+  ],
+  "variables": {
+    "bg_main": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "bg_subtle": {
+      "type": "color",
+      "value": "#F8FAFC"
+    },
+    "primary": {
+      "type": "color",
+      "value": "#6366F1"
+    },
+    "primary_light": {
+      "type": "color",
+      "value": "#EEF2FF"
+    },
+    "text_muted": {
+      "type": "color",
+      "value": "#71717A"
+    },
+    "text_primary": {
+      "type": "color",
+      "value": "#18181B"
+    }
+  }
 }

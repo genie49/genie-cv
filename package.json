@@ -1,0 +1,16 @@
+{
+  "name": "genie-cv",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev:client": "bun --filter '@genie-cv/client' dev",
+    "dev:server": "bun --filter '@genie-cv/server' dev",
+    "dev": "bun run dev:client & bun run dev:server",
+    "build": "bun --filter '*' build",
+    "embed": "bun run scripts/embed.ts"
+  },
+  "devDependencies": {
+    "@google/genai": "^1.44.0",
+    "@lancedb/lancedb": "^0.26.2"
+  }
+}

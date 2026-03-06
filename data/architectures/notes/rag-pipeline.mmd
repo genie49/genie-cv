@@ -1,0 +1,11 @@
+graph TD
+    MD[Markdown Files] --> Chunker[Chunk Splitter]
+    MMD[Mermaid Files] --> Chunker
+    QNA[qna.json] --> TextConvert[Text Converter]
+    TextConvert --> Chunker
+    Chunker --> Embed[Gemini Embedding]
+    Embed --> Lance[(LanceDB)]
+    Query[User Query] --> QEmbed[Gemini Embedding]
+    QEmbed --> Search[Vector Search]
+    Lance --> Search
+    Search --> Context[Retrieved Context]
