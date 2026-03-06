@@ -7,7 +7,7 @@ import { env } from "../config/env";
 
 const llm = new ChatXAI({
   apiKey: env.XAI_API_KEY,
-  model: "grok-4-1",
+  model: "grok-4-1-fast-reasoning",
 });
 
 export const agent = createReactAgent({
