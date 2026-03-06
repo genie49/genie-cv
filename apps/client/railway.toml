@@ -1,0 +1,8 @@
+[build]
+builder = "RAILPACK"
+buildCommand = "bun install --frozen-lockfile && cd apps/client && bun run build:docker"
+watchPatterns = ["apps/client/**", "packages/shared/**", "data/**"]
+
+[deploy]
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
