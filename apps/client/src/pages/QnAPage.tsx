@@ -8,7 +8,7 @@ import type { QnAItem } from "@genie-cv/shared";
 const items = qnaData as QnAItem[];
 
 export default function QnAPage() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openSet, setOpenSet] = useState<Set<number>>(() => new Set([0]));
 
   return (
     <div className="flex flex-col gap-5 p-6">
@@ -38,7 +38,7 @@ export default function QnAPage() {
       {/* Q&A List */}
       <div className="flex flex-col gap-3">
         {items.map((item, i) => {
-          const isOpen = openIndex === i;
+          const isOpen = openSet.has(i);
           return (
             <motion.div
               key={i}
@@ -48,7 +48,12 @@ export default function QnAPage() {
               className="rounded-xl border border-zinc-100 bg-zinc-50"
             >
               <button
-                onClick={() => setOpenIndex(isOpen ? null : i)}
+                onClick={() => setOpenSet((prev) => {
+                  const next = new Set(prev);
+                  if (next.has(i)) next.delete(i);
+                  else next.add(i);
+                  return next;
+                })}
                 className="flex w-full cursor-pointer items-center justify-between px-5 py-4"
               >
                 <div className="flex items-center gap-2.5">

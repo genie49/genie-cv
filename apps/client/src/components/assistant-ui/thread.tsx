@@ -61,10 +61,11 @@ function Composer() {
   return (
     <ComposerPrimitive.Root className="flex items-center gap-2 border-t border-zinc-100 bg-white px-6 py-4">
       <ComposerPrimitive.Input
+        rows={1}
         placeholder="메시지를 입력하세요..."
-        className="flex-1 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-[13px] outline-none placeholder:text-zinc-400 focus:border-indigo-300 focus:bg-white transition-all"
+        className="flex-1 resize-none rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-[13px] outline-none placeholder:text-zinc-400 focus:border-indigo-300 focus:bg-white transition-all"
       />
-      <ComposerPrimitive.Send className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 text-white hover:bg-black disabled:opacity-30 transition-colors shadow-sm">
+      <ComposerPrimitive.Send className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl bg-zinc-900 text-white hover:bg-black disabled:opacity-30 transition-colors shadow-sm">
         <SendHorizontal size={18} />
       </ComposerPrimitive.Send>
     </ComposerPrimitive.Root>
@@ -92,19 +93,22 @@ export function Thread() {
             <div className="grid grid-cols-1 gap-2 pt-6 w-full max-w-[320px]">
               <ThreadPrimitive.Suggestion
                 prompt="어떤 프로젝트를 진행했나요?"
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-[13px] text-zinc-600 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50/30 transition-all text-left"
+                autoSend
+                className="cursor-pointer rounded-xl border border-zinc-200 bg-white px-4 py-3 text-[13px] text-zinc-600 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50/30 transition-all text-left"
               >
                 🚀 어떤 프로젝트를 진행했나요?
               </ThreadPrimitive.Suggestion>
               <ThreadPrimitive.Suggestion
                 prompt="기술 스택은 무엇인가요?"
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-[13px] text-zinc-600 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50/30 transition-all text-left"
+                autoSend
+                className="cursor-pointer rounded-xl border border-zinc-200 bg-white px-4 py-3 text-[13px] text-zinc-600 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50/30 transition-all text-left"
               >
                 🛠️ 기술 스택은 무엇인가요?
               </ThreadPrimitive.Suggestion>
               <ThreadPrimitive.Suggestion
                 prompt="RAG 시스템은 어떻게 구축했나요?"
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-[13px] text-zinc-600 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50/30 transition-all text-left"
+                autoSend
+                className="cursor-pointer rounded-xl border border-zinc-200 bg-white px-4 py-3 text-[13px] text-zinc-600 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50/30 transition-all text-left"
               >
                 🧠 RAG 시스템은 어떻게 구축했나요?
               </ThreadPrimitive.Suggestion>
