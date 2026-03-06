@@ -17,7 +17,7 @@ export default function DashboardPage() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="flex gap-5"
+        className="flex flex-col md:flex-row gap-5"
       >
         <div className="flex-1">
           <AboutPanel />
@@ -32,7 +32,7 @@ export default function DashboardPage() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.1 }}
-        className="flex gap-5"
+        className="flex flex-col md:flex-row gap-5"
       >
         {previewProjects.map((project) => (
           <div key={project.slug} className="flex-1">
@@ -41,7 +41,7 @@ export default function DashboardPage() {
         ))}
         {/* Fill empty slots if less than 3 projects */}
         {Array.from({ length: 3 - previewProjects.length }).map((_, i) => (
-          <div key={`empty-${i}`} className="flex-1" />
+          <div key={`empty-${i}`} className="hidden md:block flex-1" />
         ))}
       </motion.div>
 
@@ -50,7 +50,7 @@ export default function DashboardPage() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
-        className="flex gap-5"
+        className="flex flex-col md:flex-row gap-5"
       >
         <div className="flex-1">
           <EducationPanel />

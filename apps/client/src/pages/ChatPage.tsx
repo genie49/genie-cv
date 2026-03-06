@@ -6,7 +6,7 @@ export default function ChatPage() {
   const runtime = useAssistantRuntime();
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col pb-24 md:pb-0">
       <div className="flex h-14 items-center justify-between border-b border-zinc-100 bg-white px-6">
         <div className="flex items-center gap-3">
           <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-tr from-indigo-600 to-violet-500 shadow-sm shadow-indigo-100">

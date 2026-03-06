@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router";
 import { useLocalRuntime, AssistantRuntimeProvider } from "@assistant-ui/react";
 import Sidebar from "./components/layout/Sidebar";
+import MobileTabBar from "./components/layout/MobileTabBar";
 import { chatModelAdapter } from "./lib/chat-runtime";
 
 const DashboardPage = lazy(() => import("./pages/DashboardPage"));
@@ -18,7 +19,7 @@ export default function App() {
     <AssistantRuntimeProvider runtime={runtime}>
       <div className="flex h-screen">
         <Sidebar />
-        <main className="flex-1 overflow-auto bg-white">
+        <main className="flex-1 overflow-auto bg-white pb-24 md:pb-0">
           <Suspense>
             <Routes>
               <Route path="/" element={<DashboardPage />} />
@@ -30,6 +31,7 @@ export default function App() {
             </Routes>
           </Suspense>
         </main>
+        <MobileTabBar />
       </div>
     </AssistantRuntimeProvider>
   );
