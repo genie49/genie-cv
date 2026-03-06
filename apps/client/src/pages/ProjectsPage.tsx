@@ -21,7 +21,7 @@ export default function ProjectsPage() {
       </motion.div>
 
       {/* 2-column Grid */}
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {allProjects.map((project, i) => (
           <motion.div
             key={project.slug}

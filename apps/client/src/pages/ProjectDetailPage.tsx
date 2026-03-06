@@ -43,7 +43,7 @@ export default function ProjectDetailPage() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15 }}
-        className="flex items-center justify-between"
+        className="flex flex-col md:flex-row md:items-center justify-between gap-3"
       >
         <h1 className="font-['Outfit'] text-[28px] font-extrabold tracking-tight text-black">
           {project.title}
@@ -116,7 +116,7 @@ export default function ProjectDetailPage() {
         >
           주요 기능
         </motion.h2>
-        <div className="flex gap-3">
+        <div className="flex flex-col md:flex-row gap-3">
           {project.features.map((feat, i) => (
             <motion.div
               key={feat.title}

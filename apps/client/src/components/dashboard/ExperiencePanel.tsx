@@ -1,6 +1,17 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import profile from "@data/profile.json";
+import profileData from "@data/profile.json";
+
+const profile = {
+  ...profileData,
+  experience: profileData.experience as Array<{
+    title: string;
+    company: string;
+    period: string;
+    type: string;
+    description: string;
+  }>,
+};
 
 const BAR_COLORS: Record<string, string> = {
   아이머스: "bg-cyan-600",
