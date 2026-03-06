@@ -4,6 +4,7 @@ import {
   ComposerPrimitive,
 } from "@assistant-ui/react";
 import { SendHorizontal } from "lucide-react";
+import { MarkdownText } from "./markdown-text";
 
 function TypingIndicator() {
   return (
@@ -46,9 +47,7 @@ function AssistantMessage() {
       </div>
       <div className="max-w-[70%] rounded-2xl border border-zinc-100 bg-white px-4 py-3 text-zinc-700 shadow-sm">
         <MessagePrimitive.If hasContent={true}>
-          <p className="whitespace-pre-wrap text-[13px] leading-relaxed">
-            <MessagePrimitive.Content />
-          </p>
+          <MessagePrimitive.Content components={{ Text: MarkdownText }} />
         </MessagePrimitive.If>
         <MessagePrimitive.If hasContent={false}>
           <TypingIndicator />
