@@ -92,25 +92,25 @@ export function Thread() {
             </div>
             <div className="grid grid-cols-1 gap-2 pt-6 w-full max-w-[320px]">
               <ThreadPrimitive.Suggestion
-                prompt="어떤 프로젝트를 진행했나요?"
+                prompt="핀구에서 Multi-Agent 시스템은 어떻게 설계했나요?"
                 autoSend
                 className="cursor-pointer rounded-xl border border-zinc-200 bg-white px-4 py-3 text-[13px] text-zinc-600 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50/30 transition-all text-left"
               >
-                🚀 어떤 프로젝트를 진행했나요?
+                핀구에서 Multi-Agent 시스템은 어떻게 설계했나요?
               </ThreadPrimitive.Suggestion>
               <ThreadPrimitive.Suggestion
-                prompt="기술 스택은 무엇인가요?"
+                prompt="개발할 때 가장 중요하게 생각하는 것은?"
                 autoSend
                 className="cursor-pointer rounded-xl border border-zinc-200 bg-white px-4 py-3 text-[13px] text-zinc-600 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50/30 transition-all text-left"
               >
-                🛠️ 기술 스택은 무엇인가요?
+                개발할 때 가장 중요하게 생각하는 것은?
               </ThreadPrimitive.Suggestion>
               <ThreadPrimitive.Suggestion
-                prompt="RAG 시스템은 어떻게 구축했나요?"
+                prompt="스톰스터디 레거시 마이그레이션 경험을 알려주세요"
                 autoSend
                 className="cursor-pointer rounded-xl border border-zinc-200 bg-white px-4 py-3 text-[13px] text-zinc-600 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50/30 transition-all text-left"
               >
-                🧠 RAG 시스템은 어떻게 구축했나요?
+                스톰스터디 레거시 마이그레이션 경험을 알려주세요
               </ThreadPrimitive.Suggestion>
             </div>
           </div>
