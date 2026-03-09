@@ -33,7 +33,7 @@ export default function ProjectDetailPage() {
 
       {/* Hero */}
       {project.slug === "fingoo" ? (
-        <FingooHero />
+        <FingooHero className="h-[300px] rounded-xl" />
       ) : (
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}

@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
+import { FingooHero } from "../components/ProjectHero";
 import projects from "@data/projects.json";
 import type { Project } from "@genie-cv/shared";
 
@@ -35,7 +36,11 @@ export default function ProjectsPage() {
               className="flex flex-col overflow-hidden rounded-xl border border-zinc-100 bg-zinc-50 transition-colors hover:border-zinc-200"
             >
               {/* Thumbnail */}
-              <div className="h-40 w-full bg-zinc-200" />
+              {project.slug === "fingoo" ? (
+                <FingooHero className="h-40" />
+              ) : (
+                <div className="h-40 w-full bg-zinc-200" />
+              )}
               {/* Body */}
               <div className="flex flex-col gap-2 px-5 py-4">
                 <h3 className="font-['Outfit'] text-base font-bold text-black">
