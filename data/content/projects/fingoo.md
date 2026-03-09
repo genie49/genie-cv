@@ -1,25 +1,30 @@
 # 핀구 — AI 투자 분석 플랫폼
 
-Grok·Claude·Gemini 멀티 모델과 LangGraph 멀티 에이전트를 결합한 AI 투자 분석 서비스.
+AI 대화형 채팅으로 금융 지표 분석·차트 시각화·경제 전망을 제공하는 올인원 투자 분석 플랫폼.
 
 ## 프로젝트 개요
 
-실시간 스트리밍 채팅으로 금융 지표 분석, 차트 시각화, 경제 전망을 대화형으로 제공하는 AI 투자 분석 플랫폼입니다. 창업팀에서 FE/AI 개발자로 참여하여 AI 채팅 프론트엔드와 CI/CD 인프라를 담당했습니다.
+개인 투자자를 위한 AI 기반 투자 분석 서비스입니다. LangGraph 멀티 에이전트가 DART 공시, yfinance 해외 주가, Tavily 웹 검색 등 다양한 데이터 소스를 종합하여 실시간 스트리밍 채팅으로 투자 인사이트를 제공합니다. 인터랙티브 금융 차트와 게이미피케이션 기반 투자 교육까지 포함하는 종합 플랫폼입니다.
 
 ## 기술 스택
 
-- **프론트엔드**: Next.js + TypeScript + Vercel AI SDK + Socket.io
-- **AI 서비스**: FastAPI + LangGraph + LangChain (Python)
-- **백엔드**: NestJS + TypeORM + PostgreSQL
-- **인프라**: Docker + GitHub Actions + AWS EC2 + Nginx
+- **프론트엔드**: Next.js 14 + TypeScript + Vercel AI SDK + Socket.io + Zustand
+- **AI 서비스**: FastAPI + LangGraph + LangChain (Python) — Grok·Claude·Gemini 멀티 모델
+- **백엔드**: NestJS + TypeORM + PostgreSQL + Redis
+- **인프라**: Docker + GitHub Actions + AWS EC2 + Nginx + Fluent Bit
+- **데이터**: DART API, yfinance, FRED, Tavily, pgvector
+
+## 주요 기능
+
+### AI 대화형 투자 분석
+LangGraph Supervisor 패턴으로 7개 전문 에이전트(시장분석·기술분석·리서치·포트폴리오·퀀트·시각화·지표)를 오케스트레이션합니다. 사용자가 자연어로 요청하면 Tool Calling을 통해 차트 생성, 지표 예측, 화면 분할 등 프론트엔드 UI를 직접 조작합니다.
+
+### 인터랙티브 금융 차트
+주식·암호화폐·채권·원자재·ETF 등 멀티 에셋을 지원하는 차트 시스템입니다. 풀스크린/2분할/4분할 레이아웃, 다중 Y축, 추세선 그리기, AI 예측 오버레이, CSV 내보내기를 제공합니다. 일간·주간·월간·연간 인터벌과 1Y~MAX 범위를 지원합니다.
+
+### 투자 교육 & 게이미피케이션
+4챕터 구조의 단계별 투자 학습 모듈입니다. 학습 → 퀴즈 플로우로 투자 기초를 가르치며, XP·게임 코인·일일 출석·랭킹 시스템으로 학습 동기를 부여합니다.
 
 ## 담당 영역
 
-### AI 채팅 프론트엔드
-Vercel AI SDK와 Socket.io 기반의 실시간 스트리밍 채팅 시스템을 구현했습니다. LLM의 Tool Calling이 프론트엔드 상태를 직접 변경하는 아키텍처를 설계하여 차트 생성, 화면 분할, 지표 분석 등을 대화형으로 제공합니다.
-
-### CI/CD 파이프라인
-GitHub Actions로 3개 파이프라인(PR CI, Dev, Prod)을 구축했습니다. 변경 감지 기반 조건부 빌드, Docker 멀티스테이지 빌드, AWS SSM 시크릿 관리, EC2 자동 배포를 포함합니다.
-
-### 멀티 에이전트 연동
-LangGraph 기반 Python AI 서비스의 멀티 에이전트 실행 상태를 프론트엔드에서 실시간으로 추적하고 시각화하는 시스템을 구현했습니다.
+창업팀에서 FE/AI 개발자로 참여하여 AI 채팅 프론트엔드 시스템 전체와 CI/CD 인프라를 담당했습니다.

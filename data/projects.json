@@ -50,22 +50,22 @@
   {
     "slug": "fingoo",
     "title": "핀구 — AI 투자 분석 플랫폼",
-    "description": "Grok·Claude·Gemini 멀티 모델과 LangGraph 멀티 에이전트를 결합한 AI 투자 분석 서비스. 실시간 스트리밍 채팅으로 금융 지표 분석, 차트 시각화, 경제 전망을 대화형으로 제공합니다.",
-    "tags": ["Next.js", "Vercel AI SDK", "LangGraph", "Grok", "Docker", "GitHub Actions"],
+    "description": "AI 대화형 채팅으로 금융 지표 분석·차트 시각화·경제 전망을 제공하는 투자 분석 플랫폼. LangGraph 멀티 에이전트가 DART·yfinance·웹 검색 등 데이터를 종합하고, 게이미피케이션 기반 투자 교육까지 포함하는 올인원 서비스입니다.",
+    "tags": ["Next.js", "LangGraph", "NestJS", "FastAPI", "Docker", "AWS"],
     "period": "2024.12 ~ 2026.03",
     "demo": "https://fingoo.app",
     "features": [
       {
-        "title": "AI 채팅 시스템",
-        "description": "Vercel AI SDK + Socket.io 스트리밍으로 실시간 투자 분석 대화 UX 구현. 도구 실행 상태 추적 및 차트 커맨드 버퍼링"
+        "title": "AI 대화형 투자 분석",
+        "description": "LangGraph 멀티 에이전트(시장분석·기술분석·리서치·퀀트 등 7개)가 실시간 스트리밍 채팅으로 지표 예측, 차트 생성, 경제 분석을 수행. Tool Calling으로 UI를 직접 조작"
       },
       {
-        "title": "멀티 에이전트 연동",
-        "description": "LangGraph 기반 Python AI 서비스와 Next.js 프론트엔드 연동. 금융 데이터 크롤링, 벡터 검색, 경제 분석 에이전트 오케스트레이션"
+        "title": "인터랙티브 금융 차트",
+        "description": "주식·암호화폐·채권·원자재 등 멀티 에셋 차트 시각화. 분할 뷰, 다중 Y축, 추세선, AI 예측 오버레이, CSV 내보내기 지원"
       },
       {
-        "title": "CI/CD 파이프라인",
-        "description": "GitHub Actions + Docker 멀티스테이지 빌드 + AWS EC2 자동 배포. PR 검증, 변경 감지 기반 조건부 빌드, SSM 시크릿 관리"
+        "title": "투자 교육 & 게이미피케이션",
+        "description": "4챕터 구조의 단계별 투자 학습 모듈. XP·게임 코인·출석 체크·랭킹 시스템으로 학습 동기 부여"
       }
     ],
     "notes": [
