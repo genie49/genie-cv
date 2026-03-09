@@ -106,16 +106,27 @@ export default function BlogPostPage() {
                 if (className === "language-mermaid") {
                   return <>{children}</>;
                 }
-                const lang = className.replace(/^language-/, "").replace(/^hljs /, "");
+                const lang = className
+                  .replace(/^language-/, "")
+                  .replace(/^hljs\s*/, "")
+                  .split(" ")[0];
+                if (!lang) {
+                  return <pre {...props}>{children}</pre>;
+                }
                 return (
-                  <pre {...props} className={`${props.className || ""} relative`}>
-                    {lang && (
-                      <span className="absolute right-3 top-2 select-none text-[11px] font-medium uppercase tracking-wide text-zinc-500">
+                  <div className="not-prose overflow-hidden rounded-lg border border-zinc-800">
+                    <div className="flex items-center px-4 py-2 bg-zinc-800 border-b border-zinc-700">
+                      <span className="text-[11px] font-medium uppercase tracking-wider text-zinc-400">
                         {lang}
                       </span>
-                    )}
-                    {children}
-                  </pre>
+                    </div>
+                    <pre
+                      {...props}
+                      className="!m-0 !rounded-none !border-0 bg-zinc-900 p-4 overflow-x-auto"
+                    >
+                      {children}
+                    </pre>
+                  </div>
                 );
               },
               code({ className, children, ...props }) {
