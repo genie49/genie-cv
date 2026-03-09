@@ -99,6 +99,13 @@ export default function BlogPostPage() {
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[[rehypeHighlight, { plainText: ["mermaid"] }]]}
             components={{
+              pre({ children, ...props }) {
+                const child = children as React.ReactElement<{ className?: string }>;
+                if (child?.props?.className === "language-mermaid") {
+                  return <>{children}</>;
+                }
+                return <pre {...props}>{children}</pre>;
+              },
               code({ className, children, ...props }) {
                 if (className === "language-mermaid") {
                   return (
