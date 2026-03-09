@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+import dockerfile from "highlight.js/lib/languages/dockerfile";
 import "highlight.js/styles/github-dark.min.css";
 import { MermaidDiagram } from "../components/MermaidDiagram";
 import projects from "@data/projects.json";
@@ -98,7 +99,7 @@ export default function BlogPostPage() {
         >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
-            rehypePlugins={[[rehypeHighlight, { plainText: ["mermaid"] }]]}
+            rehypePlugins={[[rehypeHighlight, { plainText: ["mermaid"], languages: { dockerfile } }]]}
             components={{
               pre({ children, ...props }) {
                 const child = children as React.ReactElement<{ className?: string }>;
