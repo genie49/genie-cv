@@ -97,7 +97,7 @@ export default function BlogPostPage() {
         >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeHighlight]}
+            rehypePlugins={[[rehypeHighlight, { plainText: ["mermaid"] }]]}
             components={{
               code({ className, children, ...props }) {
                 if (className === "language-mermaid") {
