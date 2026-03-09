@@ -102,10 +102,21 @@ export default function BlogPostPage() {
             components={{
               pre({ children, ...props }) {
                 const child = children as React.ReactElement<{ className?: string }>;
-                if (child?.props?.className === "language-mermaid") {
+                const className = child?.props?.className || "";
+                if (className === "language-mermaid") {
                   return <>{children}</>;
                 }
-                return <pre {...props}>{children}</pre>;
+                const lang = className.replace(/^language-/, "").replace(/^hljs /, "");
+                return (
+                  <pre {...props} className={`${props.className || ""} relative`}>
+                    {lang && (
+                      <span className="absolute right-3 top-2 select-none text-[11px] font-medium uppercase tracking-wide text-zinc-500">
+                        {lang}
+                      </span>
+                    )}
+                    {children}
+                  </pre>
+                );
               },
               code({ className, children, ...props }) {
                 if (className === "language-mermaid") {
