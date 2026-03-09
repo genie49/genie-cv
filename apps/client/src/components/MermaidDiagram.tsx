@@ -3,7 +3,16 @@ import mermaid from "mermaid";
 
 mermaid.initialize({
   startOnLoad: false,
-  theme: "neutral",
+  theme: "default",
+  themeVariables: {
+    background: "#ffffff",
+    primaryColor: "#f4f4f5",
+    primaryTextColor: "#18181b",
+    primaryBorderColor: "#d4d4d8",
+    lineColor: "#71717a",
+    secondaryColor: "#e4e4e7",
+    tertiaryColor: "#fafafa",
+  },
 });
 
 let counter = 0;
