@@ -106,10 +106,8 @@ export default function BlogPostPage() {
                 if (className === "language-mermaid") {
                   return <>{children}</>;
                 }
-                const lang = className
-                  .replace(/^language-/, "")
-                  .replace(/^hljs\s*/, "")
-                  .split(" ")[0];
+                const match = className.match(/language-(\S+)/);
+                const lang = match ? match[1] : "";
                 if (!lang) {
                   return <pre {...props}>{children}</pre>;
                 }
