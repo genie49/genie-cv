@@ -32,7 +32,7 @@ export function MermaidDiagram({ chart }: { chart: string }) {
 
   return (
     <div
-      className="my-4 flex justify-center overflow-x-auto"
+      className="my-4 flex justify-center overflow-x-auto rounded-lg border border-zinc-200 bg-white p-4"
       dangerouslySetInnerHTML={{ __html: svg }}
     />
   );
