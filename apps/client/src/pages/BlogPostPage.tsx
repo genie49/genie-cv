@@ -1,16 +1,78 @@
 import { useParams, Link } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { motion } from "motion/react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import rehypeHighlight from "rehype-highlight";
+import hljs from "highlight.js/lib/core";
+import typescript from "highlight.js/lib/languages/typescript";
+import javascript from "highlight.js/lib/languages/javascript";
+import python from "highlight.js/lib/languages/python";
+import bash from "highlight.js/lib/languages/bash";
+import json from "highlight.js/lib/languages/json";
+import css from "highlight.js/lib/languages/css";
+import yaml from "highlight.js/lib/languages/yaml";
+import sql from "highlight.js/lib/languages/sql";
 import dockerfile from "highlight.js/lib/languages/dockerfile";
-import "highlight.js/styles/github-dark.min.css";
+import xml from "highlight.js/lib/languages/xml";
 import { MermaidDiagram } from "../components/MermaidDiagram";
 import projects from "@data/projects.json";
 import type { Project } from "@genie-cv/shared";
 
+hljs.registerLanguage("typescript", typescript);
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("python", python);
+hljs.registerLanguage("bash", bash);
+hljs.registerLanguage("json", json);
+hljs.registerLanguage("css", css);
+hljs.registerLanguage("yaml", yaml);
+hljs.registerLanguage("sql", sql);
+hljs.registerLanguage("dockerfile", dockerfile);
+hljs.registerLanguage("xml", xml);
+hljs.registerLanguage("html", xml);
+
 const allProjects = projects as Project[];
+
+function HighlightedCode({ code, language }: { code: string; language: string }) {
+  const html = useMemo(() => {
+    if (language === "mermaid") return null;
+    try {
+      if (hljs.getLanguage(language)) {
+        return hljs.highlight(code, { language }).value;
+      }
+      return hljs.highlightAuto(code).value;
+    } catch {
+      return null;
+    }
+  }, [code, language]);
+
+  if (language === "mermaid") {
+    return <MermaidDiagram chart={code} />;
+  }
+
+  if (!html) {
+    return (
+      <pre className="bg-zinc-900 p-4 overflow-x-auto">
+        <code>{code}</code>
+      </pre>
+    );
+  }
+
+  return (
+    <div className="not-prose overflow-hidden rounded-lg border border-zinc-800">
+      <div className="flex items-center px-4 py-2 bg-zinc-800 border-b border-zinc-700">
+        <span className="text-[11px] font-medium uppercase tracking-wider text-zinc-400">
+          {language}
+        </span>
+      </div>
+      <pre className="!m-0 !rounded-none !border-0 bg-zinc-900 p-4 overflow-x-auto">
+        <code
+          className="hljs"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      </pre>
+    </div>
+  );
+}
 
 export default function BlogPostPage() {
   const { slug, id } = useParams();
@@ -99,36 +161,23 @@ export default function BlogPostPage() {
         >
           <ReactMarkdown
             remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
-            rehypePlugins={[[rehypeHighlight, { plainText: ["mermaid"], languages: { dockerfile } }]]}
             components={{
-              pre({ children, ...props }) {
-                const child = children as React.ReactElement<{ className?: string }>;
+              pre({ children }) {
+                const child = children as React.ReactElement<{
+                  className?: string;
+                  children?: string;
+                }>;
                 const className = child?.props?.className || "";
-                if (className === "language-mermaid") {
-                  return <>{children}</>;
-                }
                 const match = className.match(/language-(\S+)/);
                 const lang = match ? match[1] : "";
-                if (!lang) {
-                  return <pre {...props}>{children}</pre>;
+                const code = String(child?.props?.children || "").replace(/\n$/, "");
+
+                if (lang) {
+                  return <HighlightedCode code={code} language={lang} />;
                 }
-                return (
-                  <div className="not-prose overflow-hidden rounded-lg border border-zinc-800">
-                    <div className="flex items-center px-4 py-2 bg-zinc-800 border-b border-zinc-700">
-                      <span className="text-[11px] font-medium uppercase tracking-wider text-zinc-400">
-                        {lang}
-                      </span>
-                    </div>
-                    <pre
-                      {...props}
-                      className="!m-0 !rounded-none !border-0 bg-zinc-900 p-4 overflow-x-auto"
-                    >
-                      {children}
-                    </pre>
-                  </div>
-                );
+                return <pre>{children}</pre>;
               },
-              code({ className, children, ...props }) {
+              code({ className, children }) {
                 if (className === "language-mermaid") {
                   return (
                     <MermaidDiagram
@@ -136,11 +185,7 @@ export default function BlogPostPage() {
                     />
                   );
                 }
-                return (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                );
+                return <code className={className}>{children}</code>;
               },
             }}
           >
