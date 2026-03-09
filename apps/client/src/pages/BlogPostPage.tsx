@@ -98,7 +98,7 @@ export default function BlogPostPage() {
           className="prose prose-zinc max-w-none prose-headings:font-['Outfit'] prose-headings:font-bold prose-h2:text-xl prose-p:text-[15px] prose-p:leading-[1.8] prose-p:text-zinc-700 prose-pre:rounded-lg prose-pre:bg-zinc-900 prose-code:font-['JetBrains_Mono'] prose-code:text-[13px]"
         >
           <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
+            remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
             rehypePlugins={[[rehypeHighlight, { plainText: ["mermaid"], languages: { dockerfile } }]]}
             components={{
               pre({ children, ...props }) {
