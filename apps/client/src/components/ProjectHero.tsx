@@ -2,122 +2,183 @@ import { motion } from "motion/react";
 import {
   Bot,
   LineChart,
-  Trophy,
-  BarChart3,
   MessageSquare,
-  Brain,
+  BarChart3,
+  Database,
+  Globe,
 } from "lucide-react";
-
-const floatingIcons = [
-  { Icon: MessageSquare, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/20", x: "left-[8%]", y: "top-[18%]", delay: 0, duration: 3.5, range: 10 },
-  { Icon: BarChart3, color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/20", x: "right-[12%]", y: "top-[12%]", delay: 0.8, duration: 4, range: 8 },
-  { Icon: Bot, color: "text-violet-400", bg: "bg-violet-500/10 border-violet-500/20", x: "left-[25%]", y: "bottom-[18%]", delay: 1.2, duration: 3.8, range: 12 },
-  { Icon: LineChart, color: "text-sky-400", bg: "bg-sky-500/10 border-sky-500/20", x: "right-[28%]", y: "bottom-[22%]", delay: 0.4, duration: 4.2, range: 9 },
-  { Icon: Trophy, color: "text-amber-400", bg: "bg-amber-500/10 border-amber-500/20", x: "left-[52%]", y: "top-[10%]", delay: 1.6, duration: 3.2, range: 7 },
-  { Icon: Brain, color: "text-rose-400", bg: "bg-rose-500/10 border-rose-500/20", x: "right-[48%]", y: "bottom-[12%]", delay: 0.6, duration: 3.6, range: 11 },
-];
 
 export function FingooHero() {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-      className="relative h-[300px] w-full overflow-hidden rounded-xl bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950"
+      transition={{ duration: 0.4, delay: 0.1 }}
+      className="relative h-[300px] w-full overflow-hidden rounded-xl border border-zinc-800 bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950"
     >
-      {/* Radial glows */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_40%,rgba(16,185,129,0.12),transparent_55%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_30%,rgba(59,130,246,0.08),transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_80%,rgba(139,92,246,0.06),transparent_45%)]" />
+      {/* Subtle grid */}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px]" />
 
-      {/* Grid texture */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:48px_48px]" />
-
-      {/* Connecting lines */}
-      <svg className="absolute inset-0 h-full w-full">
-        <motion.line
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.06 }}
-          transition={{ delay: 1 }}
-          x1="15%" y1="30%" x2="50%" y2="50%"
-          stroke="white" strokeWidth="1"
-        />
-        <motion.line
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.06 }}
-          transition={{ delay: 1.2 }}
-          x1="85%" y1="25%" x2="50%" y2="50%"
-          stroke="white" strokeWidth="1"
-        />
-        <motion.line
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.06 }}
-          transition={{ delay: 1.4 }}
-          x1="30%" y1="75%" x2="50%" y2="50%"
-          stroke="white" strokeWidth="1"
-        />
-        <motion.line
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.06 }}
-          transition={{ delay: 1.6 }}
-          x1="70%" y1="78%" x2="50%" y2="50%"
-          stroke="white" strokeWidth="1"
-        />
-      </svg>
-
-      {/* Floating icons */}
-      {floatingIcons.map(({ Icon, color, bg, x, y, delay, duration, range }, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            y: [0, -range, 0],
-          }}
-          transition={{
-            opacity: { delay: 0.3 + delay * 0.5, duration: 0.5 },
-            scale: { delay: 0.3 + delay * 0.5, duration: 0.5 },
-            y: { delay: 0.3 + delay * 0.5, duration, repeat: Infinity, ease: "easeInOut" },
-          }}
-          className={`absolute ${x} ${y}`}
-        >
-          <div className={`flex h-11 w-11 items-center justify-center rounded-2xl border backdrop-blur-sm ${bg}`}>
-            <Icon size={18} className={color} />
+      <div className="flex h-full">
+        {/* Left: Chat Panel */}
+        <div className="flex w-[38%] flex-col border-r border-zinc-800/60 p-4">
+          {/* Chat header */}
+          <div className="mb-3 flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-emerald-500" />
+            <div className="h-2 w-16 rounded-full bg-zinc-700" />
           </div>
-        </motion.div>
-      ))}
 
-      {/* Center content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-        <motion.span
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          className="text-[10px] font-semibold uppercase tracking-[0.25em] text-emerald-400/70"
-        >
-          AI Investment Platform
-        </motion.span>
-        <motion.span
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="font-['Outfit'] text-3xl font-extrabold tracking-tight text-white/90"
-        >
-          핀구
-        </motion.span>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="flex items-center gap-2 text-[11px] text-zinc-500"
-        >
-          <span>멀티 에이전트</span>
-          <span className="text-zinc-700">·</span>
-          <span>금융 차트</span>
-          <span className="text-zinc-700">·</span>
-          <span>투자 교육</span>
-        </motion.div>
+          {/* Chat bubbles */}
+          <div className="flex flex-1 flex-col gap-2">
+            <motion.div
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="self-start rounded-lg rounded-tl-sm bg-zinc-800 px-3 py-1.5"
+            >
+              <span className="text-[10px] text-zinc-400">삼성전자 분석해줘</span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+              className="self-end rounded-lg rounded-tr-sm border border-emerald-500/20 bg-emerald-950/40 px-3 py-1.5"
+            >
+              <span className="text-[10px] text-emerald-400/80">PER 12.3x, 목표가 ▲15%</span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              className="flex items-center gap-1 self-start rounded-md bg-zinc-800/50 px-2 py-1"
+            >
+              <div className="h-1 w-1 animate-pulse rounded-full bg-emerald-400" />
+              <span className="text-[9px] text-zinc-600">차트 생성 중</span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.9 }}
+              className="self-start rounded-lg rounded-tl-sm bg-zinc-800 px-3 py-1.5"
+            >
+              <span className="text-[10px] text-zinc-400">경쟁사 비교도</span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1.1 }}
+              className="self-end rounded-lg rounded-tr-sm border border-emerald-500/20 bg-emerald-950/40 px-3 py-1.5"
+            >
+              <span className="text-[10px] text-emerald-400/80">SK하이닉스 대비 저평가</span>
+            </motion.div>
+          </div>
+
+          {/* Input bar */}
+          <div className="mt-2 flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-1.5">
+            <div className="h-1.5 w-24 rounded-full bg-zinc-800" />
+            <MessageSquare size={10} className="ml-auto text-zinc-700" />
+          </div>
+        </div>
+
+        {/* Right: Chart + Info */}
+        <div className="flex flex-1 flex-col">
+          {/* Chart area */}
+          <div className="flex flex-1 flex-col p-4 pb-2">
+            {/* Chart header */}
+            <div className="mb-2 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-20 rounded-full bg-zinc-700" />
+                <div className="h-2 w-12 rounded-full bg-zinc-800" />
+              </div>
+              <div className="flex gap-1">
+                {["1Y", "5Y", "MAX"].map((label) => (
+                  <span
+                    key={label}
+                    className={`rounded px-1.5 py-0.5 text-[8px] ${
+                      label === "5Y"
+                        ? "bg-blue-500/15 text-blue-400"
+                        : "text-zinc-600"
+                    }`}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Chart SVG */}
+            <svg
+              className="flex-1 w-full"
+              viewBox="0 0 300 100"
+              preserveAspectRatio="none"
+            >
+              <defs>
+                <linearGradient id="heroChartFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgb(59,130,246)" stopOpacity="0.15" />
+                  <stop offset="100%" stopColor="rgb(59,130,246)" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              {[25, 50, 75].map((y) => (
+                <line key={y} x1="0" y1={y} x2="300" y2={y} stroke="rgba(255,255,255,0.03)" />
+              ))}
+              <motion.polygon
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+                points="0,78 25,72 50,70 75,58 100,62 125,48 150,52 175,38 200,35 225,40 250,28 275,22 300,15 300,100 0,100"
+                fill="url(#heroChartFill)"
+              />
+              <motion.polyline
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ delay: 0.4, duration: 1.2, ease: "easeOut" }}
+                points="0,78 25,72 50,70 75,58 100,62 125,48 150,52 175,38 200,35 225,40 250,28 275,22 300,15"
+                fill="none"
+                stroke="rgb(96,165,250)"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+              <motion.circle
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.4 }}
+                cx="300" cy="15" r="2.5"
+                fill="rgb(96,165,250)"
+              />
+            </svg>
+          </div>
+
+          {/* Bottom bar: agents + tools */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="flex items-center gap-3 border-t border-zinc-800/60 px-4 py-3"
+          >
+            <div className="flex -space-x-1">
+              {[Bot, LineChart, BarChart3, Database, Globe].map((Icon, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.0 + i * 0.08 }}
+                  className="flex h-6 w-6 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900"
+                >
+                  <Icon size={10} className="text-zinc-500" />
+                </motion.div>
+              ))}
+            </div>
+            <span className="text-[9px] text-zinc-600">7 agents connected</span>
+            <div className="ml-auto flex items-center gap-1">
+              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <span className="text-[9px] text-zinc-600">Live</span>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </motion.div>
   );
