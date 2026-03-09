@@ -1,0 +1,23 @@
+graph LR
+    Browser[Next.js + Vercel AI SDK] -->|Socket.io| AI[FastAPI + LangGraph]
+    Browser -->|REST| API[NestJS]
+    API --> DB[(PostgreSQL + pgvector)]
+    AI --> DB
+    AI --> Grok[Grok 4.1]
+    AI --> Claude[Claude Sonnet]
+    AI --> Gemini[Gemini Embedding]
+    AI --> Tools[yfinance / Tavily / DART]
+    subgraph AI Service
+        AI
+        Grok
+        Claude
+        Gemini
+        Tools
+    end
+    subgraph Infra
+        Nginx --> Browser
+        Nginx --> API
+        Nginx --> AI
+        GHA[GitHub Actions] --> EC2[AWS EC2]
+        EC2 --> Nginx
+    end
