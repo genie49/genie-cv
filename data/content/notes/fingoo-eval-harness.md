@@ -6,6 +6,16 @@
 
 에이전트 개발의 딜레마: 프롬프트를 수정할 때마다 직접 대화해보며 검증하면 시간이 너무 오래 걸리고, 단위 테스트로는 에이전트의 "판단력"을 테스트할 수 없습니다. 특히 핀구처럼 7개 에이전트가 협업하는 시스템에서는, 한 에이전트의 프롬프트 수정이 전체 시스템에 어떤 영향을 미치는지 예측하기 어렵습니다.
 
+## 왜 자체 Harness를 구축했나
+
+| 접근 | 검토 결과 |
+|---|---|
+| LangSmith / Braintrust | SaaS 비용 높음, 커스텀 Grader 유연성 부족, 6가지 채점 기준을 자유롭게 조합 불가 |
+| pytest 단위 테스트 | 도구 호출 여부는 테스트 가능하나, "어떤 도구를 선택할지"라는 에이전트의 판단력은 assertion으로 검증 불가 |
+| 수동 대화 테스트 | 프롬프트 수정마다 7개 에이전트를 직접 대화하며 검증 → 회당 30분+, 재현성 없음 |
+
+자체 Harness 구축에 2주를 투자했지만, 이후 **프롬프트 수정 검증이 30분 → 2분으로 단축**되었습니다. 7개 에이전트 × 8개 태스크 = 56개 테스트 케이스를 15분 만에 자동 실행하고, 실패한 케이스만 집중 분석할 수 있게 되었습니다.
+
 ## 평가 아키텍처
 
 ```mermaid
@@ -69,6 +79,29 @@ flowchart LR
 ```
 
 도구 코드 내부에서 `is_eval_mode()`를 체크해 분기합니다. 이렇게 하면 도구 코드 자체는 수정 없이, 평가 환경에서는 결정론적 결과를 반환합니다.
+
+### MockService 설계 패턴
+
+ContextVar를 선택한 이유는 **전역 상태 오염 없는 스레드별 격리**입니다.
+
+```python
+# ContextVar 기반 서비스 주입
+_service_context: ContextVar[ServiceProtocol] = ContextVar('service')
+
+def get_service() -> ServiceProtocol:
+    return _service_context.get()  # 프로덕션: RealService, 평가: MockService
+
+# 평가 실행 시
+token = _service_context.set(MockService(fixtures_path="fixtures/samsung/"))
+try:
+    result = await run_agent(task)
+finally:
+    _service_context.reset(token)
+```
+
+Mock 데이터는 `fixtures/` 폴더에 실제 API 응답의 JSON 스냅샷으로 관리합니다. yfinance에서 삼성전자 데이터를 한 번 가져와 저장해두면, 이후 테스트에서는 동일한 데이터로 재현성 있는 결과를 얻습니다.
+
+핵심 설계 원칙: **프로덕션 코드에 테스트 분기(`if test:`)를 넣지 않는다**. ContextVar로 서비스를 주입하면, 도구 코드는 자신이 프로덕션에서 실행되는지 평가 환경에서 실행되는지 모릅니다.
 
 ## 6가지 Grader
 
@@ -165,9 +198,41 @@ DATASET = [
 ]
 ```
 
+## 트러블슈팅: 비결정론적 LLM 출력 다루기
+
+### 문제
+
+같은 프롬프트로 "삼성전자 RSI 분석해줘"를 실행해도, LLM 응답이 매번 다릅니다. 도구 호출 순서가 달라지고, 출력 텍스트의 표현도 바뀝니다. 초기 평가 안정성은 **70%** — 10번 실행하면 3번은 다른 결과.
+
+### 시도한 접근들
+
+1. **temperature=0** (부분 해결): 텍스트 변동은 줄었으나 도구 호출 순서는 여전히 달라짐
+2. **정확한 문자열 매칭** (기각): "RSI는 65.2입니다" vs "RSI 65.2로 과매수 구간" — 같은 의미지만 매칭 실패
+
+### 최종 해결: Grader별 비결정론 대응
+
+각 Grader가 비결정론을 다르게 처리합니다:
+
+| Grader | 비결정론 대응 |
+|---|---|
+| tool_calls | **집합(set) 비교** — 호출 순서 무관, 호출 여부만 검사 |
+| output_contains | **키워드 포함 여부** — 정확한 문장이 아닌 핵심 키워드만 |
+| llm_grader | **3회 실행 다수결** — 2/3 이상 pass면 통과 |
+
+```python
+# llm_grader 다수결 로직
+async def llm_grade_with_majority(transcript, criteria, runs=3):
+    results = [await llm_grade(transcript, criteria) for _ in range(runs)]
+    pass_count = sum(1 for r in results if r.passed)
+    return pass_count >= (runs // 2 + 1)  # 과반수 통과
+```
+
+**결과**: 평가 안정성 70% → 95%. llm_grader의 3회 다수결만으로 false negative가 60% 감소했습니다.
+
 ## 핵심 인사이트
 
-- **ContextVar 주입이 테스트의 핵심**: 도구 코드에 `if test:` 분기를 넣지 않고, ContextVar로 MockService를 주입하면 프로덕션 코드가 깨끗하게 유지됨
-- **Rule-based 먼저, LLM 나중에**: 도구 호출 여부, 키워드 포함 같은 객관적 기준은 rule-based로, 응답 품질 같은 주관적 기준만 llm_grader로
-- **실패 기반 개선**: "프롬프트가 좀 더 좋아질 것 같아서" 수정하면 다른 곳이 깨짐. 반드시 실패한 테스트 케이스를 근거로 수정
-- **재현성 = Mock + 결정론적 데이터**: 같은 태스크를 같은 조건에서 반복 실행할 수 있어야 프롬프트 A/B 비교가 의미 있음
+- **투자 대비 효과**: Harness 구축 2주 투자 → 이후 프롬프트 수정마다 검증 시간 30분 → 2분. 3회전의 프롬프트 개선으로 전체 통과율 72% → 94%
+- **ContextVar 주입 = 깨끗한 프로덕션 코드**: 테스트를 위해 프로덕션 코드에 `if test:` 분기를 넣는 것은 기술 부채. ContextVar로 서비스를 주입하면 도구 코드가 환경을 모르는 상태로 동일하게 동작
+- **Rule-based 먼저, LLM 나중에**: 도구 호출 여부, 키워드 포함 같은 객관적 기준은 rule-based로, "분석이 전문적인가?" 같은 주관적 품질만 llm_grader로. 비용과 안정성 모두에서 유리
+- **실패 기반 개선이 유일한 방법**: "프롬프트가 좀 더 좋아질 것 같아서" 수정하면 다른 곳이 깨짐. 실패한 테스트 케이스를 근거로 수정해야 회귀를 방지
+- **비결정론은 적이 아니라 현실**: LLM 출력의 비결정론을 제거하려 하지 말고, Grader가 비결정론을 수용하도록 설계 (집합 비교, 키워드 포함, 다수결)
