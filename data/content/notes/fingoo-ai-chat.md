@@ -20,18 +20,44 @@ Vercel AI SDK의 `streamText`로 프론트엔드 API 라우트를 구성하고, 
 
 ## 아키텍처 설계
 
+### 전체 채팅 흐름
+
+```mermaid
+sequenceDiagram
+    participant User as 사용자
+    participant Web as Next.js
+    participant AI as FastAPI AI
+    participant LLM as LLM (Grok/Claude)
+
+    User->>Web: 메시지 입력
+    Web->>AI: Socket.io emit('chat')
+    AI->>LLM: streamText 요청
+    loop 스트리밍
+        LLM-->>AI: 텍스트 델타
+        AI-->>Web: Socket.io 델타 전송
+        Web-->>User: 실시간 렌더링
+    end
+    LLM-->>AI: tool_call 발생
+    AI-->>Web: tool 실행 상태 전송
+    Web->>Web: 차트 마운트 / UI 변경
+    LLM-->>AI: 스트리밍 완료
+    AI-->>Web: 완료 이벤트
+```
+
 ### 스트리밍 + 도구 실행 병행 패턴
 
 기존의 단순한 채팅 흐름(질문 → 답변)이 아니라, 하나의 요청에서 텍스트 스트리밍과 도구 실행이 동시에 발생합니다.
 
-```
-사용자 메시지
-  → LLM 스트리밍 시작
-  → [텍스트 델타] + [tool_call: predict_indicator]
-  → 프론트: 텍스트 렌더링 + 차트 컴포넌트 마운트
-  → [tool_call: draw_metadata]
-  → 프론트: 차트에 메타데이터 오버레이
-  → [스트리밍 종료]
+```mermaid
+flowchart LR
+    A[사용자 메시지] --> B[LLM 스트리밍 시작]
+    B --> C{이벤트 타입}
+    C -->|텍스트 델타| D[텍스트 렌더링]
+    C -->|tool_call| E[ActiveTool 추가]
+    E --> F[차트/UI 변경]
+    C -->|스트리밍 종료| G[커맨드 확정]
+    D --> C
+    F --> C
 ```
 
 ### 도구 실행 상태 추적
@@ -52,6 +78,14 @@ interface ActiveTool {
 ### 시각화 커맨드 버퍼링
 
 차트 업데이트 명령을 즉시 실행하지 않고 `tempVisualizationCommands`에 버퍼링했다가, 스트리밍이 완료되면 `visualizationCommands`로 확정합니다. 이렇게 하면 스트리밍 중 차트가 깜빡이는 문제를 방지할 수 있습니다.
+
+```mermaid
+stateDiagram-v2
+    [*] --> 스트리밍중
+    스트리밍중 --> 스트리밍중: tool_call → tempCommands에 버퍼링
+    스트리밍중 --> 확정: 스트리밍 완료
+    확정 --> [*]: tempCommands → visualizationCommands 이동
+```
 
 ## Socket.io 기반 실시간 통신
 
