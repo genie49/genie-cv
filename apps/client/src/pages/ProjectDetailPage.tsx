@@ -34,9 +34,9 @@ export default function ProjectDetailPage() {
 
       {/* Hero */}
       {project.slug === "fingoo" ? (
-        <FingooHero className="h-[360px] rounded-xl" interactive />
+        <FingooHero className="h-[360px]" interactive />
       ) : project.slug === "ai-portfolio-chatbot" ? (
-        <ChatbotHero className="h-[360px] rounded-xl" interactive />
+        <ChatbotHero className="h-[360px]" interactive />
       ) : (
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}

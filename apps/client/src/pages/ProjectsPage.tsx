@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
 import { FingooHero } from "../components/ProjectHero";
+import { ChatbotHero } from "../components/ChatbotHero";
 import projects from "@data/projects.json";
 import type { Project } from "@genie-cv/shared";
 
@@ -38,6 +39,8 @@ export default function ProjectsPage() {
               {/* Thumbnail */}
               {project.slug === "fingoo" ? (
                 <FingooHero className="h-40" />
+              ) : project.slug === "ai-portfolio-chatbot" ? (
+                <ChatbotHero className="h-40" />
               ) : (
                 <div className="h-40 w-full bg-zinc-200" />
               )}
