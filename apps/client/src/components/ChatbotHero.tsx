@@ -156,16 +156,48 @@ export function ChatbotHero({
     return `${vbX} ${vbY} ${vbW} ${vbH}`;
   }, [zoom, pan]);
 
+  const pinchRef = useRef<number | null>(null);
+
   useEffect(() => {
     const node = svgRef.current;
     if (!node || !interactive) return;
-    const handler = (e: WheelEvent) => {
+
+    const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       const delta = e.deltaY > 0 ? 0.9 : 1.1;
       setZoom((z) => Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, z * delta)));
     };
-    node.addEventListener("wheel", handler, { passive: false });
-    return () => node.removeEventListener("wheel", handler);
+
+    const dist = (a: Touch, b: Touch) =>
+      Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        pinchRef.current = dist(e.touches[0], e.touches[1]);
+      }
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length === 2 && pinchRef.current !== null) {
+        e.preventDefault();
+        const d = dist(e.touches[0], e.touches[1]);
+        const scale = d / pinchRef.current;
+        pinchRef.current = d;
+        setZoom((z) => Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, z * scale)));
+      }
+    };
+    const onTouchEnd = () => { pinchRef.current = null; };
+
+    node.addEventListener("wheel", onWheel, { passive: false });
+    node.addEventListener("touchstart", onTouchStart, { passive: false });
+    node.addEventListener("touchmove", onTouchMove, { passive: false });
+    node.addEventListener("touchend", onTouchEnd);
+    return () => {
+      node.removeEventListener("wheel", onWheel);
+      node.removeEventListener("touchstart", onTouchStart);
+      node.removeEventListener("touchmove", onTouchMove);
+      node.removeEventListener("touchend", onTouchEnd);
+    };
   }, [interactive]);
 
   const handlePointerDown = useCallback(
@@ -242,7 +274,7 @@ export function ChatbotHero({
       {/* Architecture Diagram */}
       <svg
         ref={svgRef}
-        className={`absolute inset-0 h-full w-full ${interactive ? "cursor-grab active:cursor-grabbing" : ""}`}
+        className={`absolute inset-0 h-full w-full ${interactive ? "cursor-grab touch-none active:cursor-grabbing" : ""}`}
         viewBox={interactive ? getViewBox() : "0 0 640 280"}
         preserveAspectRatio="xMidYMid meet"
         onPointerDown={handlePointerDown}
