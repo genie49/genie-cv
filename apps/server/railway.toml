@@ -1,7 +1,7 @@
 [build]
 builder = "RAILPACK"
 buildCommand = "bun install --frozen-lockfile"
-watchPatterns = ["apps/server/**", "packages/shared/**"]
+watchPatterns = ["apps/server/**", "packages/shared/**", "bun.lock"]
 
 [deploy]
 startCommand = "bun apps/server/src/index.ts"

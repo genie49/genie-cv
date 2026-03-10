@@ -1,7 +1,7 @@
 [build]
 builder = "RAILPACK"
 buildCommand = "bun install --frozen-lockfile && cd apps/client && bun run build:docker"
-watchPatterns = ["apps/client/**", "packages/shared/**", "data/**"]
+watchPatterns = ["apps/client/**", "packages/shared/**", "data/**", "bun.lock"]
 
 [deploy]
 restartPolicyType = "ON_FAILURE"
