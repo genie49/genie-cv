@@ -1,6 +1,8 @@
 import { useParams, Link } from "react-router";
 import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
+import { FingooHero } from "../components/ProjectHero";
+import { ChatbotHero } from "../components/ChatbotHero";
 import projects from "@data/projects.json";
 import type { Project } from "@genie-cv/shared";
 
@@ -30,13 +32,19 @@ export default function ProjectDetailPage() {
         Projects로 돌아가기
       </Link>
 
-      {/* Hero Image placeholder */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
-        className="h-[300px] w-full rounded-xl bg-zinc-200"
-      />
+      {/* Hero */}
+      {project.slug === "fingoo" ? (
+        <FingooHero className="h-[360px]" interactive />
+      ) : project.slug === "ai-portfolio-chatbot" ? (
+        <ChatbotHero className="h-[360px]" interactive />
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="h-[300px] w-full rounded-xl bg-zinc-200"
+        />
+      )}
 
       {/* Title + Links */}
       <motion.div
