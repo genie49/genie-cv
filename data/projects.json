@@ -131,7 +131,7 @@
         "title": "LangGraph ReAct 에이전트와 방어적 운영 설계",
         "date": "2026-03-15",
         "tags": ["LangGraph", "LangChain", "Agent"],
-        "summary": "17줄의 ReAct 에이전트 구성, 조건부 도구 호출, IP 기반 rate limiting, 에러 분류 시스템 설계"
+        "summary": "16줄의 ReAct 에이전트 구성, 조건부 도구 호출, IP 기반 rate limiting, 에러 분류 시스템 설계"
       }
     ]
   }

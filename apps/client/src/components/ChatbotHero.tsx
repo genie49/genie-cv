@@ -225,7 +225,7 @@ export function ChatbotHero({
           CHATBOT RAG PIPELINE
         </span>
         <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[8px] font-medium text-emerald-700">
-          17-line Agent
+          16-line Agent
         </span>
       </motion.div>
 
@@ -465,7 +465,7 @@ export function ChatbotHero({
             fontFamily="'JetBrains Mono', monospace"
             dominantBaseline="middle"
           >
-            createReactAgent · 1 tool · Gemini + LanceDB + Grok 4.1
+            createAgent · 1 tool · Gemini + LanceDB + Grok 4.1
           </text>
         </motion.g>
 
