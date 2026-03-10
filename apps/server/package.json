@@ -18,6 +18,7 @@
     "@sinclair/typebox": "^0.34.48",
     "apache-arrow": "^21.1.0",
     "elysia": "latest",
+    "langchain": "^1.2.30",
     "zod": "^4.3.6"
   },
   "devDependencies": {
