@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router";
 import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
 import { FingooHero } from "../components/ProjectHero";
+import { ChatbotHero } from "../components/ChatbotHero";
 import projects from "@data/projects.json";
 import type { Project } from "@genie-cv/shared";
 
@@ -33,7 +34,9 @@ export default function ProjectDetailPage() {
 
       {/* Hero */}
       {project.slug === "fingoo" ? (
-        <FingooHero className="h-[300px] rounded-xl" />
+        <FingooHero className="h-[360px] rounded-xl" interactive />
+      ) : project.slug === "ai-portfolio-chatbot" ? (
+        <ChatbotHero className="h-[360px] rounded-xl" interactive />
       ) : (
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}

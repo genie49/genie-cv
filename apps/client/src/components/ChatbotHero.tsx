@@ -23,16 +23,10 @@ function Node({
   h: number;
   label: string;
   sub?: string;
-  color: "violet" | "emerald" | "blue" | "amber" | "zinc";
+  color: "emerald" | "blue" | "amber" | "zinc" | "cyan" | "rose";
   delay: number;
 }) {
   const colors = {
-    violet: {
-      fill: "#ede9fe",
-      stroke: "#c4b5fd",
-      text: "#5b21b6",
-      sub: "#7c3aed",
-    },
     emerald: {
       fill: "#d1fae5",
       stroke: "#6ee7b7",
@@ -56,6 +50,18 @@ function Node({
       stroke: "#d4d4d8",
       text: "#27272a",
       sub: "#71717a",
+    },
+    cyan: {
+      fill: "#cffafe",
+      stroke: "#67e8f9",
+      text: "#155e75",
+      sub: "#0891b2",
+    },
+    rose: {
+      fill: "#ffe4e6",
+      stroke: "#fda4af",
+      text: "#9f1239",
+      sub: "#e11d48",
     },
   };
   const c = colors[color];
@@ -130,7 +136,7 @@ function Arrow({
   );
 }
 
-export function FingooHero({
+export function ChatbotHero({
   className,
   interactive,
 }: {
@@ -203,7 +209,7 @@ export function FingooHero({
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4, delay: 0.1 }}
-      className={`relative w-full overflow-hidden border border-zinc-200 bg-gradient-to-br from-slate-50 via-violet-50/30 to-blue-50/20 ${className ?? "h-[300px] rounded-xl"}`}
+      className={`relative w-full overflow-hidden border border-zinc-200 bg-gradient-to-br from-slate-50 via-emerald-50/30 to-cyan-50/20 ${className ?? "h-[300px] rounded-xl"}`}
     >
       {/* Dot grid */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#d4d4d8_0.8px,transparent_0.8px)] bg-[size:16px_16px] opacity-40" />
@@ -216,10 +222,10 @@ export function FingooHero({
         className="absolute left-5 top-4 z-10 flex items-center gap-2"
       >
         <span className="font-['Outfit'] text-[11px] font-bold tracking-wide text-zinc-800">
-          FINGOO AI PIPELINE
+          CHATBOT RAG PIPELINE
         </span>
         <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[8px] font-medium text-emerald-700">
-          Production
+          17-line Agent
         </span>
       </motion.div>
 
@@ -246,7 +252,7 @@ export function FingooHero({
       >
         <defs>
           <marker
-            id="arrowhead"
+            id="chatbot-arrowhead"
             markerWidth="6"
             markerHeight="4"
             refX="5"
@@ -259,170 +265,190 @@ export function FingooHero({
 
         {/* ── Layer 1: Input ── */}
         <Node
-          x={30}
-          y={100}
-          w={90}
+          x={20}
+          y={108}
+          w={80}
           h={36}
           label="사용자 질문"
-          sub="자연어 입력"
+          sub="React + assistant-ui"
           color="zinc"
           delay={FLOW_DELAY}
         />
 
-        {/* Arrow: Input → Supervisor */}
-        <Arrow points="120,118 155,118" delay={FLOW_DELAY * 2} />
+        {/* Arrow: Input → Rate Limiter */}
+        <Arrow points="100,126 130,126" delay={FLOW_DELAY * 2} />
 
-        {/* ── Layer 2: Supervisor ── */}
+        {/* ── Layer 2: Rate Limiter ── */}
         <Node
-          x={160}
-          y={90}
-          w={100}
-          h={56}
-          label="Supervisor"
-          sub="질문 분류 · 라우팅"
-          color="violet"
+          x={135}
+          y={108}
+          w={75}
+          h={36}
+          label="Rate Limiter"
+          sub="20/min · IP 기반"
+          color="rose"
           delay={FLOW_DELAY * 3}
         />
 
-        {/* Arrows: Supervisor → Agents */}
-        <Arrow
-          points="260,102 295,72"
-          delay={FLOW_DELAY * 4}
-        />
-        <Arrow
-          points="260,112 295,112"
-          delay={FLOW_DELAY * 4}
-        />
-        <Arrow
-          points="260,118 290,118 295,148"
-          delay={FLOW_DELAY * 4}
-        />
-        <Arrow
-          points="260,126 288,126 295,182"
-          delay={FLOW_DELAY * 4}
-        />
-        <Arrow
-          points="260,132 286,132 295,218"
-          delay={FLOW_DELAY * 4}
-        />
+        {/* Arrow: Rate Limiter → ReAct Agent */}
+        <Arrow points="210,126 240,126" delay={FLOW_DELAY * 4} />
 
-        {/* ── Layer 3: Agents ── */}
+        {/* ── Layer 3: ReAct Agent (central, larger) ── */}
         <Node
-          x={300}
-          y={54}
-          w={100}
-          h={36}
-          label="시장분석"
-          sub="yfinance · Tavily"
+          x={245}
+          y={96}
+          w={110}
+          h={60}
+          label="ReAct Agent"
+          sub="Grok 4.1 · 조건부 판단"
           color="emerald"
           delay={FLOW_DELAY * 5}
         />
+
+        {/* ── Branch: Agent decides ── */}
+
+        {/* Arrow: Agent → RAG (down) */}
+        <Arrow points="300,156 300,180" delay={FLOW_DELAY * 6} />
+
+        {/* Arrow: Agent → Direct Response (up, when no RAG needed) */}
+        <Arrow points="300,96 300,72 370,72" delay={FLOW_DELAY * 6} dashed />
+
+        {/* Label: 인사말 → 직접 응답 */}
+        <motion.text
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: FLOW_DELAY * 7 }}
+          x={335}
+          y={66}
+          fontSize={6}
+          fill="#71717a"
+          textAnchor="middle"
+          fontFamily="sans-serif"
+        >
+          인사말 → 직접 응답
+        </motion.text>
+
+        {/* ── Layer 4: RAG Search ── */}
         <Node
-          x={300}
-          y={96}
+          x={250}
+          y={184}
           w={100}
-          h={36}
-          label="기술분석"
-          sub="TA-Lib 지표"
-          color="emerald"
-          delay={FLOW_DELAY * 5.5}
-        />
-        <Node
-          x={300}
-          y={132}
-          w={100}
-          h={36}
-          label="리서치"
-          sub="DART · pgvector"
-          color="emerald"
-          delay={FLOW_DELAY * 6}
-        />
-        <Node
-          x={300}
-          y={168}
-          w={100}
-          h={36}
-          label="포트폴리오"
-          sub="자산 배분 최적화"
-          color="emerald"
-          delay={FLOW_DELAY * 6.5}
-        />
-        <Node
-          x={300}
-          y={204}
-          w={100}
-          h={36}
-          label="퀀트"
-          sub="QuantLib 분석"
-          color="emerald"
+          h={40}
+          label="rag_search"
+          sub="벡터 유사도 검색 · Top-5"
+          color="cyan"
           delay={FLOW_DELAY * 7}
         />
 
-        {/* Arrows: Agents → Response */}
-        <Arrow points="400,72 435,120" delay={FLOW_DELAY * 8} />
-        <Arrow points="400,114 435,126" delay={FLOW_DELAY * 8} />
-        <Arrow points="400,150 435,132" delay={FLOW_DELAY * 8} />
-        <Arrow points="400,186 435,138" delay={FLOW_DELAY * 8} />
-        <Arrow points="400,222 435,144" delay={FLOW_DELAY * 8} />
+        {/* Arrow: RAG → Gemini Embedding */}
+        <Arrow points="250,204 200,204 200,220 130,220" delay={FLOW_DELAY * 8} />
 
-        {/* ── Layer 4: Response ── */}
+        {/* ── Gemini Embedding ── */}
         <Node
-          x={440}
-          y={106}
-          w={90}
-          h={48}
-          label="종합 응답"
-          sub="스트리밍 생성"
-          color="violet"
+          x={40}
+          y={196}
+          w={88}
+          h={36}
+          label="Gemini Embedding"
+          sub="taskType 분리"
+          color="amber"
           delay={FLOW_DELAY * 9}
         />
 
-        {/* Arrows: Response → Outputs */}
-        <Arrow points="530,118 560,80" delay={FLOW_DELAY * 10} />
-        <Arrow points="530,130 560,130" delay={FLOW_DELAY * 10} />
-        <Arrow points="530,142 560,180" delay={FLOW_DELAY * 10} />
+        {/* Arrow: Gemini → LanceDB */}
+        <Arrow points="84,196 84,178" delay={FLOW_DELAY * 10} />
 
-        {/* ── Layer 5: Outputs ── */}
+        {/* ── LanceDB ── */}
         <Node
-          x={565}
-          y={60}
-          w={65}
-          h={36}
-          label="차트"
-          sub="인터랙티브"
-          color="blue"
-          delay={FLOW_DELAY * 11}
-        />
-        <Node
-          x={565}
-          y={112}
-          w={65}
-          h={36}
-          label="분석 리포트"
-          color="blue"
-          delay={FLOW_DELAY * 11.5}
-        />
-        <Node
-          x={565}
-          y={164}
-          w={65}
-          h={36}
-          label="교육 콘텐츠"
-          sub="XP · 랭킹"
+          x={40}
+          y={154}
+          w={88}
+          h={24}
+          label="LanceDB"
+          sub=""
           color="amber"
+          delay={FLOW_DELAY * 10}
+        />
+
+        {/* Label: 파일 기반 · 서버 불필요 */}
+        <motion.text
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          transition={{ delay: FLOW_DELAY * 11 }}
+          x={84}
+          y={150}
+          fontSize={6}
+          fill="#92400e"
+          textAnchor="middle"
+          fontFamily="sans-serif"
+        >
+          파일 기반 · 서버 불필요
+        </motion.text>
+
+        {/* Arrow: RAG result back to Agent */}
+        <Arrow points="350,204 370,204 370,156 355,156" delay={FLOW_DELAY * 11} dashed />
+
+        {/* ── Layer 5: SSE Streaming ── */}
+        {/* Arrow: Agent → Streaming */}
+        <Arrow points="355,126 405,126" delay={FLOW_DELAY * 12} />
+
+        <Node
+          x={410}
+          y={100}
+          w={100}
+          h={52}
+          label="SSE Streaming"
+          sub="NDJSON · ReadableStream"
+          color="blue"
           delay={FLOW_DELAY * 12}
         />
 
-        {/* ── Bottom: Real-time tracking bar ── */}
+        {/* ── Layer 6: Output events ── */}
+        <Arrow points="510,110 540,82" delay={FLOW_DELAY * 13} />
+        <Arrow points="510,126 540,126" delay={FLOW_DELAY * 13} />
+        <Arrow points="510,140 540,166" delay={FLOW_DELAY * 13} />
+
+        <Node
+          x={545}
+          y={64}
+          w={80}
+          h={28}
+          label="token"
+          sub="텍스트 청크"
+          color="blue"
+          delay={FLOW_DELAY * 14}
+        />
+        <Node
+          x={545}
+          y={112}
+          w={80}
+          h={28}
+          label="citations"
+          sub="인용 링크 매핑"
+          color="emerald"
+          delay={FLOW_DELAY * 14.5}
+        />
+        <Node
+          x={545}
+          y={156}
+          w={80}
+          h={28}
+          label="error"
+          sub="에러 분류 메시지"
+          color="rose"
+          delay={FLOW_DELAY * 15}
+        />
+
+        {/* ── Bottom: info bar ── */}
         <motion.g
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: FLOW_DELAY * 13 }}
+          transition={{ delay: FLOW_DELAY * 16 }}
         >
           <rect
             x={160}
             y={248}
-            width={310}
+            width={320}
             height={24}
             rx={12}
             fill="white"
@@ -439,33 +465,33 @@ export function FingooHero({
             fontFamily="'JetBrains Mono', monospace"
             dominantBaseline="middle"
           >
-            Socket.io 실시간 추적 · 7 agents · interrupt / resume
+            createReactAgent · 1 tool · Gemini + LanceDB + Grok 4.1
           </text>
         </motion.g>
 
-        {/* ── Dashed feedback loop ── */}
+        {/* ── Citation feedback: source → route auto-mapping ── */}
         <motion.g
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.5 }}
-          transition={{ delay: FLOW_DELAY * 14, duration: 0.5 }}
+          transition={{ delay: FLOW_DELAY * 17, duration: 0.5 }}
         >
           <path
-            d="M 530,155 Q 540,230 460,240 L 200,240 Q 160,240 160,200 L 160,148"
+            d="M 585,140 Q 610,210 560,230 L 100,230 Q 60,230 60,200 L 60,178"
             fill="none"
-            stroke="#a78bfa"
+            stroke="#0891b2"
             strokeWidth={0.8}
             strokeDasharray="4,3"
-            markerEnd="url(#arrowhead)"
+            markerEnd="url(#chatbot-arrowhead)"
           />
           <text
-            x={340}
-            y={236}
+            x={330}
+            y={238}
             fontSize={6}
-            fill="#8b5cf6"
+            fill="#0891b2"
             textAnchor="middle"
             fontFamily="sans-serif"
           >
-            체크포인트 기반 재개
+            소스 → 내부 라우트 자동 매핑
           </text>
         </motion.g>
       </svg>
