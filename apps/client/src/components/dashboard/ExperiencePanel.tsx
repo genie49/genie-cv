@@ -16,9 +16,16 @@ const profile = {
 const BAR_COLORS: Record<string, string> = {
   아이머스: "bg-cyan-600",
   핀구: "bg-violet-600",
+  스톰스터디: "bg-emerald-600",
+  헬프터: "bg-amber-600",
   "대한민국 육군": "bg-zinc-500",
 };
 const DEFAULT_BAR_COLOR = "bg-zinc-800";
+
+// 간트 차트에서 같은 행에 표시할 회사 그룹 (key: 행 라벨, values: 포함할 회사들)
+const ROW_GROUPS: Record<string, string[]> = {
+  "스톰스터디/헬프터": ["스톰스터디", "헬프터"],
+};
 
 function monthIndex(ym: string) {
   const [y, m] = ym.split(".").map(Number);
@@ -112,18 +119,39 @@ export default function ExperiencePanel() {
             </div>
           </div>
 
-          {/* Bars */}
+          {/* Bars — 같은 회사/그룹은 한 행에 합침 */}
           <div className="flex flex-col gap-2">
-            {profile.experience.map((exp) => {
-              const bar = parseBar(exp.period);
-              const color = BAR_COLORS[exp.company] ?? DEFAULT_BAR_COLOR;
-              return (
-                <div
-                  key={`${exp.company}-${exp.period}`}
-                  className="flex items-center"
-                >
+            {(() => {
+              const grouped = new Map<string, { company: string; period: string }[]>();
+              const assigned = new Set<string>();
+              for (const exp of profile.experience) {
+                // 이미 다른 그룹에 할당된 회사는 스킵
+                if (assigned.has(exp.company)) {
+                  grouped.get(
+                    [...grouped.keys()].find((k) =>
+                      ROW_GROUPS[k]?.includes(exp.company) || k === exp.company,
+                    )!,
+                  )!.push({ company: exp.company, period: exp.period });
+                  continue;
+                }
+                // 그룹의 대표 회사인지 확인
+                const groupLabel = Object.keys(ROW_GROUPS).find((k) =>
+                  ROW_GROUPS[k].includes(exp.company),
+                );
+                if (groupLabel && !grouped.has(groupLabel)) {
+                  grouped.set(groupLabel, [{ company: exp.company, period: exp.period }]);
+                  for (const c of ROW_GROUPS[groupLabel]) assigned.add(c);
+                } else if (!groupLabel) {
+                  grouped.set(exp.company, [{ company: exp.company, period: exp.period }]);
+                  assigned.add(exp.company);
+                } else {
+                  grouped.get(groupLabel)!.push({ company: exp.company, period: exp.period });
+                }
+              }
+              return [...grouped.entries()].map(([label, entries]) => (
+                <div key={label} className="flex items-center">
                   <span className="w-[100px] shrink-0 truncate text-[11px] font-semibold text-zinc-800">
-                    {exp.company}
+                    {label}
                   </span>
                   <div className="relative h-5 flex-1 rounded bg-zinc-100">
                     {YEARS.map((y) => (
@@ -135,19 +163,25 @@ export default function ExperiencePanel() {
                         }}
                       />
                     ))}
-                    {flipped && (
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${bar.width}%` }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
-                        className={`absolute top-0 h-full rounded ${color}`}
-                        style={{ left: `${bar.left}%` }}
-                      />
-                    )}
+                    {flipped &&
+                      entries.map(({ company, period }) => {
+                        const bar = parseBar(period);
+                        const color = BAR_COLORS[company] ?? DEFAULT_BAR_COLOR;
+                        return (
+                          <motion.div
+                            key={period}
+                            initial={{ width: 0 }}
+                            animate={{ width: `${bar.width}%` }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            className={`absolute top-0 h-full rounded ${color}`}
+                            style={{ left: `${bar.left}%` }}
+                          />
+                        );
+                      })}
                   </div>
                 </div>
-              );
-            })}
+              ));
+            })()}
           </div>
         </div>
       </motion.div>

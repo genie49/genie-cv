@@ -11,6 +11,27 @@
       "degree": "학사",
       "period": "2021 ~ 재학중",
       "status": "4학년 재학중"
+    },
+    {
+      "school": "경희고등학교",
+      "major": "",
+      "degree": "졸업",
+      "period": "2018 ~ 2020",
+      "status": "졸업"
+    },
+    {
+      "school": "성일중학교",
+      "major": "",
+      "degree": "졸업",
+      "period": "2015 ~ 2017",
+      "status": "졸업"
+    },
+    {
+      "school": "홍파초등학교",
+      "major": "",
+      "degree": "졸업",
+      "period": "2009 ~ 2014",
+      "status": "졸업"
     }
   ],
   "experience": [

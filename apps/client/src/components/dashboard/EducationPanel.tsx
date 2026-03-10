@@ -12,7 +12,7 @@ export default function EducationPanel() {
             <div>
               <p className="text-[13px] font-medium text-black">{edu.school}</p>
               <p className="text-xs text-zinc-500">
-                {edu.major} · {edu.status}
+                {edu.major ? `${edu.major} · ` : ""}{edu.status}
               </p>
             </div>
             <span className="text-xs text-zinc-400">{edu.period}</span>
