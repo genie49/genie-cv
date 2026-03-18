@@ -79,9 +79,9 @@
     }
   ],
   "techStack": {
-    "AI/ML": ["LangChain", "RAG", "Gemini", "Grok", "HuggingFace"],
-    "BACKEND": ["ElysiaJS", "FastAPI", "Node.js", "Bun"],
-    "DB/MESSAGE": ["LanceDB", "PostgreSQL", "Redis", "Kafka"],
+    "AI/ML": ["LangChain", "RAG", "Gemini", "Grok", "HuggingFace", "Claude"],
+    "BACKEND": ["ElysiaJS", "Fastify", "FastAPI", "Node.js", "Bun"],
+    "DB/MESSAGE": ["LanceDB", "PostgreSQL", "MongoDB", "Redis", "GCP Pub/Sub", "Kafka"],
     "FRONTEND": ["React", "Next.js", "Tailwind CSS", "TypeScript"],
     "DEVOPS/INFRA": ["Docker", "Railway", "GitHub Actions", "Linux"]
   }
