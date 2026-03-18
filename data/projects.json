@@ -25,6 +25,30 @@
     ]
   },
   {
+    "slug": "hey-bara",
+    "title": "헤이 바라 — 온디바이스 AI 음성 비서",
+    "description": "\"헤이 바라\" 웨이크 워드로 호출하는 Android AI 음성 비서입니다. Sherpa-ONNX 한국어 STT, Koog AI Agent의 14개 Tool Calling, Supertonic 2 한국어 TTS를 통합한 음성 파이프라인으로 전화·문자·일정·앱 제어를 음성으로 수행합니다. Gemini 클라우드와 Gemma 온디바이스 듀얼 LLM 아키텍처를 설계했습니다.",
+    "tags": ["Kotlin", "Sherpa-ONNX", "Koog", "Gemini", "Jetpack Compose", "ONNX", "Android"],
+    "period": "2026.01 ~ 2026.03",
+    "github": "https://github.com/genie49/hey-bara",
+    "features": [
+      { "title": "음성 파이프라인", "description": "Porcupine 웨이크 워드 → Sherpa-ONNX Zipformer 한국어 STT → Koog AI Agent → Supertonic 2 한국어 TTS. OnDemand 로딩으로 대기 시 ~10MB" },
+      { "title": "AI Agent + 14개 Tool", "description": "Koog(JetBrains) 프레임워크 기반 Agent가 연락처 검색, 전화, 문자, 카카오톡, 일정 관리, 알림 조회, 앱 제어 등 14개 도구를 Function Calling으로 실행" },
+      { "title": "듀얼 LLM 아키텍처", "description": "Gemini API 클라우드 모드와 Gemma 3n E2B 온디바이스 모드를 설계. 네트워크 상태·비용·지연 시간에 따라 전환" },
+      { "title": "Human-in-the-Loop 확인", "description": "전화·문자 등 위험 액션에 Channel 기반 UI-Agent 브릿지로 사용자 확인. 10초 타임아웃 자동 확인" },
+      { "title": "범용 앱 제어", "description": "AccessibilityService로 UI 트리를 캡처하고, LLM이 클릭·입력·스크롤 액션을 결정하는 Vision-Language 앱 자동화" },
+      { "title": "Google Calendar/Tasks 연동", "description": "OAuth 2.0 인증 후 REST API 직접 호출로 일정 CRUD. 클라이언트 라이브러리 없이 경량 구현" }
+    ],
+    "notes": [
+      { "id": "bara-voice-pipeline", "projectSlug": "hey-bara", "title": "\"헤이 바라\" — 한마디로 시작되는 4단계 음성 파이프라인", "date": "2026-01-15", "tags": ["Sherpa-ONNX", "STT", "TTS", "Pipeline"], "summary": "웨이크 워드 감지부터 음성 인식, AI 처리, 음성 합성까지 4단계를 하나의 파이프라인으로 통합하고, OnDemand 로딩으로 대기 시 메모리를 최소화한 설계" },
+      { "id": "bara-koog-agent", "projectSlug": "hey-bara", "title": "음성 한마디에 14가지 행동 — Koog Agent와 Tool Calling", "date": "2026-01-25", "tags": ["Koog", "Agent", "Tool Calling"], "summary": "JetBrains Koog 프레임워크로 14개 SimpleTool을 등록하고, Gemini Function Calling으로 음성 명령을 디바이스 액션으로 변환하는 Agent 설계" },
+      { "id": "bara-dual-llm", "projectSlug": "hey-bara", "title": "클라우드가 안 되면? 폰이 직접 생각한다", "date": "2026-02-05", "tags": ["Gemini", "Gemma", "On-Device", "Architecture"], "summary": "Gemini API 클라우드와 Gemma 3n 온디바이스 모드를 설계하면서 비용·지연·품질 트레이드오프를 분석한 의사결정 과정" },
+      { "id": "bara-hitl-confirmation", "projectSlug": "hey-bara", "title": "AI가 멋대로 전화를 걸면 안 되잖아", "date": "2026-02-15", "tags": ["HITL", "Coroutine", "Channel"], "summary": "위험 액션에 Kotlin Channel 기반 suspend 패턴으로 UI-Agent 브릿지를 만들고, 사용자 확인을 받는 Human-in-the-Loop 설계" },
+      { "id": "bara-app-control", "projectSlug": "hey-bara", "title": "\"스포티파이에서 내 플레이리스트 틀어줘\"", "date": "2026-02-25", "tags": ["Accessibility", "Vision-Language", "App Control"], "summary": "AccessibilityService로 UI 트리를 캡처하고 LLM이 클릭·입력 액션을 결정하는 범용 앱 제어 Agent 설계. 최대 30스텝 자동화" },
+      { "id": "bara-state-machine", "projectSlug": "hey-bara", "title": "IDLE → LISTENING → PROCESSING → CONFIRMING", "date": "2026-03-05", "tags": ["State Machine", "OnDemand", "Session"], "summary": "4-State 세션 상태 머신으로 음성 비서의 전체 라이프사이클을 관리하고, OnDemand 컴포넌트 로딩으로 대기 시 메모리 10MB를 달성한 설계" }
+    ]
+  },
+  {
     "slug": "fingoo",
     "title": "핀구 — AI 투자 분석 플랫폼",
     "description": "개인 투자자를 위한 올인원 투자 플랫폼입니다. 실시간 금융 데이터(DART·FRED·Twelve Data·공공데이터)를 기반으로 인터랙티브 차트에서 종목 시세 조회, 비교 분석, 통계 분석을 제공합니다. AI 채팅을 통해 자연어로 투자 분석을 요청하면 차트 시각화, 리포트, 포트폴리오 제안까지 받을 수 있으며, 파일을 업로드해 AI와 함께 분석할 수도 있습니다. 매일 수집되는 경제 시황 데이터와 실시간 웹 검색을 결합해 최신 시장 상황을 반영합니다. 투자 교육 서비스에서는 챕터별 학습과 퀴즈로 투자 기초를 배우고, 출석·XP·랭킹 등 게이미피케이션 요소로 꾸준한 학습을 유도합니다.",
