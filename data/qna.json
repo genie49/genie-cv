@@ -13,7 +13,7 @@
   },
   {
     "question": "가장 도전적이었던 프로젝트는?",
-    "answer": "핀구에서 주식 투자 보조 AI 서비스를 만든 경험입니다. NestJS+Puppeteer로 금융 데이터 크롤러를 구축하고, PostgreSQL+pgvector로 벡터 DB 파이프라인을 만들었으며, LangGraph 기반 Multi-Agent 시스템을 설계했습니다. 데이터 수집부터 AI 추론, 사용자 인터페이스까지 전체 파이프라인을 직접 구축한 경험이 기술적으로 가장 성장할 수 있었던 프로젝트였습니다."
+    "answer": "핀구에서 주식 투자 보조 AI 서비스를 만든 경험입니다. NestJS+Puppeteer로 금융 데이터 크롤러를 구축하고, PostgreSQL+pgvector로 벡터 DB 파이프라인을 만들었으며, LangChain 기반 Multi-Agent 시스템을 설계했습니다. 데이터 수집부터 AI 추론, 사용자 인터페이스까지 전체 파이프라인을 직접 구축한 경험이 기술적으로 가장 성장할 수 있었던 프로젝트였습니다."
   },
   {
     "question": "앞으로의 목표는 무엇인가요?",

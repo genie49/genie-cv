@@ -46,7 +46,7 @@ flowchart TB
         Search --> Results[검색 결과 + 소스 메타데이터]
     end
 
-    Results --> Agent[LangGraph 에이전트]
+    Results --> Agent[LangChain 에이전트]
     Agent --> Response[인용 포함 답변]
 ```
 

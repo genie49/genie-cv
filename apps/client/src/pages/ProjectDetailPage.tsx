@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router";
+import { useRef, useCallback } from "react";
 import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
 import { FingooHero } from "../components/ProjectHero";
@@ -6,11 +7,43 @@ import { ChatbotHero } from "../components/ChatbotHero";
 import projects from "@data/projects.json";
 import type { Project } from "@genie-cv/shared";
 
+function useDragScroll() {
+  const ref = useRef<HTMLDivElement>(null);
+  const state = useRef<{ isDown: boolean; startX: number; scrollLeft: number }>({
+    isDown: false,
+    startX: 0,
+    scrollLeft: 0,
+  });
+
+  const onMouseDown = useCallback((e: React.MouseEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    state.current = { isDown: true, startX: e.pageX - el.offsetLeft, scrollLeft: el.scrollLeft };
+    el.style.cursor = "grabbing";
+  }, []);
+
+  const onMouseUp = useCallback(() => {
+    state.current.isDown = false;
+    if (ref.current) ref.current.style.cursor = "grab";
+  }, []);
+
+  const onMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!state.current.isDown || !ref.current) return;
+    e.preventDefault();
+    const x = e.pageX - ref.current.offsetLeft;
+    const walk = (x - state.current.startX) * 1.5;
+    ref.current.scrollLeft = state.current.scrollLeft - walk;
+  }, []);
+
+  return { ref, onMouseDown, onMouseUp, onMouseLeave: onMouseUp, onMouseMove };
+}
+
 const allProjects = projects as Project[];
 
 export default function ProjectDetailPage() {
   const { slug } = useParams();
   const project = allProjects.find((p) => p.slug === slug);
+  const dragScroll = useDragScroll();
 
   if (!project) {
     return <div className="p-8 text-zinc-500">프로젝트를 찾을 수 없습니다.</div>;
@@ -114,35 +147,46 @@ export default function ProjectDetailPage() {
         <p className="text-sm leading-[1.7] text-zinc-600">{project.description}</p>
       </motion.div>
 
-      {/* Features */}
-      <div className="flex flex-col gap-3">
-        <motion.h2
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="font-['Outfit'] text-lg font-bold text-black"
-        >
-          주요 기능
-        </motion.h2>
-        <div className="flex flex-col md:flex-row gap-3">
-          {project.features.map((feat, i) => (
-            <motion.div
-              key={feat.title}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + i * 0.07 }}
-              className="flex flex-1 flex-col gap-2 rounded-[10px] border border-zinc-100 bg-zinc-50 p-4"
-            >
-              <h3 className="text-[13px] font-semibold text-black">
-                {feat.title}
-              </h3>
-              <p className="text-xs leading-relaxed text-zinc-500">
-                {feat.description}
-              </p>
-            </motion.div>
-          ))}
+      {/* Features / Contributions */}
+      {project.features.length > 0 && (
+        <div className="flex flex-col gap-3">
+          <motion.h2
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="font-['Outfit'] text-lg font-bold text-black"
+          >
+            프로젝트 기여
+          </motion.h2>
+          <div
+            ref={dragScroll.ref}
+            onMouseDown={dragScroll.onMouseDown}
+            onMouseUp={dragScroll.onMouseUp}
+            onMouseLeave={dragScroll.onMouseLeave}
+            onMouseMove={dragScroll.onMouseMove}
+            className="-mx-6 cursor-grab overflow-x-auto px-6 scrollbar-none select-none"
+          >
+            <div className="flex gap-3" style={{ minWidth: "max-content" }}>
+              {project.features.map((feat, i) => (
+                <motion.div
+                  key={feat.title}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + i * 0.07 }}
+                  className="flex w-[220px] shrink-0 flex-col gap-2 rounded-[10px] border border-zinc-100 bg-zinc-50 p-4"
+                >
+                  <h3 className="text-[13px] font-semibold text-black">
+                    {feat.title}
+                  </h3>
+                  <p className="text-xs leading-relaxed text-zinc-500">
+                    {feat.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Dev Notes */}
       {project.notes.length > 0 && (
