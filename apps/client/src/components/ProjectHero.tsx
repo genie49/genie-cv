@@ -125,7 +125,7 @@ function Arrow({
       stroke="#ccc"
       strokeWidth={1.2}
       strokeDasharray={dashed ? "4,3" : undefined}
-      markerEnd="url(#arrow)"
+      markerEnd="url(#fingoo-arrow)"
     />
   );
 }
@@ -278,7 +278,7 @@ export function FingooHero({
       >
         <defs>
           <marker
-            id="arrow"
+            id="fingoo-arrow"
             markerWidth="10"
             markerHeight="10"
             refX="9"
