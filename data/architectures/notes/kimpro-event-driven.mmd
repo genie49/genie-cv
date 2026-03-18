@@ -1,0 +1,33 @@
+graph LR
+    subgraph Services
+        Auth[Auth]
+        API[API]
+        Chat[Chat]
+    end
+
+    subgraph "Pub/Sub Topics"
+        WReq[workflow.request]
+        WRes[workflow.response]
+        WHist[workflow.history]
+        WErr[workflow.error]
+    end
+
+    subgraph Workers
+        Workflow[Workflow Worker]
+        Tools[Tools Service]
+        Notification[Notification Worker]
+        History[History Worker]
+    end
+
+    Chat -->|publish| WReq
+    WReq -->|subscribe| Workflow
+    Workflow -->|publish| WRes
+    WRes -->|subscribe| Chat
+    Workflow -->|publish| WHist
+    WHist -->|subscribe| History
+    Workflow -->|publish| WErr
+    WErr -->|subscribe| Chat
+
+    Workflow --> Tools
+    API -->|publish| Notification
+    Auth --> API
