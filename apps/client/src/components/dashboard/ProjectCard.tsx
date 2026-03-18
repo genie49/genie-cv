@@ -1,10 +1,12 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
 import { FingooHero } from "../ProjectHero";
+import { KimproHero } from "../KimproHero";
 import { ChatbotHero } from "../ChatbotHero";
 import type { Project } from "@genie-cv/shared";
 
 function ProjectHeroThumbnail({ slug, className }: { slug: string; className: string }) {
+  if (slug === "kimpro") return <KimproHero className={className} />;
   if (slug === "fingoo") return <FingooHero className={className} />;
   if (slug === "ai-portfolio-chatbot") return <ChatbotHero className={className} />;
   return <div className={`w-full bg-zinc-200 ${className}`} />;

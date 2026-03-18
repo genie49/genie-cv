@@ -1,5 +1,30 @@
 [
   {
+    "slug": "kimpro",
+    "title": "Aimers — AI 인플루언서 마케팅 자동화 플랫폼",
+    "description": "LangChain 멀티에이전트가 인플루언서 마케팅 캠페인의 4단계(기획→브리프→매칭→가이드)를 자동 수행하는 플랫폼. Account Manager가 5개 전문 에이전트를 오케스트레이션하고, GCP Pub/Sub 기반 이벤트 드리븐 마이크로서비스로 안정적인 프로덕션 운영을 지원합니다.",
+    "tags": ["LangChain", "Fastify", "GCP Pub/Sub", "WebSocket", "Next.js", "PostgreSQL", "MongoDB", "Redis", "TypeScript", "Docker", "Nginx"],
+    "period": "2025.09 ~ 2026.03",
+    "features": [
+      { "title": "AI 멀티에이전트 캠페인 자동화", "description": "Account Manager + 5개 전문 에이전트가 4단계 마케팅 워크플로우를 자동 수행. Claude 3.5 Sonnet 기반 Tool Calling으로 서브에이전트 라우팅" },
+      { "title": "이벤트 드리븐 마이크로서비스", "description": "Auth·API·Chat·Workflow·Tools·Notification·History 7개 서비스를 GCP Pub/Sub 토픽으로 연결하는 분산 아키텍처" },
+      { "title": "프로덕션 레벨 Agent 인프라", "description": "PostgreSQL 체크포인팅으로 Agent 대화 영속화, Nginx auth_request 기반 인증 게이트웨이, PM2 graceful shutdown" },
+      { "title": "실시간 워크플로우 스트리밍", "description": "LangChain 스트리밍 튜플을 WebSocket으로 클라이언트에 전달. messages·updates·tasks 3가지 모드로 실시간 진행 상황 표시" },
+      { "title": "캠페인 스냅샷 & 롤백", "description": "Redis 기반 CAS 패턴으로 Agent 실행 중 캠페인 상태를 스냅샷하고, 실패 시 원자적 롤백. 성공 시 MongoDB에 커밋" },
+      { "title": "LangChain 미들웨어 파이프라인", "description": "Tool Call Patch·Error Status·Dynamic Prompt·TodoList·SubAgent 5개 미들웨어를 조합한 Agent 실행 파이프라인" }
+    ],
+    "notes": [
+      { "id": "kimpro-multi-agent", "projectSlug": "kimpro", "title": "혼자 다 하는 AI는 없다 — 팀장과 전문가 5명의 협업 구조", "date": "2025-10-15", "tags": ["LangChain", "Multi-Agent", "Orchestration"], "summary": "하나의 에이전트로는 복잡한 캠페인을 처리할 수 없었다. Account Manager가 상황을 판단하고 5개 전문 에이전트에게 작업을 위임하는 오케스트레이션 구조를 설계한 과정" },
+      { "id": "kimpro-snapshot-rollback", "projectSlug": "kimpro", "title": "AI가 실수하면 어떡하지? — 되돌릴 수 있게 만들자", "date": "2025-11-01", "tags": ["Redis", "State Management", "Rollback"], "summary": "Agent가 데이터를 잘못 수정하면 복구할 수 없었다. Redis에 스냅샷을 찍고 실패 시 원자적으로 롤백하는 CAS 패턴으로 해결한 과정" },
+      { "id": "kimpro-realtime-streaming", "projectSlug": "kimpro", "title": "AI가 일하는 동안 사용자는 뭘 보고 있지?", "date": "2025-11-15", "tags": ["WebSocket", "GCP Pub/Sub", "Streaming"], "summary": "Agent 워크플로우가 수십 초 걸리는데 사용자는 빈 화면만 봐야 했다. 3가지 스트리밍 모드로 실시간 진행 상황을 전달한 설계" },
+      { "id": "kimpro-marketing-automation", "projectSlug": "kimpro", "title": "매번 똑같은 일을 왜 사람이 해야 하지?", "date": "2025-10-01", "tags": ["Automation", "Workflow", "Business Impact"], "summary": "캠페인 기획부터 크리에이터 매칭까지 매번 반복되는 4단계 수동 프로세스를 분석하고, Agent 워크플로우로 전환한 과정과 비즈니스 임팩트" },
+      { "id": "kimpro-middleware-pipeline", "projectSlug": "kimpro", "title": "에이전트한테 맥락 없이 일 시키면 당연히 못하지", "date": "2025-12-01", "tags": ["LangChain", "Middleware", "Context Engineering"], "summary": "매번 같은 시스템 프롬프트로는 상황에 맞는 응답이 안 나왔다. 5개 미들웨어를 조합해 동적으로 컨텍스트를 주입하고 에러를 처리하는 파이프라인 설계" },
+      { "id": "kimpro-event-driven", "projectSlug": "kimpro", "title": "서비스 7개가 서로 직접 호출하면 어떻게 될까?", "date": "2025-12-15", "tags": ["GCP Pub/Sub", "Event-Driven", "Microservices"], "summary": "서비스 간 직접 호출이 늘어나면서 장애 전파와 결합도 문제가 생겼다. GCP Pub/Sub로 이벤트 기반 비동기 통신으로 전환한 과정" },
+      { "id": "kimpro-agent-evaluation", "projectSlug": "kimpro", "title": "이 에이전트 진짜 잘하고 있는 거 맞아?", "date": "2026-01-15", "tags": ["Evaluation", "Quality", "LLM-as-Judge"], "summary": "프롬프트를 수정할 때마다 다른 곳이 망가졌다. 자동화된 평가 체계를 구축해 품질을 수치로 측정하고 개선하는 루프를 만든 과정" },
+      { "id": "kimpro-prompt-caching", "projectSlug": "kimpro", "title": "매번 같은 프롬프트를 보내는데 매번 돈을 내야 해?", "date": "2026-02-01", "tags": ["Anthropic", "Prompt Caching", "Cost Optimization"], "summary": "시스템 프롬프트가 길어지면서 비용과 지연 시간이 급증했다. Anthropic Prompt Caching으로 반복 토큰 비용을 절감한 전략" }
+    ]
+  },
+  {
     "slug": "fingoo",
     "title": "핀구 — AI 투자 분석 플랫폼",
     "description": "개인 투자자를 위한 올인원 투자 플랫폼입니다. 실시간 금융 데이터(DART·FRED·Twelve Data·공공데이터)를 기반으로 인터랙티브 차트에서 종목 시세 조회, 비교 분석, 통계 분석을 제공합니다. AI 채팅을 통해 자연어로 투자 분석을 요청하면 차트 시각화, 리포트, 포트폴리오 제안까지 받을 수 있으며, 파일을 업로드해 AI와 함께 분석할 수도 있습니다. 매일 수집되는 경제 시황 데이터와 실시간 웹 검색을 결합해 최신 시장 상황을 반영합니다. 투자 교육 서비스에서는 챕터별 학습과 퀴즈로 투자 기초를 배우고, 출석·XP·랭킹 등 게이미피케이션 요소로 꾸준한 학습을 유도합니다.",

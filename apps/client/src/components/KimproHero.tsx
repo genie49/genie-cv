@@ -125,12 +125,12 @@ function Arrow({
       stroke="#ccc"
       strokeWidth={1.2}
       strokeDasharray={dashed ? "4,3" : undefined}
-      markerEnd="url(#fingoo-arrow)"
+      markerEnd="url(#kimpro-arrow)"
     />
   );
 }
 
-export function FingooHero({
+export function KimproHero({
   className,
   interactive,
 }: {
@@ -235,7 +235,7 @@ export function FingooHero({
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4, delay: 0.1 }}
-      className={`relative w-full overflow-hidden rounded-xl border border-zinc-200 bg-gradient-to-br from-slate-50 via-violet-50/30 to-blue-50/20 ${className ?? "h-[300px]"}`}
+      className={`relative w-full overflow-hidden rounded-xl border border-zinc-200 bg-gradient-to-br from-slate-50 via-emerald-50/30 to-amber-50/20 ${className ?? "h-[300px]"}`}
     >
       {/* Grid background */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#d4d4d8_0.8px,transparent_0.8px)] bg-[size:16px_16px] opacity-40" />
@@ -248,7 +248,7 @@ export function FingooHero({
         className="absolute left-5 top-4 z-10 flex items-center gap-2"
       >
         <span className="font-mono text-[11px] font-bold tracking-wide text-zinc-700">
-          FINGOO
+          AIMERS
         </span>
         <span className="font-mono text-[9px] text-zinc-400">
           [ SERVICE_FLOW ]
@@ -278,7 +278,7 @@ export function FingooHero({
       >
         <defs>
           <marker
-            id="fingoo-arrow"
+            id="kimpro-arrow"
             markerWidth="10"
             markerHeight="10"
             refX="9"
@@ -289,89 +289,42 @@ export function FingooHero({
           </marker>
         </defs>
 
-        {/* ── User (left) ── */}
-        <Node
-          x={30}
-          y={112}
-          w={80}
-          h={48}
-          label="사용자"
-          color="violet"
-          delay={FLOW_DELAY}
-        />
+        {/* ── 사용자 (left) ── */}
+        <Node x={20} y={100} w={75} h={48} label="사용자" color="violet" delay={FLOW_DELAY} />
 
-        {/* Arrows: User → Services */}
-        <Arrow points="110,128 185,80" delay={FLOW_DELAY * 2} />
-        <Arrow points="110,136 185,136" delay={FLOW_DELAY * 2} />
-        <Arrow points="110,144 185,200" delay={FLOW_DELAY * 2} />
+        {/* Arrow: 사용자 → 데이터 분석 */}
+        <Arrow points="95,124 125,100" delay={FLOW_DELAY * 2} />
 
-        {/* ── Services (center) ── */}
-        <Node
-          x={185}
-          y={52}
-          w={210}
-          h={50}
-          label="실시간 차트"
-          sub="인터랙티브 차트 · 비교 분석 · 통계 분석"
-          color="blue"
-          delay={FLOW_DELAY * 3}
-        />
-        <Node
-          x={185}
-          y={112}
-          w={210}
-          h={50}
-          label="AI 채팅"
-          sub="투자 분석 · 멀티모달 · 차트 시각화"
-          color="emerald"
-          delay={FLOW_DELAY * 4}
-        />
-        <Node
-          x={185}
-          y={176}
-          w={210}
-          h={50}
-          label="투자 교육"
-          sub="퀴즈 · 출석 · XP · 랭킹"
-          color="amber"
-          delay={FLOW_DELAY * 5}
-        />
+        {/* ── 데이터 분석 ── */}
+        <Node x={125} y={75} w={110} h={50} label="데이터 분석" sub="URL·PDF → AI 크롤링" color="blue" delay={FLOW_DELAY * 3} />
 
-        {/* ── Data Sources (right) ── */}
-        <Node
-          x={480}
-          y={48}
-          w={120}
-          h={34}
-          label="외부 금융 데이터"
-          color="zinc"
-          delay={FLOW_DELAY * 6}
-        />
-        <Node
-          x={480}
-          y={108}
-          w={120}
-          h={34}
-          label="실시간 웹 검색"
-          color="zinc"
-          delay={FLOW_DELAY * 6.5}
-        />
-        <Node
-          x={480}
-          y={168}
-          w={120}
-          h={40}
-          label="시황 RAG"
-          sub="매일 경제 데이터 수집 · 시황 생성"
-          color="zinc"
-          delay={FLOW_DELAY * 7}
-        />
+        {/* Arrow: 데이터 분석 → 캠페인 구성 */}
+        <Arrow points="235,100 265,100" delay={FLOW_DELAY * 4} />
 
-        {/* Arrows: Data → Services (dashed) */}
-        <Arrow points="480,65 395,72" delay={FLOW_DELAY * 8} dashed />
-        <Arrow points="480,70 395,130" delay={FLOW_DELAY * 8} dashed />
-        <Arrow points="480,125 395,135" delay={FLOW_DELAY * 8} dashed />
-        <Arrow points="480,188 395,142" delay={FLOW_DELAY * 8} dashed />
+        {/* ── 캠페인 구성 ── */}
+        <Node x={265} y={75} w={110} h={50} label="캠페인 구성" sub="AI 대화로 자동 생성" color="emerald" delay={FLOW_DELAY * 5} />
+
+        {/* Arrow: 캠페인 구성 → 크리에이터 매칭 */}
+        <Arrow points="375,100 405,100" delay={FLOW_DELAY * 6} />
+
+        {/* ── 크리에이터 매칭 ── */}
+        <Node x={405} y={75} w={110} h={50} label="크리에이터 매칭" sub="AI 주도 컨택 · 계약" color="amber" delay={FLOW_DELAY * 7} />
+
+        {/* Arrow: 크리에이터 매칭 → 모니터링 */}
+        <Arrow points="515,100 545,124" delay={FLOW_DELAY * 8} />
+
+        {/* ── 모니터링 (right) ── */}
+        <Node x={545} y={100} w={75} h={48} label="모니터링" color="emerald" delay={FLOW_DELAY * 9} />
+
+        {/* Dashed arrows: data layer (top → bottom) */}
+        <Arrow points="180,125 180,170" delay={FLOW_DELAY * 10} dashed />
+        <Arrow points="320,125 320,170" delay={FLOW_DELAY * 10} dashed />
+        <Arrow points="460,125 460,170" delay={FLOW_DELAY * 10} dashed />
+
+        {/* ── Data layer nodes ── */}
+        <Node x={125} y={170} w={110} h={34} label="크롤링 엔진" color="zinc" delay={FLOW_DELAY * 11} />
+        <Node x={265} y={170} w={110} h={34} label="크리에이터 DB" sub="특성 분석" color="zinc" delay={FLOW_DELAY * 11.5} />
+        <Node x={405} y={170} w={110} h={34} label="AI 커뮤니케이션" sub="연락 · 계약 · 대화" color="zinc" delay={FLOW_DELAY * 12} />
 
         {/* ── Bottom note ── */}
         <motion.text
@@ -385,7 +338,7 @@ export function FingooHero({
           fill="#999"
           textAnchor="middle"
         >
-          LangChain multi-agent · Socket.io streaming · gamification
+          LangChain multi-agent · GCP Pub/Sub · WebSocket streaming
         </motion.text>
       </svg>
     </motion.div>

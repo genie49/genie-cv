@@ -3,6 +3,7 @@ import { useRef, useCallback } from "react";
 import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
 import { FingooHero } from "../components/ProjectHero";
+import { KimproHero } from "../components/KimproHero";
 import { ChatbotHero } from "../components/ChatbotHero";
 import projects from "@data/projects.json";
 import type { Project } from "@genie-cv/shared";
@@ -66,7 +67,9 @@ export default function ProjectDetailPage() {
       </Link>
 
       {/* Hero */}
-      {project.slug === "fingoo" ? (
+      {project.slug === "kimpro" ? (
+        <KimproHero className="h-[360px]" interactive />
+      ) : project.slug === "fingoo" ? (
         <FingooHero className="h-[360px]" interactive />
       ) : project.slug === "ai-portfolio-chatbot" ? (
         <ChatbotHero className="h-[360px]" interactive />
