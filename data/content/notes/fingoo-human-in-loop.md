@@ -39,9 +39,9 @@ flowchart LR
 
 이 기준으로 9개 도구를 분류한 결과: 조회 2개(즉시 실행), 변경 7개(interrupt). 사용자는 데이터 탐색 시에는 끊김 없이 대화하다가, 차트를 실제로 수정할 때만 확인 팝업을 봅니다.
 
-## LangGraph interrupt 메커니즘
+## LangChain interrupt 메커니즘
 
-LangGraph의 `interrupt()` 함수를 사용해 에이전트 실행을 일시 정지합니다. 에이전트 상태는 PostgreSQL 체크포인터에 저장되어, 사용자 응답 후 정확히 중단 지점에서 재개됩니다.
+LangChain의 `interrupt()` 함수를 사용해 에이전트 실행을 일시 정지합니다. 에이전트 상태는 PostgreSQL 체크포인터에 저장되어, 사용자 응답 후 정확히 중단 지점에서 재개됩니다.
 
 ```python
 # add_indicator_tool 내부
@@ -60,7 +60,7 @@ def add_indicator(symbols: list[str]) -> str:
 ```mermaid
 sequenceDiagram
     participant Agent as Indicator Manager
-    participant LG as LangGraph Runtime
+    participant LG as LangChain Runtime
     participant CP as PostgreSQL Checkpointer
     participant FE as 프론트엔드
     participant User as 사용자
@@ -139,7 +139,7 @@ add_indicator(["삼성전자", "SK하이닉스"])  # interrupt 1번만 발생
 
 interrupt 상태를 안정적으로 저장/복원하는 것은 간단하지 않습니다.
 
-LangGraph의 PostgreSQL checkpointer는 interrupt 발생 시 전체 `GraphState`를 JSON으로 직렬화하여 저장합니다. 여기에는 메시지 히스토리, 인용 데이터, 시각화 커맨드, 현재 실행 중인 노드 정보가 모두 포함됩니다.
+LangChain의 PostgreSQL checkpointer는 interrupt 발생 시 전체 `GraphState`를 JSON으로 직렬화하여 저장합니다. 여기에는 메시지 히스토리, 인용 데이터, 시각화 커맨드, 현재 실행 중인 노드 정보가 모두 포함됩니다.
 
 ```mermaid
 flowchart TB

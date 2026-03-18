@@ -385,7 +385,7 @@ export function FingooHero({
           fill="#999"
           textAnchor="middle"
         >
-          LangGraph multi-agent · Socket.io streaming · gamification
+          LangChain multi-agent · Socket.io streaming · gamification
         </motion.text>
       </svg>
     </motion.div>

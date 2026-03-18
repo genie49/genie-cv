@@ -12,7 +12,7 @@
 | 모노레포 | Bun workspace |
 | 프론트엔드 | Vite + React + React Router + Tailwind CSS |
 | 백엔드 | ElysiaJS |
-| AI | LangChain.js + LangGraph + Grok 4.1 |
+| AI | LangChain.js + LangChain + Grok 4.1 |
 | RAG | LanceDB + Gemini Embedding |
 | 공유 타입 | packages/shared |
 | 배포 | Railway (프론트/백 각각 별도 서비스) |
@@ -56,7 +56,7 @@ packages/server/src/
 │   └── dto/
 │       └── chat.dto.ts         # 요청/응답 DTO
 ├── agent/                      # LangChain 에이전트 오케스트레이션
-│   ├── graph.ts                # LangGraph 정의
+│   ├── graph.ts                # LangChain 정의
 │   ├── prompts/
 │   │   └── system.prompt.ts    # 시스템 프롬프트
 │   └── tools/
@@ -139,7 +139,7 @@ packages/client/src/
 │   │   └── notes/              # 개발 노트별 커스텀 React+SVG
 │   │       ├── RagPipelineArch.tsx
 │   │       ├── SseStreamingArch.tsx
-│   │       └── LangGraphAgentArch.tsx
+│   │       └── LangChainAgentArch.tsx
 │   └── ui/                     # 공통 UI 컴포넌트
 ├── hooks/
 │   └── useChat.ts              # SSE 스트리밍 + 상태 관리
@@ -214,7 +214,7 @@ data/
 │   └── notes/                 # 개발 노트
 │       ├── rag-pipeline.md
 │       ├── sse-streaming.md
-│       └── langgraph-agent.md
+│       └── langchain-agent.md
 └── architectures/             # Mermaid 아키텍처 파일 (.mmd)
     ├── projects/              # 프로젝트별 대표 아키텍처
     │   ├── ai-portfolio-chatbot.mmd
@@ -222,7 +222,7 @@ data/
     └── notes/                 # 개발 노트별 아키텍처
         ├── rag-pipeline.mmd
         ├── sse-streaming.mmd
-        └── langgraph-agent.mmd
+        └── langchain-agent.mmd
 ```
 
 ### 프로젝트 아키텍처 다이어그램

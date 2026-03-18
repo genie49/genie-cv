@@ -1,4 +1,4 @@
-# LangGraph ReAct 에이전트와 방어적 운영 설계
+# LangChain ReAct 에이전트와 방어적 운영 설계
 
 16줄의 코드로 구성된 LangChain v1 ReAct 에이전트가 어떻게 조건부 도구 호출, rate limiting, 에러 분류를 통해 프로덕션 환경에서 안정적으로 동작하는지 정리합니다.
 
@@ -52,7 +52,7 @@ export const agent = createAgent({
 });
 ```
 
-LangChain v1의 `createAgent`가 ReAct 루프(추론 → 행동 → 관찰 → 추론...)를 자동으로 구성합니다. 기존 `createReactAgent`(LangGraph prebuilt)를 대체하는 새 표준 API로, `SystemMessage` 래핑 없이 `systemPrompt` 문자열을 직접 전달하는 더 간결한 인터페이스를 제공합니다.
+LangChain v1의 `createAgent`가 ReAct 루프(추론 → 행동 → 관찰 → 추론...)를 자동으로 구성합니다. 기존 `createReactAgent`(LangChain prebuilt)를 대체하는 새 표준 API로, `SystemMessage` 래핑 없이 `systemPrompt` 문자열을 직접 전달하는 더 간결한 인터페이스를 제공합니다.
 
 ```mermaid
 flowchart TB
@@ -83,7 +83,7 @@ flowchart TB
 |---|---|
 | "추측하지 마세요" | Hallucination 방지 — 모르면 모른다고 답변 |
 | "인용 번호로 참조" | 출처 추적 가능성 확보 — 신뢰도 향상 |
-| "기술 용어는 원문 유지" | "LangGraph"를 "랭그래프"로 번역하지 않도록 |
+| "기술 용어는 원문 유지" | "LangChain"를 "랭그래프"로 번역하지 않도록 |
 | "인사말에는 RAG 없이" | 불필요한 도구 호출 방지 — 비용 절감 |
 
 마지막 규칙이 특히 중요합니다. "안녕하세요"에 RAG를 호출하면 임베딩 API + 벡터 검색 비용이 낭비됩니다. 시스템 프롬프트에서 명시하면 LLM이 도구 호출을 건너뛰도록 학습합니다.
@@ -114,7 +114,7 @@ export const ragSearchTool = tool(
 
 검색 결과를 LLM에 전달할 때 `[1] (source)\n내용` 포맷을 사용합니다. LLM이 답변에서 `[1]`로 인용하면, 스트리밍 완료 후 클라이언트에서 클릭 가능한 링크로 변환됩니다.
 
-`lastSearchResults`를 모듈 스코프 변수로 저장하는 이유: LangGraph의 도구 실행과 최종 응답 사이에 검색 결과를 전달할 수 있는 채널이 없기 때문입니다. 요청 시작 시 `clearLastSearchResults()`로 초기화하고, 응답 완료 후 다시 정리합니다.
+`lastSearchResults`를 모듈 스코프 변수로 저장하는 이유: LangChain의 도구 실행과 최종 응답 사이에 검색 결과를 전달할 수 있는 채널이 없기 때문입니다. 요청 시작 시 `clearLastSearchResults()`로 초기화하고, 응답 완료 후 다시 정리합니다.
 
 ## 방어적 운영: IP 기반 Rate Limiting
 
