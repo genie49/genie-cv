@@ -62,12 +62,11 @@ FingooHero/KimproHero와 동일한 SVG 인터랙티브 패턴. 횡방향 음성 
 | 음성 인식 | 240 | 70 | 100 | 50 | 음성 인식 | Sherpa-ONNX STT | blue |
 | 명령 처리 | 365 | 70 | 100 | 50 | 명령 처리 | Koog Agent | emerald |
 | 음성 응답 | 490 | 70 | 100 | 50 | 음성 응답 | Supertonic 2 TTS | amber |
-| 사용자(응답) | 555 | 90 | 70 | 48 | 사용자 | (없음) | violet |
 | 전화·문자 | 315 | 170 | 85 | 34 | 전화 · 문자 | (없음) | zinc |
 | 일정·알림 | 415 | 170 | 85 | 34 | 일정 · 알림 | Google Calendar | zinc |
 | 앱 제어 | 515 | 170 | 85 | 34 | 앱 제어 | Accessibility | zinc |
 
-> Note: 사용자 노드가 좌(입력)·우(응답) 두 곳에 있어 파이프라인의 입출력 흐름을 명확히 표현. 또는 우측 사용자 노드를 생략하고 음성 응답에서 왼쪽 사용자로 돌아가는 점선 화살표로 대체해도 됨 — 구현 시 판단.
+> Note: 우측 사용자 노드는 노드 겹침 문제로 제거. 음성 응답이 파이프라인 끝점.
 
 ### 화살표
 
@@ -161,13 +160,28 @@ if (slug === "fingoo") return <FingooHero className={className} />;
 
 ---
 
-## 5. 프로젝트 순서
+## 5. 데이터 업데이트
+
+### profile.json techStack 수정
+
+```diff
+- "AI/ML": ["LangChain", "RAG", "Gemini", "Grok", "HuggingFace", "Claude"],
++ "AI/ML": ["LangChain", "RAG", "Gemini", "Grok", "HuggingFace", "Claude", "Sherpa-ONNX"],
+
++ "MOBILE": ["Kotlin", "Jetpack Compose", "Android"],
+```
+
+> Note: Sherpa-ONNX를 AI/ML에 추가, 새로운 MOBILE 카테고리 신설.
+
+---
+
+## 6. 프로젝트 순서
 
 projects.json 배열 순서: **kimpro → hey-bara → fingoo → ai-portfolio-chatbot**
 
 ---
 
-## 6. Citation 매핑 및 임베딩
+## 7. Citation 매핑 및 임베딩
 
 기존 동적 매핑 로직이 자동 처리. 추가 코드 수정 불필요.
 `bun run embed` 재실행으로 모든 새 콘텐츠 자동 인덱싱.
