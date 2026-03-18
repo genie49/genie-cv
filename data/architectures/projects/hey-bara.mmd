@@ -1,0 +1,44 @@
+graph LR
+    User[사용자] -->|"헤이 바라"| WakeWord[Sherpa-ONNX KWS]
+    WakeWord --> STT[Sherpa-ONNX Zipformer Korean]
+    STT --> Agent[Koog AIAgent — 14 Tools]
+    Agent --> TTS[Supertonic 2 TTS]
+    TTS --> User
+
+    subgraph 음성 파이프라인
+        WakeWord
+        STT
+        TTS
+    end
+
+    subgraph AI Agent
+        Agent --> Contacts[search_contacts]
+        Agent --> Call[make_call]
+        Agent --> SMS[send_sms]
+        Agent --> Kakao[send_kakao]
+        Agent --> Calendar[Calendar CRUD]
+        Agent --> Tasks[Tasks CRUD]
+        Agent --> Notifications[list_notifications]
+        Agent --> AppControl[control_app]
+    end
+
+    subgraph LLM
+        Agent --> Gemini[Gemini API — Cloud]
+        Agent --> Gemma[Gemma 3n E2B — On-Device]
+    end
+
+    subgraph Device API
+        Call --> Phone[전화 Intent]
+        SMS --> SmsApi[SmsManager]
+        Kakao --> NotiListener[NotificationListener RemoteInput]
+        Notifications --> NotiListener
+        Calendar --> GCalAPI[Google Calendar REST API]
+        Tasks --> GTasksAPI[Google Tasks REST API]
+        AppControl --> A11y[AccessibilityService]
+        Contacts --> ContentResolver[ContentResolver]
+    end
+
+    subgraph 데이터
+        Agent --> RoomDB[(Room DB — 대화 히스토리)]
+        Agent --> SecPref[SecurePreferences]
+    end
