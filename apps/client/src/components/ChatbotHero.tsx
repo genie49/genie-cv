@@ -77,20 +77,20 @@ function Node({
         y={y}
         width={w}
         height={h}
-        rx={6}
+        rx={4}
         fill={c.fill}
         stroke={c.stroke}
         strokeWidth={1.2}
       />
       <text
         x={x + w / 2}
-        y={sub ? y + h / 2 - 4 : y + h / 2 + 1}
+        y={sub ? y + h / 2 - 5 : y + h / 2 + 1}
         textAnchor="middle"
         dominantBaseline="middle"
         fill={c.text}
-        fontSize={9}
+        fontSize={10}
         fontWeight={600}
-        fontFamily="'Outfit', sans-serif"
+        fontFamily="monospace"
       >
         {label}
       </text>
@@ -101,9 +101,9 @@ function Node({
           textAnchor="middle"
           dominantBaseline="middle"
           fill={c.sub}
-          fontSize={6.5}
-          fontFamily="sans-serif"
-          opacity={0.8}
+          fontSize={7}
+          fontFamily="monospace"
+          opacity={0.85}
         >
           {sub}
         </text>
@@ -124,14 +124,14 @@ function Arrow({
   return (
     <motion.polyline
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={{ opacity: dashed ? 0.5 : 1 }}
       transition={{ delay, duration: 0.25 }}
       points={points}
       fill="none"
-      stroke="#a1a1aa"
-      strokeWidth={1}
-      strokeDasharray={dashed ? "3,2" : undefined}
-      markerEnd="url(#arrowhead)"
+      stroke="#ccc"
+      strokeWidth={1.2}
+      strokeDasharray={dashed ? "4,3" : undefined}
+      markerEnd="url(#chatbot-arrow)"
     />
   );
 }
@@ -243,7 +243,7 @@ export function ChatbotHero({
       transition={{ duration: 0.4, delay: 0.1 }}
       className={`relative w-full overflow-hidden rounded-xl border border-zinc-200 bg-gradient-to-br from-slate-50 via-emerald-50/30 to-cyan-50/20 ${className ?? "h-[300px]"}`}
     >
-      {/* Dot grid */}
+      {/* Grid background */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#d4d4d8_0.8px,transparent_0.8px)] bg-[size:16px_16px] opacity-40" />
 
       {/* Title */}
@@ -253,11 +253,11 @@ export function ChatbotHero({
         transition={{ delay: 0.2 }}
         className="absolute left-5 top-4 z-10 flex items-center gap-2"
       >
-        <span className="font-['Outfit'] text-[11px] font-bold tracking-wide text-zinc-800">
-          CHATBOT RAG PIPELINE
+        <span className="font-mono text-[11px] font-bold tracking-wide text-zinc-700">
+          AI PORTFOLIO CHATBOT
         </span>
-        <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[8px] font-medium text-emerald-700">
-          16-line Agent
+        <span className="font-mono text-[9px] text-zinc-400">
+          [ SERVICE_FLOW ]
         </span>
       </motion.div>
 
@@ -271,7 +271,7 @@ export function ChatbotHero({
         </button>
       )}
 
-      {/* Architecture Diagram */}
+      {/* Service Flow Diagram */}
       <svg
         ref={svgRef}
         className={`absolute inset-0 h-full w-full ${interactive ? "cursor-grab touch-none active:cursor-grabbing" : ""}`}
@@ -284,248 +284,103 @@ export function ChatbotHero({
       >
         <defs>
           <marker
-            id="chatbot-arrowhead"
-            markerWidth="6"
-            markerHeight="4"
-            refX="5"
-            refY="2"
+            id="chatbot-arrow"
+            markerWidth="10"
+            markerHeight="10"
+            refX="9"
+            refY="3"
             orient="auto"
           >
-            <polygon points="0,0 6,2 0,4" fill="#a1a1aa" />
+            <polygon points="0,0 0,6 9,3" fill="#ccc" />
           </marker>
         </defs>
 
-        {/* ── Layer 1: Input ── */}
+        {/* ── 방문자 (left) ── */}
         <Node
-          x={20}
-          y={108}
+          x={30}
+          y={112}
           w={80}
-          h={36}
-          label="사용자 질문"
-          sub="React + assistant-ui"
+          h={48}
+          label="방문자"
           color="zinc"
           delay={FLOW_DELAY}
         />
 
-        {/* Arrow: Input → Rate Limiter */}
-        <Arrow points="100,126 130,126" delay={FLOW_DELAY * 2} />
+        {/* Arrows: 방문자 → Services */}
+        <Arrow points="110,128 185,90" delay={FLOW_DELAY * 2} />
+        <Arrow points="110,136 185,148" delay={FLOW_DELAY * 2} />
+        <Arrow points="110,144 185,208" delay={FLOW_DELAY * 2} />
 
-        {/* ── Layer 2: Rate Limiter ── */}
+        {/* ── Services (center) ── */}
         <Node
-          x={135}
-          y={108}
-          w={75}
-          h={36}
-          label="Rate Limiter"
-          sub="20/min · IP 기반"
-          color="rose"
+          x={185}
+          y={62}
+          w={210}
+          h={50}
+          label="AI 채팅"
+          sub="질문 → 실시간 스트리밍 답변 · 인용 링크"
+          color="emerald"
           delay={FLOW_DELAY * 3}
         />
-
-        {/* Arrow: Rate Limiter → ReAct Agent */}
-        <Arrow points="210,126 240,126" delay={FLOW_DELAY * 4} />
-
-        {/* ── Layer 3: ReAct Agent (central, larger) ── */}
         <Node
-          x={245}
-          y={96}
-          w={110}
-          h={60}
-          label="ReAct Agent"
-          sub="Grok 4.1 · 조건부 판단"
-          color="emerald"
+          x={185}
+          y={126}
+          w={210}
+          h={50}
+          label="프로젝트 포트폴리오"
+          sub="히어로 다이어그램 · 개발 노트 · 간트 차트"
+          color="blue"
+          delay={FLOW_DELAY * 4}
+        />
+        <Node
+          x={185}
+          y={188}
+          w={210}
+          h={50}
+          label="이력서 · Q&A"
+          sub="경력 · 학력 · 기술 스택 · 자주 묻는 질문"
+          color="amber"
           delay={FLOW_DELAY * 5}
         />
 
-        {/* ── Branch: Agent decides ── */}
-
-        {/* Arrow: Agent → RAG (down) */}
-        <Arrow points="300,156 300,180" delay={FLOW_DELAY * 6} />
-
-        {/* Arrow: Agent → Direct Response (up, when no RAG needed) */}
-        <Arrow points="300,96 300,72 370,72" delay={FLOW_DELAY * 6} dashed />
-
-        {/* Label: 인사말 → 직접 응답 */}
-        <motion.text
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.6 }}
-          transition={{ delay: FLOW_DELAY * 7 }}
-          x={335}
-          y={66}
-          fontSize={6}
-          fill="#71717a"
-          textAnchor="middle"
-          fontFamily="sans-serif"
-        >
-          인사말 → 직접 응답
-        </motion.text>
-
-        {/* ── Layer 4: RAG Search ── */}
+        {/* ── Data Sources (right) ── */}
         <Node
-          x={250}
-          y={184}
-          w={100}
-          h={40}
-          label="rag_search"
-          sub="벡터 유사도 검색 · Top-5"
+          x={480}
+          y={68}
+          w={120}
+          h={34}
+          label="LanceDB RAG"
           color="cyan"
-          delay={FLOW_DELAY * 7}
-        />
-
-        {/* Arrow: RAG → Gemini Embedding */}
-        <Arrow points="250,204 200,204 200,220 130,220" delay={FLOW_DELAY * 8} />
-
-        {/* ── Gemini Embedding ── */}
-        <Node
-          x={40}
-          y={196}
-          w={88}
-          h={36}
-          label="Gemini Embedding"
-          sub="taskType 분리"
-          color="amber"
-          delay={FLOW_DELAY * 9}
-        />
-
-        {/* Arrow: Gemini → LanceDB */}
-        <Arrow points="84,196 84,178" delay={FLOW_DELAY * 10} />
-
-        {/* ── LanceDB ── */}
-        <Node
-          x={40}
-          y={154}
-          w={88}
-          h={24}
-          label="LanceDB"
-          sub=""
-          color="amber"
-          delay={FLOW_DELAY * 10}
-        />
-
-        {/* Label: 파일 기반 · 서버 불필요 */}
-        <motion.text
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          transition={{ delay: FLOW_DELAY * 11 }}
-          x={84}
-          y={150}
-          fontSize={6}
-          fill="#92400e"
-          textAnchor="middle"
-          fontFamily="sans-serif"
-        >
-          파일 기반 · 서버 불필요
-        </motion.text>
-
-        {/* Arrow: RAG result back to Agent */}
-        <Arrow points="350,204 370,204 370,156 355,156" delay={FLOW_DELAY * 11} dashed />
-
-        {/* ── Layer 5: SSE Streaming ── */}
-        {/* Arrow: Agent → Streaming */}
-        <Arrow points="355,126 405,126" delay={FLOW_DELAY * 12} />
-
-        <Node
-          x={410}
-          y={100}
-          w={100}
-          h={52}
-          label="SSE Streaming"
-          sub="NDJSON · ReadableStream"
-          color="blue"
-          delay={FLOW_DELAY * 12}
-        />
-
-        {/* ── Layer 6: Output events ── */}
-        <Arrow points="510,110 540,82" delay={FLOW_DELAY * 13} />
-        <Arrow points="510,126 540,126" delay={FLOW_DELAY * 13} />
-        <Arrow points="510,140 540,166" delay={FLOW_DELAY * 13} />
-
-        <Node
-          x={545}
-          y={64}
-          w={80}
-          h={28}
-          label="token"
-          sub="텍스트 청크"
-          color="blue"
-          delay={FLOW_DELAY * 14}
+          delay={FLOW_DELAY * 6}
         />
         <Node
-          x={545}
-          y={112}
-          w={80}
-          h={28}
-          label="citations"
-          sub="인용 링크 매핑"
-          color="emerald"
-          delay={FLOW_DELAY * 14.5}
-        />
-        <Node
-          x={545}
-          y={156}
-          w={80}
-          h={28}
-          label="error"
-          sub="에러 분류 메시지"
+          x={480}
+          y={128}
+          w={120}
+          h={34}
+          label="Grok 4.1 LLM"
           color="rose"
-          delay={FLOW_DELAY * 15}
+          delay={FLOW_DELAY * 6.5}
         />
 
-        {/* ── Bottom: info bar ── */}
-        <motion.g
+        {/* Arrows: Data → AI 채팅 (dashed) */}
+        <Arrow points="480,85 395,85" delay={FLOW_DELAY * 7} dashed />
+        <Arrow points="480,145 395,92" delay={FLOW_DELAY * 7} dashed />
+
+        {/* ── Bottom note ── */}
+        <motion.text
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: FLOW_DELAY * 16 }}
+          transition={{ delay: FLOW_DELAY * 8, duration: 0.4 }}
+          x={320}
+          y={260}
+          fontFamily="monospace"
+          fontSize={7}
+          fill="#999"
+          textAnchor="middle"
         >
-          <rect
-            x={160}
-            y={248}
-            width={320}
-            height={24}
-            rx={12}
-            fill="white"
-            stroke="#e4e4e7"
-            strokeWidth={0.8}
-            opacity={0.9}
-          />
-          <circle cx={178} cy={260} r={3} fill="#10b981" />
-          <text
-            x={190}
-            y={261}
-            fontSize={7}
-            fill="#71717a"
-            fontFamily="'JetBrains Mono', monospace"
-            dominantBaseline="middle"
-          >
-            createAgent · 1 tool · Gemini + LanceDB + Grok 4.1
-          </text>
-        </motion.g>
-
-        {/* ── Citation feedback: source → route auto-mapping ── */}
-        <motion.g
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          transition={{ delay: FLOW_DELAY * 17, duration: 0.5 }}
-        >
-          <path
-            d="M 585,140 Q 610,210 560,230 L 100,230 Q 60,230 60,200 L 60,178"
-            fill="none"
-            stroke="#0891b2"
-            strokeWidth={0.8}
-            strokeDasharray="4,3"
-            markerEnd="url(#chatbot-arrowhead)"
-          />
-          <text
-            x={330}
-            y={238}
-            fontSize={6}
-            fill="#0891b2"
-            textAnchor="middle"
-            fontFamily="sans-serif"
-          >
-            소스 → 내부 라우트 자동 매핑
-          </text>
-        </motion.g>
+          LangChain ReAct agent · SSE streaming · LanceDB + Gemini Embedding
+        </motion.text>
       </svg>
     </motion.div>
   );

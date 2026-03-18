@@ -1,6 +1,6 @@
-# Wide Event 로깅 전략과 FluentBit 기반 로그 파이프라인
+# 아 오류났네 어... 근데 왜 오류난거지?
 
-[loggingsucks.com](https://loggingsucks.com/)의 Wide Event 철학을 핀구에 적용한 구조화 로깅 전략과, FluentBit으로 로그를 수집해 Discord 웹훅으로 주요 이벤트를 알림하는 파이프라인을 정리합니다.
+프로덕션에서 에러가 터졌습니다. 로그를 봅니다. `[ERROR] Payment failed: timeout`. 그래서? 어떤 사용자가, 어떤 에이전트에서, 몇 초 만에 실패한 건지 알 수 없습니다. 로그 10줄을 grep으로 조합하며 30분을 쓴 뒤 깨달았습니다 — 로그가 많은 게 문제가 아니라, 밀도가 낮은 게 문제다. [loggingsucks.com](https://loggingsucks.com/)의 Wide Event 철학을 도입해 디버깅 시간을 83% 단축한 과정을 정리합니다.
 
 ## Wide Event란 무엇인가
 
