@@ -131,12 +131,12 @@ function Arrow({
       stroke="#ccc"
       strokeWidth={1.2}
       strokeDasharray={dashed ? "4,3" : undefined}
-      markerEnd="url(#chatbot-arrow)"
+      markerEnd="url(#bonda-arrow)"
     />
   );
 }
 
-export function ChatbotHero({
+export function BondaHero({
   className,
   interactive,
 }: {
@@ -254,7 +254,7 @@ export function ChatbotHero({
         className="absolute left-5 top-4 z-10 flex items-center gap-2"
       >
         <span className="font-mono text-[11px] font-bold tracking-wide text-zinc-700">
-          AI PORTFOLIO CHATBOT
+          BONDA
         </span>
       </motion.div>
 
@@ -268,7 +268,7 @@ export function ChatbotHero({
         </button>
       )}
 
-      {/* Service Flow Diagram */}
+      {/* RAG Pipeline Diagram */}
       <svg
         ref={svgRef}
         className={`absolute inset-0 h-full w-full ${interactive ? "cursor-grab touch-none active:cursor-grabbing" : ""}`}
@@ -281,7 +281,7 @@ export function ChatbotHero({
       >
         <defs>
           <marker
-            id="chatbot-arrow"
+            id="bonda-arrow"
             markerWidth="10"
             markerHeight="10"
             refX="9"
@@ -292,91 +292,184 @@ export function ChatbotHero({
           </marker>
         </defs>
 
-        {/* ── 방문자 (left) ── */}
+        {/* ── Row 1: Preprocessing Pipeline ── */}
+
+        {/* PDF 문서 */}
         <Node
           x={30}
-          y={112}
-          w={80}
-          h={48}
-          label="방문자"
+          y={45}
+          w={72}
+          h={36}
+          label="PDF 문서"
           color="zinc"
           delay={FLOW_DELAY}
         />
 
-        {/* Arrows: 방문자 → Services */}
-        <Arrow points="110,128 185,90" delay={FLOW_DELAY * 2} />
-        <Arrow points="110,136 185,148" delay={FLOW_DELAY * 2} />
-        <Arrow points="110,144 185,208" delay={FLOW_DELAY * 2} />
+        {/* Arrow: PDF → PyMuPDF/OCR */}
+        <Arrow points="102,63 120,63" delay={FLOW_DELAY * 2} />
 
-        {/* ── Services (center) ── */}
+        {/* PyMuPDF / PaddleOCR */}
         <Node
-          x={185}
-          y={62}
-          w={210}
-          h={50}
-          label="AI 채팅"
-          sub="질문 → 실시간 스트리밍 답변 · 인용 링크"
-          color="emerald"
+          x={122}
+          y={40}
+          w={100}
+          h={46}
+          label="PyMuPDF"
+          sub="PaddleOCR"
+          color="amber"
+          delay={FLOW_DELAY * 2}
+        />
+
+        {/* Arrow: OCR → Chunking */}
+        <Arrow points="222,63 240,63" delay={FLOW_DELAY * 3} />
+
+        {/* Chunking */}
+        <Node
+          x={242}
+          y={45}
+          w={80}
+          h={36}
+          label="Chunking"
+          color="blue"
           delay={FLOW_DELAY * 3}
         />
+
+        {/* Arrow: Chunking → Embedding */}
+        <Arrow points="322,63 340,63" delay={FLOW_DELAY * 4} />
+
+        {/* Gemini Embedding */}
         <Node
-          x={185}
-          y={126}
-          w={210}
-          h={50}
-          label="프로젝트 포트폴리오"
-          sub="히어로 다이어그램 · 개발 노트 · 간트 차트"
+          x={342}
+          y={40}
+          w={100}
+          h={46}
+          label="Embedding"
+          sub="Gemini"
           color="blue"
           delay={FLOW_DELAY * 4}
         />
+
+        {/* Arrow: Embedding → Qdrant */}
+        <Arrow points="442,63 462,63" delay={FLOW_DELAY * 5} />
+
+        {/* Qdrant */}
         <Node
-          x={185}
-          y={188}
-          w={210}
-          h={50}
-          label="이력서 · Q&A"
-          sub="경력 · 학력 · 기술 스택 · 자주 묻는 질문"
-          color="amber"
+          x={464}
+          y={40}
+          w={80}
+          h={46}
+          label="Qdrant"
+          sub="Vector DB"
+          color="cyan"
           delay={FLOW_DELAY * 5}
         />
 
-        {/* ── Data Sources (right) ── */}
+        {/* ── Row 2: Agent + Tools ── */}
+
+        {/* 사용자 */}
         <Node
-          x={480}
-          y={68}
-          w={120}
-          h={34}
-          label="LanceDB RAG"
-          color="cyan"
+          x={30}
+          y={140}
+          w={72}
+          h={36}
+          label="사용자"
+          color="zinc"
           delay={FLOW_DELAY * 6}
         />
+
+        {/* Arrow: 사용자 → AI Agent */}
+        <Arrow points="102,158 150,158" delay={FLOW_DELAY * 7} />
+
+        {/* AI Agent */}
         <Node
-          x={480}
-          y={128}
+          x={152}
+          y={130}
           w={120}
-          h={34}
-          label="Grok 4.1 LLM"
-          color="rose"
-          delay={FLOW_DELAY * 6.5}
+          h={56}
+          label="AI Agent"
+          sub="Claude / Gemini"
+          color="emerald"
+          delay={FLOW_DELAY * 7}
         />
 
-        {/* Arrows: Data → AI 채팅 (dashed) */}
-        <Arrow points="480,85 395,85" delay={FLOW_DELAY * 7} dashed />
-        <Arrow points="480,145 395,92" delay={FLOW_DELAY * 7} dashed />
+        {/* Arrow: Agent → 4개 도구 */}
+        <Arrow points="272,158 320,158" delay={FLOW_DELAY * 8} />
+
+        {/* 4개 도구 */}
+        <Node
+          x={322}
+          y={120}
+          w={120}
+          h={34}
+          label="문서 검색"
+          color="rose"
+          delay={FLOW_DELAY * 8}
+        />
+        <Node
+          x={322}
+          y={160}
+          w={120}
+          h={34}
+          label="이미지 검색"
+          color="rose"
+          delay={FLOW_DELAY * 8.5}
+        />
+        <Node
+          x={464}
+          y={120}
+          w={120}
+          h={34}
+          label="표 검색"
+          color="rose"
+          delay={FLOW_DELAY * 9}
+        />
+        <Node
+          x={464}
+          y={160}
+          w={120}
+          h={34}
+          label="웹 검색"
+          color="rose"
+          delay={FLOW_DELAY * 9.5}
+        />
+
+        {/* ── Connections: Qdrant → Tools (dashed) ── */}
+        <Arrow points="504,86 504,120" delay={FLOW_DELAY * 10} dashed />
+        <Arrow points="504,86 382,120" delay={FLOW_DELAY * 10} dashed />
+        <Arrow points="504,86 382,160" delay={FLOW_DELAY * 10} dashed />
+
+        {/* ── Row 3: SSE Streaming back to user ── */}
+
+        {/* Arrow: Agent → SSE 스트리밍 */}
+        <Arrow points="212,186 212,216" delay={FLOW_DELAY * 11} />
+
+        {/* SSE 스트리밍 */}
+        <Node
+          x={152}
+          y={210}
+          w={120}
+          h={34}
+          label="SSE 스트리밍"
+          color="emerald"
+          delay={FLOW_DELAY * 11}
+        />
+
+        {/* Arrow: SSE → 사용자 (dashed, back) */}
+        <Arrow points="152,227 102,170" delay={FLOW_DELAY * 12} dashed />
 
         {/* ── Bottom note ── */}
         <motion.text
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: FLOW_DELAY * 8, duration: 0.4 }}
+          transition={{ delay: FLOW_DELAY * 13, duration: 0.4 }}
           x={320}
-          y={260}
+          y={264}
           fontFamily="monospace"
           fontSize={7}
           fill="#999"
           textAnchor="middle"
         >
-          LangChain ReAct agent · SSE streaming · LanceDB + Gemini Embedding
+          End-to-End RAG · Dual Vector Image Search · Multi-Model Agent
         </motion.text>
       </svg>
     </motion.div>

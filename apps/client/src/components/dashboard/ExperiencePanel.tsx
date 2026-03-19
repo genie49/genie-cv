@@ -20,7 +20,7 @@ const BAR_COLORS: Record<string, string> = {
   헬프터: "bg-amber-600",
   "대한민국 육군": "bg-zinc-500",
 };
-const DEFAULT_BAR_COLOR = "bg-zinc-800";
+const DEFAULT_BAR_COLOR = "bg-toss-heading";
 
 // 간트 차트에서 같은 행에 표시할 회사 그룹 (key: 행 라벨, values: 포함할 회사들)
 const ROW_GROUPS: Record<string, string[]> = {
@@ -41,8 +41,27 @@ function parseBar(period: string) {
 
 const YEARS = [2021, 2022, 2023, 2024, 2025, 2026];
 
-export default function ExperiencePanel() {
+export default function ExperiencePanel({ bare }: { bare?: boolean }) {
   const [flipped, setFlipped] = useState(false);
+
+  if (bare) {
+    return (
+      <div className="flex flex-col gap-3">
+        {profile.experience.map((exp) => (
+          <div key={`${exp.company}-${exp.period}`} className="flex items-start justify-between">
+            <div>
+              <p className="text-[13px] font-medium text-toss-heading">{exp.title}</p>
+              <p className="text-xs text-toss-body">{exp.company}</p>
+            </div>
+            <div className="flex shrink-0 flex-col items-end gap-1">
+              <span className="text-xs text-toss-sub">{exp.period}</span>
+              <span className="rounded bg-toss-bg px-1.5 py-0.5 text-[10px] text-toss-sub">{exp.type}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -57,14 +76,14 @@ export default function ExperiencePanel() {
       >
         {/* Front — List */}
         <div
-          className="rounded-xl border border-zinc-100 bg-zinc-50 p-6"
+          className="rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-6"
           style={{ backfaceVisibility: "hidden" }}
         >
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-['Outfit'] text-base font-bold text-black">
+            <h2 className="font-['Outfit'] text-base font-bold text-toss-heading">
               Experience
             </h2>
-            <span className="rounded-md bg-zinc-200 px-2.5 py-0.5 text-[10px] font-medium text-zinc-500">
+            <span className="rounded-md bg-toss-bg px-2.5 py-0.5 text-[10px] font-medium text-toss-sub">
               클릭하여 타임라인 보기
             </span>
           </div>
@@ -75,14 +94,14 @@ export default function ExperiencePanel() {
                 className="flex items-start justify-between"
               >
                 <div>
-                  <p className="text-[13px] font-medium text-black">
+                  <p className="text-[13px] font-medium text-toss-heading">
                     {exp.title}
                   </p>
-                  <p className="text-xs text-zinc-500">{exp.company}</p>
+                  <p className="text-xs text-toss-body">{exp.company}</p>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-1">
-                  <span className="text-xs text-zinc-400">{exp.period}</span>
-                  <span className="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] text-zinc-500">
+                  <span className="text-xs text-toss-sub">{exp.period}</span>
+                  <span className="rounded bg-toss-bg px-1.5 py-0.5 text-[10px] text-toss-sub">
                     {exp.type}
                   </span>
                 </div>
@@ -93,14 +112,14 @@ export default function ExperiencePanel() {
 
         {/* Back — Gantt */}
         <div
-          className="absolute inset-0 rounded-xl border border-zinc-100 bg-zinc-50 p-6"
+          className="absolute inset-0 rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-6"
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-['Outfit'] text-base font-bold text-black">
+            <h2 className="font-['Outfit'] text-base font-bold text-toss-heading">
               Experience
             </h2>
-            <span className="rounded-md bg-zinc-200 px-2.5 py-0.5 text-[10px] font-medium text-zinc-500">
+            <span className="rounded-md bg-toss-bg px-2.5 py-0.5 text-[10px] font-medium text-toss-sub">
               클릭하여 목록 보기
             </span>
           </div>
@@ -111,7 +130,7 @@ export default function ExperiencePanel() {
               {YEARS.map((y) => (
                 <span
                   key={y}
-                  className="flex-1 text-[10px] font-medium text-zinc-400"
+                  className="flex-1 text-[10px] font-medium text-toss-sub"
                 >
                   {y}
                 </span>
@@ -150,14 +169,14 @@ export default function ExperiencePanel() {
               }
               return [...grouped.entries()].map(([label, entries]) => (
                 <div key={label} className="flex items-center">
-                  <span className="w-[100px] shrink-0 truncate text-[11px] font-semibold text-zinc-800">
+                  <span className="w-[100px] shrink-0 truncate text-[11px] font-semibold text-toss-heading">
                     {label}
                   </span>
-                  <div className="relative h-5 flex-1 rounded bg-zinc-100">
+                  <div className="relative h-5 flex-1 rounded bg-toss-bg">
                     {YEARS.map((y) => (
                       <div
                         key={y}
-                        className="absolute top-0 h-full w-px bg-zinc-200"
+                        className="absolute top-0 h-full w-px bg-toss-border"
                         style={{
                           left: `${(((y - 2021) * 12) / 72) * 100}%`,
                         }}
