@@ -390,13 +390,17 @@ export default function DashboardPage() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="hidden md:flex gap-5"
+        className="hidden md:flex items-stretch gap-5"
       >
-        <div className="flex-1">
-          <AboutPanel />
+        <div className="flex-1 flex">
+          <div className="flex-1 rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-6">
+            <AboutPanel bare />
+          </div>
         </div>
-        <div className="flex-1">
-          <TechStackPanel />
+        <div className="flex-1 flex">
+          <div className="flex-1">
+            <TechStackPanel />
+          </div>
         </div>
       </motion.div>
 

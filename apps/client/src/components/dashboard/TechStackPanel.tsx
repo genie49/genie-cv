@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { motion } from "motion/react";
 import profile from "@data/profile.json";
 
-const COLLAPSED_CATEGORIES = ["AI/ML", "BACKEND", "DB/MESSAGE"];
+const COLLAPSED_CATEGORIES = ["AI/ML", "BACKEND", "DB/MESSAGE", "DEVOPS/INFRA"];
 
 const allCategories = Object.entries(profile.techStack);
 const alwaysVisible = allCategories.filter(([key]) =>
@@ -28,7 +28,7 @@ export default function TechStackPanel({ bare }: { bare?: boolean }) {
   }
 
   return (
-    <div className="rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-6">
+    <div className="h-full rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-6">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="font-['Outfit'] text-base font-bold text-toss-heading">
           Tech Stack

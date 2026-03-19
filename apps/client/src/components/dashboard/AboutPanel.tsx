@@ -13,11 +13,11 @@ function renderBold(text: string) {
   );
 }
 
-export default function AboutPanel() {
+export default function AboutPanel({ bare }: { bare?: boolean }) {
   const paragraphs = profile.about.split("\n\n");
 
-  return (
-    <div className="rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-6">
+  const content = (
+    <>
       <h2 className="mb-3 font-['Outfit'] text-base font-bold text-toss-heading">
         About
       </h2>
@@ -26,6 +26,14 @@ export default function AboutPanel() {
           <p key={i}>{renderBold(p)}</p>
         ))}
       </div>
+    </>
+  );
+
+  if (bare) return content;
+
+  return (
+    <div className="rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-6">
+      {content}
     </div>
   );
 }
