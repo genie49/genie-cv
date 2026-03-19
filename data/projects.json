@@ -223,5 +223,53 @@
         "summary": "16줄의 ReAct 에이전트 구성, 조건부 도구 호출, IP 기반 rate limiting, 에러 분류 시스템 설계"
       }
     ]
+  },
+  {
+    "slug": "bonda",
+    "title": "Bonda — 문화재 발굴 보고서 AI 검색 시스템",
+    "description": "한국 고고학 발굴보고서와 UNESCO 보존보고서를 대상으로 한 RAG 기반 AI 검색 시스템. PDF 파싱, OCR, 듀얼 벡터 이미지 검색, 멀티모델 에이전트를 통해 문화재 데이터에 대한 시맨틱 검색을 제공한다.",
+    "tags": ["Next.js", "FastAPI", "LangChain", "Qdrant", "PaddleOCR", "Gemini", "Claude", "GCS", "Docker"],
+    "period": "2026.02 ~",
+    "github": "https://github.com/heir-ai/bonda",
+    "features": [
+      { "title": "End-to-End RAG 파이프라인", "description": "PDF → OCR 폴백 → 청킹 → 벡터화 → 시맨틱 검색의 전체 파이프라인" },
+      { "title": "듀얼 벡터 이미지 검색", "description": "시각적 유사도(512dim) + 텍스트 기반(1536dim) 이중 임베딩으로 이미지 검색" },
+      { "title": "멀티모델 AI 에이전트", "description": "Claude/Gemini 전환 가능한 에이전트 + 4개 특화 도구(문서·이미지·사전 검색)" },
+      { "title": "OCR 폴백 파이프라인", "description": "PyMuPDF 빠른 경로 + PaddleOCR 폴백 + Modal 서버리스 GPU 활용" }
+    ],
+    "notes": [
+      {
+        "id": "bonda-rag-pipeline",
+        "projectSlug": "bonda",
+        "title": "발굴보고서 PDF가 검색 가능해지기까지",
+        "date": "2026-03-19",
+        "tags": ["RAG", "Qdrant", "Embedding", "Pipeline"],
+        "summary": "PDF 파싱부터 벡터화, Qdrant 컬렉션 설계까지 End-to-End RAG 파이프라인 전체 흐름"
+      },
+      {
+        "id": "bonda-ocr-fallback",
+        "projectSlug": "bonda",
+        "title": "텍스트가 없는 PDF를 어떻게 읽을까",
+        "date": "2026-03-19",
+        "tags": ["OCR", "PaddleOCR", "Modal", "PyMuPDF"],
+        "summary": "PyMuPDF 빠른 경로와 PaddleOCR 폴백 전략, 서버리스 GPU 활용 경험"
+      },
+      {
+        "id": "bonda-image-search",
+        "projectSlug": "bonda",
+        "title": "유물 사진을 텍스트로도, 이미지로도 찾는다",
+        "date": "2026-03-19",
+        "tags": ["Image Search", "Dual Vector", "Multimodal", "Embedding"],
+        "summary": "시각적 유사도 + 텍스트 기반 듀얼 벡터 이미지 검색 설계와 Gemini Vision 연동"
+      },
+      {
+        "id": "bonda-agent-tools",
+        "projectSlug": "bonda",
+        "title": "에이전트에게 문화재 전문가의 도구를 쥐어주면",
+        "date": "2026-03-19",
+        "tags": ["Agent", "LangChain", "Claude", "Gemini", "SSE"],
+        "summary": "4개 특화 도구 설계, 멀티모델 전환, SSE 스트리밍 기반 에이전트 아키텍처"
+      }
+    ]
   }
 ]
