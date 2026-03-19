@@ -12,5 +12,13 @@
 
 @plugin "@tailwindcss/typography";
 
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* highlight.js 구문 강조 — Tailwind 레이어 밖에서 로드해야 우선순위 보장 */
 @import "highlight.js/styles/github-dark.min.css";

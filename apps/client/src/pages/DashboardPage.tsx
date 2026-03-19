@@ -209,7 +209,7 @@ function DesktopProjectsRow() {
     >
       <div
         ref={scrollRef}
-        className="flex items-stretch gap-5 overflow-x-auto scrollbar-none cursor-grab active:cursor-grabbing select-none"
+        className="flex items-stretch gap-5 overflow-x-auto hide-scrollbar cursor-grab active:cursor-grabbing select-none"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
