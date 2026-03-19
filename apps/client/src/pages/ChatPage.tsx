@@ -9,7 +9,7 @@ export default function ChatPage() {
     <div className="flex h-full flex-col">
       <div className="flex h-14 items-center justify-between border-b border-toss-border bg-toss-card px-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-tr from-indigo-600 to-violet-500 shadow-sm shadow-indigo-100">
+          <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-toss-blue shadow-sm">
             <Sparkles size={12} className="text-white fill-white/20" />
           </div>
           <div className="flex flex-col -space-y-0.5">

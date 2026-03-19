@@ -80,10 +80,10 @@
   ],
   "techStack": {
     "AI/ML": ["LangChain", "RAG", "Gemini", "Grok", "HuggingFace", "Claude", "Sherpa-ONNX", "PaddleOCR"],
-    "BACKEND": ["ElysiaJS", "Fastify", "FastAPI", "Node.js", "Bun"],
-    "DB/MESSAGE": ["LanceDB", "PostgreSQL", "MongoDB", "Redis", "GCP Pub/Sub", "Kafka", "Qdrant"],
+    "BACKEND": ["ElysiaJS", "Fastify", "FastAPI", "Node.js", "Bun", "Prisma"],
+    "DB/MESSAGE": ["LanceDB", "PostgreSQL", "MongoDB", "Redis", "GCP Pub/Sub", "Qdrant", "MySQL"],
+    "DEVOPS/INFRA": ["Docker", "AWS", "GCP", "Railway", "GitHub Actions", "Linux"],
     "FRONTEND": ["React", "Next.js", "Tailwind CSS", "TypeScript"],
-    "MOBILE": ["Kotlin", "Jetpack Compose", "Android"],
-    "DEVOPS/INFRA": ["Docker", "Railway", "GitHub Actions", "Linux"]
+    "MOBILE": ["Kotlin", "Jetpack Compose", "Android"]
   }
 }
