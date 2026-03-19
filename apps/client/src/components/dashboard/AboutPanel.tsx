@@ -14,14 +14,18 @@ function renderBold(text: string) {
 }
 
 export default function AboutPanel() {
+  const paragraphs = profile.about.split("\n\n");
+
   return (
     <div className="rounded-xl border border-zinc-100 bg-zinc-50 p-6">
       <h2 className="mb-3 font-['Outfit'] text-base font-bold text-black">
         About
       </h2>
-      <p className="text-[15px] leading-relaxed text-zinc-500">
-        {renderBold(profile.about)}
-      </p>
+      <div className="flex flex-col gap-3 text-[15px] leading-relaxed text-zinc-500">
+        {paragraphs.map((p, i) => (
+          <p key={i}>{renderBold(p)}</p>
+        ))}
+      </div>
     </div>
   );
 }
