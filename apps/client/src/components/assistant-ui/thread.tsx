@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   ThreadPrimitive,
   MessagePrimitive,
@@ -5,6 +6,38 @@ import {
 } from "@assistant-ui/react";
 import { SendHorizontal, Sparkles } from "lucide-react";
 import { MarkdownText } from "./markdown-text";
+
+const SUGGESTION_POOL = [
+  // 프로젝트 관련
+  "핀구에서 Multi-Agent 시스템은 어떻게 설계했나요?",
+  "Aimers에서 마케팅 자동화를 어떻게 구현했나요?",
+  "Bonda의 RAG 파이프라인 구조를 설명해주세요",
+  "보카톡톡을 PHP에서 Next.js로 전환한 이유는?",
+  "헤이 바라의 음성 파이프라인은 어떻게 동작하나요?",
+  "이 포트폴리오 사이트는 어떤 기술로 만들었나요?",
+  // 기술 관련
+  "RAG 파이프라인을 설계할 때 가장 어려웠던 점은?",
+  "멀티에이전트 시스템에서 에이전트 간 상태 관리는 어떻게 하나요?",
+  "LangChain으로 Agent를 구현할 때 주의할 점은?",
+  "EUC-KR에서 UTF-8로 DB를 마이그레이션한 경험을 알려주세요",
+  "학습 데이터 암호화는 어떻게 구현했나요?",
+  "OCR 폴백 전략은 어떻게 설계했나요?",
+  // 개인/철학 관련
+  "개발할 때 가장 중요하게 생각하는 것은?",
+  "기술 스택을 선택할 때 어떤 기준으로 결정하나요?",
+  "가장 큰 실패 경험과 거기서 배운 점은?",
+  "팀에서 기술적 의견이 충돌할 때 어떻게 해결하나요?",
+  "AI를 활용해 실제로 해결한 비즈니스 문제는?",
+  "앞으로의 목표는 무엇인가요?",
+  // 경력/학력
+  "어떤 회사에서 어떤 역할을 했나요?",
+  "주요 기술 스택은 무엇인가요?",
+];
+
+function pickRandom(pool: string[], count: number): string[] {
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
 
 function TypingIndicator() {
   return (
@@ -72,6 +105,24 @@ function Composer() {
   );
 }
 
+function RandomSuggestions() {
+  const suggestions = useMemo(() => pickRandom(SUGGESTION_POOL, 3), []);
+  return (
+    <div className="grid grid-cols-1 gap-2 pt-6 w-full max-w-[320px]">
+      {suggestions.map((s) => (
+        <ThreadPrimitive.Suggestion
+          key={s}
+          prompt={s}
+          autoSend
+          className="cursor-pointer rounded-xl border border-toss-border bg-toss-card px-4 py-3 text-[13px] text-toss-body hover:border-toss-blue hover:text-toss-blue hover:bg-blue-50/40 transition-all text-left"
+        >
+          {s}
+        </ThreadPrimitive.Suggestion>
+      ))}
+    </div>
+  );
+}
+
 export function Thread() {
   return (
     <ThreadPrimitive.Root className="flex h-full flex-col">
@@ -90,29 +141,7 @@ export function Thread() {
                 궁금하신 점을 상세히 답변해 드립니다.
               </p>
             </div>
-            <div className="grid grid-cols-1 gap-2 pt-6 w-full max-w-[320px]">
-              <ThreadPrimitive.Suggestion
-                prompt="핀구에서 Multi-Agent 시스템은 어떻게 설계했나요?"
-                autoSend
-                className="cursor-pointer rounded-xl border border-toss-border bg-toss-card px-4 py-3 text-[13px] text-toss-body hover:border-toss-blue hover:text-toss-blue hover:bg-blue-50/40 transition-all text-left"
-              >
-                핀구에서 Multi-Agent 시스템은 어떻게 설계했나요?
-              </ThreadPrimitive.Suggestion>
-              <ThreadPrimitive.Suggestion
-                prompt="개발할 때 가장 중요하게 생각하는 것은?"
-                autoSend
-                className="cursor-pointer rounded-xl border border-toss-border bg-toss-card px-4 py-3 text-[13px] text-toss-body hover:border-toss-blue hover:text-toss-blue hover:bg-blue-50/40 transition-all text-left"
-              >
-                개발할 때 가장 중요하게 생각하는 것은?
-              </ThreadPrimitive.Suggestion>
-              <ThreadPrimitive.Suggestion
-                prompt="스톰스터디 레거시 마이그레이션 경험을 알려주세요"
-                autoSend
-                className="cursor-pointer rounded-xl border border-toss-border bg-toss-card px-4 py-3 text-[13px] text-toss-body hover:border-toss-blue hover:text-toss-blue hover:bg-blue-50/40 transition-all text-left"
-              >
-                스톰스터디 레거시 마이그레이션 경험을 알려주세요
-              </ThreadPrimitive.Suggestion>
-            </div>
+            <RandomSuggestions />
           </div>
         </ThreadPrimitive.Empty>
         <ThreadMessages />
