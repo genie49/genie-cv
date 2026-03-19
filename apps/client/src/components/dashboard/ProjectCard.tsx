@@ -8,12 +8,13 @@ import { BondaHero } from "../BondaHero";
 import type { Project } from "@genie-cv/shared";
 
 function ProjectHeroThumbnail({ slug, className }: { slug: string; className: string }) {
-  if (slug === "kimpro") return <KimproHero className={className} />;
-  if (slug === "hey-bara") return <HeyBaraHero className={className} />;
-  if (slug === "fingoo") return <FingooHero className={className} />;
-  if (slug === "ai-portfolio-chatbot") return <ChatbotHero className={className} />;
-  if (slug === "bonda") return <BondaHero className={className} />;
-  return <div className={`w-full bg-toss-bg ${className}`} />;
+  const cls = `${className} rounded-t-2xl`;
+  if (slug === "kimpro") return <KimproHero className={cls} />;
+  if (slug === "hey-bara") return <HeyBaraHero className={cls} />;
+  if (slug === "fingoo") return <FingooHero className={cls} />;
+  if (slug === "ai-portfolio-chatbot") return <ChatbotHero className={cls} />;
+  if (slug === "bonda") return <BondaHero className={cls} />;
+  return <div className={`w-full bg-toss-bg ${cls}`} />;
 }
 
 export default function ProjectCard({
@@ -34,7 +35,8 @@ export default function ProjectCard({
       <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }} className="h-full">
         <Link
           to={`/projects/${project.slug}`}
-          className="flex h-full flex-col overflow-hidden rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)]"
+          draggable={false}
+          className="flex h-full flex-col overflow-hidden rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)] select-none"
         >
           <ProjectHeroThumbnail slug={project.slug} className={heroHeight} />
           <div className="flex flex-1 flex-col gap-2 p-4">
