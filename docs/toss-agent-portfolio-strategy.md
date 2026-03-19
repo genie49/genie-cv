@@ -59,7 +59,7 @@
 
 **왜 중요한가:** Agent가 올바른 판단을 하려면 적절한 컨텍스트가 필수. 토스 우대사항에 "컨텍스트 엔지니어링"이 명시됨.
 
-**보여줄 프로젝트:** fingoo + genie-cv
+**보여줄 프로젝트:** fingoo + genie-cv + bonda
 
 **어떻게 보여줄 것인가:**
 - fingoo의 2단계 RAG: 크롤링 → pgvector 검색 → 불충분 시 Tavily 웹 검색 보완
@@ -231,3 +231,5 @@ fingoo에 이미 좋은 노트가 있으나, Agent 포지션 관점에서 다음
 - [ ] data/content/ 임베딩 문서에 새 프로젝트 내용 반영
 - [ ] profile.json techStack 업데이트 (PyTorch, HuggingFace Transformers 등 추가)
 - [ ] 오픈소스 기여 1건 이상 시도
+- [x] bonda 프로젝트를 projects.json에 추가
+- [x] bonda 관련 기술 노트 4개 작성 (RAG 파이프라인, OCR 폴백, 이미지 검색, 에이전트 도구)
