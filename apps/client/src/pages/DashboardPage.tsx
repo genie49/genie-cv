@@ -139,7 +139,7 @@ function MobileProjectCarousel() {
         <button
           onClick={() => go(-1)}
           disabled={current === 0}
-          className="rounded-full p-1.5 text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-600 disabled:opacity-30"
+          className="rounded-full p-1.5 text-toss-sub transition-colors hover:bg-toss-bg hover:text-toss-heading disabled:opacity-30"
         >
           <ChevronLeft size={18} />
         </button>
@@ -153,7 +153,7 @@ function MobileProjectCarousel() {
                 setCurrent(i);
               }}
               className={`h-1.5 rounded-full transition-all ${
-                i === current ? "w-4 bg-zinc-700" : "w-1.5 bg-zinc-300"
+                i === current ? "w-4 bg-toss-heading" : "w-1.5 bg-toss-border"
               }`}
             />
           ))}
@@ -162,7 +162,7 @@ function MobileProjectCarousel() {
         <button
           onClick={() => go(1)}
           disabled={current === allProjects.length - 1}
-          className="rounded-full p-1.5 text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-600 disabled:opacity-30"
+          className="rounded-full p-1.5 text-toss-sub transition-colors hover:bg-toss-bg hover:text-toss-heading disabled:opacity-30"
         >
           <ChevronRight size={18} />
         </button>
@@ -209,7 +209,7 @@ function DesktopProjectsRow() {
     >
       <div
         ref={scrollRef}
-        className="flex items-stretch gap-5 overflow-x-auto pb-2 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-zinc-200 hover:scrollbar-thumb-zinc-300 cursor-grab active:cursor-grabbing select-none"
+        className="flex items-stretch gap-5 overflow-x-auto pb-2 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-toss-border cursor-grab active:cursor-grabbing select-none"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
