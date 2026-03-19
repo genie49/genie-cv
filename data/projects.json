@@ -386,6 +386,54 @@
     ]
   },
   {
+    "slug": "vocatoktok",
+    "title": "보카톡톡 — 영어 단어 학습 플랫폼",
+    "description": "학원용 영어 단어·문장 학습 플랫폼. PHP/Vanilla JS 레거시를 Next.js로 전면 리빌드하고, EUC-KR DB를 UTF-8로 마이그레이션했다. Google Cloud TTS 발음 학습, 학원 관리 시스템, PWA 오프라인 지원을 제공한다.",
+    "tags": ["Next.js", "Prisma", "MySQL", "Google TTS", "Zustand", "Vercel AI SDK", "AWS", "PWA"],
+    "period": "2021.02 ~ 2025.08",
+    "features": [
+      { "title": "레거시 → Next.js 마이그레이션", "description": "PHP/Vanilla JS → Next.js 14 App Router 전면 리빌드. TypeScript 전면 도입" },
+      { "title": "DB 마이그레이션 + 인코딩 전환", "description": "구버전 MySQL → 신버전 마이그레이션 + EUC-KR → UTF-8 인코딩 전환" },
+      { "title": "TTS 발음 학습", "description": "Google Cloud TTS 기반 다국어 발음 학습. RDT/RET 모드별 학습 파이프라인" },
+      { "title": "학습 데이터 암호화", "description": "학습 콘텐츠 데이터 암호화로 무단 접근 방지" },
+      { "title": "학원 관리 시스템", "description": "학교·반·학생·강사 계층 관리, 권한 기반 접근 제어, 학습 진도 추적" }
+    ],
+    "notes": [
+      {
+        "id": "vocatoktok-migration",
+        "projectSlug": "vocatoktok",
+        "title": "PHP에서 Next.js로, 레거시를 버리는 용기",
+        "date": "2025-03-01",
+        "tags": ["Next.js", "Migration", "TypeScript", "Legacy"],
+        "summary": "PHP/Vanilla JS 레거시를 Next.js 14로 전면 리빌드한 이유, 과정, 결과"
+      },
+      {
+        "id": "vocatoktok-db-encoding",
+        "projectSlug": "vocatoktok",
+        "title": "EUC-KR 데이터베이스와의 사투",
+        "date": "2025-03-15",
+        "tags": ["MySQL", "Migration", "EUC-KR", "UTF-8"],
+        "summary": "구버전 MySQL DB 마이그레이션과 EUC-KR → UTF-8 인코딩 전환 과정의 함정과 해결"
+      },
+      {
+        "id": "vocatoktok-tts-pipeline",
+        "projectSlug": "vocatoktok",
+        "title": "원어민 발음을 코드로 만들다",
+        "date": "2025-04-01",
+        "tags": ["Google TTS", "Pipeline", "Multilingual"],
+        "summary": "Google Cloud TTS 기반 다국어 발음 학습 파이프라인과 RDT/RET 모드 설계"
+      },
+      {
+        "id": "vocatoktok-data-encryption",
+        "projectSlug": "vocatoktok",
+        "title": "학습 데이터를 지키는 방법",
+        "date": "2025-04-15",
+        "tags": ["Encryption", "Security", "Data Protection"],
+        "summary": "학습 콘텐츠 데이터 암호화 설계와 구현"
+      }
+    ]
+  },
+  {
     "slug": "hey-bara",
     "title": "헤이 바라 — 온디바이스 AI 음성 비서",
     "description": "\"헤이 바라\" 웨이크 워드로 호출하는 Android AI 음성 비서입니다. Sherpa-ONNX 한국어 STT, Koog AI Agent의 14개 Tool Calling, Supertonic 2 한국어 TTS를 통합한 음성 파이프라인으로 전화·문자·일정·앱 제어를 음성으로 수행합니다. Gemini 클라우드와 Gemma 온디바이스 듀얼 LLM 아키텍처를 설계했습니다.",
