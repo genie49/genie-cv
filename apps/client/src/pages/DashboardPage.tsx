@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useRef, useState, useCallback, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, User, Cpu, X } from "lucide-react";
 import AboutPanel from "../components/dashboard/AboutPanel";
 import TechStackPanel from "../components/dashboard/TechStackPanel";
 import ProjectCard from "../components/dashboard/ProjectCard";
@@ -236,15 +236,98 @@ function ProjectsRow() {
   return isMobile ? <MobileProjectCarousel /> : <DesktopProjectsRow />;
 }
 
-export default function DashboardPage() {
+/* ── Modal ── */
+function Modal({ open, onClose, children }: { open: boolean; onClose: () => void; children: React.ReactNode }) {
+  useEffect(() => {
+    if (open) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
   return (
-    <div className="flex flex-col gap-5 p-6">
-      {/* Top Row: About + Tech Stack */}
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-6"
+          onClick={onClose}
+        >
+          <div className="absolute inset-0 bg-black/40" />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="relative max-h-[80vh] w-full max-w-md overflow-y-auto rounded-2xl bg-toss-bg p-1"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={onClose}
+              className="absolute right-3 top-3 z-10 rounded-full bg-toss-card p-1.5 text-toss-sub shadow-sm hover:text-toss-heading"
+            >
+              <X size={16} />
+            </button>
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+/* ── Mobile About/TechStack Buttons ── */
+function MobileTopButtons() {
+  const [modal, setModal] = useState<"about" | "tech" | null>(null);
+
+  return (
+    <>
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="flex flex-col md:flex-row gap-5"
+        className="flex gap-3 md:hidden"
+      >
+        <button
+          onClick={() => setModal("about")}
+          className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-toss-card py-3 shadow-[0_1px_3px_rgba(0,0,0,0.06)] text-sm font-semibold text-toss-heading active:scale-[0.98] transition-transform"
+        >
+          <User size={16} className="text-toss-blue" />
+          About
+        </button>
+        <button
+          onClick={() => setModal("tech")}
+          className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-toss-card py-3 shadow-[0_1px_3px_rgba(0,0,0,0.06)] text-sm font-semibold text-toss-heading active:scale-[0.98] transition-transform"
+        >
+          <Cpu size={16} className="text-toss-blue" />
+          Tech Stack
+        </button>
+      </motion.div>
+
+      <Modal open={modal === "about"} onClose={() => setModal(null)}>
+        <AboutPanel />
+      </Modal>
+      <Modal open={modal === "tech"} onClose={() => setModal(null)}>
+        <TechStackPanel />
+      </Modal>
+    </>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <div className="flex flex-col gap-5 p-6">
+      {/* Mobile: About + Tech Stack buttons */}
+      <MobileTopButtons />
+
+      {/* Desktop: About + Tech Stack panels */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="hidden md:flex gap-5"
       >
         <div className="flex-1">
           <AboutPanel />
