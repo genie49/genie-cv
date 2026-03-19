@@ -29,7 +29,7 @@ function useIsMobile() {
 function MobileProjectCarousel() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
-  const touchRef = useRef<{ startX: number; startY: number; isHorizontal: boolean | null } | null>(null);
+  const touchRef = useRef<{ startX: number; startY: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const go = useCallback(
@@ -46,19 +46,7 @@ function MobileProjectCarousel() {
   );
 
   const onTouchStart = useCallback((e: React.TouchEvent) => {
-    touchRef.current = { startX: e.touches[0].clientX, startY: e.touches[0].clientY, isHorizontal: null };
-  }, []);
-
-  const onTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!touchRef.current) return;
-    const dx = e.touches[0].clientX - touchRef.current.startX;
-    const dy = e.touches[0].clientY - touchRef.current.startY;
-    if (touchRef.current.isHorizontal === null && (Math.abs(dx) > 10 || Math.abs(dy) > 10)) {
-      touchRef.current.isHorizontal = Math.abs(dx) > Math.abs(dy);
-    }
-    if (touchRef.current.isHorizontal) {
-      e.preventDefault();
-    }
+    touchRef.current = { startX: e.touches[0].clientX, startY: e.touches[0].clientY };
   }, []);
 
   const onTouchEnd = useCallback(
@@ -66,25 +54,46 @@ function MobileProjectCarousel() {
       if (!touchRef.current) return;
       const dx = e.changedTouches[0].clientX - touchRef.current.startX;
       const dy = e.changedTouches[0].clientY - touchRef.current.startY;
-      const wasHorizontal = touchRef.current.isHorizontal;
       touchRef.current = null;
-      if (!wasHorizontal || Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
+      if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
       go(dx < 0 ? 1 : -1);
     },
     [go],
   );
 
-  // passive: false 로 등록해야 preventDefault 가능
+  // 수평 스와이프 시 페이지 스크롤 방지
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const handler = (e: TouchEvent) => {
-      if (touchRef.current?.isHorizontal) {
-        e.preventDefault();
-      }
+    let startX = 0;
+    let startY = 0;
+    let decided = false;
+    let isHorizontal = false;
+
+    const onStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      decided = false;
+      isHorizontal = false;
     };
-    el.addEventListener("touchmove", handler, { passive: false });
-    return () => el.removeEventListener("touchmove", handler);
+    const onMove = (e: TouchEvent) => {
+      if (!decided) {
+        const dx = Math.abs(e.touches[0].clientX - startX);
+        const dy = Math.abs(e.touches[0].clientY - startY);
+        if (dx > 10 || dy > 10) {
+          decided = true;
+          isHorizontal = dx > dy;
+        }
+      }
+      if (isHorizontal) e.preventDefault();
+    };
+
+    el.addEventListener("touchstart", onStart, { passive: true });
+    el.addEventListener("touchmove", onMove, { passive: false });
+    return () => {
+      el.removeEventListener("touchstart", onStart);
+      el.removeEventListener("touchmove", onMove);
+    };
   }, []);
 
   const variants = {
@@ -102,7 +111,7 @@ function MobileProjectCarousel() {
     >
       <div
         ref={containerRef}
-        className="relative overflow-hidden touch-pan-y"
+        className="relative overflow-hidden"
         style={{ height: 280 }}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
