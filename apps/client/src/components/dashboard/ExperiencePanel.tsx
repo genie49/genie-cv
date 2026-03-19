@@ -41,8 +41,27 @@ function parseBar(period: string) {
 
 const YEARS = [2021, 2022, 2023, 2024, 2025, 2026];
 
-export default function ExperiencePanel() {
+export default function ExperiencePanel({ bare }: { bare?: boolean }) {
   const [flipped, setFlipped] = useState(false);
+
+  if (bare) {
+    return (
+      <div className="flex flex-col gap-3">
+        {profile.experience.map((exp) => (
+          <div key={`${exp.company}-${exp.period}`} className="flex items-start justify-between">
+            <div>
+              <p className="text-[13px] font-medium text-toss-heading">{exp.title}</p>
+              <p className="text-xs text-toss-body">{exp.company}</p>
+            </div>
+            <div className="flex shrink-0 flex-col items-end gap-1">
+              <span className="text-xs text-toss-sub">{exp.period}</span>
+              <span className="rounded bg-toss-bg px-1.5 py-0.5 text-[10px] text-toss-sub">{exp.type}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div

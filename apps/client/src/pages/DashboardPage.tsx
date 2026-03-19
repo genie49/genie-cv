@@ -316,6 +316,69 @@ function MobileTopButtons() {
   );
 }
 
+/* ── Mobile Education/Experience Tab Card ── */
+function MobileEduExpTabs() {
+  const [tab, setTab] = useState<"edu" | "exp">("edu");
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: 0.2 }}
+      className="md:hidden rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-5"
+    >
+      {/* Tab buttons */}
+      <div className="flex gap-2 mb-4">
+        <button
+          onClick={() => setTab("edu")}
+          className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
+            tab === "edu"
+              ? "bg-toss-heading text-white"
+              : "bg-toss-bg text-toss-sub"
+          }`}
+        >
+          Education
+        </button>
+        <button
+          onClick={() => setTab("exp")}
+          className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
+            tab === "exp"
+              ? "bg-toss-heading text-white"
+              : "bg-toss-bg text-toss-sub"
+          }`}
+        >
+          Experience
+        </button>
+      </div>
+
+      {/* Tab content */}
+      <AnimatePresence mode="wait">
+        {tab === "edu" ? (
+          <motion.div
+            key="edu"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            transition={{ duration: 0.15 }}
+          >
+            <EducationPanel bare />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="exp"
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            transition={{ duration: 0.15 }}
+          >
+            <ExperiencePanel bare />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-5 p-6">
@@ -340,12 +403,15 @@ export default function DashboardPage() {
       {/* Projects Row */}
       <ProjectsRow />
 
-      {/* Bottom Row: Education + Experience */}
+      {/* Mobile: Education + Experience tab card */}
+      <MobileEduExpTabs />
+
+      {/* Desktop: Education + Experience side by side */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
-        className="flex flex-col md:flex-row gap-5"
+        className="hidden md:flex gap-5"
       >
         <div className="flex-1">
           <EducationPanel />
