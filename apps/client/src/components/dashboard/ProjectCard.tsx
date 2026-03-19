@@ -13,7 +13,7 @@ function ProjectHeroThumbnail({ slug, className }: { slug: string; className: st
   if (slug === "fingoo") return <FingooHero className={className} />;
   if (slug === "ai-portfolio-chatbot") return <ChatbotHero className={className} />;
   if (slug === "bonda") return <BondaHero className={className} />;
-  return <div className={`w-full bg-zinc-200 ${className}`} />;
+  return <div className={`w-full bg-toss-bg ${className}`} />;
 }
 
 export default function ProjectCard({
@@ -34,28 +34,28 @@ export default function ProjectCard({
       <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }} className="h-full">
         <Link
           to={`/projects/${project.slug}`}
-          className="flex h-full flex-col overflow-hidden rounded-xl border border-zinc-100 bg-zinc-50 transition-colors hover:border-zinc-200"
+          className="flex h-full flex-col overflow-hidden rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)]"
         >
           <ProjectHeroThumbnail slug={project.slug} className={heroHeight} />
           <div className="flex flex-1 flex-col gap-2 p-4">
-            <h3 className="font-['Outfit'] text-sm font-bold text-black">
+            <h3 className="font-['Outfit'] text-sm font-bold text-toss-heading">
               {project.title}
             </h3>
-            <p className="line-clamp-2 text-xs leading-relaxed text-zinc-500">
+            <p className="line-clamp-2 text-xs leading-relaxed text-toss-body">
               {project.description}
             </p>
             <div className="flex flex-wrap gap-1">
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] text-zinc-500"
+                  className="rounded bg-toss-bg px-1.5 py-0.5 text-[10px] text-toss-body"
                 >
                   {tag}
                 </span>
               ))}
             </div>
             {showPeriod && (
-              <span className="mt-1 text-xs text-zinc-400">
+              <span className="mt-1 text-xs text-toss-sub">
                 {project.period}
               </span>
             )}
