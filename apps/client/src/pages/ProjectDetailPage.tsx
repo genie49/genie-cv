@@ -100,26 +100,28 @@ export default function ProjectDetailPage() {
         </h1>
         <div className="flex gap-2">
           {project.github && (
-            <a
+            <motion.a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
+              whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 rounded-lg bg-toss-blue px-4 py-2 text-xs font-medium text-white hover:bg-blue-700"
             >
               <Github size={14} />
               GitHub
-            </a>
+            </motion.a>
           )}
           {project.demo && (
-            <a
+            <motion.a
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
+              whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 rounded-lg border border-toss-border px-4 py-2 text-xs font-medium text-toss-heading hover:bg-toss-bg"
             >
               <ExternalLink size={14} />
               Demo
-            </a>
+            </motion.a>
           )}
         </div>
       </motion.div>

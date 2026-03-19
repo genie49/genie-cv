@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import { motion } from "motion/react";
 import { User, Folder, MessageCircle, Sparkles, Github, Mail } from "lucide-react";
 
@@ -10,7 +10,14 @@ const navItems = [
 ];
 
 
+function isNavActive(to: string, pathname: string) {
+  if (to === "/") return pathname === "/";
+  return pathname.startsWith(to);
+}
+
 export default function Sidebar() {
+  const { pathname } = useLocation();
+
   return (
     <aside className="hidden md:flex w-[260px] shrink-0 flex-col border-r border-toss-border bg-white px-6 py-8">
       {/* Profile */}
@@ -43,29 +50,38 @@ export default function Sidebar() {
 
       {/* Navigation */}
       <nav className="flex flex-col gap-0.5 py-4">
-        {navItems.map(({ to, icon: Icon, label }, i) => (
-          <motion.div
-            key={to}
-            initial={{ opacity: 0, x: -12 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 + i * 0.05 }}
-          >
-            <NavLink
-              to={to}
-              end={to === "/"}
-              className={({ isActive }) =>
-                `flex items-center gap-2.5 rounded-md px-3 py-2 text-[13px] font-medium transition-colors ${
-                  isActive
-                    ? "bg-toss-blue text-white"
-                    : "text-toss-sub hover:bg-toss-bg"
-                }`
-              }
+        {navItems.map(({ to, icon: Icon, label }, i) => {
+          const active = isNavActive(to, pathname);
+          return (
+            <motion.div
+              key={to}
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 + i * 0.05 }}
             >
-              <Icon size={16} />
-              {label}
-            </NavLink>
-          </motion.div>
-        ))}
+              <NavLink
+                to={to}
+                end={to === "/"}
+                className="relative flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-medium"
+              >
+                {active && (
+                  <motion.div
+                    layoutId="sidebar-indicator"
+                    className="absolute inset-0 rounded-lg bg-toss-blue"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                  />
+                )}
+                <motion.div
+                  className={`relative z-10 flex items-center gap-2.5 ${active ? "text-white" : "text-toss-sub"}`}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Icon size={16} />
+                  {label}
+                </motion.div>
+              </NavLink>
+            </motion.div>
+          );
+        })}
       </nav>
 
       {/* Spacer */}

@@ -32,7 +32,7 @@ export default function ProjectCard({
 
   return (
     <div className="pt-1 h-full">
-      <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }} className="h-full">
+      <motion.div whileHover={{ y: -4 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2 }} className="h-full">
         <Link
           to={`/projects/${project.slug}`}
           draggable={false}

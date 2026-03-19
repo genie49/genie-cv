@@ -290,20 +290,22 @@ function MobileTopButtons() {
         transition={{ duration: 0.3 }}
         className="flex gap-3 md:hidden"
       >
-        <button
+        <motion.button
           onClick={() => setModal("about")}
-          className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-toss-card py-3 shadow-[0_1px_3px_rgba(0,0,0,0.06)] text-sm font-semibold text-toss-heading active:scale-[0.98] transition-transform"
+          whileTap={{ scale: 0.95 }}
+          className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-toss-card py-3 shadow-[0_1px_3px_rgba(0,0,0,0.06)] text-sm font-semibold text-toss-heading"
         >
           <User size={16} className="text-toss-blue" />
           About
-        </button>
-        <button
+        </motion.button>
+        <motion.button
           onClick={() => setModal("tech")}
-          className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-toss-card py-3 shadow-[0_1px_3px_rgba(0,0,0,0.06)] text-sm font-semibold text-toss-heading active:scale-[0.98] transition-transform"
+          whileTap={{ scale: 0.95 }}
+          className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-toss-card py-3 shadow-[0_1px_3px_rgba(0,0,0,0.06)] text-sm font-semibold text-toss-heading"
         >
           <Cpu size={16} className="text-toss-blue" />
           Tech Stack
-        </button>
+        </motion.button>
       </motion.div>
 
       <Modal open={modal === "about"} onClose={() => setModal(null)}>
@@ -329,26 +331,24 @@ function MobileEduExpTabs() {
     >
       {/* Tab buttons */}
       <div className="flex gap-2 mb-4">
-        <button
-          onClick={() => setTab("edu")}
-          className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
-            tab === "edu"
-              ? "bg-toss-heading text-white"
-              : "bg-toss-bg text-toss-sub"
-          }`}
-        >
-          Education
-        </button>
-        <button
-          onClick={() => setTab("exp")}
-          className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
-            tab === "exp"
-              ? "bg-toss-heading text-white"
-              : "bg-toss-bg text-toss-sub"
-          }`}
-        >
-          Experience
-        </button>
+        {(["edu", "exp"] as const).map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className="relative rounded-lg px-3 py-1.5 text-xs font-semibold"
+          >
+            {tab === t && (
+              <motion.div
+                layoutId="edu-exp-tab"
+                className="absolute inset-0 rounded-lg bg-toss-heading"
+                transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+              />
+            )}
+            <span className={`relative z-10 ${tab === t ? "text-white" : "text-toss-sub"}`}>
+              {t === "edu" ? "Education" : "Experience"}
+            </span>
+          </button>
+        ))}
       </div>
 
       {/* Tab content */}
