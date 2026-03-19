@@ -44,7 +44,7 @@ export default function ProjectCard({
             <p className="line-clamp-2 text-xs leading-relaxed text-zinc-500">
               {project.description}
             </p>
-            <div className="mt-auto flex flex-wrap gap-1">
+            <div className="flex flex-wrap gap-1">
               {tags.map((tag) => (
                 <span
                   key={tag}
