@@ -12,7 +12,7 @@ const navItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="hidden md:flex w-[260px] shrink-0 flex-col border-r border-zinc-200 bg-zinc-50 px-6 py-8">
+    <aside className="hidden md:flex w-[260px] shrink-0 flex-col border-r border-toss-border bg-white px-6 py-8">
       {/* Profile */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
@@ -20,18 +20,18 @@ export default function Sidebar() {
         transition={{ duration: 0.4 }}
         className="flex flex-col items-center gap-4 pb-6"
       >
-        <div className="flex h-20 w-20 overflow-hidden rounded-full bg-zinc-200 border-2 border-zinc-100 shadow-sm">
+        <div className="flex h-20 w-20 overflow-hidden rounded-full bg-toss-bg border-2 border-toss-border shadow-sm">
           <img 
             src="/images/profile.png" 
             alt="Profile" 
             className="h-full w-full object-cover"
           />
         </div>
-        <p className="font-['Outfit'] text-[22px] font-extrabold text-black">
+        <p className="font-['Outfit'] text-[22px] font-extrabold text-toss-heading">
           김형진
         </p>
-        <p className="text-[13px] font-medium text-zinc-500">AI Engineer</p>
-        <p className="text-center text-xs leading-relaxed text-zinc-400">
+        <p className="text-[13px] font-medium text-toss-sub">AI Engineer</p>
+        <p className="text-center text-xs leading-relaxed text-toss-sub">
           AI와 웹 기술을 결합하여
           <br />
           실용적인 프로덕트를 만듭니다.
@@ -39,7 +39,7 @@ export default function Sidebar() {
       </motion.div>
 
       {/* Divider */}
-      <div className="h-px w-full bg-zinc-200" />
+      <div className="h-px w-full bg-toss-border" />
 
       {/* Navigation */}
       <nav className="flex flex-col gap-0.5 py-4">
@@ -56,8 +56,8 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 `flex items-center gap-2.5 rounded-md px-3 py-2 text-[13px] font-medium transition-colors ${
                   isActive
-                    ? "bg-black text-white"
-                    : "text-zinc-500 hover:bg-zinc-100"
+                    ? "bg-toss-blue text-white"
+                    : "text-toss-sub hover:bg-toss-bg"
                 }`
               }
             >
@@ -72,7 +72,7 @@ export default function Sidebar() {
       <div className="flex-1" />
 
       {/* Divider */}
-      <div className="h-px w-full bg-zinc-200" />
+      <div className="h-px w-full bg-toss-border" />
 
       {/* Links */}
       <motion.div
@@ -85,14 +85,14 @@ export default function Sidebar() {
           href="https://github.com/genie49"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 text-xs font-medium text-zinc-400 hover:text-zinc-600"
+          className="flex items-center gap-2 text-xs font-medium text-toss-sub hover:text-toss-heading"
         >
           <Github size={14} />
           GitHub
         </a>
         <a
           href="mailto:kimgenie0409@gmail.com"
-          className="flex items-center gap-2 text-xs font-medium text-zinc-400 hover:text-zinc-600"
+          className="flex items-center gap-2 text-xs font-medium text-toss-sub hover:text-toss-heading"
         >
           <Mail size={14} />
           kimgenie0409@gmail.com

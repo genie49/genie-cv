@@ -10,8 +10,8 @@ const tabs = [
 
 export default function MobileTabBar() {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-zinc-200 bg-white px-4 pb-6 pt-3 md:hidden">
-      <div className="flex h-14 items-center rounded-[28px] border border-zinc-200 bg-zinc-50 p-1">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-toss-border bg-white px-4 pb-6 pt-3 md:hidden">
+      <div className="flex h-14 items-center rounded-[28px] border border-toss-border bg-toss-bg p-1">
         {tabs.map(({ to, icon: Icon, label }) => (
           <NavLink
             key={to}
@@ -20,8 +20,8 @@ export default function MobileTabBar() {
             className={({ isActive }) =>
               `flex flex-1 flex-col items-center justify-center gap-1 rounded-3xl py-2 transition-colors ${
                 isActive
-                  ? "bg-zinc-900 text-white"
-                  : "text-zinc-400"
+                  ? "bg-toss-blue text-white"
+                  : "text-toss-sub"
               }`
             }
           >
