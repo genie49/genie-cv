@@ -256,9 +256,6 @@ export function BondaHero({
         <span className="font-mono text-[11px] font-bold tracking-wide text-zinc-700">
           BONDA
         </span>
-        <span className="font-mono text-[9px] text-zinc-400">
-          [ RAG_PIPELINE ]
-        </span>
       </motion.div>
 
       {/* Reset button */}

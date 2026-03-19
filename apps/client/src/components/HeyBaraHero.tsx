@@ -250,9 +250,6 @@ export function HeyBaraHero({
         <span className="font-mono text-[11px] font-bold tracking-wide text-zinc-700">
           HEY BARA
         </span>
-        <span className="font-mono text-[9px] text-zinc-400">
-          [ VOICE_PIPELINE ]
-        </span>
       </motion.div>
 
       {/* Reset button */}

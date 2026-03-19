@@ -250,9 +250,6 @@ export function KimproHero({
         <span className="font-mono text-[11px] font-bold tracking-wide text-zinc-700">
           AIMERS
         </span>
-        <span className="font-mono text-[9px] text-zinc-400">
-          [ SERVICE_FLOW ]
-        </span>
       </motion.div>
 
       {/* Reset button */}
