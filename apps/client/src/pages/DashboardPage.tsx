@@ -58,8 +58,8 @@ function ProjectsScrollRow() {
         {allProjects.map((project) => (
           <div
             key={project.slug}
-            className="shrink-0 h-full"
-            style={{ width: CARD_W }}
+            className="shrink-0"
+            style={{ width: CARD_W, height: 340 }}
           >
             <div className="h-full" style={{ pointerEvents: isDragging ? "none" : "auto" }}>
               <ProjectCard project={project} />
