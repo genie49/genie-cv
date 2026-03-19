@@ -14,10 +14,10 @@ export default function ProjectsPage() {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col gap-1"
       >
-        <h1 className="font-['Outfit'] text-2xl font-extrabold tracking-tight text-black">
+        <h1 className="font-['Outfit'] text-2xl font-extrabold tracking-tight text-toss-heading">
           Projects
         </h1>
-        <p className="text-[13px] text-zinc-400">진행한 프로젝트들</p>
+        <p className="text-[13px] text-toss-sub">진행한 프로젝트들</p>
       </motion.div>
 
       {/* 2-column Grid */}

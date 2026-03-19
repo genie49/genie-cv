@@ -49,7 +49,7 @@ export default function ProjectDetailPage() {
   const dragScroll = useDragScroll();
 
   if (!project) {
-    return <div className="p-8 text-zinc-500">프로젝트를 찾을 수 없습니다.</div>;
+    return <div className="p-8 text-toss-body">프로젝트를 찾을 수 없습니다.</div>;
   }
 
   return (
@@ -62,7 +62,7 @@ export default function ProjectDetailPage() {
       {/* Back */}
       <Link
         to="/projects"
-        className="flex items-center gap-2 text-[13px] text-zinc-500 hover:text-zinc-700"
+        className="flex items-center gap-2 text-[13px] text-toss-sub hover:text-toss-heading"
       >
         <ArrowLeft size={16} />
         Projects로 돌아가기
@@ -95,7 +95,7 @@ export default function ProjectDetailPage() {
         transition={{ delay: 0.15 }}
         className="flex flex-col md:flex-row md:items-center justify-between gap-3"
       >
-        <h1 className="font-['Outfit'] text-[28px] font-extrabold tracking-tight text-black">
+        <h1 className="font-['Outfit'] text-[28px] font-extrabold tracking-tight text-toss-heading">
           {project.title}
         </h1>
         <div className="flex gap-2">
@@ -104,7 +104,7 @@ export default function ProjectDetailPage() {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-lg bg-black px-4 py-2 text-xs font-medium text-white hover:bg-zinc-800"
+              className="flex items-center gap-2 rounded-lg bg-toss-blue px-4 py-2 text-xs font-medium text-white hover:bg-blue-700"
             >
               <Github size={14} />
               GitHub
@@ -115,7 +115,7 @@ export default function ProjectDetailPage() {
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-lg border border-zinc-200 px-4 py-2 text-xs font-medium text-black hover:bg-zinc-50"
+              className="flex items-center gap-2 rounded-lg border border-toss-border px-4 py-2 text-xs font-medium text-toss-heading hover:bg-toss-bg"
             >
               <ExternalLink size={14} />
               Demo
@@ -134,8 +134,8 @@ export default function ProjectDetailPage() {
             transition={{ delay: 0.2 + i * 0.03 }}
             className={`rounded px-2.5 py-1 text-xs ${
               i < 4
-                ? "bg-black text-white"
-                : "bg-zinc-100 text-zinc-500"
+                ? "bg-toss-blue text-white"
+                : "bg-toss-bg text-toss-body"
             }`}
           >
             {tag}
@@ -150,10 +150,10 @@ export default function ProjectDetailPage() {
         transition={{ delay: 0.25 }}
         className="flex flex-col gap-3"
       >
-        <h2 className="font-['Outfit'] text-lg font-bold text-black">
+        <h2 className="font-['Outfit'] text-lg font-bold text-toss-heading">
           프로젝트 설명
         </h2>
-        <p className="text-sm leading-[1.7] text-zinc-600">{project.description}</p>
+        <p className="text-sm leading-[1.7] text-toss-body">{project.description}</p>
       </motion.div>
 
       {/* Features / Contributions */}
@@ -163,7 +163,7 @@ export default function ProjectDetailPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="font-['Outfit'] text-lg font-bold text-black"
+            className="font-['Outfit'] text-lg font-bold text-toss-heading"
           >
             프로젝트 기여
           </motion.h2>
@@ -182,12 +182,12 @@ export default function ProjectDetailPage() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 + i * 0.07 }}
-                  className="flex w-[220px] shrink-0 flex-col gap-2 rounded-[10px] border border-zinc-100 bg-zinc-50 p-4"
+                  className="flex w-[220px] shrink-0 flex-col gap-2 rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-4"
                 >
-                  <h3 className="text-[13px] font-semibold text-black">
+                  <h3 className="text-[13px] font-semibold text-toss-heading">
                     {feat.title}
                   </h3>
-                  <p className="text-xs leading-relaxed text-zinc-500">
+                  <p className="text-xs leading-relaxed text-toss-body">
                     {feat.description}
                   </p>
                 </motion.div>
@@ -201,10 +201,10 @@ export default function ProjectDetailPage() {
       {project.notes.length > 0 && (
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-['Outfit'] text-lg font-bold text-black">
+            <h2 className="font-['Outfit'] text-lg font-bold text-toss-heading">
               개발 노트
             </h2>
-            <span className="text-[13px] text-zinc-400">
+            <span className="text-[13px] text-toss-sub">
               {project.notes.length}개의 글
             </span>
           </div>
@@ -218,19 +218,19 @@ export default function ProjectDetailPage() {
               >
                 <Link
                   to={`/projects/${project.slug}/notes/${note.id}`}
-                  className="flex flex-col gap-2 rounded-[10px] border border-zinc-100 bg-zinc-50 p-5 transition-colors hover:border-zinc-200"
+                  className="flex flex-col gap-2 rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-5 transition-colors hover:shadow-[0_2px_6px_rgba(0,0,0,0.1)]"
                 >
-                  <h3 className="text-[13px] font-semibold text-black">
+                  <h3 className="text-[13px] font-semibold text-toss-heading">
                     {note.title}
                   </h3>
-                  <p className="text-xs text-zinc-500">{note.summary}</p>
+                  <p className="text-xs text-toss-body">{note.summary}</p>
                   <div className="flex items-center gap-3">
-                    <span className="text-[11px] text-zinc-400">{note.date}</span>
+                    <span className="text-[11px] text-toss-sub">{note.date}</span>
                     <div className="flex gap-1">
                       {note.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] text-zinc-500"
+                          className="rounded-full bg-toss-bg px-2 py-0.5 text-[10px] text-toss-body"
                         >
                           {tag}
                         </span>
