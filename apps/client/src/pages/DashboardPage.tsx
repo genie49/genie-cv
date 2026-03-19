@@ -59,7 +59,7 @@ function ProjectsScrollRow() {
           <div
             key={project.slug}
             className="shrink-0"
-            style={{ width: CARD_W, height: 340 }}
+            style={{ width: CARD_W, height: 280 }}
           >
             <div className="h-full" style={{ pointerEvents: isDragging ? "none" : "auto" }}>
               <ProjectCard project={project} />
