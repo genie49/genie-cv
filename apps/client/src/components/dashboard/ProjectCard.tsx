@@ -30,36 +30,38 @@ export default function ProjectCard({
   const tags = maxTags ? project.tags.slice(0, maxTags) : project.tags;
 
   return (
-    <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-      <Link
-        to={`/projects/${project.slug}`}
-        className="flex flex-col overflow-hidden rounded-xl border border-zinc-100 bg-zinc-50 transition-colors hover:border-zinc-200"
-      >
-        <ProjectHeroThumbnail slug={project.slug} className={heroHeight} />
-        <div className="flex flex-col gap-2 p-4">
-          <h3 className="font-['Outfit'] text-sm font-bold text-black">
-            {project.title}
-          </h3>
-          <p className="line-clamp-2 text-xs leading-relaxed text-zinc-500">
-            {project.description}
-          </p>
-          <div className="flex flex-wrap gap-1">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] text-zinc-500"
-              >
-                {tag}
+    <div className="pt-1 h-full">
+      <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }} className="h-full">
+        <Link
+          to={`/projects/${project.slug}`}
+          className="flex h-full flex-col overflow-hidden rounded-xl border border-zinc-100 bg-zinc-50 transition-colors hover:border-zinc-200"
+        >
+          <ProjectHeroThumbnail slug={project.slug} className={heroHeight} />
+          <div className="flex flex-1 flex-col gap-2 p-4">
+            <h3 className="font-['Outfit'] text-sm font-bold text-black">
+              {project.title}
+            </h3>
+            <p className="line-clamp-2 text-xs leading-relaxed text-zinc-500">
+              {project.description}
+            </p>
+            <div className="mt-auto flex flex-wrap gap-1">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] text-zinc-500"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+            {showPeriod && (
+              <span className="mt-1 text-xs text-zinc-400">
+                {project.period}
               </span>
-            ))}
+            )}
           </div>
-          {showPeriod && (
-            <span className="mt-1 text-xs text-zinc-400">
-              {project.period}
-            </span>
-          )}
-        </div>
-      </Link>
-    </motion.div>
+        </Link>
+      </motion.div>
+    </div>
   );
 }
