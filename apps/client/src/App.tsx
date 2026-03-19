@@ -19,7 +19,7 @@ export default function App() {
     <AssistantRuntimeProvider runtime={runtime}>
       <div className="flex h-screen">
         <Sidebar />
-        <main className="flex-1 overflow-auto bg-white pb-24 md:pb-0">
+        <main className="flex-1 overflow-auto bg-toss-bg pb-24 md:pb-0">
           <Suspense>
             <Routes>
               <Route path="/" element={<DashboardPage />} />
