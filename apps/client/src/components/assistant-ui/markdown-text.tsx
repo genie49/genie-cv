@@ -3,6 +3,7 @@ import rehypeHighlight from "rehype-highlight";
 import { Link } from "react-router";
 import { useMessagePartText } from "@assistant-ui/react";
 import type { Citation } from "@genie-cv/shared";
+import { User, Folder, FileText, MessageCircle, GraduationCap, Briefcase } from "lucide-react";
 
 const CITATION_MARKER = "<!--CITATIONS:";
 
@@ -18,6 +19,15 @@ function parseCitations(text: string): { body: string; citations: Citation[] } {
   }
 }
 
+function getCitationIcon(source: string) {
+  if (source === "about.md") return <User size={12} />;
+  if (source === "education.md") return <GraduationCap size={12} />;
+  if (source === "experience.md") return <Briefcase size={12} />;
+  if (source === "qna.json") return <MessageCircle size={12} />;
+  if (source.startsWith("projects/")) return <Folder size={12} />;
+  return <FileText size={12} />;
+}
+
 function CitationChips({ citations }: { citations: Citation[] }) {
   if (citations.length === 0) return null;
   return (
@@ -28,7 +38,7 @@ function CitationChips({ citations }: { citations: Citation[] }) {
           to={c.route}
           className="inline-flex items-center gap-1 rounded-lg border border-toss-border bg-toss-bg px-2.5 py-1 text-[11px] font-medium text-toss-blue no-underline transition-colors hover:border-toss-blue hover:bg-blue-50"
         >
-          <span className="text-[10px]">📄</span>
+          {getCitationIcon(c.source)}
           {c.label}
         </Link>
       ))}
