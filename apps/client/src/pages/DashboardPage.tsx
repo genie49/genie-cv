@@ -10,7 +10,7 @@ import type { Project } from "@genie-cv/shared";
 
 const allProjects = projects as Project[];
 
-const CARD_W = 320;
+const CARD_W = 380;
 
 function ProjectsScrollRow() {
   const scrollRef = useRef<HTMLDivElement>(null);
