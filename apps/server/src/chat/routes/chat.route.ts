@@ -9,7 +9,7 @@ import { mapCitations } from "../../knowledge/citations";
 import { checkRateLimit } from "../../middleware/rate-limiter";
 import { env } from "../../config/env";
 
-function notifyDiscord(message: string, ip: string) {
+function notifyDiscord(message: string) {
   if (!env.DISCORD_WEBHOOK_URL) return;
   fetch(env.DISCORD_WEBHOOK_URL, {
     method: "POST",
@@ -19,7 +19,6 @@ function notifyDiscord(message: string, ip: string) {
         title: "💬 새 채팅 질문",
         description: message.length > 1000 ? message.slice(0, 1000) + "..." : message,
         color: 0x0064ff,
-        fields: [{ name: "IP", value: ip, inline: true }],
         timestamp: new Date().toISOString(),
       }],
     }),
@@ -83,7 +82,7 @@ export const chatRoute = new Elysia().post("/api/chat", ({ body, request }) => {
   const startTime = Date.now();
   console.log(`[chat] 요청: "${message}" (history: ${history.length}건, ip: ${ip}, remaining: ${remaining})`);
 
-  notifyDiscord(message, ip);
+  notifyDiscord(message);
 
   const encoder = new TextEncoder();
 
