@@ -233,7 +233,7 @@
     "github": "https://github.com/heir-ai/bonda",
     "features": [
       { "title": "End-to-End RAG 파이프라인", "description": "PDF → OCR 폴백 → 청킹 → 벡터화 → 시맨틱 검색의 전체 파이프라인" },
-      { "title": "듀얼 벡터 이미지 검색", "description": "시각적 유사도(512dim) + 텍스트 기반(1536dim) 이중 임베딩으로 이미지 검색" },
+      { "title": "듀얼 벡터 이미지 검색", "description": "이미지 벡터 + 텍스트 설명 벡터 1536dim 듀얼 임베딩으로 이미지 검색" },
       { "title": "멀티모델 AI 에이전트", "description": "Claude/Gemini 전환 가능한 에이전트 + 4개 특화 도구(문서·이미지·사전 검색)" },
       { "title": "OCR 폴백 파이프라인", "description": "PyMuPDF 빠른 경로 + PaddleOCR 폴백 + Modal 서버리스 GPU 활용" }
     ],
