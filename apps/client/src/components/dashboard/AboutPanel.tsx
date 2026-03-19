@@ -6,7 +6,7 @@ export default function AboutPanel() {
       <h2 className="mb-3 font-['Outfit'] text-base font-bold text-black">
         About
       </h2>
-      <p className="text-[13px] leading-relaxed text-zinc-500">
+      <p className="text-[15px] leading-relaxed text-zinc-500">
         {profile.about}
       </p>
     </div>
