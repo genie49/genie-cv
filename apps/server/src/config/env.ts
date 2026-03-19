@@ -3,4 +3,5 @@ export const env = {
   CORS_ORIGIN: process.env.CORS_ORIGIN || "http://localhost:5173",
   XAI_API_KEY: process.env.XAI_API_KEY || "",
   GOOGLE_API_KEY: process.env.GOOGLE_API_KEY || "",
+  DISCORD_WEBHOOK_URL: process.env.DISCORD_WEBHOOK_URL || "",
 };
