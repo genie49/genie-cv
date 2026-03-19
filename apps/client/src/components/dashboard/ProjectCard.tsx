@@ -4,6 +4,7 @@ import { FingooHero } from "../ProjectHero";
 import { KimproHero } from "../KimproHero";
 import { HeyBaraHero } from "../HeyBaraHero";
 import { ChatbotHero } from "../ChatbotHero";
+import { BondaHero } from "../BondaHero";
 import type { Project } from "@genie-cv/shared";
 
 function ProjectHeroThumbnail({ slug, className }: { slug: string; className: string }) {
@@ -11,6 +12,7 @@ function ProjectHeroThumbnail({ slug, className }: { slug: string; className: st
   if (slug === "hey-bara") return <HeyBaraHero className={className} />;
   if (slug === "fingoo") return <FingooHero className={className} />;
   if (slug === "ai-portfolio-chatbot") return <ChatbotHero className={className} />;
+  if (slug === "bonda") return <BondaHero className={className} />;
   return <div className={`w-full bg-zinc-200 ${className}`} />;
 }
 
