@@ -21,7 +21,7 @@ export default function App() {
     <AssistantRuntimeProvider runtime={runtime}>
       <div className="flex h-screen">
         <Sidebar />
-        <main className="flex-1 overflow-auto bg-toss-bg pb-24 md:pb-0">
+        <main className="flex flex-1 flex-col overflow-auto bg-toss-bg pb-24 md:pb-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}
@@ -29,6 +29,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
+              className="flex flex-1 flex-col min-h-full"
             >
               <Suspense>
                 <Routes location={location}>
