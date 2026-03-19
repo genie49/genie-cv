@@ -1,20 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion } from "motion/react";
 import profile from "@data/profile.json";
 
-const COLLAPSED_CATEGORIES = ["AI/ML", "BACKEND", "DB/MESSAGE"];
+const DESKTOP_COLLAPSED = ["AI/ML", "BACKEND", "DB/MESSAGE"];
+const MOBILE_COLLAPSED = ["AI/ML", "BACKEND"];
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return isMobile;
+}
 
 const allCategories = Object.entries(profile.techStack);
-const alwaysVisible = allCategories.filter(([key]) =>
-  COLLAPSED_CATEGORIES.includes(key),
-);
-const extraCategories = allCategories.filter(
-  ([key]) => !COLLAPSED_CATEGORIES.includes(key),
-);
 
 export default function TechStackPanel() {
   const [expanded, setExpanded] = useState(false);
+  const isMobile = useIsMobile();
+
+  const collapsedKeys = isMobile ? MOBILE_COLLAPSED : DESKTOP_COLLAPSED;
+  const alwaysVisible = allCategories.filter(([key]) =>
+    collapsedKeys.includes(key),
+  );
+  const extraCategories = allCategories.filter(
+    ([key]) => !collapsedKeys.includes(key),
+  );
 
   return (
     <div className="rounded-xl border border-zinc-100 bg-zinc-50 p-6">
