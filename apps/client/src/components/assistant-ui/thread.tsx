@@ -9,9 +9,9 @@ import { MarkdownText } from "./markdown-text";
 function TypingIndicator() {
   return (
     <div className="flex items-center gap-1 py-1">
-      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-indigo-300 [animation-delay:0ms]" />
-      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-indigo-400 [animation-delay:150ms]" />
-      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-indigo-500 [animation-delay:300ms]" />
+      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-blue-300 [animation-delay:0ms]" />
+      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-blue-400 [animation-delay:150ms]" />
+      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-blue-500 [animation-delay:300ms]" />
     </div>
   );
 }
@@ -42,7 +42,7 @@ function UserMessage() {
 function AssistantMessage() {
   return (
     <div className="flex items-start gap-3 justify-start">
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-tr from-indigo-600 to-violet-500 shadow-sm shadow-indigo-200">
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-toss-blue shadow-sm">
         <Sparkles size={16} className="text-white fill-white/20" />
       </div>
       <div className="max-w-[80%] rounded-2xl border border-toss-border bg-toss-card px-4 py-3 text-toss-body shadow-sm">
@@ -78,7 +78,7 @@ export function Thread() {
       <ThreadPrimitive.Viewport className="flex flex-1 flex-col gap-6 overflow-auto bg-toss-bg p-6">
         <ThreadPrimitive.Empty>
           <div className="flex flex-1 flex-col items-center gap-4 pt-20">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 shadow-xl shadow-indigo-100 rotate-3">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-toss-blue shadow-xl shadow-blue-100 rotate-3">
               <Sparkles size={32} className="text-white fill-white/20" />
             </div>
             <div className="text-center space-y-1.5 pt-2">
