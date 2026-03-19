@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
-import { ChevronDown, ChevronUp, MessageCircle } from "lucide-react";
+import { ChevronDown, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import qnaData from "@data/qna.json";
 import type { QnAItem } from "@genie-cv/shared";
@@ -16,23 +15,14 @@ export default function QnAPage() {
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-between"
+        className="flex flex-col gap-1"
       >
-        <div className="flex flex-col gap-1">
-          <h1 className="font-['Outfit'] text-2xl font-extrabold tracking-tight text-black">
-            Self Q&A
-          </h1>
-          <p className="text-[13px] text-zinc-400">
-            자기소개서 대신, 스스로에게 묻고 답한 기록
-          </p>
-        </div>
-        <Link
-          to="/chat"
-          className="flex cursor-pointer items-center gap-2 rounded-lg bg-black px-3.5 py-2 text-xs font-medium text-white hover:bg-zinc-800"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-          AI에게 더 물어보기
-        </Link>
+        <h1 className="font-['Outfit'] text-2xl font-extrabold tracking-tight text-black">
+          Self Q&A
+        </h1>
+        <p className="text-[13px] text-zinc-400">
+          자기소개서 대신, 스스로에게 묻고 답한 기록
+        </p>
       </motion.div>
 
       {/* Q&A List */}
