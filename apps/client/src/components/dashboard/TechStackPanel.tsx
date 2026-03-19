@@ -40,7 +40,8 @@ export default function TechStackPanel() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+              style={{ overflow: "hidden" }}
               className="flex flex-col gap-1.5"
             >
               <span className="text-[11px] font-semibold tracking-wider text-zinc-400">
