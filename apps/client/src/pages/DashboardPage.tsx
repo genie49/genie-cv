@@ -1,5 +1,6 @@
-import { motion } from "motion/react";
-import { useRef, useState, useCallback } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { useRef, useState, useCallback, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import AboutPanel from "../components/dashboard/AboutPanel";
 import TechStackPanel from "../components/dashboard/TechStackPanel";
 import ProjectCard from "../components/dashboard/ProjectCard";
@@ -12,7 +13,157 @@ const allProjects = projects as Project[];
 
 const CARD_W = 380;
 
-function ProjectsScrollRow() {
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return isMobile;
+}
+
+/* ── Mobile: single card carousel with swipe + arrows ── */
+function MobileProjectCarousel() {
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const touchRef = useRef<{ startX: number; startY: number; isHorizontal: boolean | null } | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const go = useCallback(
+    (dir: number) => {
+      setDirection(dir);
+      setCurrent((prev) => {
+        const next = prev + dir;
+        if (next < 0) return 0;
+        if (next >= allProjects.length) return allProjects.length - 1;
+        return next;
+      });
+    },
+    [],
+  );
+
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchRef.current = { startX: e.touches[0].clientX, startY: e.touches[0].clientY, isHorizontal: null };
+  }, []);
+
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!touchRef.current) return;
+    const dx = e.touches[0].clientX - touchRef.current.startX;
+    const dy = e.touches[0].clientY - touchRef.current.startY;
+    if (touchRef.current.isHorizontal === null && (Math.abs(dx) > 10 || Math.abs(dy) > 10)) {
+      touchRef.current.isHorizontal = Math.abs(dx) > Math.abs(dy);
+    }
+    if (touchRef.current.isHorizontal) {
+      e.preventDefault();
+    }
+  }, []);
+
+  const onTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      if (!touchRef.current) return;
+      const dx = e.changedTouches[0].clientX - touchRef.current.startX;
+      const dy = e.changedTouches[0].clientY - touchRef.current.startY;
+      const wasHorizontal = touchRef.current.isHorizontal;
+      touchRef.current = null;
+      if (!wasHorizontal || Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
+      go(dx < 0 ? 1 : -1);
+    },
+    [go],
+  );
+
+  // passive: false 로 등록해야 preventDefault 가능
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const handler = (e: TouchEvent) => {
+      if (touchRef.current?.isHorizontal) {
+        e.preventDefault();
+      }
+    };
+    el.addEventListener("touchmove", handler, { passive: false });
+    return () => el.removeEventListener("touchmove", handler);
+  }, []);
+
+  const variants = {
+    enter: (dir: number) => ({ x: dir > 0 ? 200 : -200, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir: number) => ({ x: dir > 0 ? -200 : 200, opacity: 0 }),
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: 0.1 }}
+      className="flex flex-col gap-3"
+    >
+      <div
+        ref={containerRef}
+        className="relative overflow-hidden touch-pan-y"
+        style={{ height: 280 }}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
+        <AnimatePresence initial={false} custom={direction} mode="popLayout">
+          <motion.div
+            key={current}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="absolute inset-0"
+          >
+            <div className="h-full">
+              <ProjectCard project={allProjects[current]} />
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Nav: arrows + dots */}
+      <div className="flex items-center justify-between px-1">
+        <button
+          onClick={() => go(-1)}
+          disabled={current === 0}
+          className="rounded-full p-1.5 text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-600 disabled:opacity-30"
+        >
+          <ChevronLeft size={18} />
+        </button>
+
+        <div className="flex gap-1.5">
+          {allProjects.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                setDirection(i > current ? 1 : -1);
+                setCurrent(i);
+              }}
+              className={`h-1.5 rounded-full transition-all ${
+                i === current ? "w-4 bg-zinc-700" : "w-1.5 bg-zinc-300"
+              }`}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={() => go(1)}
+          disabled={current === allProjects.length - 1}
+          className="rounded-full p-1.5 text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-600 disabled:opacity-30"
+        >
+          <ChevronRight size={18} />
+        </button>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ── Desktop: horizontal scroll + drag ── */
+function DesktopProjectsRow() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const dragState = useRef<{ isDown: boolean; startX: number; scrollLeft: number }>({
     isDown: false,
@@ -71,6 +222,11 @@ function ProjectsScrollRow() {
   );
 }
 
+function ProjectsRow() {
+  const isMobile = useIsMobile();
+  return isMobile ? <MobileProjectCarousel /> : <DesktopProjectsRow />;
+}
+
 export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-5 p-6">
@@ -89,8 +245,8 @@ export default function DashboardPage() {
         </div>
       </motion.div>
 
-      {/* Projects Row — horizontal scroll + drag */}
-      <ProjectsScrollRow />
+      {/* Projects Row */}
+      <ProjectsRow />
 
       {/* Bottom Row: Education + Experience */}
       <motion.div
