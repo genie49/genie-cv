@@ -3,7 +3,7 @@
   "role": "AI Engineer",
   "email": "kimgenie0409@gmail.com",
   "github": "https://github.com/genie49",
-  "about": "한번 몰입하면 빠르게 결과물을 만들어내는 AI 엔지니어입니다. 멀티에이전트 시스템 설계, RAG 파이프라인, Agent 품질 평가 체계까지 — AI 기술을 프로덕트로 완성하는 전 과정을 경험했습니다. 비즈니스 병목을 파악하고 Agent 워크플로우로 전환하는 접근 방식을 지향합니다.",
+  "about": "한번 몰입하면 빠르게 결과물을 만들어내는 AI 엔지니어입니다. fingoo에서 Supervisor 패턴으로 7개 에이전트를, kimpro에서 Account Manager + 5개 에이전트로 마케팅 자동화를, bonda에서 PDF → OCR → 듀얼 벡터 이미지 검색까지 End-to-End RAG 파이프라인을 설계했습니다. 멀티에이전트 시스템, RAG 파이프라인, Agent 품질 평가 체계, 실시간 스트리밍까지 — AI 기술을 프로덕트로 완성하는 전 과정을 경험했습니다. 비즈니스 병목을 먼저 파악하고 Agent 워크플로우로 전환하는 접근 방식을 지향합니다.",
   "education": [
     {
       "school": "한양대학교",
