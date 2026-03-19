@@ -40,7 +40,7 @@ export default function TechStackPanel() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2, ease: "easeInOut" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
               style={{ overflow: "hidden" }}
               className="flex flex-col gap-1.5"
             >
