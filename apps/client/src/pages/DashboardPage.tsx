@@ -312,7 +312,7 @@ function MobileTopButtons() {
         <AboutPanel />
       </Modal>
       <Modal open={modal === "tech"} onClose={() => setModal(null)}>
-        <TechStackPanel />
+        <TechStackPanel bare />
       </Modal>
     </>
   );
