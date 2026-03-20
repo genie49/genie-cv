@@ -5,3 +5,4 @@ dist/
 *.db
 *.lance/
 !apps/server/db/
+!apps/server/db/**
