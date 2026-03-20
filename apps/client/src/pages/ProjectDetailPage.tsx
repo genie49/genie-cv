@@ -178,7 +178,7 @@ export default function ProjectDetailPage() {
             onMouseUp={dragScroll.onMouseUp}
             onMouseLeave={dragScroll.onMouseLeave}
             onMouseMove={dragScroll.onMouseMove}
-            className="-mx-6 cursor-grab overflow-x-auto px-6 scrollbar-none select-none"
+            className="-mx-6 cursor-grab overflow-x-auto px-6 hide-scrollbar select-none"
           >
             <div className="flex gap-3" style={{ minWidth: "max-content" }}>
               {project.features.map((feat, i) => (
