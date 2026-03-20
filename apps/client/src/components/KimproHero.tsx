@@ -286,50 +286,81 @@ export function KimproHero({
           </marker>
         </defs>
 
-        {/* ── 사용자 (left) ── */}
-        <Node x={20} y={100} w={75} h={48} label="사용자" color="violet" delay={FLOW_DELAY} />
+        {/* ── AI Agent (center hub) ── */}
+        <Node x={255} y={100} w={130} h={55} label="AI Agent" sub="자율 오케스트레이션" color="violet" delay={FLOW_DELAY} />
 
-        {/* Arrow: 사용자 → 데이터 분석 */}
-        <Arrow points="95,124 125,100" delay={FLOW_DELAY * 2} />
+        {/* ── 브랜드 (top-left) ── */}
+        <Node x={40} y={35} w={110} h={45} label="브랜드" sub="캠페인 요구사항 수집" color="blue" delay={FLOW_DELAY * 3} />
 
-        {/* ── 데이터 분석 ── */}
-        <Node x={125} y={75} w={110} h={50} label="데이터 분석" sub="URL·PDF → AI 크롤링" color="blue" delay={FLOW_DELAY * 3} />
+        {/* ── 크리에이터 (top-right) ── */}
+        <Node x={490} y={35} w={110} h={45} label="크리에이터" sub="매칭 · 컨택 · 계약" color="amber" delay={FLOW_DELAY * 5} />
 
-        {/* Arrow: 데이터 분석 → 캠페인 구성 */}
-        <Arrow points="235,100 265,100" delay={FLOW_DELAY * 4} />
+        {/* ── 콘텐츠 (bottom-center) ── */}
+        <Node x={255} y={210} w={130} h={45} label="콘텐츠" sub="가이드 생성 · 검수" color="emerald" delay={FLOW_DELAY * 7} />
 
-        {/* ── 캠페인 구성 ── */}
-        <Node x={265} y={75} w={110} h={50} label="캠페인 구성" sub="AI 대화로 자동 생성" color="emerald" delay={FLOW_DELAY * 5} />
+        {/* Arrows: Agent ↔ 브랜드 */}
+        <Arrow points="255,118 155,72" delay={FLOW_DELAY * 2} />
+        <Arrow points="150,80 255,133" delay={FLOW_DELAY * 2.5} dashed />
 
-        {/* Arrow: 캠페인 구성 → 크리에이터 매칭 */}
-        <Arrow points="375,100 405,100" delay={FLOW_DELAY * 6} />
+        {/* Arrows: Agent ↔ 크리에이터 */}
+        <Arrow points="385,118 490,72" delay={FLOW_DELAY * 4} />
+        <Arrow points="490,80 385,133" delay={FLOW_DELAY * 4.5} dashed />
 
-        {/* ── 크리에이터 매칭 ── */}
-        <Node x={405} y={75} w={110} h={50} label="크리에이터 매칭" sub="AI 주도 컨택 · 계약" color="amber" delay={FLOW_DELAY * 7} />
+        {/* Arrows: Agent ↔ 콘텐츠 */}
+        <Arrow points="325,155 325,210" delay={FLOW_DELAY * 6} />
+        <Arrow points="315,210 315,155" delay={FLOW_DELAY * 6.5} dashed />
 
-        {/* Arrow: 크리에이터 매칭 → 모니터링 */}
-        <Arrow points="515,100 545,124" delay={FLOW_DELAY * 8} />
+        {/* ── 브랜드 세부 기능 (zinc, left column) ── */}
+        <Arrow points="95,80 95,105" delay={FLOW_DELAY * 9} dashed />
+        <Node x={30} y={105} w={100} h={30} label="URL·PDF 크롤링" color="zinc" delay={FLOW_DELAY * 9.5} />
+        <Arrow points="80,135 80,150" delay={FLOW_DELAY * 10} dashed />
+        <Node x={30} y={150} w={100} h={30} label="캠페인 브리프" color="zinc" delay={FLOW_DELAY * 10.5} />
 
-        {/* ── 모니터링 (right) ── */}
-        <Node x={545} y={100} w={75} h={48} label="모니터링" color="emerald" delay={FLOW_DELAY * 9} />
+        {/* ── 크리에이터 세부 기능 (zinc, right column) ── */}
+        <Arrow points="545,80 545,105" delay={FLOW_DELAY * 9} dashed />
+        <Node x={500} y={105} w={100} h={30} label="크리에이터 DB" color="zinc" delay={FLOW_DELAY * 9.5} />
+        <Arrow points="550,135 550,150" delay={FLOW_DELAY * 10} dashed />
+        <Node x={500} y={150} w={100} h={30} label="AI 커뮤니케이션" color="zinc" delay={FLOW_DELAY * 10.5} />
 
-        {/* Dashed arrows: data layer (top → bottom) */}
-        <Arrow points="180,125 180,170" delay={FLOW_DELAY * 10} dashed />
-        <Arrow points="320,125 320,170" delay={FLOW_DELAY * 10} dashed />
-        <Arrow points="460,125 460,170" delay={FLOW_DELAY * 10} dashed />
+        {/* ── 콘텐츠 세부 기능 (zinc, bottom sides) ── */}
+        <Arrow points="255,232 210,232" delay={FLOW_DELAY * 9} dashed />
+        <Node x={115} y={218} w={95} h={30} label="가이드 생성" color="zinc" delay={FLOW_DELAY * 9.5} />
+        <Arrow points="385,232 430,232" delay={FLOW_DELAY * 10} dashed />
+        <Node x={430} y={218} w={95} h={30} label="콘텐츠 검수" color="zinc" delay={FLOW_DELAY * 10.5} />
 
-        {/* ── Data layer nodes ── */}
-        <Node x={125} y={170} w={110} h={34} label="크롤링 엔진" color="zinc" delay={FLOW_DELAY * 11} />
-        <Node x={265} y={170} w={110} h={34} label="크리에이터 DB" sub="특성 분석" color="zinc" delay={FLOW_DELAY * 11.5} />
-        <Node x={405} y={170} w={110} h={34} label="AI 커뮤니케이션" sub="연락 · 계약 · 대화" color="zinc" delay={FLOW_DELAY * 12} />
+        {/* ── Edge labels ── */}
+        <motion.text
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: FLOW_DELAY * 3, duration: 0.3 }}
+          x={190} y={88} fontFamily="monospace" fontSize={6.5} fill="#666" textAnchor="middle"
+        >
+          분석 · 기획
+        </motion.text>
+        <motion.text
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: FLOW_DELAY * 5, duration: 0.3 }}
+          x={450} y={88} fontFamily="monospace" fontSize={6.5} fill="#666" textAnchor="middle"
+        >
+          탐색 · 협업
+        </motion.text>
+        <motion.text
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: FLOW_DELAY * 7, duration: 0.3 }}
+          x={350} y={192} fontFamily="monospace" fontSize={6.5} fill="#666" textAnchor="middle"
+        >
+          생성 · 관리
+        </motion.text>
 
         {/* ── Bottom note ── */}
         <motion.text
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: FLOW_DELAY * 8, duration: 0.4 }}
+          transition={{ delay: FLOW_DELAY * 12, duration: 0.4 }}
           x={320}
-          y={260}
+          y={268}
           fontFamily="monospace"
           fontSize={7}
           fill="#999"
