@@ -1,0 +1,166 @@
+<h2>Aimers Hero — A안 수정: Nginx → Auth/API/Chat</h2>
+<p class="subtitle">Client → Nginx Gateway → Auth/API/Chat → Workflow(Agent) → Tools. 640×280 가로 비율.</p>
+
+<div class="cards" style="flex-direction: column;">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)" style="max-width: 100%;">
+    <div class="card-image" style="padding: 20px 16px; background: linear-gradient(135deg, #f8fafc, #ede9fe20);">
+      <svg viewBox="0 0 640 280" style="width:100%;height:260px;background:radial-gradient(#d4d4d8 0.6px,transparent 0.6px);background-size:14px 14px;">
+        <!-- Title -->
+        <text x="20" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#444">AIMERS</text>
+        <text x="72" y="18" font-family="monospace" font-size="7" fill="#999">SYSTEM ARCHITECTURE</text>
+
+        <!-- ═══ Col 1: Client ═══ -->
+        <rect x="12" y="85" width="58" height="35" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.2"/>
+        <text x="41" y="102" text-anchor="middle" font-size="8.5" font-family="monospace" font-weight="600" fill="#1e40af">Client</text>
+        <text x="41" y="113" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#3b82f6">Next.js</text>
+
+        <!-- Arrow Client → Nginx -->
+        <line x1="70" y1="102" x2="88" y2="102" stroke="#ccc" stroke-width="1"/>
+        <polygon points="85,99 90,102 85,105" fill="#ccc"/>
+
+        <!-- ═══ Col 2: Nginx Gateway ═══ -->
+        <rect x="90" y="70" width="55" height="65" rx="4" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="1.2"/>
+        <text x="117" y="93" text-anchor="middle" font-size="7.5" font-family="monospace" font-weight="600" fill="#52525b">Nginx</text>
+        <text x="117" y="104" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#71717a">Gateway</text>
+        <text x="117" y="114" text-anchor="middle" font-size="5" font-family="monospace" fill="#a1a1aa">auth_request</text>
+
+        <!-- Arrows Nginx → Auth/API/Chat -->
+        <line x1="145" y1="82" x2="168" y2="57" stroke="#ccc" stroke-width="0.9"/>
+        <polygon points="165,59 170,54 170,61" fill="#ccc"/>
+
+        <line x1="145" y1="100" x2="168" y2="100" stroke="#ccc" stroke-width="0.9"/>
+        <polygon points="165,97 170,100 165,103" fill="#ccc"/>
+
+        <line x1="145" y1="118" x2="168" y2="143" stroke="#ccc" stroke-width="0.9"/>
+        <polygon points="165,141 170,146 165,147" fill="#ccc"/>
+
+        <!-- ═══ Col 3: Services ═══ -->
+        <rect x="170" y="40" width="52" height="26" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1"/>
+        <text x="196" y="56" text-anchor="middle" font-size="7.5" font-family="monospace" font-weight="600" fill="#065f46">Auth</text>
+
+        <rect x="170" y="78" width="52" height="26" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1"/>
+        <text x="196" y="94" text-anchor="middle" font-size="7.5" font-family="monospace" font-weight="600" fill="#065f46">API</text>
+
+        <rect x="170" y="135" width="52" height="32" rx="3" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.2"/>
+        <text x="196" y="151" text-anchor="middle" font-size="7.5" font-family="monospace" font-weight="600" fill="#1e40af">Chat</text>
+        <text x="196" y="162" text-anchor="middle" font-size="5" font-family="monospace" fill="#3b82f6">Socket.IO</text>
+
+        <!-- Arrow Chat → Workflow via Pub/Sub -->
+        <line x1="222" y1="151" x2="253" y2="130" stroke="#fcd34d" stroke-width="1.2"/>
+        <polygon points="250,132 255,127 255,134" fill="#fcd34d"/>
+        <text x="234" y="135" font-size="5" font-family="monospace" fill="#d97706">pub/sub</text>
+
+        <!-- ═══ Col 4: WORKFLOW SERVICE (big box) ═══ -->
+        <rect x="255" y="32" width="195" height="175" rx="6" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+        <text x="352" y="49" text-anchor="middle" font-size="8" font-family="monospace" font-weight="700" fill="#7c3aed">Workflow Service</text>
+
+        <!-- Agent core -->
+        <rect x="272" y="57" width="160" height="38" rx="4" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1.2"/>
+        <text x="352" y="73" text-anchor="middle" font-size="9" font-family="monospace" font-weight="700" fill="#5b21b6">Account Manager</text>
+        <text x="352" y="87" text-anchor="middle" font-size="6" font-family="monospace" fill="#7c3aed">Supervisor · LangGraph · Claude/GPT</text>
+
+        <!-- Sub-agents row -->
+        <rect x="268" y="104" width="38" height="20" rx="2" fill="#fff" stroke="#c4b5fd" stroke-width="0.7"/>
+        <text x="287" y="117" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#7c3aed">Insight</text>
+
+        <rect x="310" y="104" width="44" height="20" rx="2" fill="#fff" stroke="#c4b5fd" stroke-width="0.7"/>
+        <text x="332" y="117" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#7c3aed">Campaign</text>
+
+        <rect x="358" y="104" width="40" height="20" rx="2" fill="#fff" stroke="#c4b5fd" stroke-width="0.7"/>
+        <text x="378" y="117" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#7c3aed">Content</text>
+
+        <rect x="402" y="104" width="38" height="20" rx="2" fill="#fff" stroke="#c4b5fd" stroke-width="0.7"/>
+        <text x="421" y="117" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#7c3aed">Recruit</text>
+
+        <!-- Lines Agent → sub-agents -->
+        <line x1="305" y1="95" x2="287" y2="104" stroke="#c4b5fd" stroke-width="0.6"/>
+        <line x1="335" y1="95" x2="332" y2="104" stroke="#c4b5fd" stroke-width="0.6"/>
+        <line x1="370" y1="95" x2="378" y2="104" stroke="#c4b5fd" stroke-width="0.6"/>
+        <line x1="400" y1="95" x2="421" y2="104" stroke="#c4b5fd" stroke-width="0.6"/>
+
+        <!-- Middleware bar -->
+        <rect x="272" y="133" width="168" height="16" rx="8" fill="#f0e7ff" stroke="#ddd6fe" stroke-width="0.7"/>
+        <text x="356" y="144" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#7c3aed">Middleware Pipeline × 5</text>
+
+        <!-- Checkpoint + Prompt Cache -->
+        <rect x="272" y="157" width="78" height="16" rx="3" fill="#fff" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="311" y="168" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#71717a">PG Checkpoint</text>
+
+        <rect x="356" y="157" width="84" height="16" rx="3" fill="#fff" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="398" y="168" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#71717a">Prompt Cache</text>
+
+        <!-- Workflow bottom line -->
+        <rect x="272" y="180" width="168" height="14" rx="3" fill="#fff" stroke="#d4d4d8" stroke-width="0.5"/>
+        <text x="356" y="190" text-anchor="middle" font-size="5" font-family="monospace" fill="#999">Dynamic Model Selection · LLM Factory</text>
+
+        <!-- ═══ Col 5: Tools API ═══ -->
+        <line x1="450" y1="76" x2="472" y2="58" stroke="#fcd34d" stroke-width="1.2"/>
+        <polygon points="469,60 474,55 474,62" fill="#fcd34d"/>
+        <text x="467" y="48" font-size="5" font-family="monospace" fill="#d97706">HTTP</text>
+
+        <rect x="472" y="32" width="90" height="28" rx="4" fill="#fef3c7" stroke="#fcd34d" stroke-width="1.2"/>
+        <text x="517" y="46" text-anchor="middle" font-size="8" font-family="monospace" font-weight="600" fill="#92400e">Tools API</text>
+        <text x="517" y="56" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#d97706">Fastify · 독립 배포</text>
+
+        <!-- Tool items (2×2 grid) -->
+        <rect x="472" y="66" width="43" height="16" rx="2" fill="#fff7ed" stroke="#fed7aa" stroke-width="0.6"/>
+        <text x="493" y="77" text-anchor="middle" font-size="5" font-family="monospace" fill="#c2410c">제품 분석</text>
+
+        <rect x="519" y="66" width="43" height="16" rx="2" fill="#fff7ed" stroke="#fed7aa" stroke-width="0.6"/>
+        <text x="540" y="77" text-anchor="middle" font-size="5" font-family="monospace" fill="#c2410c">키워드</text>
+
+        <rect x="472" y="86" width="43" height="16" rx="2" fill="#fff7ed" stroke="#fed7aa" stroke-width="0.6"/>
+        <text x="493" y="97" text-anchor="middle" font-size="5" font-family="monospace" fill="#c2410c">성과 예측</text>
+
+        <rect x="519" y="86" width="43" height="16" rx="2" fill="#fff7ed" stroke="#fed7aa" stroke-width="0.6"/>
+        <text x="540" y="97" text-anchor="middle" font-size="5" font-family="monospace" fill="#c2410c">매칭</text>
+
+        <rect x="472" y="106" width="43" height="16" rx="2" fill="#fff7ed" stroke="#fed7aa" stroke-width="0.6"/>
+        <text x="493" y="117" text-anchor="middle" font-size="5" font-family="monospace" fill="#c2410c">레퍼런스</text>
+
+        <rect x="519" y="106" width="43" height="16" rx="2" fill="#fff7ed" stroke="#fed7aa" stroke-width="0.6"/>
+        <text x="540" y="117" text-anchor="middle" font-size="5" font-family="monospace" fill="#c2410c">크롤링</text>
+
+        <!-- ═══ Bottom: Pub/Sub Event Bus ═══ -->
+        <line x1="352" y1="207" x2="352" y2="222" stroke="#fcd34d" stroke-width="0.8" stroke-dasharray="3,2"/>
+
+        <rect x="90" y="222" width="470" height="18" rx="9" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
+        <text x="325" y="234" text-anchor="middle" font-size="7" font-family="monospace" font-weight="600" fill="#92400e">GCP Pub/Sub Event Bus</text>
+
+        <!-- Workers -->
+        <rect x="100" y="250" width="75" height="20" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="137" y="263" text-anchor="middle" font-size="6" font-family="monospace" fill="#71717a">Notification WK</text>
+
+        <rect x="185" y="250" width="60" height="20" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="215" y="263" text-anchor="middle" font-size="6" font-family="monospace" fill="#71717a">History WK</text>
+
+        <!-- DB -->
+        <rect x="355" y="250" width="58" height="20" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="0.7"/>
+        <text x="384" y="263" text-anchor="middle" font-size="6" font-family="monospace" fill="#065f46">PostgreSQL</text>
+
+        <rect x="418" y="250" width="50" height="20" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="0.7"/>
+        <text x="443" y="263" text-anchor="middle" font-size="6" font-family="monospace" fill="#065f46">MongoDB</text>
+
+        <rect x="473" y="250" width="42" height="20" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="0.7"/>
+        <text x="494" y="263" text-anchor="middle" font-size="6" font-family="monospace" fill="#065f46">Redis</text>
+
+        <!-- Arrows bus → bottom -->
+        <line x1="137" y1="240" x2="137" y2="250" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+        <line x1="215" y1="240" x2="215" y2="250" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+        <line x1="384" y1="240" x2="384" y2="250" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+        <line x1="443" y1="240" x2="443" y2="250" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+        <line x1="494" y1="240" x2="494" y2="250" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>A안 수정 — Nginx가 Auth/API/Chat 앞에서 라우팅</h3>
+      <p>Client → <strong>Nginx Gateway</strong>(auth_request) → Auth / API / Chat 으로 분기. Chat이 Pub/Sub으로 Workflow에 전달. Workflow 안에 Account Manager + 5 서브에이전트 + 미들웨어. Agent가 HTTP로 Tools API 호출. 하단에 Pub/Sub 이벤트 버스 + Workers + DB.</p>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 16px; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+  <p style="font-size: 13px; color: #64748b; margin: 0;">
+    💡 이 방향이 괜찮으면 다음으로 <strong>description 개선</strong>과 <strong>세부 디자인 조율</strong>로 넘어갑니다.
+  </p>
+</div>

@@ -1,0 +1,143 @@
+<h2>VocaTokTok Hero — 학습 루프 + 시스템 아키텍처</h2>
+<p class="subtitle">A 기반 + 아는단어/모르는단어 판별 → 반복 학습 루프 강조. 640×280.</p>
+
+<div class="cards" style="flex-direction: column;">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)" style="max-width: 100%;">
+    <div class="card-image" style="padding: 20px 16px; background: linear-gradient(135deg, #f8fafc, #d1fae520);">
+      <svg viewBox="0 0 640 280" style="width:100%;height:260px;background:radial-gradient(#d4d4d8 0.6px,transparent 0.6px);background-size:14px 14px;">
+        <text x="20" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#444">VOCATOKTOK</text>
+        <text x="100" y="18" font-family="monospace" font-size="7" fill="#999">SYSTEM ARCHITECTURE</text>
+
+        <!-- ═══ Col 1: Client ═══ -->
+        <rect x="12" y="80" width="58" height="35" rx="3" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+        <text x="41" y="96" text-anchor="middle" font-size="7" font-family="monospace" font-weight="600" fill="#1e40af">Client</text>
+        <text x="41" y="108" text-anchor="middle" font-size="5" font-family="monospace" fill="#3b82f6">Next.js 14</text>
+
+        <line x1="70" y1="97" x2="85" y2="97" stroke="#ccc" stroke-width="0.9"/>
+        <polygon points="82,94 87,97 82,100" fill="#ccc"/>
+
+        <!-- ═══ Col 2: API Routes ═══ -->
+        <rect x="88" y="72" width="65" height="50" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1"/>
+        <text x="120" y="92" text-anchor="middle" font-size="6.5" font-family="monospace" font-weight="600" fill="#065f46">API Routes</text>
+        <text x="120" y="104" text-anchor="middle" font-size="5" font-family="monospace" fill="#059669">Route Handlers</text>
+
+        <line x1="153" y1="85" x2="170" y2="55" stroke="#ccc" stroke-width="0.7"/>
+        <line x1="153" y1="97" x2="170" y2="97" stroke="#ccc" stroke-width="0.7"/>
+        <line x1="153" y1="109" x2="170" y2="155" stroke="#ccc" stroke-width="0.7"/>
+
+        <!-- ═══ Col 3: Learning System (big box) ═══ -->
+        <rect x="168" y="30" width="240" height="115" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+        <text x="288" y="46" text-anchor="middle" font-size="7" font-family="monospace" font-weight="700" fill="#1e40af">학습 시스템</text>
+
+        <!-- Study Modes -->
+        <rect x="180" y="54" width="50" height="22" rx="2" fill="#dbeafe" stroke="#93c5fd" stroke-width="0.7"/>
+        <text x="205" y="68" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#1e40af">RDT</text>
+
+        <rect x="234" y="54" width="50" height="22" rx="2" fill="#dbeafe" stroke="#93c5fd" stroke-width="0.7"/>
+        <text x="259" y="68" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#1e40af">RET</text>
+
+        <rect x="288" y="54" width="55" height="22" rx="2" fill="#dbeafe" stroke="#93c5fd" stroke-width="0.7"/>
+        <text x="315" y="68" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#1e40af">Selection</text>
+
+        <rect x="347" y="54" width="52" height="22" rx="2" fill="#dbeafe" stroke="#93c5fd" stroke-width="0.7"/>
+        <text x="373" y="68" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#1e40af">다국어</text>
+
+        <!-- ═══ CORE: Learning Loop ═══ -->
+        <rect x="180" y="82" width="218" height="55" rx="4" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.2"/>
+        <text x="289" y="96" text-anchor="middle" font-size="6" font-family="monospace" font-weight="700" fill="#5b21b6">반복 학습 루프</text>
+
+        <!-- Loop flow: Practice → Test → Wrong → Retest → Level -->
+        <rect x="186" y="102" width="40" height="14" rx="2" fill="#ede9fe" stroke="#c4b5fd" stroke-width="0.6"/>
+        <text x="206" y="112" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#5b21b6">연습</text>
+
+        <text x="230" y="112" text-anchor="middle" font-size="6" fill="#c4b5fd">→</text>
+
+        <rect x="236" y="102" width="40" height="14" rx="2" fill="#ede9fe" stroke="#c4b5fd" stroke-width="0.6"/>
+        <text x="256" y="112" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#5b21b6">테스트</text>
+
+        <text x="280" y="112" text-anchor="middle" font-size="6" fill="#c4b5fd">→</text>
+
+        <rect x="286" y="102" width="42" height="14" rx="2" fill="#ffe4e6" stroke="#fda4af" stroke-width="0.6"/>
+        <text x="307" y="112" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#9f1239">오답</text>
+
+        <text x="332" y="112" text-anchor="middle" font-size="6" fill="#fda4af">→</text>
+
+        <rect x="338" y="102" width="42" height="14" rx="2" fill="#ede9fe" stroke="#c4b5fd" stroke-width="0.6"/>
+        <text x="359" y="112" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#5b21b6">재시험</text>
+
+        <!-- Loop back arrow (curved) -->
+        <path d="M307,116 C307,128 206,128 206,116" stroke="#c4b5fd" stroke-width="0.7" fill="none" stroke-dasharray="2,2"/>
+        <polygon points="204,118 206,114 208,118" fill="#c4b5fd"/>
+
+        <!-- Know/Don't Know assessment -->
+        <text x="289" y="132" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#7c3aed">corr - inco ≥ 임계값 → 아는 단어 판별</text>
+
+        <!-- ═══ Right side: Services ═══ -->
+        <!-- Google TTS -->
+        <rect x="428" y="35" width="80" height="28" rx="3" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
+        <text x="468" y="50" text-anchor="middle" font-size="6.5" font-family="monospace" font-weight="600" fill="#92400e">Google TTS</text>
+        <text x="468" y="60" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#d97706">발음 학습</text>
+
+        <line x1="399" y1="60" x2="428" y2="50" stroke="#fcd34d" stroke-width="0.7"/>
+
+        <!-- AES-256 -->
+        <rect x="428" y="72" width="80" height="22" rx="3" fill="#ffe4e6" stroke="#fda4af" stroke-width="0.8"/>
+        <text x="468" y="86" text-anchor="middle" font-size="6" font-family="monospace" font-weight="600" fill="#9f1239">AES-256</text>
+
+        <line x1="399" y1="85" x2="428" y2="83" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+
+        <!-- Level System -->
+        <rect x="428" y="102" width="80" height="28" rx="3" fill="#ede9fe" stroke="#c4b5fd" stroke-width="0.8"/>
+        <text x="468" y="115" text-anchor="middle" font-size="5.5" font-family="monospace" font-weight="600" fill="#5b21b6">레벨 시스템</text>
+        <text x="468" y="126" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#7c3aed">난이도 자동 조절</text>
+
+        <line x1="398" y1="120" x2="428" y2="116" stroke="#c4b5fd" stroke-width="0.7"/>
+
+        <!-- ═══ Bottom left: Data Layer ═══ -->
+        <rect x="168" y="150" width="115" height="34" rx="3" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
+        <text x="225" y="165" text-anchor="middle" font-size="6" font-family="monospace" font-weight="600" fill="#92400e">학원 관리 시스템</text>
+        <text x="225" y="176" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#d97706">학교 · 반 · 학생 · 강사</text>
+
+        <!-- Prisma + MySQL -->
+        <rect x="300" y="150" width="55" height="34" rx="3" fill="#cffafe" stroke="#67e8f9" stroke-width="1"/>
+        <text x="327" y="165" text-anchor="middle" font-size="6.5" font-family="monospace" font-weight="600" fill="#155e75">Prisma</text>
+        <text x="327" y="176" text-anchor="middle" font-size="5" font-family="monospace" fill="#0891b2">ORM</text>
+
+        <line x1="355" y1="167" x2="370" y2="167" stroke="#ccc" stroke-width="0.7"/>
+
+        <rect x="372" y="150" width="75" height="34" rx="3" fill="#cffafe" stroke="#67e8f9" stroke-width="1.2"/>
+        <text x="409" y="165" text-anchor="middle" font-size="6.5" font-family="monospace" font-weight="700" fill="#155e75">MySQL</text>
+        <text x="409" y="176" text-anchor="middle" font-size="5" font-family="monospace" fill="#0891b2">AWS RDS · UTF-8</text>
+
+        <!-- PWA -->
+        <rect x="460" y="155" width="48" height="24" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.8"/>
+        <text x="484" y="170" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#52525b">PWA</text>
+
+        <!-- ═══ Bottom: Infra ═══ -->
+        <rect x="90" y="210" width="420" height="16" rx="8" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.8"/>
+        <text x="300" y="221" text-anchor="middle" font-size="6" font-family="monospace" font-weight="600" fill="#52525b">Vercel · AWS RDS/S3/Lambda · Sentry · PWA · 655 commits</text>
+
+        <rect x="100" y="236" width="50" height="14" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="0.6"/>
+        <text x="125" y="246" text-anchor="middle" font-size="5" font-family="monospace" fill="#065f46">Vercel</text>
+
+        <rect x="155" y="236" width="55" height="14" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.6"/>
+        <text x="182" y="246" text-anchor="middle" font-size="5" font-family="monospace" fill="#71717a">AWS S3</text>
+
+        <rect x="215" y="236" width="60" height="14" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.6"/>
+        <text x="245" y="246" text-anchor="middle" font-size="5" font-family="monospace" fill="#71717a">Lambda</text>
+
+        <rect x="280" y="236" width="50" height="14" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.6"/>
+        <text x="305" y="246" text-anchor="middle" font-size="5" font-family="monospace" fill="#71717a">Sentry</text>
+
+        <line x1="125" y1="226" x2="125" y2="236" stroke="#ccc" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="182" y1="226" x2="182" y2="236" stroke="#ccc" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="245" y1="226" x2="245" y2="236" stroke="#ccc" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="305" y1="226" x2="305" y2="236" stroke="#ccc" stroke-width="0.5" stroke-dasharray="2,2"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>시스템 아키텍처 + 반복 학습 루프 강조</h3>
+      <p>중앙 학습 시스템 안에 <strong>반복 학습 루프</strong>(연습→테스트→오답→재시험, 순환)와 <strong>아는/모르는 단어 판별</strong>(corr-inco≥임계값) 로직이 시각적으로 드러남. 우측에 레벨 시스템(난이도 자동 조절)이 학습 루프와 연결. TTS, AES-256, 학원 관리, Prisma/MySQL은 주변 서비스로 배치.</p>
+    </div>
+  </div>
+</div>
