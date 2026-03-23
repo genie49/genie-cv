@@ -133,7 +133,7 @@ function Arrow({
       stroke={strokeColor ?? "#ccc"}
       strokeWidth={1.2}
       strokeDasharray={dashed ? "4,3" : undefined}
-      markerEnd="url(#kimpro-arrow)"
+      markerEnd={strokeColor ? "url(#kimpro-arrow-amber)" : "url(#kimpro-arrow)"}
     />
   );
 }
@@ -291,6 +291,16 @@ export function KimproHero({
             orient="auto"
           >
             <polygon points="0,0 0,6 9,3" fill="#ccc" />
+          </marker>
+          <marker
+            id="kimpro-arrow-amber"
+            markerWidth="10"
+            markerHeight="10"
+            refX="9"
+            refY="3"
+            orient="auto"
+          >
+            <polygon points="0,0 0,6 9,3" fill="#fcd34d" />
           </marker>
         </defs>
 
