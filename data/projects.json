@@ -355,6 +355,20 @@
     ],
     "notes": [
       {
+        "id": "bonda-tech-stack",
+        "projectSlug": "bonda",
+        "title": "왜 Python과 Node.js를 같이 쓰는가",
+        "date": "2026-02-15",
+        "tags": [
+          "FastAPI",
+          "Next.js",
+          "Qdrant",
+          "Drizzle",
+          "Architecture"
+        ],
+        "summary": "AI 백엔드는 FastAPI(Python), 프론트엔드는 Next.js(Node.js)로 분리한 하이브리드 아키텍처와 Qdrant·Drizzle ORM 선택 근거"
+      },
+      {
         "id": "bonda-rag-pipeline",
         "projectSlug": "bonda",
         "title": "발굴보고서 PDF가 검색 가능해지기까지",
@@ -406,6 +420,33 @@
           "SSE"
         ],
         "summary": "4개 특화 도구 설계, 멀티모델 전환, SSE 스트리밍 기반 에이전트 아키텍처"
+      },
+      {
+        "id": "bonda-modal-gpu",
+        "projectSlug": "bonda",
+        "title": "서버리스 GPU로 수천 페이지 OCR 돌리기",
+        "date": "2026-03-20",
+        "tags": [
+          "Modal",
+          "PaddleOCR",
+          "GPU",
+          "Serverless",
+          "vLLM"
+        ],
+        "summary": "Modal 서버리스 GPU(L40S)에서 PaddleOCR VL-1.5을 vLLM으로 서빙하여 대량 PDF OCR을 처리하는 파이프라인 설계"
+      },
+      {
+        "id": "bonda-qdrant-collections",
+        "projectSlug": "bonda",
+        "title": "보고서, 텍스트 청크, 이미지를 왜 따로 저장하는가",
+        "date": "2026-03-21",
+        "tags": [
+          "Qdrant",
+          "Vector DB",
+          "Schema Design",
+          "Hybrid Search"
+        ],
+        "summary": "archie_reports·archie_chunks·archie_images 3개 Qdrant 컬렉션의 역할 분리와 RAG/Filter/Hybrid 검색 모드 설계"
       }
     ]
   },
