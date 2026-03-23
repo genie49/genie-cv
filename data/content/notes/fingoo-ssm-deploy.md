@@ -1,6 +1,6 @@
-# AWS Parameter Store 기반 환경변수 관리와 배포 파이프라인
+# 떙떙님 이거 안되는데요? 아 환경변수 또 바뀌었어요?
 
-핀구의 모노레포 3개 서비스(Next.js, NestJS, FastAPI)에 걸친 환경변수를 AWS SSM Parameter Store로 중앙 관리하고, CI/CD 파이프라인에 통합한 전략을 정리합니다.
+모노레포에 서비스 3개, 환경변수 50개. .env 파일로 관리하다 보면 "이 API 키 어디에 정의돼 있지?", "프로덕션이랑 개발 환경이 다른 건 맞아?" 같은 질문에 답할 수 없게 됩니다. 실제로 환경변수 동기화가 안 맞아 배포 후 서비스가 뻗는 사고를 겪었습니다. AWS SSM Parameter Store를 Single Source of Truth로 삼고 CI/CD에 통합한 전략을 정리합니다.
 
 ## 문제 정의
 

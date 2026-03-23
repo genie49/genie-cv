@@ -1,0 +1,45 @@
+graph LR
+    User[사용자] --> Nginx
+    Nginx --> Frontend[Next.js 프론트엔드]
+    Nginx --> Auth[Auth 서비스]
+    Nginx --> API[API 서비스]
+    Nginx --> Chat[Chat 서비스]
+    Nginx --> Tools[Tools API]
+
+    Frontend -->|Socket.IO| Chat
+    Frontend -->|REST| API
+    Chat -->|Pub/Sub| Workflow[Workflow 서비스]
+
+    subgraph AI 멀티에이전트
+        Workflow --> AM[Account Manager]
+        AM --> IA[Insight Analyst]
+        AM --> CM[Campaign Manager]
+        AM --> CP[Content Planner]
+        AM --> RM[Recruitment Manager]
+        AM --> CTM[Contract Manager]
+    end
+
+    subgraph 워커
+        PubSub[GCP Pub/Sub] --> NW[Notification Worker]
+        PubSub --> HW[History Worker]
+        Workflow -->|이벤트 발행| PubSub
+        NW --> SendGrid[SendGrid]
+    end
+
+    subgraph 데이터 레이어
+        API --> MongoDB[(MongoDB)]
+        API --> PostgreSQL[(PostgreSQL)]
+        Workflow --> PostgreSQL
+        Chat --> Redis[(Redis)]
+    end
+
+    subgraph 외부 도구
+        IA --> Tools
+        CM --> Tools
+        RM --> Tools
+    end
+
+    subgraph 인프라
+        GCS[Google Cloud Storage] --> API
+        GSM[Secret Manager] --> Auth
+    end

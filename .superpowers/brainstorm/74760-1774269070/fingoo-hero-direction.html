@@ -1,0 +1,155 @@
+<h2>Fingoo Hero — 시스템 아키텍처 방향</h2>
+<p class="subtitle">Aimers와 동일한 접근 (계층형 시스템 뷰). 640×280 가로 비율. 클릭으로 선호 방향을 골라주세요.</p>
+
+<div class="cards" style="flex-direction: column; gap: 32px;">
+
+  <!-- Option A: 3-tier horizontal -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)" style="max-width: 100%;">
+    <div class="card-image" style="padding: 20px 16px; background: linear-gradient(135deg, #f8fafc, #ede9fe20);">
+      <svg viewBox="0 0 640 280" style="width:100%;height:240px;background:radial-gradient(#d4d4d8 0.6px,transparent 0.6px);background-size:14px 14px;">
+        <text x="20" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#444">FINGOO</text>
+        <text x="68" y="18" font-family="monospace" font-size="7" fill="#999">SYSTEM ARCHITECTURE</text>
+
+        <!-- Col 1: Client -->
+        <rect x="12" y="80" width="60" height="38" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.2"/>
+        <text x="42" y="98" text-anchor="middle" font-size="8.5" font-family="monospace" font-weight="600" fill="#1e40af">Client</text>
+        <text x="42" y="110" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#3b82f6">Next.js</text>
+
+        <!-- Arrow Client → Nginx -->
+        <line x1="72" y1="99" x2="88" y2="99" stroke="#ccc" stroke-width="1"/>
+        <polygon points="85,96 90,99 85,102" fill="#ccc"/>
+
+        <!-- Col 2: Nginx -->
+        <rect x="90" y="72" width="50" height="55" rx="4" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="1"/>
+        <text x="115" y="96" text-anchor="middle" font-size="7" font-family="monospace" font-weight="600" fill="#52525b">Nginx</text>
+        <text x="115" y="108" text-anchor="middle" font-size="5" font-family="monospace" fill="#a1a1aa">Reverse Proxy</text>
+
+        <!-- Arrows Nginx → Services -->
+        <line x1="140" y1="85" x2="160" y2="55" stroke="#ccc" stroke-width="0.9"/>
+        <line x1="140" y1="99" x2="160" y2="99" stroke="#ccc" stroke-width="0.9"/>
+
+        <!-- Col 3: Backend Services -->
+        <rect x="162" y="38" width="65" height="30" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1"/>
+        <text x="194" y="56" text-anchor="middle" font-size="7" font-family="monospace" font-weight="600" fill="#065f46">NestJS</text>
+
+        <rect x="162" y="82" width="65" height="36" rx="3" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1.2"/>
+        <text x="194" y="98" text-anchor="middle" font-size="7" font-family="monospace" font-weight="600" fill="#5b21b6">FastAPI</text>
+        <text x="194" y="110" text-anchor="middle" font-size="5" font-family="monospace" fill="#7c3aed">AI Service</text>
+
+        <!-- Arrow FastAPI → Agent -->
+        <line x1="227" y1="99" x2="250" y2="99" stroke="#c4b5fd" stroke-width="1.2"/>
+        <polygon points="247,96 252,99 247,102" fill="#c4b5fd"/>
+        <text x="239" y="93" font-size="5" font-family="monospace" fill="#7c3aed">WS</text>
+
+        <!-- Col 4: Agent System (big box) -->
+        <rect x="252" y="30" width="195" height="170" rx="6" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+        <text x="349" y="46" text-anchor="middle" font-size="7.5" font-family="monospace" font-weight="700" fill="#7c3aed">AI Agent System</text>
+
+        <!-- Supervisor -->
+        <rect x="270" y="54" width="160" height="32" rx="4" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1.2"/>
+        <text x="350" y="69" text-anchor="middle" font-size="8" font-family="monospace" font-weight="700" fill="#5b21b6">Supervisor</text>
+        <text x="350" y="80" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#7c3aed">LangChain · Grok/Claude/Gemini</text>
+
+        <!-- Sub-agents -->
+        <rect x="264" y="94" width="32" height="16" rx="2" fill="#fff" stroke="#c4b5fd" stroke-width="0.7"/>
+        <text x="280" y="105" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#7c3aed">시장</text>
+        <rect x="300" y="94" width="32" height="16" rx="2" fill="#fff" stroke="#c4b5fd" stroke-width="0.7"/>
+        <text x="316" y="105" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#7c3aed">기술</text>
+        <rect x="336" y="94" width="36" height="16" rx="2" fill="#fff" stroke="#c4b5fd" stroke-width="0.7"/>
+        <text x="354" y="105" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#7c3aed">리서치</text>
+        <rect x="376" y="94" width="28" height="16" rx="2" fill="#fff" stroke="#c4b5fd" stroke-width="0.7"/>
+        <text x="390" y="105" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#7c3aed">퀀트</text>
+        <rect x="408" y="94" width="32" height="16" rx="2" fill="#fff" stroke="#c4b5fd" stroke-width="0.7"/>
+        <text x="424" y="105" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#7c3aed">시각화</text>
+
+        <!-- Lines Supervisor → sub-agents -->
+        <line x1="290" y1="86" x2="280" y2="94" stroke="#c4b5fd" stroke-width="0.5"/>
+        <line x1="320" y1="86" x2="316" y2="94" stroke="#c4b5fd" stroke-width="0.5"/>
+        <line x1="350" y1="86" x2="354" y2="94" stroke="#c4b5fd" stroke-width="0.5"/>
+        <line x1="380" y1="86" x2="390" y2="94" stroke="#c4b5fd" stroke-width="0.5"/>
+        <line x1="400" y1="86" x2="424" y2="94" stroke="#c4b5fd" stroke-width="0.5"/>
+
+        <!-- 81 Tools label -->
+        <rect x="264" y="116" width="60" height="14" rx="7" fill="#f0e7ff" stroke="#ddd6fe" stroke-width="0.7"/>
+        <text x="294" y="126" text-anchor="middle" font-size="5" font-family="monospace" fill="#7c3aed">81 Tools</text>
+
+        <!-- Middleware bar -->
+        <rect x="330" y="116" width="108" height="14" rx="7" fill="#f0e7ff" stroke="#ddd6fe" stroke-width="0.7"/>
+        <text x="384" y="126" text-anchor="middle" font-size="5" font-family="monospace" fill="#7c3aed">Middleware × 10</text>
+
+        <!-- Human-in-the-Loop -->
+        <rect x="264" y="138" width="90" height="14" rx="3" fill="#fff" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="309" y="148" text-anchor="middle" font-size="5" font-family="monospace" fill="#71717a">Human-in-Loop</text>
+
+        <!-- PG Checkpoint -->
+        <rect x="360" y="138" width="78" height="14" rx="3" fill="#fff" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="399" y="148" text-anchor="middle" font-size="5" font-family="monospace" fill="#71717a">PG Checkpoint</text>
+
+        <!-- Eval -->
+        <rect x="264" y="160" width="174" height="14" rx="3" fill="#fff" stroke="#d4d4d8" stroke-width="0.5"/>
+        <text x="351" y="170" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#999">Eval: MockService + 6 Graders</text>
+
+        <!-- Col 5: Data Sources -->
+        <line x1="447" y1="70" x2="470" y2="50" stroke="#fcd34d" stroke-width="1"/>
+        <polygon points="467,52 472,47 472,54" fill="#fcd34d"/>
+
+        <rect x="472" y="32" width="85" height="24" rx="3" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
+        <text x="514" y="47" text-anchor="middle" font-size="6.5" font-family="monospace" font-weight="600" fill="#92400e">금융 데이터</text>
+
+        <rect x="474" y="62" width="40" height="14" rx="2" fill="#fff7ed" stroke="#fed7aa" stroke-width="0.6"/>
+        <text x="494" y="72" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#c2410c">DART</text>
+        <rect x="518" y="62" width="40" height="14" rx="2" fill="#fff7ed" stroke="#fed7aa" stroke-width="0.6"/>
+        <text x="538" y="72" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#c2410c">FRED</text>
+        <rect x="474" y="80" width="40" height="14" rx="2" fill="#fff7ed" stroke="#fed7aa" stroke-width="0.6"/>
+        <text x="494" y="90" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#c2410c">yfinance</text>
+        <rect x="518" y="80" width="40" height="14" rx="2" fill="#fff7ed" stroke="#fed7aa" stroke-width="0.6"/>
+        <text x="538" y="90" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#c2410c">Tavily</text>
+
+        <!-- RAG Pipeline -->
+        <line x1="447" y1="155" x2="470" y2="135" stroke="#fcd34d" stroke-width="1"/>
+        <polygon points="467,137 472,132 472,139" fill="#fcd34d"/>
+
+        <rect x="472" y="110" width="85" height="34" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1"/>
+        <text x="514" y="126" text-anchor="middle" font-size="6.5" font-family="monospace" font-weight="600" fill="#065f46">시황 RAG</text>
+        <text x="514" y="137" text-anchor="middle" font-size="5" font-family="monospace" fill="#059669">pgvector + 웹검색</text>
+
+        <!-- Bottom: DB + Infra -->
+        <rect x="90" y="222" width="470" height="18" rx="9" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+        <text x="325" y="234" text-anchor="middle" font-size="7" font-family="monospace" font-weight="600" fill="#1e40af">Socket.IO Real-time Streaming</text>
+
+        <rect x="100" y="250" width="55" height="18" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="0.7"/>
+        <text x="127" y="262" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#065f46">PostgreSQL</text>
+
+        <rect x="160" y="250" width="40" height="18" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="0.7"/>
+        <text x="180" y="262" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#065f46">Redis</text>
+
+        <rect x="350" y="250" width="50" height="18" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="375" y="262" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#71717a">Docker</text>
+
+        <rect x="405" y="250" width="40" height="18" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="425" y="262" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#71717a">AWS</text>
+
+        <rect x="450" y="250" width="55" height="18" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="477" y="262" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#71717a">FluentBit</text>
+
+        <!-- Dashed lines down -->
+        <line x1="349" y1="207" x2="349" y2="222" stroke="#93c5fd" stroke-width="0.8" stroke-dasharray="3,2"/>
+        <line x1="127" y1="240" x2="127" y2="250" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+        <line x1="180" y1="240" x2="180" y2="250" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+        <line x1="375" y1="240" x2="375" y2="250" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+        <line x1="425" y1="240" x2="425" y2="250" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+        <line x1="477" y1="240" x2="477" y2="250" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>Aimers 스타일 — 전체 시스템 가로 흐름</h3>
+      <p>Client → Nginx → NestJS/FastAPI → AI Agent System (Supervisor + 7 sub-agents + 81 Tools + Middleware × 10 + Human-in-Loop + Eval) → 금융 데이터 + 시황 RAG. 하단에 Socket.IO 스트리밍 바 + DB/인프라.</p>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 16px; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+  <p style="font-size: 13px; color: #64748b; margin: 0;">
+    💡 Aimers에서 검증된 패턴을 기반으로 했습니다. 조정하고 싶은 부분이 있으면 알려주세요.
+  </p>
+</div>

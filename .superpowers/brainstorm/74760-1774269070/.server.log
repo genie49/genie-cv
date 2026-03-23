@@ -1,0 +1,5 @@
+{"type":"server-started","port":63910,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:63910","screen_dir":"/Users/genie/workspace/genie-cv/.superpowers/brainstorm/74760-1774269070"}
+{"type":"screen-added","file":"/Users/genie/workspace/genie-cv/.superpowers/brainstorm/74760-1774269070/fingoo-hero-direction.html"}
+{"type":"screen-added","file":"/Users/genie/workspace/genie-cv/.superpowers/brainstorm/74760-1774269070/waiting.html"}
+{"type":"screen-added","file":"/Users/genie/workspace/genie-cv/.superpowers/brainstorm/74760-1774269070/bonda-hero-direction.html"}
+{"type":"server-stopped","reason":"idle timeout"}

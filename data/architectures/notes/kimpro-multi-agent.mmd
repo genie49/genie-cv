@@ -1,0 +1,28 @@
+graph TD
+    User([User Message]) --> AM[Account Manager<br/>Claude Sonnet<br/>Orchestrator]
+
+    AM -->|"task(insight-analyst)"| IA[Insight Analyst<br/>4 Tools]
+    AM -->|"task(campaign-manager)"| CM[Campaign Manager<br/>3 Tools]
+    AM -->|"task(content-planner)"| CP[Content Planner<br/>4 Tools]
+    AM -->|"task(contract-manager)"| CT[Contract Manager<br/>3 Tools]
+    AM -->|"task(recruitment-manager)"| RM[Recruitment Manager<br/>7 Tools]
+
+    IA --> Snap[(Campaign Snapshot<br/>Redis)]
+    CM --> Snap
+    CP --> Snap
+    CT --> Snap
+    RM --> Snap
+
+    IA --> T1[ProductAnalyzeFromWeb<br/>MarketResearch<br/>...]
+    CM --> T2[UpdateCampaignContext<br/>BudgetAllocator<br/>...]
+    CP --> T3[ToneAnalyzer<br/>ReferenceCollector<br/>...]
+    CT --> T4[ContractDraft<br/>OutreachMessage<br/>...]
+    RM --> T5[KeywordScoring<br/>CreatorMatching<br/>...]
+
+    IA -->|final result only| AM
+    CM -->|final result only| AM
+    CP -->|final result only| AM
+    CT -->|final result only| AM
+    RM -->|final result only| AM
+
+    AM --> Response([Response])

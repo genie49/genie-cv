@@ -56,12 +56,13 @@ function HighlightedCode({ code, language }: { code: string; language: string })
         <code>{code}</code>
       </pre>
     );
+
   }
 
   return (
     <div className="not-prose overflow-hidden rounded-lg border border-zinc-800">
       <div className="flex items-center px-4 py-2 bg-zinc-800 border-b border-zinc-700">
-        <span className="text-[11px] font-medium uppercase tracking-wider text-zinc-400">
+        <span className="text-[11px] font-medium uppercase tracking-wider text-zinc-300">
           {language}
         </span>
       </div>
@@ -112,7 +113,7 @@ export default function BlogPostPage() {
   }, [id]);
 
   if (!project || !note) {
-    return <div className="p-8 text-zinc-500">노트를 찾을 수 없습니다.</div>;
+    return <div className="p-8 text-toss-sub">노트를 찾을 수 없습니다.</div>;
   }
 
   return (
@@ -124,18 +125,18 @@ export default function BlogPostPage() {
     >
       {/* Breadcrumb */}
       <div className="flex items-center gap-1.5 text-[13px]">
-        <Link to="/projects" className="text-zinc-400 hover:text-zinc-600">
+        <Link to="/projects" className="text-toss-sub hover:text-toss-heading">
           Projects
         </Link>
-        <span className="text-zinc-300">/</span>
+        <span className="text-toss-border">/</span>
         <Link
           to={`/projects/${slug}`}
-          className="text-zinc-400 hover:text-zinc-600"
+          className="text-toss-sub hover:text-toss-heading"
         >
           {project.title}
         </Link>
-        <span className="text-zinc-300">/</span>
-        <span className="text-zinc-600">개발 노트</span>
+        <span className="text-toss-border">/</span>
+        <span className="text-toss-body">개발 노트</span>
       </div>
 
       {/* Header */}
@@ -146,26 +147,26 @@ export default function BlogPostPage() {
         className="flex flex-col gap-3"
       >
         <div className="flex items-start justify-between gap-4">
-          <h1 className="font-['Outfit'] text-[28px] font-extrabold tracking-tight text-black">
+          <h1 className="font-['Outfit'] text-[28px] font-extrabold tracking-tight text-toss-heading">
             {note.title}
           </h1>
           <button
             ref={copyBtnRef}
             onClick={handleCopy}
-            className="flex shrink-0 cursor-pointer items-center gap-1.5 rounded-lg border border-zinc-200 px-3 py-1.5 text-[13px] text-zinc-600 transition-colors hover:bg-zinc-50 active:bg-zinc-100"
+            className="flex shrink-0 cursor-pointer items-center gap-1.5 rounded-lg border border-toss-border px-3 py-1.5 text-[13px] text-toss-body transition-colors hover:bg-toss-bg active:bg-toss-bg"
           >
             <Copy size={14} />
             <span>Copy page</span>
           </button>
         </div>
-        <div className="flex items-center gap-4 text-[13px] text-zinc-400">
+        <div className="flex items-center gap-4 text-[13px] text-toss-sub">
           <span>{note.date}</span>
         </div>
         <div className="flex gap-1.5">
           {note.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs text-zinc-500"
+              className="rounded-full bg-toss-bg px-2.5 py-0.5 text-xs text-toss-body"
             >
               {tag}
             </span>
@@ -174,17 +175,17 @@ export default function BlogPostPage() {
       </motion.div>
 
       {/* Divider */}
-      <div className="h-px w-full bg-zinc-100" />
+      <div className="h-px w-full bg-toss-border" />
 
       {/* Content */}
       {loading ? (
-        <div className="text-sm text-zinc-400">로딩 중...</div>
+        <div className="text-sm text-toss-sub">로딩 중...</div>
       ) : (
         <motion.article
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.4 }}
-          className="prose prose-zinc max-w-none prose-headings:font-['Outfit'] prose-headings:font-bold prose-h2:text-xl prose-p:text-[15px] prose-p:leading-[1.8] prose-p:text-zinc-700 prose-pre:rounded-lg prose-pre:bg-zinc-900 prose-code:font-['JetBrains_Mono'] prose-code:text-[13px]"
+          className="prose prose-zinc max-w-none prose-headings:font-['Outfit'] prose-headings:font-bold prose-h2:text-xl prose-p:text-[15px] prose-p:leading-[1.8] prose-p:text-toss-body prose-pre:rounded-lg prose-pre:bg-zinc-900 prose-code:font-['JetBrains_Mono'] prose-code:text-[13px]"
         >
           <ReactMarkdown
             remarkPlugins={[[remarkGfm, { singleTilde: false }]]}

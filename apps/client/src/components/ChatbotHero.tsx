@@ -16,6 +16,7 @@ function Node({
   sub,
   color,
   delay,
+  fontSize: fs,
 }: {
   x: number;
   y: number;
@@ -23,8 +24,9 @@ function Node({
   h: number;
   label: string;
   sub?: string;
-  color: "emerald" | "blue" | "amber" | "zinc" | "cyan" | "rose";
+  color: "emerald" | "blue" | "amber" | "zinc" | "cyan" | "rose" | "violet" | "orange";
   delay: number;
+  fontSize?: number;
 }) {
   const colors = {
     emerald: {
@@ -63,6 +65,18 @@ function Node({
       text: "#9f1239",
       sub: "#e11d48",
     },
+    violet: {
+      fill: "#ede9fe",
+      stroke: "#c4b5fd",
+      text: "#5b21b6",
+      sub: "#7c3aed",
+    },
+    orange: {
+      fill: "#fff7ed",
+      stroke: "#fed7aa",
+      text: "#c2410c",
+      sub: "#ea580c",
+    },
   };
   const c = colors[color];
 
@@ -77,20 +91,20 @@ function Node({
         y={y}
         width={w}
         height={h}
-        rx={6}
+        rx={4}
         fill={c.fill}
         stroke={c.stroke}
         strokeWidth={1.2}
       />
       <text
         x={x + w / 2}
-        y={sub ? y + h / 2 - 4 : y + h / 2 + 1}
+        y={sub ? y + h / 2 - 5 : y + h / 2 + 1}
         textAnchor="middle"
         dominantBaseline="middle"
         fill={c.text}
-        fontSize={9}
+        fontSize={fs ?? 10}
         fontWeight={600}
-        fontFamily="'Outfit', sans-serif"
+        fontFamily="monospace"
       >
         {label}
       </text>
@@ -101,9 +115,9 @@ function Node({
           textAnchor="middle"
           dominantBaseline="middle"
           fill={c.sub}
-          fontSize={6.5}
-          fontFamily="sans-serif"
-          opacity={0.8}
+          fontSize={fs ? fs * 0.7 : 7}
+          fontFamily="monospace"
+          opacity={0.85}
         >
           {sub}
         </text>
@@ -116,22 +130,24 @@ function Arrow({
   points,
   delay,
   dashed,
+  stroke: strokeColor,
 }: {
   points: string;
   delay: number;
   dashed?: boolean;
+  stroke?: string;
 }) {
   return (
     <motion.polyline
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={{ opacity: dashed ? 0.5 : 1 }}
       transition={{ delay, duration: 0.25 }}
       points={points}
       fill="none"
-      stroke="#a1a1aa"
-      strokeWidth={1}
-      strokeDasharray={dashed ? "3,2" : undefined}
-      markerEnd="url(#arrowhead)"
+      stroke={strokeColor ?? "#ccc"}
+      strokeWidth={1.2}
+      strokeDasharray={dashed ? "4,3" : undefined}
+      markerEnd={strokeColor ? "url(#chatbot-arrow-amber)" : "url(#chatbot-arrow)"}
     />
   );
 }
@@ -243,7 +259,7 @@ export function ChatbotHero({
       transition={{ duration: 0.4, delay: 0.1 }}
       className={`relative w-full overflow-hidden rounded-xl border border-zinc-200 bg-gradient-to-br from-slate-50 via-emerald-50/30 to-cyan-50/20 ${className ?? "h-[300px]"}`}
     >
-      {/* Dot grid */}
+      {/* Grid background */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#d4d4d8_0.8px,transparent_0.8px)] bg-[size:16px_16px] opacity-40" />
 
       {/* Title */}
@@ -253,11 +269,8 @@ export function ChatbotHero({
         transition={{ delay: 0.2 }}
         className="absolute left-5 top-4 z-10 flex items-center gap-2"
       >
-        <span className="font-['Outfit'] text-[11px] font-bold tracking-wide text-zinc-800">
-          CHATBOT RAG PIPELINE
-        </span>
-        <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[8px] font-medium text-emerald-700">
-          16-line Agent
+        <span className="font-mono text-[11px] font-bold tracking-wide text-zinc-700">
+          AI PORTFOLIO CHATBOT
         </span>
       </motion.div>
 
@@ -271,7 +284,7 @@ export function ChatbotHero({
         </button>
       )}
 
-      {/* Architecture Diagram */}
+      {/* Service Flow Diagram */}
       <svg
         ref={svgRef}
         className={`absolute inset-0 h-full w-full ${interactive ? "cursor-grab touch-none active:cursor-grabbing" : ""}`}
@@ -284,248 +297,114 @@ export function ChatbotHero({
       >
         <defs>
           <marker
-            id="chatbot-arrowhead"
-            markerWidth="6"
-            markerHeight="4"
-            refX="5"
-            refY="2"
+            id="chatbot-arrow"
+            markerWidth="10"
+            markerHeight="10"
+            refX="9"
+            refY="3"
             orient="auto"
           >
-            <polygon points="0,0 6,2 0,4" fill="#a1a1aa" />
+            <polygon points="0,0 0,6 9,3" fill="#ccc" />
+          </marker>
+          <marker id="chatbot-arrow-amber" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0,0 0,6 9,3" fill="#fcd34d" />
           </marker>
         </defs>
 
-        {/* ── Layer 1: Input ── */}
-        <Node
-          x={20}
-          y={108}
-          w={80}
-          h={36}
-          label="사용자 질문"
-          sub="React + assistant-ui"
-          color="zinc"
-          delay={FLOW_DELAY}
-        />
-
-        {/* Arrow: Input → Rate Limiter */}
-        <Arrow points="100,126 130,126" delay={FLOW_DELAY * 2} />
-
-        {/* ── Layer 2: Rate Limiter ── */}
-        <Node
-          x={135}
-          y={108}
-          w={75}
-          h={36}
-          label="Rate Limiter"
-          sub="20/min · IP 기반"
-          color="rose"
-          delay={FLOW_DELAY * 3}
-        />
-
-        {/* Arrow: Rate Limiter → ReAct Agent */}
-        <Arrow points="210,126 240,126" delay={FLOW_DELAY * 4} />
-
-        {/* ── Layer 3: ReAct Agent (central, larger) ── */}
-        <Node
-          x={245}
-          y={96}
-          w={110}
-          h={60}
-          label="ReAct Agent"
-          sub="Grok 4.1 · 조건부 판단"
-          color="emerald"
-          delay={FLOW_DELAY * 5}
-        />
-
-        {/* ── Branch: Agent decides ── */}
-
-        {/* Arrow: Agent → RAG (down) */}
-        <Arrow points="300,156 300,180" delay={FLOW_DELAY * 6} />
-
-        {/* Arrow: Agent → Direct Response (up, when no RAG needed) */}
-        <Arrow points="300,96 300,72 370,72" delay={FLOW_DELAY * 6} dashed />
-
-        {/* Label: 인사말 → 직접 응답 */}
-        <motion.text
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.6 }}
-          transition={{ delay: FLOW_DELAY * 7 }}
-          x={335}
-          y={66}
-          fontSize={6}
-          fill="#71717a"
-          textAnchor="middle"
-          fontFamily="sans-serif"
+        {/* ═══ RAG PIPELINE (top) ═══ */}
+        <motion.text initial={{ opacity: 0 }} animate={{ opacity: 0.6 }} transition={{ delay: FLOW_DELAY, duration: 0.3 }}
+          x={20} y={40} fontFamily="monospace" fontSize={5.5} fontWeight={600} fill="#888"
         >
-          인사말 → 직접 응답
+          RAG PIPELINE
         </motion.text>
 
-        {/* ── Layer 4: RAG Search ── */}
-        <Node
-          x={250}
-          y={184}
-          w={100}
-          h={40}
-          label="rag_search"
-          sub="벡터 유사도 검색 · Top-5"
-          color="cyan"
-          delay={FLOW_DELAY * 7}
+        <Node x={15} y={48} w={62} h={28} label="Markdown" sub="프로젝트·경력" color="zinc" delay={FLOW_DELAY} fontSize={6} />
+        <Arrow points="77,62 92,62" delay={FLOW_DELAY * 1.5} />
+
+        <Node x={95} y={48} w={62} h={28} label="Chunking" sub="H2 헤더 단위" color="blue" delay={FLOW_DELAY * 2} fontSize={6} />
+        <Arrow points="157,62 172,62" delay={FLOW_DELAY * 2.5} />
+
+        <Node x={175} y={45} w={75} h={34} label="Embedding" sub="Gemini 비대칭" color="blue" delay={FLOW_DELAY * 3} fontSize={6.5} />
+        <Arrow points="250,62 265,62" delay={FLOW_DELAY * 3.5} />
+
+        <Node x={268} y={45} w={68} h={34} label="LanceDB" sub="Vector DB" color="cyan" delay={FLOW_DELAY * 4} fontSize={7} />
+
+        {/* ═══ Divider ═══ */}
+        <motion.line initial={{ opacity: 0 }} animate={{ opacity: 0.3 }} transition={{ delay: FLOW_DELAY * 4.5, duration: 0.3 }}
+          x1={15} y1={90} x2={500} y2={90} stroke="#e4e4e7" strokeWidth={0.5} strokeDasharray="4,3"
         />
 
-        {/* Arrow: RAG → Gemini Embedding */}
-        <Arrow points="250,204 200,204 200,220 130,220" delay={FLOW_DELAY * 8} />
-
-        {/* ── Gemini Embedding ── */}
-        <Node
-          x={40}
-          y={196}
-          w={88}
-          h={36}
-          label="Gemini Embedding"
-          sub="taskType 분리"
-          color="amber"
-          delay={FLOW_DELAY * 9}
-        />
-
-        {/* Arrow: Gemini → LanceDB */}
-        <Arrow points="84,196 84,178" delay={FLOW_DELAY * 10} />
-
-        {/* ── LanceDB ── */}
-        <Node
-          x={40}
-          y={154}
-          w={88}
-          h={24}
-          label="LanceDB"
-          sub=""
-          color="amber"
-          delay={FLOW_DELAY * 10}
-        />
-
-        {/* Label: 파일 기반 · 서버 불필요 */}
-        <motion.text
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          transition={{ delay: FLOW_DELAY * 11 }}
-          x={84}
-          y={150}
-          fontSize={6}
-          fill="#92400e"
-          textAnchor="middle"
-          fontFamily="sans-serif"
+        {/* ═══ APPLICATION (bottom) ═══ */}
+        <motion.text initial={{ opacity: 0 }} animate={{ opacity: 0.6 }} transition={{ delay: FLOW_DELAY * 5, duration: 0.3 }}
+          x={20} y={108} fontFamily="monospace" fontSize={5.5} fontWeight={600} fill="#888"
         >
-          파일 기반 · 서버 불필요
+          APPLICATION
         </motion.text>
 
-        {/* Arrow: RAG result back to Agent */}
-        <Arrow points="350,204 370,204 370,156 355,156" delay={FLOW_DELAY * 11} dashed />
+        {/* Client */}
+        <Node x={15} y={115} w={60} h={35} label="Client" sub="React + Vite" color="blue" delay={FLOW_DELAY * 5.5} fontSize={7} />
+        <Arrow points="75,132 92,132" delay={FLOW_DELAY * 6} />
 
-        {/* ── Layer 5: SSE Streaming ── */}
-        {/* Arrow: Agent → Streaming */}
-        <Arrow points="355,126 405,126" delay={FLOW_DELAY * 12} />
+        {/* ElysiaJS */}
+        <Node x={95} y={112} w={68} h={40} label="ElysiaJS" sub="Bun Runtime" color="emerald" delay={FLOW_DELAY * 6} fontSize={7} />
+        <Arrow points="163,132 180,132" delay={FLOW_DELAY * 6.5} stroke="#6ee7b7" />
 
-        <Node
-          x={410}
-          y={100}
-          w={100}
-          h={52}
-          label="SSE Streaming"
-          sub="NDJSON · ReadableStream"
-          color="blue"
-          delay={FLOW_DELAY * 12}
-        />
+        {/* ReAct Agent big box */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 7, duration: 0.4 }}>
+          <rect x={182} y={100} width={210} height={108} rx={6} fill="#ecfdf5" stroke="#6ee7b7" strokeWidth={1.5} />
+          <text x={287} y={116} textAnchor="middle" fontFamily="monospace" fontSize={7} fontWeight={700} fill="#065f46">ReAct Agent</text>
+        </motion.g>
 
-        {/* ── Layer 6: Output events ── */}
-        <Arrow points="510,110 540,82" delay={FLOW_DELAY * 13} />
-        <Arrow points="510,126 540,126" delay={FLOW_DELAY * 13} />
-        <Arrow points="510,140 540,166" delay={FLOW_DELAY * 13} />
+        {/* Grok LLM */}
+        <Node x={198} y={124} w={90} h={26} label="Grok 4.1" sub="LangChain.js" color="emerald" delay={FLOW_DELAY * 7} fontSize={7.5} />
 
-        <Node
-          x={545}
-          y={64}
-          w={80}
-          h={28}
-          label="token"
-          sub="텍스트 청크"
-          color="blue"
-          delay={FLOW_DELAY * 14}
-        />
-        <Node
-          x={545}
-          y={112}
-          w={80}
-          h={28}
-          label="citations"
-          sub="인용 링크 매핑"
-          color="emerald"
-          delay={FLOW_DELAY * 14.5}
-        />
-        <Node
-          x={545}
-          y={156}
-          w={80}
-          h={28}
-          label="error"
-          sub="에러 분류 메시지"
-          color="rose"
-          delay={FLOW_DELAY * 15}
-        />
+        {/* RAG Search tool */}
+        <motion.g initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: FLOW_DELAY * 8, duration: 0.35 }}>
+          <rect x={296} y={124} width={82} height={26} rx={3} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.8} />
+          <text x={337} y={137} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fontWeight={600} fill="#9f1239">벡터 검색</text>
+          <text x={337} y={147} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#e11d48">조건부 호출</text>
+        </motion.g>
 
-        {/* ── Bottom: info bar ── */}
-        <motion.g
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: FLOW_DELAY * 16 }}
-        >
-          <rect
-            x={160}
-            y={248}
-            width={320}
-            height={24}
-            rx={12}
-            fill="white"
-            stroke="#e4e4e7"
-            strokeWidth={0.8}
-            opacity={0.9}
-          />
-          <circle cx={178} cy={260} r={3} fill="#10b981" />
-          <text
-            x={190}
-            y={261}
-            fontSize={7}
-            fill="#71717a"
-            fontFamily="'JetBrains Mono', monospace"
-            dominantBaseline="middle"
-          >
-            createAgent · 1 tool · Gemini + LanceDB + Grok 4.1
+        {/* Connection: Agent → LanceDB (dashed) */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} transition={{ delay: FLOW_DELAY * 8, duration: 0.3 }}>
+          <line x1={337} y1={124} x2={302} y2={79} stroke="#67e8f9" strokeWidth={1} strokeDasharray="3,2" />
+          <text x={326} y={100} fontFamily="monospace" fontSize={4.5} fill="#0891b2">query</text>
+        </motion.g>
+
+        {/* SSE + Citation */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 9, duration: 0.3 }}>
+          <rect x={198} y={158} width={80} height={14} rx={7} fill="#d1fae5" stroke="#a7f3d0" strokeWidth={0.7} />
+          <text x={238} y={168} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#065f46">SSE Streaming</text>
+          <rect x={284} y={158} width={95} height={14} rx={3} fill="#fef3c7" stroke="#fcd34d" strokeWidth={0.7} />
+          <text x={331} y={168} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#92400e">인용 → 라우트 매핑</text>
+        </motion.g>
+
+        {/* Rate Limit + Error */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 9, duration: 0.3 }}>
+          <rect x={198} y={180} width={75} height={12} rx={3} fill="#fff" stroke="#d4d4d8" strokeWidth={0.6} />
+          <text x={235} y={189} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#71717a">Rate Limit 20/min</text>
+          <rect x={279} y={180} width={70} height={12} rx={3} fill="#fff" stroke="#d4d4d8" strokeWidth={0.6} />
+          <text x={314} y={189} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#71717a">에러 분류</text>
+        </motion.g>
+
+        {/* assistant-ui */}
+        <Node x={415} y={115} w={80} h={35} label="assistant-ui" sub="채팅 UI" color="violet" delay={FLOW_DELAY * 8} fontSize={6} />
+
+        {/* ═══ DEPLOY BAR ═══ */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 10, duration: 0.3 }}>
+          <rect x={90} y={222} width={320} height={16} rx={8} fill="#f4f4f5" stroke="#d4d4d8" strokeWidth={0.8} />
+          <text x={250} y={233} textAnchor="middle" fontFamily="monospace" fontSize={6} fontWeight={600} fill="#52525b">
+            Railway · React + Vite · ElysiaJS (Bun)
           </text>
         </motion.g>
 
-        {/* ── Citation feedback: source → route auto-mapping ── */}
-        <motion.g
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          transition={{ delay: FLOW_DELAY * 17, duration: 0.5 }}
-        >
-          <path
-            d="M 585,140 Q 610,210 560,230 L 100,230 Q 60,230 60,200 L 60,178"
-            fill="none"
-            stroke="#0891b2"
-            strokeWidth={0.8}
-            strokeDasharray="4,3"
-            markerEnd="url(#chatbot-arrowhead)"
-          />
-          <text
-            x={330}
-            y={238}
-            fontSize={6}
-            fill="#0891b2"
-            textAnchor="middle"
-            fontFamily="sans-serif"
-          >
-            소스 → 내부 라우트 자동 매핑
-          </text>
-        </motion.g>
+        <Node x={100} y={248} w={55} h={16} label="LanceDB" color="cyan" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
+        <Node x={160} y={248} w={65} h={16} label="Tailwind CSS" color="zinc" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
+        <Node x={230} y={248} w={65} h={16} label="React Router" color="zinc" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
+
+        <Arrow points="127,238 127,248" delay={FLOW_DELAY * 10.5} dashed />
+        <Arrow points="192,238 192,248" delay={FLOW_DELAY * 10.5} dashed />
+        <Arrow points="262,238 262,248" delay={FLOW_DELAY * 10.5} dashed />
       </svg>
     </motion.div>
   );

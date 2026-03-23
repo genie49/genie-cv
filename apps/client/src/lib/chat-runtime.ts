@@ -4,12 +4,14 @@ import type { Citation } from "@genie-cv/shared";
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 function applyCitations(text: string, citations: Citation[]): string {
-  let result = text;
-  for (const c of citations) {
-    result = result.replaceAll(
-      `[${c.index}]`,
-      `[\\[${c.index}\\] ${c.label}](${c.route})`
-    );
+  // 본문에서 모든 [N] 인용 번호 패턴 제거
+  let result = text.replace(/\[\d+\]/g, "");
+  // 중복 제거된 citation을 마커로 텍스트 끝에 추가
+  const unique = citations.filter(
+    (c, i, arr) => arr.findIndex((x) => x.route === c.route) === i,
+  );
+  if (unique.length > 0) {
+    result += `\n\n<!--CITATIONS:${JSON.stringify(unique)}-->`;
   }
   return result;
 }

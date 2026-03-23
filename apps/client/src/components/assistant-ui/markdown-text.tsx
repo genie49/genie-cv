@@ -2,33 +2,80 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import { Link } from "react-router";
 import { useMessagePartText } from "@assistant-ui/react";
+import type { Citation } from "@genie-cv/shared";
+import { User, Folder, FileText, MessageCircle, GraduationCap, Briefcase } from "lucide-react";
+
+const CITATION_MARKER = "<!--CITATIONS:";
+
+function parseCitations(text: string): { body: string; citations: Citation[] } {
+  const idx = text.indexOf(CITATION_MARKER);
+  if (idx === -1) return { body: text, citations: [] };
+  const body = text.slice(0, idx).trimEnd();
+  const jsonStr = text.slice(idx + CITATION_MARKER.length, text.lastIndexOf("-->"));
+  try {
+    return { body, citations: JSON.parse(jsonStr) };
+  } catch {
+    return { body, citations: [] };
+  }
+}
+
+function getCitationIcon(source: string) {
+  if (source === "about.md") return <User size={12} />;
+  if (source === "education.md") return <GraduationCap size={12} />;
+  if (source === "experience.md") return <Briefcase size={12} />;
+  if (source === "qna.json") return <MessageCircle size={12} />;
+  if (source.startsWith("projects/")) return <Folder size={12} />;
+  return <FileText size={12} />;
+}
+
+function CitationChips({ citations }: { citations: Citation[] }) {
+  if (citations.length === 0) return null;
+  return (
+    <div className="mt-2 flex flex-wrap gap-1.5">
+      {citations.map((c) => (
+        <Link
+          key={c.route}
+          to={c.route}
+          className="inline-flex items-center gap-1 rounded-lg border border-toss-border bg-toss-bg px-2.5 py-1 text-[11px] font-medium text-toss-blue no-underline transition-colors hover:border-toss-blue hover:bg-blue-50"
+        >
+          {getCitationIcon(c.source)}
+          {c.label}
+        </Link>
+      ))}
+    </div>
+  );
+}
 
 export function MarkdownText() {
   const { text } = useMessagePartText();
+  const { body, citations } = parseCitations(text);
 
   return (
-    <div className="prose prose-sm prose-zinc max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-headings:mt-3 prose-headings:mb-1 prose-pre:my-2 prose-code:text-[12px]">
-      <ReactMarkdown
-        rehypePlugins={[rehypeHighlight]}
-        components={{
-          a: ({ href, children }) => {
-            if (href?.startsWith("/")) {
+    <div>
+      <div className="prose prose-sm prose-zinc max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-headings:mt-3 prose-headings:mb-1 prose-pre:my-2 prose-code:text-[12px]">
+        <ReactMarkdown
+          rehypePlugins={[rehypeHighlight]}
+          components={{
+            a: ({ href, children }) => {
+              if (href?.startsWith("/")) {
+                return (
+                  <Link to={href} className="text-toss-body underline hover:text-toss-heading">
+                    {children}
+                  </Link>
+                );
+              }
               return (
-                <Link to={href} className="text-zinc-600 underline hover:text-black">
+                <a href={href} target="_blank" rel="noopener noreferrer" className="text-toss-body underline hover:text-toss-heading">
                   {children}
-                </Link>
+                </a>
               );
-            }
-            return (
-              <a href={href} target="_blank" rel="noopener noreferrer" className="text-zinc-600 underline hover:text-black">
-                {children}
-              </a>
-            );
-          },
-        }}
-      >
-        {text}
-      </ReactMarkdown>
+            },
+          }}
+        >
+          {body}
+        </ReactMarkdown>
+      </div>
+      <CitationChips citations={citations} />
     </div>
   );
 }

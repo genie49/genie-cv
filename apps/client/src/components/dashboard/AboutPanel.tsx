@@ -1,14 +1,39 @@
 import profile from "@data/profile.json";
 
-export default function AboutPanel() {
-  return (
-    <div className="rounded-xl border border-zinc-100 bg-zinc-50 p-6">
-      <h2 className="mb-3 font-['Outfit'] text-base font-bold text-black">
+function renderBold(text: string) {
+  const parts = text.split(/\*\*(.+?)\*\*/g);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? (
+      <strong key={i} className="font-semibold text-toss-heading">
+        {part}
+      </strong>
+    ) : (
+      part
+    ),
+  );
+}
+
+export default function AboutPanel({ bare }: { bare?: boolean }) {
+  const paragraphs = profile.about.split("\n\n");
+
+  const content = (
+    <>
+      <h2 className="mb-3 font-['Outfit'] text-base font-bold text-toss-heading">
         About
       </h2>
-      <p className="text-[13px] leading-relaxed text-zinc-500">
-        {profile.about}
-      </p>
+      <div className="flex flex-col gap-3 text-[15px] leading-relaxed text-toss-body">
+        {paragraphs.map((p, i) => (
+          <p key={i}>{renderBold(p)}</p>
+        ))}
+      </div>
+    </>
+  );
+
+  if (bare) return content;
+
+  return (
+    <div className="rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-6">
+      {content}
     </div>
   );
 }

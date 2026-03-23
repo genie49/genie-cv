@@ -6,7 +6,7 @@
 
 **Architecture:** SaaS 대시보드 스타일 SPA(Vite+React) + API(ElysiaJS) 분리 구조. 백엔드는 chat/agent/knowledge로 관심사 분리. LanceDB에 사전 임베딩된 MD 콘텐츠를 Grok 4.1이 RAG로 답변.
 
-**Tech Stack:** Bun, Vite, React, Tailwind CSS, React Router, ElysiaJS, LangChain.js, LangGraph, LanceDB, Gemini Embedding, Grok 4.1
+**Tech Stack:** Bun, Vite, React, Tailwind CSS, React Router, ElysiaJS, LangChain.js, LangChain, LanceDB, Gemini Embedding, Grok 4.1
 
 ---
 
@@ -400,7 +400,7 @@ packages/client/src/components/diagrams/
 └── notes/                       # 개발 노트별 커스텀 React+SVG
     ├── RagPipelineArch.tsx
     ├── SseStreamingArch.tsx
-    └── LangGraphAgentArch.tsx
+    └── LangChainAgentArch.tsx
 ```
 
 Create: `packages/client/src/components/diagrams/projects/*.tsx`
@@ -609,7 +609,7 @@ export function mapCitations(results: SearchResult[]): Citation[] {
 
 **Step 1: LangChain 의존성 추가**
 
-Run: `cd packages/server && bun add @langchain/langgraph @langchain/xai`
+Run: `cd packages/server && bun add @langchain/langchain @langchain/xai`
 
 > `@langchain/core`, `@langchain/google-genai`는 Task 7에서 이미 설치됨.
 
@@ -677,7 +677,7 @@ export const ragSearchTool = tool(
 스트리밍은 `streamMode: "messages"`로 토큰 단위 출력.
 
 ```typescript
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
+import { createReactAgent } from "@langchain/langchain/prebuilt";
 import { ChatXAI } from "@langchain/xai";
 import { SystemMessage } from "@langchain/core/messages";
 import { SYSTEM_PROMPT } from "./prompts/system.prompt";
@@ -832,7 +832,7 @@ function renderWithCitations(text: string, citations: Citation[]) {
 - education.md: 한양대학교 데이터사이언스학과 2021~ 재학중
 - experience.md: 경력/활동
 - projects/: 각 프로젝트별 상세 설명 MD
-- notes/: 개발 노트 MD (RAG 파이프라인, SSE 스트리밍, LangGraph 에이전트 등)
+- notes/: 개발 노트 MD (RAG 파이프라인, SSE 스트리밍, LangChain 에이전트 등)
 
 **Step 3: Mermaid 아키텍처 파일 생성**
 
@@ -844,7 +844,7 @@ function renderWithCitations(text: string, citations: Citation[]) {
 ```mermaid
 graph LR
     Client[React + Vite] -->|SSE| API[ElysiaJS]
-    API --> Agent[LangGraph Agent]
+    API --> Agent[LangChain Agent]
     Agent --> RAG[LanceDB]
     RAG -->|Gemini Embedding| Vectors[(Vector Store)]
     Agent -->|Grok 4.1| LLM[xAI API]

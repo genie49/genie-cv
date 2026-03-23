@@ -1,0 +1,6 @@
+{"type":"server-started","port":64339,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:64339","screen_dir":"/Users/genie/workspace/genie-cv/.superpowers/brainstorm/30295-1774272306"}
+{"type":"screen-added","file":"/Users/genie/workspace/genie-cv/.superpowers/brainstorm/30295-1774272306/heybara-hero-direction.html"}
+{"type":"screen-added","file":"/Users/genie/workspace/genie-cv/.superpowers/brainstorm/30295-1774272306/chatbot-hero-direction.html"}
+{"type":"screen-added","file":"/Users/genie/workspace/genie-cv/.superpowers/brainstorm/30295-1774272306/vocatoktok-hero-options.html"}
+{"type":"screen-added","file":"/Users/genie/workspace/genie-cv/.superpowers/brainstorm/30295-1774272306/vocatoktok-hero-v2.html"}
+{"type":"server-stopped","reason":"idle timeout"}
