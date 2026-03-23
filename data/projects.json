@@ -678,6 +678,19 @@
     ],
     "notes": [
       {
+        "id": "chatbot-tech-stack",
+        "projectSlug": "ai-portfolio-chatbot",
+        "title": "왜 Bun + ElysiaJS + LanceDB인가",
+        "date": "2026-03-05",
+        "tags": [
+          "Bun",
+          "ElysiaJS",
+          "LanceDB",
+          "Architecture"
+        ],
+        "summary": "Node.js 대신 Bun, Express 대신 ElysiaJS, 외부 벡터DB 대신 LanceDB를 선택한 경량 포트폴리오 AI 서비스의 기술적 근거"
+      },
+      {
         "id": "rag-pipeline",
         "projectSlug": "ai-portfolio-chatbot",
         "title": "LanceDB + Gemini Embedding RAG 파이프라인",
@@ -688,6 +701,19 @@
           "Gemini"
         ],
         "summary": "파일 기반 벡터 DB LanceDB와 Gemini Embedding을 활용한 경량 RAG 파이프라인 설계"
+      },
+      {
+        "id": "chatbot-asymmetric-embedding",
+        "projectSlug": "ai-portfolio-chatbot",
+        "title": "질문과 문서는 다르게 임베딩해야 한다",
+        "date": "2026-03-11",
+        "tags": [
+          "Gemini Embedding",
+          "Asymmetric",
+          "RAG",
+          "Retrieval"
+        ],
+        "summary": "Gemini Embedding의 taskType 분리(RETRIEVAL_DOCUMENT vs RETRIEVAL_QUERY)로 검색 정확도를 높인 비대칭 임베딩 전략"
       },
       {
         "id": "sse-streaming",
@@ -711,6 +737,19 @@
           "Agent"
         ],
         "summary": "16줄의 ReAct 에이전트 구성, 조건부 도구 호출, IP 기반 rate limiting, 에러 분류 시스템 설계"
+      },
+      {
+        "id": "chatbot-defensive-ops",
+        "projectSlug": "ai-portfolio-chatbot",
+        "title": "퍼블릭 AI 사이트를 안전하게 운영하는 법",
+        "date": "2026-03-16",
+        "tags": [
+          "Rate Limiting",
+          "Error Handling",
+          "Security",
+          "Production"
+        ],
+        "summary": "IP 기반 고정 윈도우 Rate Limiting과 LLM 에러 패턴 분류로 퍼블릭 AI 서비스를 방어적으로 운영하는 설계"
       }
     ]
   }
