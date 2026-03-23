@@ -541,6 +541,14 @@
     ],
     "notes": [
       {
+        "id": "bara-tech-stack",
+        "projectSlug": "hey-bara",
+        "title": "왜 Sherpa-ONNX와 Koog인가",
+        "date": "2026-01-10",
+        "tags": ["Sherpa-ONNX", "Koog", "ONNX Runtime", "Kotlin", "Architecture"],
+        "summary": "ONNX Runtime vs TFLite, Sherpa-ONNX vs Whisper, Koog vs LangChain — 온디바이스 AI 음성 비서를 위한 프레임워크 선택 근거"
+      },
+      {
         "id": "bara-voice-pipeline",
         "projectSlug": "hey-bara",
         "title": "\"헤이 바라\" — 한마디로 시작되는 4단계 음성 파이프라인",
@@ -589,6 +597,14 @@
           "Channel"
         ],
         "summary": "위험 액션에 Kotlin Channel 기반 suspend 패턴으로 UI-Agent 브릿지를 만들고, 사용자 확인을 받는 Human-in-the-Loop 설계"
+      },
+      {
+        "id": "bara-channel-bridge",
+        "projectSlug": "hey-bara",
+        "title": "Kotlin Channel 하나로 Agent와 UI를 이어붙이다",
+        "date": "2026-02-20",
+        "tags": ["Kotlin", "Channel", "Coroutine", "HITL", "Suspend"],
+        "summary": "Kotlin Channel의 suspend 패턴으로 Agent 실행을 중단하고 UI에서 사용자 확인을 받은 뒤 재개하는 Tool↔UI 브릿지 설계"
       },
       {
         "id": "bara-app-control",
