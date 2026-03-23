@@ -465,6 +465,14 @@
     ],
     "notes": [
       {
+        "id": "vocatoktok-tech-stack",
+        "projectSlug": "vocatoktok",
+        "title": "PHP에서 Next.js로 — 전면 리빌드를 결정한 이유",
+        "date": "2025-02-15",
+        "tags": ["Next.js", "Prisma", "MySQL", "Migration", "Architecture"],
+        "summary": "PHP/Vanilla JS 레거시를 Next.js 14로 전면 리빌드한 결정 과정과, Prisma 인트로스펙션으로 기존 MySQL 스키마를 활용한 전략"
+      },
+      {
         "id": "vocatoktok-migration",
         "projectSlug": "vocatoktok",
         "title": "PHP에서 Next.js로, 레거시를 버리는 용기",
@@ -489,12 +497,28 @@
         "summary": "Google Cloud TTS 기반 다국어 발음 학습 파이프라인과 RDT/RET 모드 설계"
       },
       {
+        "id": "vocatoktok-tts-caching",
+        "projectSlug": "vocatoktok",
+        "title": "수천 단어의 발음을 끊김 없이 재생하려면",
+        "date": "2025-04-10",
+        "tags": ["Google TTS", "SWR", "Caching", "Batch", "Performance"],
+        "summary": "Google Cloud TTS 발음 학습에서 SWR 캐싱과 10단어 배치 분할 병렬 요청으로 대량 단어 발음 재생을 최적화한 설계"
+      },
+      {
         "id": "vocatoktok-data-encryption",
         "projectSlug": "vocatoktok",
         "title": "학습 데이터를 지키는 방법",
         "date": "2025-04-15",
         "tags": ["Encryption", "Security", "Data Protection"],
         "summary": "학습 콘텐츠 데이터 암호화 설계와 구현"
+      },
+      {
+        "id": "vocatoktok-learning-algorithm",
+        "projectSlug": "vocatoktok",
+        "title": "아는 단어와 모르는 단어를 어떻게 판별하는가",
+        "date": "2025-05-01",
+        "tags": ["Algorithm", "Learning Loop", "Assessment", "Adaptive Learning"],
+        "summary": "정답·오답 횟수 기반 아는/모르는 단어 자동 분류, 연습→테스트→오답→재시험 반복 루프, 성적 기반 레벨 자동 조절 알고리즘 기획 문서"
       }
     ]
   },
