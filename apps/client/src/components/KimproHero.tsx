@@ -425,7 +425,7 @@ export function KimproHero({
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.6 }}
           transition={{ delay: FLOW_DELAY * 7.5, duration: 0.3 }}
-          x={454} y={54} fontFamily="monospace" fontSize={5} fill="#d97706" textAnchor="middle"
+          x={462} y={52} fontFamily="monospace" fontSize={5} fill="#d97706" textAnchor="middle"
         >
           HTTP
         </motion.text>
