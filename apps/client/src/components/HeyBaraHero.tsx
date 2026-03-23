@@ -16,6 +16,7 @@ function Node({
   sub,
   color,
   delay,
+  fontSize: fs,
 }: {
   x: number;
   y: number;
@@ -23,8 +24,9 @@ function Node({
   h: number;
   label: string;
   sub?: string;
-  color: "violet" | "emerald" | "blue" | "amber" | "zinc";
+  color: "violet" | "emerald" | "blue" | "amber" | "zinc" | "rose" | "cyan" | "orange";
   delay: number;
+  fontSize?: number;
 }) {
   const colors = {
     violet: {
@@ -57,6 +59,24 @@ function Node({
       text: "#27272a",
       sub: "#71717a",
     },
+    rose: {
+      fill: "#ffe4e6",
+      stroke: "#fda4af",
+      text: "#9f1239",
+      sub: "#e11d48",
+    },
+    cyan: {
+      fill: "#cffafe",
+      stroke: "#67e8f9",
+      text: "#155e75",
+      sub: "#0891b2",
+    },
+    orange: {
+      fill: "#fff7ed",
+      stroke: "#fed7aa",
+      text: "#c2410c",
+      sub: "#ea580c",
+    },
   };
   const c = colors[color];
 
@@ -82,7 +102,7 @@ function Node({
         textAnchor="middle"
         dominantBaseline="middle"
         fill={c.text}
-        fontSize={10}
+        fontSize={fs ?? 10}
         fontWeight={600}
         fontFamily="monospace"
       >
@@ -95,7 +115,7 @@ function Node({
           textAnchor="middle"
           dominantBaseline="middle"
           fill={c.sub}
-          fontSize={7}
+          fontSize={fs ? fs * 0.7 : 7}
           fontFamily="monospace"
           opacity={0.85}
         >
@@ -110,10 +130,12 @@ function Arrow({
   points,
   delay,
   dashed,
+  stroke: strokeColor,
 }: {
   points: string;
   delay: number;
   dashed?: boolean;
+  stroke?: string;
 }) {
   return (
     <motion.polyline
@@ -122,10 +144,10 @@ function Arrow({
       transition={{ delay, duration: 0.25 }}
       points={points}
       fill="none"
-      stroke="#ccc"
+      stroke={strokeColor ?? "#ccc"}
       strokeWidth={1.2}
       strokeDasharray={dashed ? "4,3" : undefined}
-      markerEnd="url(#bara-arrow)"
+      markerEnd={strokeColor ? "url(#bara-arrow-amber)" : "url(#bara-arrow)"}
     />
   );
 }
@@ -284,51 +306,132 @@ export function HeyBaraHero({
           >
             <polygon points="0,0 0,6 9,3" fill="#ccc" />
           </marker>
+          <marker
+            id="bara-arrow-amber"
+            markerWidth="10"
+            markerHeight="10"
+            refX="9"
+            refY="3"
+            orient="auto"
+          >
+            <polygon points="0,0 0,6 9,3" fill="#fcd34d" />
+          </marker>
         </defs>
 
-        {/* 사용자 (left) */}
-        <Node x={20} y={90} w={70} h={48} label="사용자" color="violet" delay={FLOW_DELAY} />
-        <Arrow points="90,114 115,95" delay={FLOW_DELAY * 2} />
-
-        {/* 웨이크 워드 */}
-        <Node x={115} y={70} w={100} h={50} label="웨이크 워드" sub="Porcupine" color="blue" delay={FLOW_DELAY * 3} />
-        <Arrow points="215,95 240,95" delay={FLOW_DELAY * 4} />
-
-        {/* 음성 인식 */}
-        <Node x={240} y={70} w={100} h={50} label="음성 인식" sub="Sherpa-ONNX STT" color="blue" delay={FLOW_DELAY * 5} />
-        <Arrow points="340,95 365,95" delay={FLOW_DELAY * 6} />
-
-        {/* 명령 처리 */}
-        <Node x={365} y={70} w={100} h={50} label="명령 처리" sub="Koog Agent" color="emerald" delay={FLOW_DELAY * 7} />
-        <Arrow points="465,95 490,95" delay={FLOW_DELAY * 8} />
-
-        {/* 음성 응답 */}
-        <Node x={490} y={70} w={100} h={50} label="음성 응답" sub="Supertonic 2 TTS" color="amber" delay={FLOW_DELAY * 9} />
-
-        {/* Dashed: Tool execution (from 명령 처리 down) */}
-        <Arrow points="415,120 365,170" delay={FLOW_DELAY * 10} dashed />
-        <Arrow points="415,120 457,170" delay={FLOW_DELAY * 10} dashed />
-        <Arrow points="415,120 557,170" delay={FLOW_DELAY * 10} dashed />
-
-        {/* Action nodes */}
-        <Node x={315} y={170} w={85} h={34} label="전화 · 문자" color="zinc" delay={FLOW_DELAY * 11} />
-        <Node x={415} y={170} w={85} h={34} label="일정 · 알림" sub="Google Calendar" color="zinc" delay={FLOW_DELAY * 11.5} />
-        <Node x={515} y={170} w={85} h={34} label="앱 제어" sub="Accessibility" color="zinc" delay={FLOW_DELAY * 12} />
-
-        {/* Bottom note */}
+        {/* ═══ VOICE INPUT (left) ═══ */}
         <motion.text
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: FLOW_DELAY * 8, duration: 0.4 }}
-          x={320}
-          y={260}
-          fontFamily="monospace"
-          fontSize={7}
-          fill="#999"
-          textAnchor="middle"
+          initial={{ opacity: 0 }} animate={{ opacity: 0.6 }}
+          transition={{ delay: FLOW_DELAY, duration: 0.3 }}
+          x={20} y={42} fontFamily="monospace" fontSize={5.5} fontWeight={600} fill="#888"
         >
-          Sherpa-ONNX · Koog Agent · Gemini API · Supertonic 2
+          VOICE INPUT
         </motion.text>
+
+        <Node x={15} y={50} w={70} h={30} label="Wake Word" sub="Sherpa-ONNX KWS" color="blue" delay={FLOW_DELAY} fontSize={6.5} />
+
+        {/* Arrow down: KWS → STT */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 2, duration: 0.25 }}>
+          <line x1={50} y1={80} x2={50} y2={92} stroke="#ccc" strokeWidth={0.8} />
+          <polygon points="47,89 53,89 50,93" fill="#ccc" />
+        </motion.g>
+
+        <Node x={15} y={94} w={70} h={30} label="STT" sub="Zipformer Korean" color="blue" delay={FLOW_DELAY * 2} fontSize={6.5} />
+
+        {/* Arrow: STT → Agent */}
+        <Arrow points="85,109 110,109" delay={FLOW_DELAY * 3} />
+
+        {/* ═══ KOOG AI AGENT (center big box) ═══ */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 3.5, duration: 0.4 }}>
+          <rect x={112} y={38} width={230} height={150} rx={6} fill="#ecfdf5" stroke="#6ee7b7" strokeWidth={1.5} />
+          <text x={227} y={54} textAnchor="middle" fontFamily="monospace" fontSize={7.5} fontWeight={700} fill="#065f46">Koog AI Agent</text>
+        </motion.g>
+
+        {/* Gemini API */}
+        <Node x={130} y={62} w={120} h={28} label="Gemini API" sub="Function Calling" color="emerald" delay={FLOW_DELAY * 4} fontSize={8} />
+
+        {/* Tool categories */}
+        <motion.g initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: FLOW_DELAY * 5, duration: 0.35 }}>
+          <rect x={126} y={98} width={52} height={16} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
+          <text x={152} y={109} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#9f1239">전화 · 문자</text>
+          <rect x={182} y={98} width={50} height={16} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
+          <text x={207} y={109} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#9f1239">카카오톡</text>
+          <rect x={236} y={98} width={50} height={16} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
+          <text x={261} y={109} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#9f1239">일정 · 할일</text>
+          <rect x={290} y={98} width={44} height={16} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
+          <text x={312} y={109} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#9f1239">앱 제어</text>
+          <line x1={160} y1={90} x2={152} y2={98} stroke="#fda4af" strokeWidth={0.5} />
+          <line x1={190} y1={90} x2={207} y2={98} stroke="#fda4af" strokeWidth={0.5} />
+          <line x1={210} y1={90} x2={261} y2={98} stroke="#fda4af" strokeWidth={0.5} />
+          <line x1={240} y1={90} x2={312} y2={98} stroke="#fda4af" strokeWidth={0.5} />
+        </motion.g>
+
+        {/* Human-in-the-Loop + VoiceSession FSM */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 6, duration: 0.3 }}>
+          <rect x={126} y={122} width={100} height={14} rx={7} fill="#fef3c7" stroke="#fcd34d" strokeWidth={0.7} />
+          <text x={176} y={132} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#92400e">Human-in-the-Loop</text>
+          <rect x={232} y={122} width={100} height={14} rx={3} fill="#fff" stroke="#d4d4d8" strokeWidth={0.7} />
+          <text x={282} y={132} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#71717a">VoiceSession FSM</text>
+        </motion.g>
+
+        {/* History + System Prompt */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 6, duration: 0.3 }}>
+          <rect x={126} y={144} width={80} height={14} rx={3} fill="#fff" stroke="#d4d4d8" strokeWidth={0.7} />
+          <text x={166} y={154} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#71717a">대화 히스토리</text>
+          <rect x={212} y={144} width={80} height={14} rx={3} fill="#fff" stroke="#d4d4d8" strokeWidth={0.7} />
+          <text x={252} y={154} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#71717a">System Prompt</text>
+        </motion.g>
+
+        {/* ForegroundService text */}
+        <motion.text initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} transition={{ delay: FLOW_DELAY * 6, duration: 0.3 }}
+          x={227} y={178} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#999"
+        >
+          ForegroundService · 화면 꺼져도 상시 대기
+        </motion.text>
+
+        {/* ═══ VOICE OUTPUT (right top) ═══ */}
+        <Arrow points="342,75 360,75" delay={FLOW_DELAY * 7} stroke="#6ee7b7" />
+
+        <motion.text initial={{ opacity: 0 }} animate={{ opacity: 0.6 }} transition={{ delay: FLOW_DELAY * 7, duration: 0.3 }}
+          x={370} y={42} fontFamily="monospace" fontSize={5.5} fontWeight={600} fill="#888"
+        >
+          VOICE OUTPUT
+        </motion.text>
+
+        <Node x={362} y={50} w={78} h={34} label="TTS" sub="Supertonic 2" color="amber" delay={FLOW_DELAY * 7} fontSize={7} />
+
+        {/* ═══ DEVICE API (right bottom) ═══ */}
+        <motion.text initial={{ opacity: 0 }} animate={{ opacity: 0.6 }} transition={{ delay: FLOW_DELAY * 8, duration: 0.3 }}
+          x={370} y={105} fontFamily="monospace" fontSize={5.5} fontWeight={600} fill="#888"
+        >
+          DEVICE API
+        </motion.text>
+
+        <Node x={362} y={112} w={78} h={20} label="Accessibility" color="zinc" delay={FLOW_DELAY * 8} fontSize={5.5} />
+        <Node x={362} y={138} w={78} h={20} label="Calendar API" color="zinc" delay={FLOW_DELAY * 8.5} fontSize={5.5} />
+        <Node x={362} y={164} w={78} h={20} label="SmsManager" color="zinc" delay={FLOW_DELAY * 9} fontSize={5.5} />
+
+        {/* Dashed lines: Tools → Device APIs */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 0.4 }} transition={{ delay: FLOW_DELAY * 9, duration: 0.3 }}>
+          <line x1={334} y1={106} x2={362} y2={122} stroke="#ccc" strokeWidth={0.6} strokeDasharray="2,2" />
+          <line x1={286} y1={114} x2={362} y2={148} stroke="#ccc" strokeWidth={0.6} strokeDasharray="2,2" />
+          <line x1={152} y1={114} x2={362} y2={174} stroke="#ccc" strokeWidth={0.6} strokeDasharray="2,2" />
+        </motion.g>
+
+        {/* ═══ ANDROID PLATFORM BAR ═══ */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 10, duration: 0.3 }}>
+          <rect x={90} y={218} width={360} height={16} rx={8} fill="#ede9fe" stroke="#c4b5fd" strokeWidth={0.8} />
+          <text x={270} y={229} textAnchor="middle" fontFamily="monospace" fontSize={6} fontWeight={600} fill="#5b21b6">
+            Android · Kotlin · Jetpack Compose · Clean Architecture
+          </text>
+        </motion.g>
+
+        <Node x={100} y={244} w={50} h={16} label="Room DB" color="zinc" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
+        <Node x={155} y={244} w={65} h={16} label="SecurePref" color="zinc" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
+        <Node x={225} y={244} w={65} h={16} label="OAuth 2.0" color="zinc" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
+
+        <Arrow points="125,234 125,244" delay={FLOW_DELAY * 10.5} dashed />
+        <Arrow points="187,234 187,244" delay={FLOW_DELAY * 10.5} dashed />
+        <Arrow points="257,234 257,244" delay={FLOW_DELAY * 10.5} dashed />
       </svg>
     </motion.div>
   );
