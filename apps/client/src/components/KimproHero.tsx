@@ -23,7 +23,7 @@ function Node({
   h: number;
   label: string;
   sub?: string;
-  color: "violet" | "emerald" | "blue" | "amber" | "zinc";
+  color: "violet" | "emerald" | "blue" | "amber" | "zinc" | "orange";
   delay: number;
 }) {
   const colors = {
@@ -56,6 +56,12 @@ function Node({
       stroke: "#d4d4d8",
       text: "#27272a",
       sub: "#71717a",
+    },
+    orange: {
+      fill: "#fff7ed",
+      stroke: "#fed7aa",
+      text: "#c2410c",
+      sub: "#ea580c",
     },
   };
   const c = colors[color];
@@ -110,10 +116,12 @@ function Arrow({
   points,
   delay,
   dashed,
+  stroke: strokeColor,
 }: {
   points: string;
   delay: number;
   dashed?: boolean;
+  stroke?: string;
 }) {
   return (
     <motion.polyline
@@ -122,7 +130,7 @@ function Arrow({
       transition={{ delay, duration: 0.25 }}
       points={points}
       fill="none"
-      stroke="#ccc"
+      stroke={strokeColor ?? "#ccc"}
       strokeWidth={1.2}
       strokeDasharray={dashed ? "4,3" : undefined}
       markerEnd="url(#kimpro-arrow)"
@@ -286,88 +294,169 @@ export function KimproHero({
           </marker>
         </defs>
 
-        {/* ── AI Agent (center hub) ── */}
-        <Node x={255} y={100} w={130} h={55} label="AI Agent" sub="자율 오케스트레이션" color="violet" delay={FLOW_DELAY} />
+        {/* ═══ Col 1: Client ═══ */}
+        <Node x={12} y={85} w={58} h={35} label="Client" sub="Next.js" color="blue" delay={FLOW_DELAY} />
 
-        {/* ── 브랜드 (top-left) ── */}
-        <Node x={40} y={35} w={110} h={45} label="브랜드" sub="캠페인 요구사항 수집" color="blue" delay={FLOW_DELAY * 3} />
+        {/* Arrow: Client → Nginx */}
+        <Arrow points="70,102 88,102" delay={FLOW_DELAY * 1.5} />
 
-        {/* ── 크리에이터 (top-right) ── */}
-        <Node x={490} y={35} w={110} h={45} label="크리에이터" sub="매칭 · 컨택 · 계약" color="amber" delay={FLOW_DELAY * 5} />
-
-        {/* ── 콘텐츠 (bottom-center) ── */}
-        <Node x={255} y={210} w={130} h={45} label="콘텐츠" sub="가이드 생성 · 검수" color="emerald" delay={FLOW_DELAY * 7} />
-
-        {/* Arrows: Agent ↔ 브랜드 */}
-        <Arrow points="255,118 155,72" delay={FLOW_DELAY * 2} />
-        <Arrow points="150,80 255,133" delay={FLOW_DELAY * 2.5} dashed />
-
-        {/* Arrows: Agent ↔ 크리에이터 */}
-        <Arrow points="385,118 490,72" delay={FLOW_DELAY * 4} />
-        <Arrow points="490,80 385,133" delay={FLOW_DELAY * 4.5} dashed />
-
-        {/* Arrows: Agent ↔ 콘텐츠 */}
-        <Arrow points="325,155 325,210" delay={FLOW_DELAY * 6} />
-        <Arrow points="315,210 315,155" delay={FLOW_DELAY * 6.5} dashed />
-
-        {/* ── 브랜드 세부 기능 (zinc, left column) ── */}
-        <Arrow points="95,80 95,105" delay={FLOW_DELAY * 9} dashed />
-        <Node x={30} y={105} w={100} h={30} label="URL·PDF 크롤링" color="zinc" delay={FLOW_DELAY * 9.5} />
-        <Arrow points="80,135 80,150" delay={FLOW_DELAY * 10} dashed />
-        <Node x={30} y={150} w={100} h={30} label="캠페인 브리프" color="zinc" delay={FLOW_DELAY * 10.5} />
-
-        {/* ── 크리에이터 세부 기능 (zinc, right column) ── */}
-        <Arrow points="545,80 545,105" delay={FLOW_DELAY * 9} dashed />
-        <Node x={500} y={105} w={100} h={30} label="크리에이터 DB" color="zinc" delay={FLOW_DELAY * 9.5} />
-        <Arrow points="550,135 550,150" delay={FLOW_DELAY * 10} dashed />
-        <Node x={500} y={150} w={100} h={30} label="AI 커뮤니케이션" color="zinc" delay={FLOW_DELAY * 10.5} />
-
-        {/* ── 콘텐츠 세부 기능 (zinc, bottom sides) ── */}
-        <Arrow points="255,232 210,232" delay={FLOW_DELAY * 9} dashed />
-        <Node x={115} y={218} w={95} h={30} label="가이드 생성" color="zinc" delay={FLOW_DELAY * 9.5} />
-        <Arrow points="385,232 430,232" delay={FLOW_DELAY * 10} dashed />
-        <Node x={430} y={218} w={95} h={30} label="콘텐츠 검수" color="zinc" delay={FLOW_DELAY * 10.5} />
-
-        {/* ── Edge labels ── */}
+        {/* ═══ Col 2: Nginx Gateway ═══ */}
+        <Node x={90} y={70} w={55} h={65} label="Nginx" sub="Gateway" color="zinc" delay={FLOW_DELAY * 2} />
         <motion.text
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.6 }}
-          transition={{ delay: FLOW_DELAY * 3, duration: 0.3 }}
-          x={190} y={88} fontFamily="monospace" fontSize={6.5} fill="#666" textAnchor="middle"
+          transition={{ delay: FLOW_DELAY * 2.5, duration: 0.3 }}
+          x={117} y={125} fontFamily="monospace" fontSize={5} fill="#a1a1aa" textAnchor="middle"
         >
-          분석 · 기획
-        </motion.text>
-        <motion.text
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.6 }}
-          transition={{ delay: FLOW_DELAY * 5, duration: 0.3 }}
-          x={450} y={88} fontFamily="monospace" fontSize={6.5} fill="#666" textAnchor="middle"
-        >
-          탐색 · 협업
-        </motion.text>
-        <motion.text
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.6 }}
-          transition={{ delay: FLOW_DELAY * 7, duration: 0.3 }}
-          x={350} y={192} fontFamily="monospace" fontSize={6.5} fill="#666" textAnchor="middle"
-        >
-          생성 · 관리
+          auth_request
         </motion.text>
 
-        {/* ── Bottom note ── */}
+        {/* Arrows: Nginx → Services */}
+        <Arrow points="145,82 168,57" delay={FLOW_DELAY * 2.5} />
+        <Arrow points="145,100 168,100" delay={FLOW_DELAY * 2.5} />
+        <Arrow points="145,118 168,143" delay={FLOW_DELAY * 3.5} />
+
+        {/* ═══ Col 3: Services ═══ */}
+        <Node x={170} y={40} w={52} h={26} label="Auth" color="emerald" delay={FLOW_DELAY * 3} />
+        <Node x={170} y={78} w={52} h={26} label="API" color="emerald" delay={FLOW_DELAY * 3} />
+        <Node x={170} y={135} w={52} h={32} label="Chat" sub="Socket.IO" color="blue" delay={FLOW_DELAY * 4} />
+
+        {/* Arrow: Chat → Workflow (amber, with pub/sub label) */}
+        <Arrow points="222,151 253,130" delay={FLOW_DELAY * 4.5} stroke="#fcd34d" />
         <motion.text
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: FLOW_DELAY * 4.5, duration: 0.3 }}
+          x={234} y={135} fontFamily="monospace" fontSize={5} fill="#d97706" textAnchor="middle"
+        >
+          pub/sub
+        </motion.text>
+
+        {/* ═══ Col 4: Workflow Service (big wrapper box) ═══ */}
+        <motion.g
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: FLOW_DELAY * 12, duration: 0.4 }}
-          x={320}
-          y={268}
-          fontFamily="monospace"
-          fontSize={7}
-          fill="#999"
-          textAnchor="middle"
+          transition={{ delay: FLOW_DELAY * 5, duration: 0.4 }}
         >
-          LangChain multi-agent · GCP Pub/Sub · WebSocket streaming
+          <rect x={255} y={32} width={195} height={175} rx={6} fill="#faf5ff" stroke="#c4b5fd" strokeWidth={1.5} />
+          <text x={352} y={49} textAnchor="middle" fontFamily="monospace" fontSize={8} fontWeight={700} fill="#7c3aed">
+            Workflow Service
+          </text>
+        </motion.g>
+
+        {/* Account Manager (main agent node) */}
+        <Node x={272} y={57} w={160} h={38} label="Account Manager" sub="Supervisor · LangGraph · Claude/GPT" color="violet" delay={FLOW_DELAY * 5} />
+
+        {/* Sub-agents row */}
+        <motion.g
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: FLOW_DELAY * 6, duration: 0.35 }}
+        >
+          {/* Insight */}
+          <rect x={268} y={104} width={38} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
+          <text x={287} y={117} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">Insight</text>
+          {/* Campaign */}
+          <rect x={310} y={104} width={44} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
+          <text x={332} y={117} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">Campaign</text>
+          {/* Content */}
+          <rect x={358} y={104} width={40} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
+          <text x={378} y={117} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">Content</text>
+          {/* Recruit */}
+          <rect x={402} y={104} width={38} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
+          <text x={421} y={117} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">Recruit</text>
+          {/* Lines: Account Manager → sub-agents */}
+          <line x1={305} y1={95} x2={287} y2={104} stroke="#c4b5fd" strokeWidth={0.6} />
+          <line x1={335} y1={95} x2={332} y2={104} stroke="#c4b5fd" strokeWidth={0.6} />
+          <line x1={370} y1={95} x2={378} y2={104} stroke="#c4b5fd" strokeWidth={0.6} />
+          <line x1={400} y1={95} x2={421} y2={104} stroke="#c4b5fd" strokeWidth={0.6} />
+        </motion.g>
+
+        {/* Middleware Pipeline bar */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: FLOW_DELAY * 7, duration: 0.3 }}
+        >
+          <rect x={272} y={133} width={168} height={16} rx={8} fill="#f0e7ff" stroke="#ddd6fe" strokeWidth={0.7} />
+          <text x={356} y={144} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">
+            Middleware Pipeline × 5
+          </text>
+        </motion.g>
+
+        {/* Checkpoint + Prompt Cache */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: FLOW_DELAY * 7, duration: 0.3 }}
+        >
+          <rect x={272} y={157} width={78} height={16} rx={3} fill="#fff" stroke="#d4d4d8" strokeWidth={0.7} />
+          <text x={311} y={168} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#71717a">PG Checkpoint</text>
+          <rect x={356} y={157} width={84} height={16} rx={3} fill="#fff" stroke="#d4d4d8" strokeWidth={0.7} />
+          <text x={398} y={168} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#71717a">Prompt Cache</text>
+        </motion.g>
+
+        {/* LLM Factory text */}
+        <motion.text
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          transition={{ delay: FLOW_DELAY * 7, duration: 0.3 }}
+          x={356} y={190} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#999"
+        >
+          Dynamic Model Selection · LLM Factory
         </motion.text>
+
+        {/* ═══ Col 5: Tools API ═══ */}
+        {/* Arrow: Workflow → Tools (amber) */}
+        <Arrow points="450,76 472,58" delay={FLOW_DELAY * 7.5} stroke="#fcd34d" />
+        <motion.text
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: FLOW_DELAY * 7.5, duration: 0.3 }}
+          x={467} y={48} fontFamily="monospace" fontSize={5} fill="#d97706" textAnchor="middle"
+        >
+          HTTP
+        </motion.text>
+
+        <Node x={472} y={32} w={90} h={28} label="Tools API" sub="Fastify · 독립 배포" color="amber" delay={FLOW_DELAY * 8} />
+
+        {/* Tool items (2×3 grid) */}
+        <Node x={472} y={66} w={43} h={16} label="제품 분석" color="orange" delay={FLOW_DELAY * 8} />
+        <Node x={519} y={66} w={43} h={16} label="키워드" color="orange" delay={FLOW_DELAY * 8} />
+        <Node x={472} y={86} w={43} h={16} label="성과 예측" color="orange" delay={FLOW_DELAY * 8} />
+        <Node x={519} y={86} w={43} h={16} label="매칭" color="orange" delay={FLOW_DELAY * 8} />
+        <Node x={472} y={106} w={43} h={16} label="레퍼런스" color="orange" delay={FLOW_DELAY * 8} />
+        <Node x={519} y={106} w={43} h={16} label="크롤링" color="orange" delay={FLOW_DELAY * 8} />
+
+        {/* ═══ Bottom: Pub/Sub Event Bus ═══ */}
+        <Arrow points="352,207 352,222" delay={FLOW_DELAY * 8.5} dashed />
+
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: FLOW_DELAY * 9, duration: 0.3 }}
+        >
+          <rect x={90} y={222} width={470} height={18} rx={9} fill="#fef3c7" stroke="#fcd34d" strokeWidth={1} />
+          <text x={325} y={234} textAnchor="middle" fontFamily="monospace" fontSize={7} fontWeight={600} fill="#92400e">
+            GCP Pub/Sub Event Bus
+          </text>
+        </motion.g>
+
+        {/* Workers */}
+        <Node x={100} y={250} w={75} h={20} label="Notification WK" color="zinc" delay={FLOW_DELAY * 10} />
+        <Node x={185} y={250} w={60} h={20} label="History WK" color="zinc" delay={FLOW_DELAY * 10} />
+
+        {/* DB */}
+        <Node x={355} y={250} w={58} h={20} label="PostgreSQL" color="emerald" delay={FLOW_DELAY * 10} />
+        <Node x={418} y={250} w={50} h={20} label="MongoDB" color="emerald" delay={FLOW_DELAY * 10} />
+        <Node x={473} y={250} w={42} h={20} label="Redis" color="emerald" delay={FLOW_DELAY * 10} />
+
+        {/* Dashed lines: Pub/Sub → Workers/DB */}
+        <Arrow points="137,240 137,250" delay={FLOW_DELAY * 9.5} dashed />
+        <Arrow points="215,240 215,250" delay={FLOW_DELAY * 9.5} dashed />
+        <Arrow points="384,240 384,250" delay={FLOW_DELAY * 9.5} dashed />
+        <Arrow points="443,240 443,250" delay={FLOW_DELAY * 9.5} dashed />
+        <Arrow points="494,240 494,250" delay={FLOW_DELAY * 9.5} dashed />
       </svg>
     </motion.div>
   );
