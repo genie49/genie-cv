@@ -16,6 +16,7 @@ function Node({
   sub,
   color,
   delay,
+  fontSize: fs,
 }: {
   x: number;
   y: number;
@@ -23,8 +24,9 @@ function Node({
   h: number;
   label: string;
   sub?: string;
-  color: "violet" | "emerald" | "blue" | "amber" | "zinc";
+  color: "violet" | "emerald" | "blue" | "amber" | "zinc" | "orange";
   delay: number;
+  fontSize?: number;
 }) {
   const colors = {
     violet: {
@@ -57,6 +59,12 @@ function Node({
       text: "#27272a",
       sub: "#71717a",
     },
+    orange: {
+      fill: "#fff7ed",
+      stroke: "#fed7aa",
+      text: "#c2410c",
+      sub: "#ea580c",
+    },
   };
   const c = colors[color];
 
@@ -82,7 +90,7 @@ function Node({
         textAnchor="middle"
         dominantBaseline="middle"
         fill={c.text}
-        fontSize={10}
+        fontSize={fs ?? 10}
         fontWeight={600}
         fontFamily="monospace"
       >
@@ -95,7 +103,7 @@ function Node({
           textAnchor="middle"
           dominantBaseline="middle"
           fill={c.sub}
-          fontSize={7}
+          fontSize={fs ? fs * 0.7 : 7}
           fontFamily="monospace"
           opacity={0.85}
         >
@@ -110,10 +118,12 @@ function Arrow({
   points,
   delay,
   dashed,
+  stroke: strokeColor,
 }: {
   points: string;
   delay: number;
   dashed?: boolean;
+  stroke?: string;
 }) {
   return (
     <motion.polyline
@@ -122,10 +132,10 @@ function Arrow({
       transition={{ delay, duration: 0.25 }}
       points={points}
       fill="none"
-      stroke="#ccc"
+      stroke={strokeColor ?? "#ccc"}
       strokeWidth={1.2}
       strokeDasharray={dashed ? "4,3" : undefined}
-      markerEnd="url(#fingoo-arrow)"
+      markerEnd={strokeColor ? "url(#fingoo-arrow-amber)" : "url(#fingoo-arrow)"}
     />
   );
 }
@@ -284,106 +294,158 @@ export function FingooHero({
           >
             <polygon points="0,0 0,6 9,3" fill="#ccc" />
           </marker>
+          <marker id="fingoo-arrow-amber" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0,0 0,6 9,3" fill="#fcd34d" />
+          </marker>
         </defs>
 
-        {/* ── User (left) ── */}
-        <Node
-          x={30}
-          y={112}
-          w={80}
-          h={48}
-          label="사용자"
-          color="violet"
-          delay={FLOW_DELAY}
-        />
+        {/* ═══ Col 1: Client ═══ */}
+        <Node x={12} y={80} w={60} h={38} label="Client" sub="Next.js" color="blue" delay={FLOW_DELAY} />
 
-        {/* Arrows: User → Services */}
-        <Arrow points="110,128 185,80" delay={FLOW_DELAY * 2} />
-        <Arrow points="110,136 185,136" delay={FLOW_DELAY * 2} />
-        <Arrow points="110,144 185,200" delay={FLOW_DELAY * 2} />
+        {/* Arrow: Client → Nginx */}
+        <Arrow points="72,99 88,99" delay={FLOW_DELAY * 1.5} />
 
-        {/* ── Services (center) ── */}
-        <Node
-          x={185}
-          y={52}
-          w={210}
-          h={50}
-          label="실시간 차트"
-          sub="인터랙티브 차트 · 비교 분석 · 통계 분석"
-          color="blue"
-          delay={FLOW_DELAY * 3}
-        />
-        <Node
-          x={185}
-          y={112}
-          w={210}
-          h={50}
-          label="AI 채팅"
-          sub="투자 분석 · 멀티모달 · 차트 시각화"
-          color="emerald"
-          delay={FLOW_DELAY * 4}
-        />
-        <Node
-          x={185}
-          y={176}
-          w={210}
-          h={50}
-          label="투자 교육"
-          sub="퀴즈 · 출석 · XP · 랭킹"
-          color="amber"
-          delay={FLOW_DELAY * 5}
-        />
+        {/* ═══ Col 2: Nginx ═══ */}
+        <Node x={90} y={72} w={50} h={55} label="Nginx" sub="Reverse Proxy" color="zinc" delay={FLOW_DELAY * 2} fontSize={7} />
 
-        {/* ── Data Sources (right) ── */}
-        <Node
-          x={480}
-          y={48}
-          w={120}
-          h={34}
-          label="외부 금융 데이터"
-          color="zinc"
-          delay={FLOW_DELAY * 6}
-        />
-        <Node
-          x={480}
-          y={108}
-          w={120}
-          h={34}
-          label="실시간 웹 검색"
-          color="zinc"
-          delay={FLOW_DELAY * 6.5}
-        />
-        <Node
-          x={480}
-          y={168}
-          w={120}
-          h={40}
-          label="시황 RAG"
-          sub="매일 경제 데이터 수집 · 시황 생성"
-          color="zinc"
-          delay={FLOW_DELAY * 7}
-        />
+        {/* Arrows: Nginx → Services */}
+        <Arrow points="140,85 160,55" delay={FLOW_DELAY * 2.5} />
+        <Arrow points="140,99 160,99" delay={FLOW_DELAY * 2.5} />
 
-        {/* Arrows: Data → Services (dashed) */}
-        <Arrow points="480,65 395,72" delay={FLOW_DELAY * 8} dashed />
-        <Arrow points="480,70 395,130" delay={FLOW_DELAY * 8} dashed />
-        <Arrow points="480,125 395,135" delay={FLOW_DELAY * 8} dashed />
-        <Arrow points="480,188 395,142" delay={FLOW_DELAY * 8} dashed />
+        {/* ═══ Col 3: Backend Services ═══ */}
+        <Node x={162} y={38} w={65} h={30} label="NestJS" color="emerald" delay={FLOW_DELAY * 3} fontSize={8} />
+        <Node x={162} y={82} w={65} h={36} label="FastAPI" sub="AI Service" color="violet" delay={FLOW_DELAY * 3} fontSize={8} />
 
-        {/* ── Bottom note ── */}
+        {/* Arrow: FastAPI → Agent System */}
+        <Arrow points="227,99 250,99" delay={FLOW_DELAY * 3.5} stroke="#c4b5fd" />
         <motion.text
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: FLOW_DELAY * 8, duration: 0.4 }}
-          x={320}
-          y={260}
-          fontFamily="monospace"
-          fontSize={7}
-          fill="#999"
-          textAnchor="middle"
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: FLOW_DELAY * 3.5, duration: 0.3 }}
+          x={239} y={93} fontFamily="monospace" fontSize={5} fill="#7c3aed" textAnchor="middle"
         >
-          LangChain multi-agent · Socket.io streaming · gamification
+          WS
         </motion.text>
+
+        {/* ═══ Col 4: AI Agent System (big wrapper) ═══ */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: FLOW_DELAY * 4, duration: 0.4 }}
+        >
+          <rect x={252} y={30} width={195} height={170} rx={6} fill="#faf5ff" stroke="#c4b5fd" strokeWidth={1.5} />
+          <text x={349} y={46} textAnchor="middle" fontFamily="monospace" fontSize={7.5} fontWeight={700} fill="#7c3aed">
+            AI Agent System
+          </text>
+        </motion.g>
+
+        {/* Supervisor */}
+        <Node x={270} y={54} w={160} h={32} label="Supervisor" sub="LangChain · Grok/Claude/Gemini" color="violet" delay={FLOW_DELAY * 4} fontSize={9} />
+
+        {/* Sub-agents row */}
+        <motion.g
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: FLOW_DELAY * 5, duration: 0.35 }}
+        >
+          <rect x={264} y={94} width={32} height={16} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
+          <text x={280} y={105} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#7c3aed">시장</text>
+          <rect x={300} y={94} width={32} height={16} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
+          <text x={316} y={105} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#7c3aed">기술</text>
+          <rect x={336} y={94} width={36} height={16} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
+          <text x={354} y={105} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#7c3aed">리서치</text>
+          <rect x={376} y={94} width={28} height={16} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
+          <text x={390} y={105} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#7c3aed">퀀트</text>
+          <rect x={408} y={94} width={32} height={16} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
+          <text x={424} y={105} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#7c3aed">시각화</text>
+          {/* Lines: Supervisor → sub-agents */}
+          <line x1={290} y1={86} x2={280} y2={94} stroke="#c4b5fd" strokeWidth={0.5} />
+          <line x1={320} y1={86} x2={316} y2={94} stroke="#c4b5fd" strokeWidth={0.5} />
+          <line x1={350} y1={86} x2={354} y2={94} stroke="#c4b5fd" strokeWidth={0.5} />
+          <line x1={380} y1={86} x2={390} y2={94} stroke="#c4b5fd" strokeWidth={0.5} />
+          <line x1={400} y1={86} x2={424} y2={94} stroke="#c4b5fd" strokeWidth={0.5} />
+        </motion.g>
+
+        {/* 81 Tools + Middleware bars */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: FLOW_DELAY * 6, duration: 0.3 }}
+        >
+          <rect x={264} y={116} width={60} height={14} rx={7} fill="#f0e7ff" stroke="#ddd6fe" strokeWidth={0.7} />
+          <text x={294} y={126} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#7c3aed">81 Tools</text>
+          <rect x={330} y={116} width={108} height={14} rx={7} fill="#f0e7ff" stroke="#ddd6fe" strokeWidth={0.7} />
+          <text x={384} y={126} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#7c3aed">Middleware × 10</text>
+        </motion.g>
+
+        {/* Human-in-Loop + PG Checkpoint */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: FLOW_DELAY * 6, duration: 0.3 }}
+        >
+          <rect x={264} y={138} width={90} height={14} rx={3} fill="#fff" stroke="#d4d4d8" strokeWidth={0.7} />
+          <text x={309} y={148} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#71717a">Human-in-Loop</text>
+          <rect x={360} y={138} width={78} height={14} rx={3} fill="#fff" stroke="#d4d4d8" strokeWidth={0.7} />
+          <text x={399} y={148} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#71717a">PG Checkpoint</text>
+        </motion.g>
+
+        {/* Eval text */}
+        <motion.text
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          transition={{ delay: FLOW_DELAY * 6, duration: 0.3 }}
+          x={351} y={170} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#999"
+        >
+          Eval: MockService + 6 Graders
+        </motion.text>
+
+        {/* ═══ Col 5: Data Sources ═══ */}
+        {/* Arrow: Agent → 금융 데이터 (amber) */}
+        <Arrow points="447,70 470,50" delay={FLOW_DELAY * 6.5} stroke="#fcd34d" />
+
+        <Node x={472} y={32} w={85} h={24} label="금융 데이터" color="amber" delay={FLOW_DELAY * 7} fontSize={6.5} />
+
+        {/* Data source items (2×2 grid) */}
+        <Node x={474} y={62} w={40} h={14} label="DART" color="orange" delay={FLOW_DELAY * 7} fontSize={6} />
+        <Node x={518} y={62} w={40} h={14} label="FRED" color="orange" delay={FLOW_DELAY * 7} fontSize={6} />
+        <Node x={474} y={80} w={40} h={14} label="yfinance" color="orange" delay={FLOW_DELAY * 7} fontSize={6} />
+        <Node x={518} y={80} w={40} h={14} label="Tavily" color="orange" delay={FLOW_DELAY * 7} fontSize={6} />
+
+        {/* Arrow: Agent → 시황 RAG (amber) */}
+        <Arrow points="447,155 470,135" delay={FLOW_DELAY * 6.5} stroke="#fcd34d" />
+
+        <Node x={472} y={110} w={85} h={34} label="시황 RAG" sub="pgvector + 웹검색" color="emerald" delay={FLOW_DELAY * 7} fontSize={6.5} />
+
+        {/* ═══ Bottom: Streaming + Infra ═══ */}
+        <Arrow points="349,200 349,218" delay={FLOW_DELAY * 7.5} dashed />
+
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: FLOW_DELAY * 8, duration: 0.3 }}
+        >
+          <rect x={90} y={218} width={470} height={18} rx={9} fill="#dbeafe" stroke="#93c5fd" strokeWidth={1} />
+          <text x={325} y={230} textAnchor="middle" fontFamily="monospace" fontSize={7} fontWeight={600} fill="#1e40af">
+            Socket.IO Real-time Streaming
+          </text>
+        </motion.g>
+
+        {/* DB */}
+        <Node x={100} y={246} w={60} h={18} label="PostgreSQL" color="emerald" delay={FLOW_DELAY * 9} fontSize={6} />
+        <Node x={165} y={246} w={40} h={18} label="Redis" color="emerald" delay={FLOW_DELAY * 9} fontSize={6} />
+
+        {/* Infra */}
+        <Node x={350} y={246} w={48} h={18} label="Docker" color="zinc" delay={FLOW_DELAY * 9} fontSize={6} />
+        <Node x={403} y={246} w={38} h={18} label="AWS" color="zinc" delay={FLOW_DELAY * 9} fontSize={6} />
+        <Node x={446} y={246} w={55} h={18} label="FluentBit" color="zinc" delay={FLOW_DELAY * 9} fontSize={6} />
+
+        {/* Dashed lines: Streaming → bottom */}
+        <Arrow points="130,236 130,246" delay={FLOW_DELAY * 8.5} dashed />
+        <Arrow points="185,236 185,246" delay={FLOW_DELAY * 8.5} dashed />
+        <Arrow points="374,236 374,246" delay={FLOW_DELAY * 8.5} dashed />
+        <Arrow points="422,236 422,246" delay={FLOW_DELAY * 8.5} dashed />
+        <Arrow points="473,236 473,246" delay={FLOW_DELAY * 8.5} dashed />
       </svg>
     </motion.div>
   );

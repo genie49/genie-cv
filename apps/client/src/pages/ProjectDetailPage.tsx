@@ -158,7 +158,11 @@ export default function ProjectDetailPage() {
         <h2 className="font-['Outfit'] text-lg font-bold text-toss-heading">
           프로젝트 설명
         </h2>
-        <p className="text-sm leading-[1.7] text-toss-body">{project.description}</p>
+        {project.description.split("\n\n").map((paragraph, i) => (
+          <p key={i} className="text-sm leading-[1.7] text-toss-body">
+            {paragraph}
+          </p>
+        ))}
       </motion.div>
 
       {/* Features / Contributions */}
