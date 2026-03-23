@@ -1,0 +1,164 @@
+<h2>Bonda Hero — 시스템 아키텍처 뷰</h2>
+<p class="subtitle">Aimers/Fingoo와 동일한 계층형 접근. RAG 파이프라인 + Agent가 핵심. 640×280.</p>
+
+<div class="cards" style="flex-direction: column; gap: 32px;">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)" style="max-width: 100%;">
+    <div class="card-image" style="padding: 20px 16px; background: linear-gradient(135deg, #f8fafc, #d1fae520);">
+      <svg viewBox="0 0 640 280" style="width:100%;height:260px;background:radial-gradient(#d4d4d8 0.6px,transparent 0.6px);background-size:14px 14px;">
+        <text x="20" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#444">BONDA</text>
+        <text x="65" y="18" font-family="monospace" font-size="7" fill="#999">SYSTEM ARCHITECTURE</text>
+
+        <!-- ═══ Top Row: Preprocessing Pipeline ═══ -->
+        <text x="20" y="38" font-family="monospace" font-size="6" font-weight="600" fill="#888">PREPROCESSING</text>
+
+        <!-- Crawlers -->
+        <rect x="15" y="45" width="55" height="28" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="1"/>
+        <text x="42" y="62" text-anchor="middle" font-size="6.5" font-family="monospace" font-weight="600" fill="#27272a">Crawler</text>
+
+        <line x1="70" y1="59" x2="85" y2="59" stroke="#ccc" stroke-width="0.8"/>
+        <polygon points="82,56 87,59 82,62" fill="#ccc"/>
+
+        <!-- PDF Parse -->
+        <rect x="88" y="42" width="65" height="34" rx="3" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
+        <text x="120" y="57" text-anchor="middle" font-size="6.5" font-family="monospace" font-weight="600" fill="#92400e">PyMuPDF</text>
+        <text x="120" y="68" text-anchor="middle" font-size="5" font-family="monospace" fill="#d97706">PaddleOCR 폴백</text>
+
+        <line x1="153" y1="59" x2="168" y2="59" stroke="#ccc" stroke-width="0.8"/>
+        <polygon points="165,56 170,59 165,62" fill="#ccc"/>
+
+        <!-- Chunking -->
+        <rect x="170" y="45" width="55" height="28" rx="3" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+        <text x="197" y="62" text-anchor="middle" font-size="6.5" font-family="monospace" font-weight="600" fill="#1e40af">Chunking</text>
+
+        <line x1="225" y1="59" x2="240" y2="59" stroke="#ccc" stroke-width="0.8"/>
+        <polygon points="237,56 242,59 237,62" fill="#ccc"/>
+
+        <!-- Embedding -->
+        <rect x="242" y="42" width="68" height="34" rx="3" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+        <text x="276" y="57" text-anchor="middle" font-size="6.5" font-family="monospace" font-weight="600" fill="#1e40af">Embedding</text>
+        <text x="276" y="68" text-anchor="middle" font-size="5" font-family="monospace" fill="#2563eb">Gemini</text>
+
+        <line x1="310" y1="59" x2="325" y2="59" stroke="#ccc" stroke-width="0.8"/>
+        <polygon points="322,56 327,59 322,62" fill="#ccc"/>
+
+        <!-- Qdrant -->
+        <rect x="327" y="42" width="70" height="34" rx="3" fill="#cffafe" stroke="#67e8f9" stroke-width="1.2"/>
+        <text x="362" y="57" text-anchor="middle" font-size="7" font-family="monospace" font-weight="700" fill="#155e75">Qdrant</text>
+        <text x="362" y="68" text-anchor="middle" font-size="5" font-family="monospace" fill="#0891b2">3 Collections</text>
+
+        <!-- Modal GPU callout -->
+        <rect x="420" y="45" width="65" height="28" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.8"/>
+        <text x="452" y="58" text-anchor="middle" font-size="5.5" font-family="monospace" font-weight="600" fill="#52525b">Modal GPU</text>
+        <text x="452" y="68" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#71717a">L40S · vLLM</text>
+
+        <!-- Dashed line OCR → Modal -->
+        <line x1="120" y1="76" x2="120" y2="82" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+        <line x1="120" y1="82" x2="420" y2="82" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+        <line x1="420" y1="82" x2="420" y2="73" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+
+        <!-- ═══ Divider ═══ -->
+        <line x1="15" y1="92" x2="500" y2="92" stroke="#e4e4e7" stroke-width="0.5" stroke-dasharray="4,3"/>
+
+        <!-- ═══ Bottom: Application Layer ═══ -->
+        <text x="20" y="108" font-family="monospace" font-size="6" font-weight="600" fill="#888">APPLICATION</text>
+
+        <!-- Client -->
+        <rect x="15" y="115" width="55" height="32" rx="3" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+        <text x="42" y="130" text-anchor="middle" font-size="7" font-family="monospace" font-weight="600" fill="#1e40af">Client</text>
+        <text x="42" y="140" text-anchor="middle" font-size="5" font-family="monospace" fill="#3b82f6">Next.js</text>
+
+        <line x1="70" y1="131" x2="88" y2="131" stroke="#ccc" stroke-width="0.9"/>
+        <polygon points="85,128 90,131 85,134" fill="#ccc"/>
+
+        <!-- FastAPI -->
+        <rect x="90" y="115" width="65" height="32" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1"/>
+        <text x="122" y="130" text-anchor="middle" font-size="7" font-family="monospace" font-weight="600" fill="#065f46">FastAPI</text>
+        <text x="122" y="140" text-anchor="middle" font-size="5" font-family="monospace" fill="#059669">AI Backend</text>
+
+        <line x1="155" y1="131" x2="173" y2="131" stroke="#6ee7b7" stroke-width="1"/>
+        <polygon points="170,128 175,131 170,134" fill="#6ee7b7"/>
+
+        <!-- AI Agent (big box) -->
+        <rect x="175" y="100" width="225" height="108" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+        <text x="287" y="115" text-anchor="middle" font-size="7" font-family="monospace" font-weight="700" fill="#065f46">AI Agent</text>
+
+        <!-- LLM -->
+        <rect x="192" y="122" width="100" height="28" rx="4" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1.2"/>
+        <text x="242" y="136" text-anchor="middle" font-size="7.5" font-family="monospace" font-weight="700" fill="#065f46">LangChain</text>
+        <text x="242" y="146" text-anchor="middle" font-size="5" font-family="monospace" fill="#059669">Claude / Gemini</text>
+
+        <!-- 4 Tools -->
+        <rect x="192" y="158" width="48" height="16" rx="2" fill="#ffe4e6" stroke="#fda4af" stroke-width="0.7"/>
+        <text x="216" y="169" text-anchor="middle" font-size="5" font-family="monospace" fill="#9f1239">문서 검색</text>
+
+        <rect x="244" y="158" width="48" height="16" rx="2" fill="#ffe4e6" stroke="#fda4af" stroke-width="0.7"/>
+        <text x="268" y="169" text-anchor="middle" font-size="5" font-family="monospace" fill="#9f1239">이미지 검색</text>
+
+        <rect x="296" y="158" width="48" height="16" rx="2" fill="#ffe4e6" stroke="#fda4af" stroke-width="0.7"/>
+        <text x="320" y="169" text-anchor="middle" font-size="5" font-family="monospace" fill="#9f1239">사전 조회</text>
+
+        <rect x="348" y="158" width="44" height="16" rx="2" fill="#ffe4e6" stroke="#fda4af" stroke-width="0.7"/>
+        <text x="370" y="169" text-anchor="middle" font-size="5" font-family="monospace" fill="#9f1239">웹 검색</text>
+
+        <!-- Lines LangChain → Tools -->
+        <line x1="220" y1="150" x2="216" y2="158" stroke="#fda4af" stroke-width="0.5"/>
+        <line x1="242" y1="150" x2="268" y2="158" stroke="#fda4af" stroke-width="0.5"/>
+        <line x1="270" y1="150" x2="320" y2="158" stroke="#fda4af" stroke-width="0.5"/>
+        <line x1="290" y1="150" x2="370" y2="158" stroke="#fda4af" stroke-width="0.5"/>
+
+        <!-- SSE label -->
+        <rect x="192" y="182" width="80" height="14" rx="7" fill="#d1fae5" stroke="#a7f3d0" stroke-width="0.7"/>
+        <text x="232" y="192" text-anchor="middle" font-size="5" font-family="monospace" fill="#065f46">SSE Streaming</text>
+
+        <!-- LangSmith -->
+        <rect x="280" y="182" width="70" height="14" rx="3" fill="#fff" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="315" y="192" text-anchor="middle" font-size="5" font-family="monospace" fill="#71717a">LangSmith</text>
+
+        <!-- Agent → Qdrant connection -->
+        <line x1="362" y1="100" x2="362" y2="76" stroke="#67e8f9" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="372" y="90" font-size="4.5" font-family="monospace" fill="#0891b2">query</text>
+
+        <!-- GCS (right) -->
+        <rect x="420" y="115" width="65" height="28" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.8"/>
+        <text x="452" y="128" text-anchor="middle" font-size="6" font-family="monospace" font-weight="600" fill="#52525b">GCS</text>
+        <text x="452" y="138" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#71717a">이미지 저장</text>
+
+        <!-- Dual Vector callout -->
+        <rect x="420" y="155" width="78" height="32" rx="3" fill="#cffafe" stroke="#67e8f9" stroke-width="0.8"/>
+        <text x="459" y="168" text-anchor="middle" font-size="5.5" font-family="monospace" font-weight="600" fill="#155e75">Dual Vector</text>
+        <text x="459" y="179" text-anchor="middle" font-size="4.5" font-family="monospace" fill="#0891b2">이미지 + 텍스트</text>
+
+        <!-- Arrow Tools → GCS/DualVector -->
+        <line x1="392" y1="166" x2="420" y2="140" stroke="#ccc" stroke-width="0.6" stroke-dasharray="2,2"/>
+        <line x1="392" y1="166" x2="420" y2="170" stroke="#67e8f9" stroke-width="0.6" stroke-dasharray="2,2"/>
+
+        <!-- ═══ Bottom: Infra ═══ -->
+        <rect x="90" y="222" width="400" height="16" rx="8" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.8"/>
+        <text x="290" y="233" text-anchor="middle" font-size="6" font-family="monospace" font-weight="600" fill="#52525b">Docker Compose · Vercel · LangSmith Tracing</text>
+
+        <rect x="100" y="248" width="55" height="16" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="0.6"/>
+        <text x="127" y="259" text-anchor="middle" font-size="5" font-family="monospace" fill="#065f46">PostgreSQL</text>
+
+        <rect x="160" y="248" width="48" height="16" rx="3" fill="#cffafe" stroke="#67e8f9" stroke-width="0.6"/>
+        <text x="184" y="259" text-anchor="middle" font-size="5" font-family="monospace" fill="#155e75">Qdrant</text>
+
+        <rect x="213" y="248" width="38" height="16" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.6"/>
+        <text x="232" y="259" text-anchor="middle" font-size="5" font-family="monospace" fill="#71717a">GCS</text>
+
+        <line x1="127" y1="238" x2="127" y2="248" stroke="#ccc" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="184" y1="238" x2="184" y2="248" stroke="#ccc" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="232" y1="238" x2="232" y2="248" stroke="#ccc" stroke-width="0.5" stroke-dasharray="2,2"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>Bonda — 2단 구조 (전처리 + 애플리케이션)</h3>
+      <p>상단: Crawler → PyMuPDF/PaddleOCR → Chunking → Embedding → Qdrant (전처리 파이프라인). 하단: Client → FastAPI → AI Agent (LangChain + 4 Tools + SSE) → Qdrant/GCS/Dual Vector. Aimers/Fingoo와 같은 가로 흐름이되, Bonda 특유의 전처리 파이프라인과 듀얼 벡터 검색이 강조됨.</p>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 16px; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+  <p style="font-size: 13px; color: #64748b; margin: 0;">
+    💡 Bonda는 RAG 전처리가 핵심이라 <strong>상단(전처리) / 하단(애플리케이션)</strong> 2단 구조로 분리했습니다. 조정할 부분이 있으면 알려주세요.
+  </p>
+</div>

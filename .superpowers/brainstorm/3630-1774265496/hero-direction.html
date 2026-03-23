@@ -1,0 +1,214 @@
+<h2>Aimers Hero — 아키텍처 도식 방향</h2>
+<p class="subtitle">시스템 전체를 넓게 보여주는 3가지 접근. 클릭해서 선호하는 방향을 골라주세요.</p>
+
+<div class="cards">
+  <!-- Option A: Hub-Spoke -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding: 24px; background: linear-gradient(135deg, #f8fafc, #ede9fe40);">
+      <svg viewBox="0 0 320 200" style="width:100%;height:160px;">
+        <!-- Client -->
+        <rect x="120" y="5" width="80" height="28" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+        <text x="160" y="23" text-anchor="middle" font-size="9" font-family="monospace" font-weight="600" fill="#1e40af">Client</text>
+
+        <!-- Nginx Gateway -->
+        <rect x="110" y="50" width="100" height="28" rx="4" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="1"/>
+        <text x="160" y="68" text-anchor="middle" font-size="8" font-family="monospace" font-weight="600" fill="#27272a">Nginx Gateway</text>
+
+        <!-- Arrow Client → Nginx -->
+        <line x1="160" y1="33" x2="160" y2="50" stroke="#ccc" stroke-width="1"/>
+
+        <!-- Services ring -->
+        <rect x="10" y="100" width="60" height="24" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1"/>
+        <text x="40" y="115" text-anchor="middle" font-size="7" font-family="monospace" fill="#065f46">Auth</text>
+
+        <rect x="80" y="100" width="60" height="24" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1"/>
+        <text x="110" y="115" text-anchor="middle" font-size="7" font-family="monospace" fill="#065f46">API</text>
+
+        <rect x="150" y="100" width="60" height="24" rx="3" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1"/>
+        <text x="180" y="115" text-anchor="middle" font-size="7" font-family="monospace" fill="#5b21b6">Chat</text>
+
+        <rect x="220" y="100" width="60" height="24" rx="3" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1"/>
+        <text x="250" y="115" text-anchor="middle" font-size="7" font-family="monospace" fill="#5b21b6">Workflow</text>
+
+        <!-- Pub/Sub bus -->
+        <rect x="40" y="142" width="240" height="20" rx="10" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
+        <text x="160" y="155" text-anchor="middle" font-size="7" font-family="monospace" font-weight="600" fill="#92400e">GCP Pub/Sub Event Bus</text>
+
+        <!-- Workers -->
+        <rect x="60" y="176" width="70" height="20" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="1"/>
+        <text x="95" y="189" text-anchor="middle" font-size="6.5" font-family="monospace" fill="#71717a">Notification</text>
+
+        <rect x="140" y="176" width="50" height="20" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="1"/>
+        <text x="165" y="189" text-anchor="middle" font-size="6.5" font-family="monospace" fill="#71717a">History</text>
+
+        <rect x="200" y="176" width="50" height="20" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="1"/>
+        <text x="225" y="189" text-anchor="middle" font-size="6.5" font-family="monospace" fill="#71717a">Tools</text>
+
+        <!-- Arrows down -->
+        <line x1="160" y1="78" x2="40" y2="100" stroke="#ccc" stroke-width="0.8"/>
+        <line x1="160" y1="78" x2="110" y2="100" stroke="#ccc" stroke-width="0.8"/>
+        <line x1="160" y1="78" x2="180" y2="100" stroke="#ccc" stroke-width="0.8"/>
+        <line x1="160" y1="78" x2="250" y2="100" stroke="#ccc" stroke-width="0.8"/>
+
+        <line x1="95" y1="162" x2="95" y2="176" stroke="#ccc" stroke-width="0.8" stroke-dasharray="3,2"/>
+        <line x1="165" y1="162" x2="165" y2="176" stroke="#ccc" stroke-width="0.8" stroke-dasharray="3,2"/>
+        <line x1="225" y1="162" x2="225" y2="176" stroke="#ccc" stroke-width="0.8" stroke-dasharray="3,2"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>A. 계층형 시스템 뷰</h3>
+      <p>Client → Nginx → Services → Pub/Sub → Workers 순으로 위에서 아래로. 전체 인프라가 한눈에 보이는 클래식한 아키텍처 다이어그램.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Agent-Centric -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding: 24px; background: linear-gradient(135deg, #f8fafc, #faf5ff40);">
+      <svg viewBox="0 0 320 200" style="width:100%;height:160px;">
+        <!-- Central Agent cluster -->
+        <rect x="100" y="45" width="120" height="50" rx="6" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1.5"/>
+        <text x="160" y="65" text-anchor="middle" font-size="9" font-family="monospace" font-weight="700" fill="#5b21b6">Account Manager</text>
+        <text x="160" y="78" text-anchor="middle" font-size="6.5" font-family="monospace" fill="#7c3aed">Supervisor Agent</text>
+
+        <!-- Sub-agents around -->
+        <rect x="5" y="15" width="65" height="22" rx="3" fill="#faf5ff" stroke="#c4b5fd" stroke-width="0.8"/>
+        <text x="37" y="29" text-anchor="middle" font-size="6" font-family="monospace" fill="#7c3aed">Insight</text>
+
+        <rect x="250" y="15" width="65" height="22" rx="3" fill="#faf5ff" stroke="#c4b5fd" stroke-width="0.8"/>
+        <text x="282" y="29" text-anchor="middle" font-size="6" font-family="monospace" fill="#7c3aed">Campaign</text>
+
+        <rect x="5" y="75" width="65" height="22" rx="3" fill="#faf5ff" stroke="#c4b5fd" stroke-width="0.8"/>
+        <text x="37" y="89" text-anchor="middle" font-size="6" font-family="monospace" fill="#7c3aed">Content</text>
+
+        <rect x="250" y="75" width="65" height="22" rx="3" fill="#faf5ff" stroke="#c4b5fd" stroke-width="0.8"/>
+        <text x="282" y="89" text-anchor="middle" font-size="6" font-family="monospace" fill="#7c3aed">Recruit</text>
+
+        <rect x="130" y="3" width="60" height="22" rx="3" fill="#faf5ff" stroke="#c4b5fd" stroke-width="0.8"/>
+        <text x="160" y="17" text-anchor="middle" font-size="6" font-family="monospace" fill="#7c3aed">Contract</text>
+
+        <!-- Lines to sub-agents -->
+        <line x1="100" y1="58" x2="70" y2="30" stroke="#c4b5fd" stroke-width="0.8"/>
+        <line x1="220" y1="58" x2="250" y2="30" stroke="#c4b5fd" stroke-width="0.8"/>
+        <line x1="100" y1="82" x2="70" y2="82" stroke="#c4b5fd" stroke-width="0.8"/>
+        <line x1="220" y1="82" x2="250" y2="82" stroke="#c4b5fd" stroke-width="0.8"/>
+        <line x1="160" y1="45" x2="160" y2="25" stroke="#c4b5fd" stroke-width="0.8"/>
+
+        <!-- Infrastructure below -->
+        <rect x="20" y="120" width="55" height="20" rx="3" fill="#dbeafe" stroke="#93c5fd" stroke-width="0.8"/>
+        <text x="47" y="133" text-anchor="middle" font-size="6" font-family="monospace" fill="#1e40af">WebSocket</text>
+
+        <rect x="85" y="120" width="70" height="20" rx="3" fill="#fef3c7" stroke="#fcd34d" stroke-width="0.8"/>
+        <text x="120" y="133" text-anchor="middle" font-size="6" font-family="monospace" fill="#92400e">Pub/Sub</text>
+
+        <rect x="165" y="120" width="65" height="20" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="0.8"/>
+        <text x="197" y="133" text-anchor="middle" font-size="6" font-family="monospace" fill="#065f46">Checkpoint</text>
+
+        <rect x="240" y="120" width="65" height="20" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.8"/>
+        <text x="272" y="133" text-anchor="middle" font-size="6" font-family="monospace" fill="#71717a">Middleware</text>
+
+        <!-- DB layer -->
+        <rect x="40" y="155" width="50" height="18" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.8"/>
+        <text x="65" y="167" text-anchor="middle" font-size="6" font-family="monospace" fill="#71717a">PostgreSQL</text>
+
+        <rect x="100" y="155" width="50" height="18" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.8"/>
+        <text x="125" y="167" text-anchor="middle" font-size="6" font-family="monospace" fill="#71717a">MongoDB</text>
+
+        <rect x="160" y="155" width="50" height="18" rx="3" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.8"/>
+        <text x="185" y="167" text-anchor="middle" font-size="6" font-family="monospace" fill="#71717a">Redis</text>
+
+        <!-- Connecting lines -->
+        <line x1="160" y1="95" x2="47" y2="120" stroke="#ccc" stroke-width="0.8" stroke-dasharray="3,2"/>
+        <line x1="160" y1="95" x2="120" y2="120" stroke="#ccc" stroke-width="0.8" stroke-dasharray="3,2"/>
+        <line x1="160" y1="95" x2="197" y2="120" stroke="#ccc" stroke-width="0.8" stroke-dasharray="3,2"/>
+        <line x1="160" y1="95" x2="272" y2="120" stroke="#ccc" stroke-width="0.8" stroke-dasharray="3,2"/>
+
+        <!-- Bottom label -->
+        <text x="160" y="192" text-anchor="middle" font-size="7" font-family="monospace" fill="#999">LangGraph workflow · 7 microservices · event-driven</text>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>B. 에이전트 중심 + 인프라</h3>
+      <p>Agent 오케스트레이션이 중심, 아래에 인프라 레이어가 받치는 구조. AI Engineer에게 에이전트 설계를 먼저 보여주고 시스템도 함께 노출.</p>
+    </div>
+  </div>
+
+  <!-- Option C: Layered Flow -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding: 24px; background: linear-gradient(135deg, #f8fafc, #d1fae540);">
+      <svg viewBox="0 0 320 200" style="width:100%;height:160px;">
+        <!-- Left: 4-stage pipeline -->
+        <text x="80" y="14" text-anchor="middle" font-size="7" font-family="monospace" font-weight="600" fill="#666">Workflow Pipeline</text>
+
+        <rect x="30" y="22" width="100" height="22" rx="3" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+        <text x="80" y="36" text-anchor="middle" font-size="7" font-family="monospace" fill="#1e40af">1. 캠페인 생성</text>
+        <text x="80" y="52" text-anchor="middle" font-size="8" fill="#ccc">↓</text>
+
+        <rect x="30" y="56" width="100" height="22" rx="3" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1"/>
+        <text x="80" y="70" text-anchor="middle" font-size="7" font-family="monospace" fill="#5b21b6">2. 브리프 분석</text>
+        <text x="80" y="86" text-anchor="middle" font-size="8" fill="#ccc">↓</text>
+
+        <rect x="30" y="90" width="100" height="22" rx="3" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
+        <text x="80" y="104" text-anchor="middle" font-size="7" font-family="monospace" fill="#92400e">3. 매칭</text>
+        <text x="80" y="120" text-anchor="middle" font-size="8" fill="#ccc">↓</text>
+
+        <rect x="30" y="124" width="100" height="22" rx="3" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1"/>
+        <text x="80" y="138" text-anchor="middle" font-size="7" font-family="monospace" fill="#065f46">4. 가이드 생성</text>
+
+        <!-- Divider -->
+        <line x1="155" y1="20" x2="155" y2="150" stroke="#e4e4e7" stroke-width="0.8" stroke-dasharray="4,3"/>
+
+        <!-- Right: System components -->
+        <text x="237" y="14" text-anchor="middle" font-size="7" font-family="monospace" font-weight="600" fill="#666">System Architecture</text>
+
+        <rect x="175" y="22" width="55" height="30" rx="3" fill="#ede9fe" stroke="#c4b5fd" stroke-width="0.8"/>
+        <text x="202" y="36" text-anchor="middle" font-size="6" font-family="monospace" fill="#5b21b6">Agent</text>
+        <text x="202" y="46" text-anchor="middle" font-size="5" font-family="monospace" fill="#7c3aed">5 sub-agents</text>
+
+        <rect x="240" y="22" width="55" height="30" rx="3" fill="#dbeafe" stroke="#93c5fd" stroke-width="0.8"/>
+        <text x="267" y="36" text-anchor="middle" font-size="6" font-family="monospace" fill="#1e40af">Chat</text>
+        <text x="267" y="46" text-anchor="middle" font-size="5" font-family="monospace" fill="#2563eb">Socket.IO</text>
+
+        <rect x="175" y="62" width="120" height="20" rx="10" fill="#fef3c7" stroke="#fcd34d" stroke-width="0.8"/>
+        <text x="235" y="75" text-anchor="middle" font-size="6" font-family="monospace" fill="#92400e">Pub/Sub Event Bus</text>
+
+        <rect x="175" y="92" width="38" height="18" rx="2" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="194" y="104" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#71717a">Auth</text>
+
+        <rect x="218" y="92" width="38" height="18" rx="2" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="237" y="104" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#71717a">Tools</text>
+
+        <rect x="261" y="92" width="38" height="18" rx="2" fill="#f4f4f5" stroke="#d4d4d8" stroke-width="0.7"/>
+        <text x="280" y="104" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#71717a">Worker</text>
+
+        <rect x="175" y="122" width="38" height="18" rx="2" fill="#d1fae5" stroke="#6ee7b7" stroke-width="0.7"/>
+        <text x="194" y="134" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#065f46">PG</text>
+
+        <rect x="218" y="122" width="38" height="18" rx="2" fill="#d1fae5" stroke="#6ee7b7" stroke-width="0.7"/>
+        <text x="237" y="134" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#065f46">Mongo</text>
+
+        <rect x="261" y="122" width="38" height="18" rx="2" fill="#d1fae5" stroke="#6ee7b7" stroke-width="0.7"/>
+        <text x="280" y="134" text-anchor="middle" font-size="5.5" font-family="monospace" fill="#065f46">Redis</text>
+
+        <!-- Connecting lines right side -->
+        <line x1="202" y1="52" x2="202" y2="62" stroke="#ccc" stroke-width="0.7"/>
+        <line x1="267" y1="52" x2="267" y2="62" stroke="#ccc" stroke-width="0.7"/>
+        <line x1="194" y1="82" x2="194" y2="92" stroke="#ccc" stroke-width="0.7" stroke-dasharray="2,2"/>
+        <line x1="237" y1="82" x2="237" y2="92" stroke="#ccc" stroke-width="0.7" stroke-dasharray="2,2"/>
+        <line x1="280" y1="82" x2="280" y2="92" stroke="#ccc" stroke-width="0.7" stroke-dasharray="2,2"/>
+
+        <!-- Bottom -->
+        <text x="160" y="175" text-anchor="middle" font-size="7" font-family="monospace" fill="#999">LangGraph · Fastify 5 · Turborepo monorepo</text>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>C. 듀얼 패널 (워크플로우 + 시스템)</h3>
+      <p>왼쪽에 4단계 파이프라인, 오른쪽에 시스템 컴포넌트. 비즈니스 흐름과 기술 아키텍처를 동시에 보여줌.</p>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 16px; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+  <p style="font-size: 13px; color: #64748b; margin: 0;">
+    💡 이것은 <strong>방향성</strong> 선택입니다. 선택 후 세부 레이아웃과 노드 구성을 더 다듬을 예정입니다.
+  </p>
+</div>

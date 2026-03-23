@@ -45,6 +45,14 @@
     ],
     "notes": [
       {
+        "id": "kimpro-tech-stack",
+        "projectSlug": "kimpro",
+        "title": "7개 서비스를 하나의 레포에서 관리하는 이유",
+        "date": "2025-09-15",
+        "tags": ["Turborepo", "Monorepo", "Fastify", "GCP Pub/Sub", "Architecture"],
+        "summary": "Turborepo 모노레포로 7개 마이크로서비스를 관리하고, Fastify 5 + GCP Pub/Sub + PostgreSQL/MongoDB/Redis 조합을 선택한 기술적 근거"
+      },
+      {
         "id": "kimpro-multi-agent",
         "projectSlug": "kimpro",
         "title": "혼자 다 하는 AI는 없다 — 팀장과 전문가 5명의 협업 구조",
@@ -81,6 +89,14 @@
         "summary": "Agent 워크플로우가 수십 초 걸리는데 사용자는 빈 화면만 봐야 했다. 3가지 스트리밍 모드로 실시간 진행 상황을 전달한 설계"
       },
       {
+        "id": "kimpro-pg-checkpoint",
+        "projectSlug": "kimpro",
+        "title": "서버가 죽어도 워크플로우는 살아있다",
+        "date": "2025-11-20",
+        "tags": ["PostgreSQL", "LangGraph", "Checkpoint", "Recovery"],
+        "summary": "LangGraph 워크플로우 상태를 PostgreSQL 체크포인터로 영속화하여, 서버 재시작 후에도 중단된 워크플로우를 이어서 진행하는 설계"
+      },
+      {
         "id": "kimpro-marketing-automation",
         "projectSlug": "kimpro",
         "title": "매번 똑같은 일을 왜 사람이 해야 하지?",
@@ -115,6 +131,14 @@
           "Microservices"
         ],
         "summary": "서비스 간 직접 호출이 늘어나면서 장애 전파와 결합도 문제가 생겼다. GCP Pub/Sub로 이벤트 기반 비동기 통신으로 전환한 과정"
+      },
+      {
+        "id": "kimpro-redis-concurrency",
+        "projectSlug": "kimpro",
+        "title": "에이전트 5명이 동시에 캠페인을 수정하면",
+        "date": "2025-12-20",
+        "tags": ["Redis", "Concurrency", "CAS", "State Management"],
+        "summary": "5개 서브에이전트가 동시에 캠페인 데이터를 수정할 때 충돌을 방지하기 위해 Redis 기반 낙관적 동시성 제어와 버전 관리를 적용한 설계"
       },
       {
         "id": "kimpro-agent-evaluation",
@@ -331,6 +355,20 @@
     ],
     "notes": [
       {
+        "id": "bonda-tech-stack",
+        "projectSlug": "bonda",
+        "title": "왜 Python과 Node.js를 같이 쓰는가",
+        "date": "2026-02-15",
+        "tags": [
+          "FastAPI",
+          "Next.js",
+          "Qdrant",
+          "Drizzle",
+          "Architecture"
+        ],
+        "summary": "AI 백엔드는 FastAPI(Python), 프론트엔드는 Next.js(Node.js)로 분리한 하이브리드 아키텍처와 Qdrant·Drizzle ORM 선택 근거"
+      },
+      {
         "id": "bonda-rag-pipeline",
         "projectSlug": "bonda",
         "title": "발굴보고서 PDF가 검색 가능해지기까지",
@@ -382,6 +420,33 @@
           "SSE"
         ],
         "summary": "4개 특화 도구 설계, 멀티모델 전환, SSE 스트리밍 기반 에이전트 아키텍처"
+      },
+      {
+        "id": "bonda-modal-gpu",
+        "projectSlug": "bonda",
+        "title": "서버리스 GPU로 수천 페이지 OCR 돌리기",
+        "date": "2026-03-20",
+        "tags": [
+          "Modal",
+          "PaddleOCR",
+          "GPU",
+          "Serverless",
+          "vLLM"
+        ],
+        "summary": "Modal 서버리스 GPU(L40S)에서 PaddleOCR VL-1.5을 vLLM으로 서빙하여 대량 PDF OCR을 처리하는 파이프라인 설계"
+      },
+      {
+        "id": "bonda-qdrant-collections",
+        "projectSlug": "bonda",
+        "title": "보고서, 텍스트 청크, 이미지를 왜 따로 저장하는가",
+        "date": "2026-03-21",
+        "tags": [
+          "Qdrant",
+          "Vector DB",
+          "Schema Design",
+          "Hybrid Search"
+        ],
+        "summary": "archie_reports·archie_chunks·archie_images 3개 Qdrant 컬렉션의 역할 분리와 RAG/Filter/Hybrid 검색 모드 설계"
       }
     ]
   },
@@ -399,6 +464,14 @@
       { "title": "학원 관리 시스템", "description": "학교·반·학생·강사 계층 관리와 학습 진도 추적" }
     ],
     "notes": [
+      {
+        "id": "vocatoktok-tech-stack",
+        "projectSlug": "vocatoktok",
+        "title": "PHP에서 Next.js로 — 전면 리빌드를 결정한 이유",
+        "date": "2025-02-15",
+        "tags": ["Next.js", "Prisma", "MySQL", "Migration", "Architecture"],
+        "summary": "PHP/Vanilla JS 레거시를 Next.js 14로 전면 리빌드한 결정 과정과, Prisma 인트로스펙션으로 기존 MySQL 스키마를 활용한 전략"
+      },
       {
         "id": "vocatoktok-migration",
         "projectSlug": "vocatoktok",
@@ -424,12 +497,28 @@
         "summary": "Google Cloud TTS 기반 다국어 발음 학습 파이프라인과 RDT/RET 모드 설계"
       },
       {
+        "id": "vocatoktok-tts-caching",
+        "projectSlug": "vocatoktok",
+        "title": "수천 단어의 발음을 끊김 없이 재생하려면",
+        "date": "2025-04-10",
+        "tags": ["Google TTS", "SWR", "Caching", "Batch", "Performance"],
+        "summary": "Google Cloud TTS 발음 학습에서 SWR 캐싱과 10단어 배치 분할 병렬 요청으로 대량 단어 발음 재생을 최적화한 설계"
+      },
+      {
         "id": "vocatoktok-data-encryption",
         "projectSlug": "vocatoktok",
         "title": "학습 데이터를 지키는 방법",
         "date": "2025-04-15",
         "tags": ["Encryption", "Security", "Data Protection"],
         "summary": "학습 콘텐츠 데이터 암호화 설계와 구현"
+      },
+      {
+        "id": "vocatoktok-learning-algorithm",
+        "projectSlug": "vocatoktok",
+        "title": "아는 단어와 모르는 단어를 어떻게 판별하는가",
+        "date": "2025-05-01",
+        "tags": ["Algorithm", "Learning Loop", "Assessment", "Adaptive Learning"],
+        "summary": "정답·오답 횟수 기반 아는/모르는 단어 자동 분류, 연습→테스트→오답→재시험 반복 루프, 성적 기반 레벨 자동 조절 알고리즘 기획 문서"
       }
     ]
   },
@@ -475,6 +564,14 @@
       }
     ],
     "notes": [
+      {
+        "id": "bara-tech-stack",
+        "projectSlug": "hey-bara",
+        "title": "왜 Sherpa-ONNX와 Koog인가",
+        "date": "2026-01-10",
+        "tags": ["Sherpa-ONNX", "Koog", "ONNX Runtime", "Kotlin", "Architecture"],
+        "summary": "ONNX Runtime vs TFLite, Sherpa-ONNX vs Whisper, Koog vs LangChain — 온디바이스 AI 음성 비서를 위한 프레임워크 선택 근거"
+      },
       {
         "id": "bara-voice-pipeline",
         "projectSlug": "hey-bara",
@@ -524,6 +621,14 @@
           "Channel"
         ],
         "summary": "위험 액션에 Kotlin Channel 기반 suspend 패턴으로 UI-Agent 브릿지를 만들고, 사용자 확인을 받는 Human-in-the-Loop 설계"
+      },
+      {
+        "id": "bara-channel-bridge",
+        "projectSlug": "hey-bara",
+        "title": "Kotlin Channel 하나로 Agent와 UI를 이어붙이다",
+        "date": "2026-02-20",
+        "tags": ["Kotlin", "Channel", "Coroutine", "HITL", "Suspend"],
+        "summary": "Kotlin Channel의 suspend 패턴으로 Agent 실행을 중단하고 UI에서 사용자 확인을 받은 뒤 재개하는 Tool↔UI 브릿지 설계"
       },
       {
         "id": "bara-app-control",
@@ -597,6 +702,19 @@
     ],
     "notes": [
       {
+        "id": "chatbot-tech-stack",
+        "projectSlug": "ai-portfolio-chatbot",
+        "title": "왜 Bun + ElysiaJS + LanceDB인가",
+        "date": "2026-03-05",
+        "tags": [
+          "Bun",
+          "ElysiaJS",
+          "LanceDB",
+          "Architecture"
+        ],
+        "summary": "Node.js 대신 Bun, Express 대신 ElysiaJS, 외부 벡터DB 대신 LanceDB를 선택한 경량 포트폴리오 AI 서비스의 기술적 근거"
+      },
+      {
         "id": "rag-pipeline",
         "projectSlug": "ai-portfolio-chatbot",
         "title": "LanceDB + Gemini Embedding RAG 파이프라인",
@@ -607,6 +725,19 @@
           "Gemini"
         ],
         "summary": "파일 기반 벡터 DB LanceDB와 Gemini Embedding을 활용한 경량 RAG 파이프라인 설계"
+      },
+      {
+        "id": "chatbot-asymmetric-embedding",
+        "projectSlug": "ai-portfolio-chatbot",
+        "title": "질문과 문서는 다르게 임베딩해야 한다",
+        "date": "2026-03-11",
+        "tags": [
+          "Gemini Embedding",
+          "Asymmetric",
+          "RAG",
+          "Retrieval"
+        ],
+        "summary": "Gemini Embedding의 taskType 분리(RETRIEVAL_DOCUMENT vs RETRIEVAL_QUERY)로 검색 정확도를 높인 비대칭 임베딩 전략"
       },
       {
         "id": "sse-streaming",
@@ -630,6 +761,19 @@
           "Agent"
         ],
         "summary": "16줄의 ReAct 에이전트 구성, 조건부 도구 호출, IP 기반 rate limiting, 에러 분류 시스템 설계"
+      },
+      {
+        "id": "chatbot-defensive-ops",
+        "projectSlug": "ai-portfolio-chatbot",
+        "title": "퍼블릭 AI 사이트를 안전하게 운영하는 법",
+        "date": "2026-03-16",
+        "tags": [
+          "Rate Limiting",
+          "Error Handling",
+          "Security",
+          "Production"
+        ],
+        "summary": "IP 기반 고정 윈도우 Rate Limiting과 LLM 에러 패턴 분류로 퍼블릭 AI 서비스를 방어적으로 운영하는 설계"
       }
     ]
   }
