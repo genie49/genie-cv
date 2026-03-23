@@ -16,6 +16,7 @@ function Node({
   sub,
   color,
   delay,
+  fs,
 }: {
   x: number;
   y: number;
@@ -23,8 +24,9 @@ function Node({
   h: number;
   label: string;
   sub?: string;
-  color: "emerald" | "blue" | "amber" | "zinc" | "cyan" | "rose";
+  color: "emerald" | "blue" | "amber" | "zinc" | "cyan" | "rose" | "violet" | "orange";
   delay: number;
+  fs?: number;
 }) {
   const colors = {
     emerald: {
@@ -63,6 +65,18 @@ function Node({
       text: "#9f1239",
       sub: "#e11d48",
     },
+    violet: {
+      fill: "#ede9fe",
+      stroke: "#c4b5fd",
+      text: "#5b21b6",
+      sub: "#7c3aed",
+    },
+    orange: {
+      fill: "#fff7ed",
+      stroke: "#fed7aa",
+      text: "#c2410c",
+      sub: "#ea580c",
+    },
   };
   const c = colors[color];
 
@@ -88,7 +102,7 @@ function Node({
         textAnchor="middle"
         dominantBaseline="middle"
         fill={c.text}
-        fontSize={10}
+        fontSize={fs ?? 10}
         fontWeight={600}
         fontFamily="monospace"
       >
@@ -101,7 +115,7 @@ function Node({
           textAnchor="middle"
           dominantBaseline="middle"
           fill={c.sub}
-          fontSize={7}
+          fontSize={fs ? fs * 0.7 : 7}
           fontFamily="monospace"
           opacity={0.85}
         >
@@ -116,10 +130,12 @@ function Arrow({
   points,
   delay,
   dashed,
+  stroke: strokeColor,
 }: {
   points: string;
   delay: number;
   dashed?: boolean;
+  stroke?: string;
 }) {
   return (
     <motion.polyline
@@ -128,10 +144,10 @@ function Arrow({
       transition={{ delay, duration: 0.25 }}
       points={points}
       fill="none"
-      stroke="#ccc"
+      stroke={strokeColor ?? "#ccc"}
       strokeWidth={1.2}
       strokeDasharray={dashed ? "4,3" : undefined}
-      markerEnd="url(#vocatoktok-arrow)"
+      markerEnd={strokeColor ? "url(#vocatoktok-arrow-amber)" : "url(#vocatoktok-arrow)"}
     />
   );
 }
@@ -290,125 +306,113 @@ export function VocaTokTokHero({
           >
             <polygon points="0,0 0,6 9,3" fill="#ccc" />
           </marker>
+          <marker id="vocatoktok-arrow-amber" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0,0 0,6 9,3" fill="#fcd34d" />
+          </marker>
         </defs>
 
-        {/* ── Row 1: 학생 → Next.js App → 학습 모듈 → Google TTS ── */}
-        <Node
-          x={30}
-          y={55}
-          w={80}
-          h={40}
-          label="학생"
-          color="zinc"
-          delay={FLOW_DELAY}
-        />
+        {/* ═══ Col 1: Client ═══ */}
+        <Node x={12} y={80} w={58} h={35} label="Client" sub="Next.js 14" color="blue" delay={FLOW_DELAY} fs={7} />
+        <Arrow points="70,97 85,97" delay={FLOW_DELAY * 1.5} />
 
-        <Arrow points="110,75 155,75" delay={FLOW_DELAY * 2} />
+        {/* ═══ Col 2: API Routes ═══ */}
+        <Node x={88} y={72} w={65} h={50} label="API Routes" sub="Route Handlers" color="emerald" delay={FLOW_DELAY * 2} fs={6.5} />
 
-        <Node
-          x={155}
-          y={55}
-          w={110}
-          h={40}
-          label="Next.js App"
-          color="emerald"
-          delay={FLOW_DELAY * 3}
-        />
+        {/* Arrows to services */}
+        <Arrow points="153,85 170,55" delay={FLOW_DELAY * 2.5} />
+        <Arrow points="153,97 170,97" delay={FLOW_DELAY * 2.5} />
+        <Arrow points="153,109 170,155" delay={FLOW_DELAY * 2.5} />
 
-        <Arrow points="265,75 310,75" delay={FLOW_DELAY * 4} />
+        {/* ═══ Col 3: 학습 시스템 (big box) ═══ */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 3, duration: 0.4 }}>
+          <rect x={168} y={30} width={240} height={115} rx={6} fill="#eff6ff" stroke="#93c5fd" strokeWidth={1.5} />
+          <text x={288} y={46} textAnchor="middle" fontFamily="monospace" fontSize={7} fontWeight={700} fill="#1e40af">학습 시스템</text>
+        </motion.g>
 
-        <Node
-          x={310}
-          y={50}
-          w={140}
-          h={50}
-          label="학습 모듈"
-          sub="RDT / RET / Selection"
-          color="blue"
-          delay={FLOW_DELAY * 5}
-        />
+        {/* Study Modes */}
+        <motion.g initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: FLOW_DELAY * 3.5, duration: 0.35 }}>
+          <rect x={180} y={54} width={50} height={22} rx={2} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.7} />
+          <text x={205} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">RDT</text>
+          <rect x={234} y={54} width={50} height={22} rx={2} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.7} />
+          <text x={259} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">RET</text>
+          <rect x={288} y={54} width={55} height={22} rx={2} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.7} />
+          <text x={315} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">Selection</text>
+          <rect x={347} y={54} width={52} height={22} rx={2} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.7} />
+          <text x={373} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">다국어</text>
+        </motion.g>
 
-        <Arrow points="450,75 500,75" delay={FLOW_DELAY * 6} />
+        {/* ═══ Learning Loop (violet box inside) ═══ */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 4, duration: 0.4 }}>
+          <rect x={180} y={82} width={218} height={55} rx={4} fill="#faf5ff" stroke="#c4b5fd" strokeWidth={1.2} />
+          <text x={289} y={96} textAnchor="middle" fontFamily="monospace" fontSize={6} fontWeight={700} fill="#5b21b6">반복 학습 루프</text>
+        </motion.g>
 
-        <Node
-          x={500}
-          y={55}
-          w={110}
-          h={40}
-          label="Google TTS"
-          color="amber"
-          delay={FLOW_DELAY * 7}
-        />
+        {/* Loop steps */}
+        <motion.g initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: FLOW_DELAY * 5, duration: 0.35 }}>
+          <rect x={186} y={102} width={40} height={14} rx={2} fill="#ede9fe" stroke="#c4b5fd" strokeWidth={0.6} />
+          <text x={206} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#5b21b6">연습</text>
+          <text x={230} y={112} textAnchor="middle" fontFamily="monospace" fontSize={6} fill="#c4b5fd">→</text>
+          <rect x={236} y={102} width={40} height={14} rx={2} fill="#ede9fe" stroke="#c4b5fd" strokeWidth={0.6} />
+          <text x={256} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#5b21b6">테스트</text>
+          <text x={280} y={112} textAnchor="middle" fontFamily="monospace" fontSize={6} fill="#c4b5fd">→</text>
+          <rect x={286} y={102} width={42} height={14} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.6} />
+          <text x={307} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#9f1239">오답</text>
+          <text x={332} y={112} textAnchor="middle" fontFamily="monospace" fontSize={6} fill="#fda4af">→</text>
+          <rect x={338} y={102} width={42} height={14} rx={2} fill="#ede9fe" stroke="#c4b5fd" strokeWidth={0.6} />
+          <text x={359} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#5b21b6">재시험</text>
+          {/* Loop back arrow (curved path) */}
+          <path d="M307,116 C307,128 206,128 206,116" stroke="#c4b5fd" strokeWidth={0.7} fill="none" strokeDasharray="2,2" />
+          <polygon points="204,118 206,114 208,118" fill="#c4b5fd" />
+        </motion.g>
 
-        {/* ── Row 2: Prisma ORM → MySQL (AWS RDS) → 데이터 암호화 ── */}
-        {/* Arrow: Next.js App ↓ Prisma ORM */}
-        <Arrow points="210,95 210,140" delay={FLOW_DELAY * 4} />
-
-        <Node
-          x={155}
-          y={140}
-          w={110}
-          h={40}
-          label="Prisma ORM"
-          color="cyan"
-          delay={FLOW_DELAY * 5}
-        />
-
-        <Arrow points="265,160 310,160" delay={FLOW_DELAY * 6} />
-
-        <Node
-          x={310}
-          y={140}
-          w={140}
-          h={40}
-          label="MySQL (AWS RDS)"
-          color="cyan"
-          delay={FLOW_DELAY * 7}
-        />
-
-        {/* Arrow: 학습 모듈 ↓ 데이터 암호화 */}
-        <Arrow points="380,100 520,140" delay={FLOW_DELAY * 6} dashed />
-
-        <Node
-          x={500}
-          y={140}
-          w={110}
-          h={40}
-          label="데이터 암호화"
-          sub="AES-256"
-          color="rose"
-          delay={FLOW_DELAY * 7}
-        />
-
-        {/* ── Row 3: 학원 관리 시스템 ── */}
-        {/* Arrow: MySQL ↓ 학원 관리 */}
-        <Arrow points="380,180 380,215" delay={FLOW_DELAY * 8} />
-
-        <Node
-          x={250}
-          y={210}
-          w={260}
-          h={40}
-          label="학원 관리 시스템"
-          sub="학교 · 반 · 학생 · 강사"
-          color="amber"
-          delay={FLOW_DELAY * 9}
-        />
-
-        {/* ── Bottom note ── */}
-        <motion.text
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: FLOW_DELAY * 10, duration: 0.4 }}
-          x={320}
-          y={268}
-          fontFamily="monospace"
-          fontSize={7}
-          fill="#999"
-          textAnchor="middle"
+        {/* Know/Don't Know text */}
+        <motion.text initial={{ opacity: 0 }} animate={{ opacity: 0.6 }} transition={{ delay: FLOW_DELAY * 5.5, duration: 0.3 }}
+          x={289} y={132} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#7c3aed"
         >
-          Legacy Migration · Google TTS · AES-256 Encryption
+          corr - inco ≥ 임계값 → 아는 단어 판별
         </motion.text>
+
+        {/* ═══ Right side services ═══ */}
+        {/* Google TTS */}
+        <Arrow points="399,60 428,50" delay={FLOW_DELAY * 6} stroke="#fcd34d" />
+        <Node x={428} y={35} w={80} h={28} label="Google TTS" sub="발음 학습" color="amber" delay={FLOW_DELAY * 6} fs={6.5} />
+
+        {/* AES-256 */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} transition={{ delay: FLOW_DELAY * 6.5, duration: 0.3 }}>
+          <line x1={399} y1={85} x2={428} y2={83} stroke="#ccc" strokeWidth={0.6} strokeDasharray="2,2" />
+        </motion.g>
+        <Node x={428} y={72} w={80} h={22} label="AES-256" color="rose" delay={FLOW_DELAY * 6.5} fs={6} />
+
+        {/* Level System */}
+        <Arrow points="398,120 428,116" delay={FLOW_DELAY * 7} stroke="#c4b5fd" />
+        <Node x={428} y={102} w={80} h={28} label="레벨 시스템" sub="난이도 자동 조절" color="violet" delay={FLOW_DELAY * 7} fs={5.5} />
+
+        {/* ═══ Bottom: Academy + DB ═══ */}
+        <Node x={168} y={150} w={115} h={34} label="학원 관리" sub="학교·반·학생·강사" color="amber" delay={FLOW_DELAY * 8} fs={6} />
+
+        <Node x={300} y={150} w={55} h={34} label="Prisma" sub="ORM" color="cyan" delay={FLOW_DELAY * 8} fs={6.5} />
+        <Arrow points="355,167 370,167" delay={FLOW_DELAY * 8.5} />
+        <Node x={372} y={150} w={75} h={34} label="MySQL" sub="AWS RDS · UTF-8" color="cyan" delay={FLOW_DELAY * 8.5} fs={6.5} />
+
+        <Node x={460} y={155} w={48} h={24} label="PWA" color="zinc" delay={FLOW_DELAY * 9} fs={5.5} />
+
+        {/* ═══ Infra bar ═══ */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 10, duration: 0.3 }}>
+          <rect x={90} y={210} width={420} height={16} rx={8} fill="#f4f4f5" stroke="#d4d4d8" strokeWidth={0.8} />
+          <text x={300} y={221} textAnchor="middle" fontFamily="monospace" fontSize={6} fontWeight={600} fill="#52525b">
+            Vercel · AWS RDS/S3/Lambda · Sentry · PWA
+          </text>
+        </motion.g>
+
+        <Node x={100} y={236} w={50} h={14} label="Vercel" color="emerald" delay={FLOW_DELAY * 10.5} fs={5.5} />
+        <Node x={155} y={236} w={55} h={14} label="AWS S3" color="zinc" delay={FLOW_DELAY * 10.5} fs={5.5} />
+        <Node x={215} y={236} w={60} h={14} label="Lambda" color="zinc" delay={FLOW_DELAY * 10.5} fs={5.5} />
+        <Node x={280} y={236} w={50} h={14} label="Sentry" color="zinc" delay={FLOW_DELAY * 10.5} fs={5.5} />
+
+        <Arrow points="125,226 125,236" delay={FLOW_DELAY * 10.5} dashed />
+        <Arrow points="182,226 182,236" delay={FLOW_DELAY * 10.5} dashed />
+        <Arrow points="245,226 245,236" delay={FLOW_DELAY * 10.5} dashed />
+        <Arrow points="305,226 305,236" delay={FLOW_DELAY * 10.5} dashed />
       </svg>
     </motion.div>
   );
