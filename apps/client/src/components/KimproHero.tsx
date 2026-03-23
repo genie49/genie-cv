@@ -16,6 +16,7 @@ function Node({
   sub,
   color,
   delay,
+  fontSize: fs,
 }: {
   x: number;
   y: number;
@@ -25,6 +26,7 @@ function Node({
   sub?: string;
   color: "violet" | "emerald" | "blue" | "amber" | "zinc" | "orange";
   delay: number;
+  fontSize?: number;
 }) {
   const colors = {
     violet: {
@@ -88,7 +90,7 @@ function Node({
         textAnchor="middle"
         dominantBaseline="middle"
         fill={c.text}
-        fontSize={10}
+        fontSize={fs ?? 10}
         fontWeight={600}
         fontFamily="monospace"
       >
@@ -101,7 +103,7 @@ function Node({
           textAnchor="middle"
           dominantBaseline="middle"
           fill={c.sub}
-          fontSize={7}
+          fontSize={fs ? fs * 0.7 : 7}
           fontFamily="monospace"
           opacity={0.85}
         >
@@ -418,25 +420,25 @@ export function KimproHero({
 
         {/* ═══ Col 5: Tools API ═══ */}
         {/* Arrow: Workflow → Tools (amber) */}
-        <Arrow points="450,76 472,58" delay={FLOW_DELAY * 7.5} stroke="#fcd34d" />
+        <Arrow points="450,76 470,46" delay={FLOW_DELAY * 7.5} stroke="#fcd34d" />
         <motion.text
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.6 }}
           transition={{ delay: FLOW_DELAY * 7.5, duration: 0.3 }}
-          x={467} y={48} fontFamily="monospace" fontSize={5} fill="#d97706" textAnchor="middle"
+          x={454} y={54} fontFamily="monospace" fontSize={5} fill="#d97706" textAnchor="middle"
         >
           HTTP
         </motion.text>
 
-        <Node x={472} y={32} w={90} h={28} label="Tools API" sub="Fastify · 독립 배포" color="amber" delay={FLOW_DELAY * 8} />
+        <Node x={472} y={32} w={98} h={28} label="Tools API" sub="Fastify · 독립 배포" color="amber" delay={FLOW_DELAY * 8} fontSize={8} />
 
         {/* Tool items (2×3 grid) */}
-        <Node x={472} y={66} w={43} h={16} label="제품 분석" color="orange" delay={FLOW_DELAY * 8} />
-        <Node x={519} y={66} w={43} h={16} label="키워드" color="orange" delay={FLOW_DELAY * 8} />
-        <Node x={472} y={86} w={43} h={16} label="성과 예측" color="orange" delay={FLOW_DELAY * 8} />
-        <Node x={519} y={86} w={43} h={16} label="매칭" color="orange" delay={FLOW_DELAY * 8} />
-        <Node x={472} y={106} w={43} h={16} label="레퍼런스" color="orange" delay={FLOW_DELAY * 8} />
-        <Node x={519} y={106} w={43} h={16} label="크롤링" color="orange" delay={FLOW_DELAY * 8} />
+        <Node x={472} y={66} w={48} h={16} label="제품 분석" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
+        <Node x={524} y={66} w={43} h={16} label="키워드" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
+        <Node x={472} y={86} w={48} h={16} label="성과 예측" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
+        <Node x={524} y={86} w={43} h={16} label="매칭" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
+        <Node x={472} y={106} w={48} h={16} label="레퍼런스" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
+        <Node x={524} y={106} w={43} h={16} label="크롤링" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
 
         {/* ═══ Bottom: Pub/Sub Event Bus ═══ */}
         <Arrow points="352,207 352,222" delay={FLOW_DELAY * 8.5} dashed />
@@ -453,20 +455,20 @@ export function KimproHero({
         </motion.g>
 
         {/* Workers */}
-        <Node x={100} y={250} w={75} h={20} label="Notification WK" color="zinc" delay={FLOW_DELAY * 10} />
-        <Node x={185} y={250} w={60} h={20} label="History WK" color="zinc" delay={FLOW_DELAY * 10} />
+        <Node x={95} y={250} w={85} h={20} label="Notification WK" color="zinc" delay={FLOW_DELAY * 10} fontSize={7} />
+        <Node x={188} y={250} w={65} h={20} label="History WK" color="zinc" delay={FLOW_DELAY * 10} fontSize={7} />
 
         {/* DB */}
-        <Node x={355} y={250} w={58} h={20} label="PostgreSQL" color="emerald" delay={FLOW_DELAY * 10} />
-        <Node x={418} y={250} w={50} h={20} label="MongoDB" color="emerald" delay={FLOW_DELAY * 10} />
-        <Node x={473} y={250} w={42} h={20} label="Redis" color="emerald" delay={FLOW_DELAY * 10} />
+        <Node x={350} y={250} w={65} h={20} label="PostgreSQL" color="emerald" delay={FLOW_DELAY * 10} fontSize={7} />
+        <Node x={420} y={250} w={55} h={20} label="MongoDB" color="emerald" delay={FLOW_DELAY * 10} fontSize={7} />
+        <Node x={480} y={250} w={42} h={20} label="Redis" color="emerald" delay={FLOW_DELAY * 10} fontSize={7} />
 
         {/* Dashed lines: Pub/Sub → Workers/DB */}
         <Arrow points="137,240 137,250" delay={FLOW_DELAY * 9.5} dashed />
-        <Arrow points="215,240 215,250" delay={FLOW_DELAY * 9.5} dashed />
-        <Arrow points="384,240 384,250" delay={FLOW_DELAY * 9.5} dashed />
-        <Arrow points="443,240 443,250" delay={FLOW_DELAY * 9.5} dashed />
-        <Arrow points="494,240 494,250" delay={FLOW_DELAY * 9.5} dashed />
+        <Arrow points="220,240 220,250" delay={FLOW_DELAY * 9.5} dashed />
+        <Arrow points="382,240 382,250" delay={FLOW_DELAY * 9.5} dashed />
+        <Arrow points="447,240 447,250" delay={FLOW_DELAY * 9.5} dashed />
+        <Arrow points="501,240 501,250" delay={FLOW_DELAY * 9.5} dashed />
       </svg>
     </motion.div>
   );
