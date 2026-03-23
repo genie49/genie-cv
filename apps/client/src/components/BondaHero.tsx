@@ -16,6 +16,7 @@ function Node({
   sub,
   color,
   delay,
+  fontSize: fs,
 }: {
   x: number;
   y: number;
@@ -23,8 +24,9 @@ function Node({
   h: number;
   label: string;
   sub?: string;
-  color: "emerald" | "blue" | "amber" | "zinc" | "cyan" | "rose";
+  color: "emerald" | "blue" | "amber" | "zinc" | "cyan" | "rose" | "violet" | "orange";
   delay: number;
+  fontSize?: number;
 }) {
   const colors = {
     emerald: {
@@ -63,6 +65,18 @@ function Node({
       text: "#9f1239",
       sub: "#e11d48",
     },
+    violet: {
+      fill: "#ede9fe",
+      stroke: "#c4b5fd",
+      text: "#5b21b6",
+      sub: "#7c3aed",
+    },
+    orange: {
+      fill: "#fff7ed",
+      stroke: "#fed7aa",
+      text: "#c2410c",
+      sub: "#ea580c",
+    },
   };
   const c = colors[color];
 
@@ -88,7 +102,7 @@ function Node({
         textAnchor="middle"
         dominantBaseline="middle"
         fill={c.text}
-        fontSize={10}
+        fontSize={fs ?? 10}
         fontWeight={600}
         fontFamily="monospace"
       >
@@ -101,7 +115,7 @@ function Node({
           textAnchor="middle"
           dominantBaseline="middle"
           fill={c.sub}
-          fontSize={7}
+          fontSize={fs ? fs * 0.7 : 7}
           fontFamily="monospace"
           opacity={0.85}
         >
@@ -116,10 +130,12 @@ function Arrow({
   points,
   delay,
   dashed,
+  stroke: strokeColor,
 }: {
   points: string;
   delay: number;
   dashed?: boolean;
+  stroke?: string;
 }) {
   return (
     <motion.polyline
@@ -128,10 +144,10 @@ function Arrow({
       transition={{ delay, duration: 0.25 }}
       points={points}
       fill="none"
-      stroke="#ccc"
+      stroke={strokeColor ?? "#ccc"}
       strokeWidth={1.2}
       strokeDasharray={dashed ? "4,3" : undefined}
-      markerEnd="url(#bonda-arrow)"
+      markerEnd={strokeColor ? "url(#bonda-arrow-amber)" : "url(#bonda-arrow)"}
     />
   );
 }
@@ -290,187 +306,182 @@ export function BondaHero({
           >
             <polygon points="0,0 0,6 9,3" fill="#ccc" />
           </marker>
+          <marker id="bonda-arrow-amber" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0,0 0,6 9,3" fill="#fcd34d" />
+          </marker>
         </defs>
 
-        {/* ── Row 1: Preprocessing Pipeline ── */}
-
-        {/* PDF 문서 */}
-        <Node
-          x={30}
-          y={45}
-          w={72}
-          h={36}
-          label="PDF 문서"
-          color="zinc"
-          delay={FLOW_DELAY}
-        />
-
-        {/* Arrow: PDF → PyMuPDF/OCR */}
-        <Arrow points="102,63 120,63" delay={FLOW_DELAY * 2} />
-
-        {/* PyMuPDF / PaddleOCR */}
-        <Node
-          x={122}
-          y={40}
-          w={100}
-          h={46}
-          label="PyMuPDF"
-          sub="PaddleOCR"
-          color="amber"
-          delay={FLOW_DELAY * 2}
-        />
-
-        {/* Arrow: OCR → Chunking */}
-        <Arrow points="222,63 240,63" delay={FLOW_DELAY * 3} />
-
-        {/* Chunking */}
-        <Node
-          x={242}
-          y={45}
-          w={80}
-          h={36}
-          label="Chunking"
-          color="blue"
-          delay={FLOW_DELAY * 3}
-        />
-
-        {/* Arrow: Chunking → Embedding */}
-        <Arrow points="322,63 340,63" delay={FLOW_DELAY * 4} />
-
-        {/* Gemini Embedding */}
-        <Node
-          x={342}
-          y={40}
-          w={100}
-          h={46}
-          label="Embedding"
-          sub="Gemini"
-          color="blue"
-          delay={FLOW_DELAY * 4}
-        />
-
-        {/* Arrow: Embedding → Qdrant */}
-        <Arrow points="442,63 462,63" delay={FLOW_DELAY * 5} />
-
-        {/* Qdrant */}
-        <Node
-          x={464}
-          y={40}
-          w={80}
-          h={46}
-          label="Qdrant"
-          sub="Vector DB"
-          color="cyan"
-          delay={FLOW_DELAY * 5}
-        />
-
-        {/* ── Row 2: Agent + Tools ── */}
-
-        {/* 사용자 */}
-        <Node
-          x={30}
-          y={140}
-          w={72}
-          h={36}
-          label="사용자"
-          color="zinc"
-          delay={FLOW_DELAY * 6}
-        />
-
-        {/* Arrow: 사용자 → AI Agent */}
-        <Arrow points="102,158 150,158" delay={FLOW_DELAY * 7} />
-
-        {/* AI Agent */}
-        <Node
-          x={152}
-          y={130}
-          w={120}
-          h={56}
-          label="AI Agent"
-          sub="Claude / Gemini"
-          color="emerald"
-          delay={FLOW_DELAY * 7}
-        />
-
-        {/* Arrow: Agent → 4개 도구 */}
-        <Arrow points="272,158 320,158" delay={FLOW_DELAY * 8} />
-
-        {/* 4개 도구 */}
-        <Node
-          x={322}
-          y={120}
-          w={120}
-          h={34}
-          label="문서 검색"
-          color="rose"
-          delay={FLOW_DELAY * 8}
-        />
-        <Node
-          x={322}
-          y={160}
-          w={120}
-          h={34}
-          label="이미지 검색"
-          color="rose"
-          delay={FLOW_DELAY * 8.5}
-        />
-        <Node
-          x={464}
-          y={120}
-          w={120}
-          h={34}
-          label="표 검색"
-          color="rose"
-          delay={FLOW_DELAY * 9}
-        />
-        <Node
-          x={464}
-          y={160}
-          w={120}
-          h={34}
-          label="웹 검색"
-          color="rose"
-          delay={FLOW_DELAY * 9.5}
-        />
-
-        {/* ── Connections: Qdrant → Tools (dashed) ── */}
-        <Arrow points="504,86 504,120" delay={FLOW_DELAY * 10} dashed />
-        <Arrow points="504,86 382,120" delay={FLOW_DELAY * 10} dashed />
-        <Arrow points="504,86 382,160" delay={FLOW_DELAY * 10} dashed />
-
-        {/* ── Row 3: SSE Streaming back to user ── */}
-
-        {/* Arrow: Agent → SSE 스트리밍 */}
-        <Arrow points="212,186 212,216" delay={FLOW_DELAY * 11} />
-
-        {/* SSE 스트리밍 */}
-        <Node
-          x={152}
-          y={210}
-          w={120}
-          h={34}
-          label="SSE 스트리밍"
-          color="emerald"
-          delay={FLOW_DELAY * 11}
-        />
-
-        {/* Arrow: SSE → 사용자 (dashed, back) */}
-        <Arrow points="152,227 102,170" delay={FLOW_DELAY * 12} dashed />
-
-        {/* ── Bottom note ── */}
+        {/* ═══ PREPROCESSING TIER ═══ */}
         <motion.text
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: FLOW_DELAY * 13, duration: 0.4 }}
-          x={320}
-          y={264}
-          fontFamily="monospace"
-          fontSize={7}
-          fill="#999"
-          textAnchor="middle"
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: FLOW_DELAY, duration: 0.3 }}
+          x={20} y={38} fontFamily="monospace" fontSize={6} fontWeight={600} fill="#888"
         >
-          End-to-End RAG · Dual Vector Image Search · Multi-Model Agent
+          PREPROCESSING
         </motion.text>
+
+        {/* Crawler */}
+        <Node x={15} y={45} w={55} h={28} label="Crawler" color="zinc" delay={FLOW_DELAY} fontSize={6.5} />
+        <Arrow points="70,59 85,59" delay={FLOW_DELAY * 1.5} />
+
+        {/* PyMuPDF / PaddleOCR */}
+        <Node x={88} y={42} w={65} h={34} label="PyMuPDF" sub="PaddleOCR 폴백" color="amber" delay={FLOW_DELAY * 2} fontSize={6.5} />
+        <Arrow points="153,59 168,59" delay={FLOW_DELAY * 2.5} />
+
+        {/* Chunking */}
+        <Node x={170} y={45} w={55} h={28} label="Chunking" color="blue" delay={FLOW_DELAY * 3} fontSize={6.5} />
+        <Arrow points="225,59 240,59" delay={FLOW_DELAY * 3.5} />
+
+        {/* Embedding */}
+        <Node x={242} y={42} w={68} h={34} label="Embedding" sub="Gemini" color="blue" delay={FLOW_DELAY * 4} fontSize={6.5} />
+        <Arrow points="310,59 325,59" delay={FLOW_DELAY * 4.5} />
+
+        {/* Qdrant */}
+        <Node x={327} y={42} w={70} h={34} label="Qdrant" sub="3 Collections" color="cyan" delay={FLOW_DELAY * 5} fontSize={7} />
+
+        {/* Modal GPU */}
+        <Node x={420} y={45} w={65} h={28} label="Modal GPU" sub="L40S · vLLM" color="zinc" delay={FLOW_DELAY * 3} fontSize={5.5} />
+
+        {/* Dashed line: PaddleOCR → Modal GPU */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          transition={{ delay: FLOW_DELAY * 3, duration: 0.3 }}
+        >
+          <line x1={120} y1={76} x2={120} y2={82} stroke="#ccc" strokeWidth={0.6} strokeDasharray="2,2" />
+          <line x1={120} y1={82} x2={420} y2={82} stroke="#ccc" strokeWidth={0.6} strokeDasharray="2,2" />
+          <line x1={420} y1={82} x2={420} y2={73} stroke="#ccc" strokeWidth={0.6} strokeDasharray="2,2" />
+        </motion.g>
+
+        {/* ═══ Divider ═══ */}
+        <motion.line
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.3 }}
+          transition={{ delay: FLOW_DELAY * 5, duration: 0.3 }}
+          x1={15} y1={92} x2={500} y2={92} stroke="#e4e4e7" strokeWidth={0.5} strokeDasharray="4,3"
+        />
+
+        {/* ═══ APPLICATION TIER ═══ */}
+        <motion.text
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: FLOW_DELAY * 5.5, duration: 0.3 }}
+          x={20} y={108} fontFamily="monospace" fontSize={6} fontWeight={600} fill="#888"
+        >
+          APPLICATION
+        </motion.text>
+
+        {/* Client */}
+        <Node x={15} y={115} w={55} h={32} label="Client" sub="Next.js" color="blue" delay={FLOW_DELAY * 6} fontSize={7} />
+        <Arrow points="70,131 88,131" delay={FLOW_DELAY * 6.5} />
+
+        {/* FastAPI */}
+        <Node x={90} y={115} w={65} h={32} label="FastAPI" sub="AI Backend" color="emerald" delay={FLOW_DELAY * 7} fontSize={7} />
+        <Arrow points="155,131 173,131" delay={FLOW_DELAY * 7.5} stroke="#6ee7b7" />
+
+        {/* AI Agent big box */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: FLOW_DELAY * 8, duration: 0.4 }}
+        >
+          <rect x={175} y={100} width={225} height={108} rx={6} fill="#ecfdf5" stroke="#6ee7b7" strokeWidth={1.5} />
+          <text x={287} y={115} textAnchor="middle" fontFamily="monospace" fontSize={7} fontWeight={700} fill="#065f46">
+            AI Agent
+          </text>
+        </motion.g>
+
+        {/* LangChain */}
+        <Node x={192} y={122} w={100} h={28} label="LangChain" sub="Claude / Gemini" color="emerald" delay={FLOW_DELAY * 8} fontSize={7.5} />
+
+        {/* 4 Tools */}
+        <motion.g
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: FLOW_DELAY * 9, duration: 0.35 }}
+        >
+          <rect x={192} y={158} width={48} height={16} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
+          <text x={216} y={169} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#9f1239">문서 검색</text>
+          <rect x={244} y={158} width={48} height={16} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
+          <text x={268} y={169} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#9f1239">이미지 검색</text>
+          <rect x={296} y={158} width={48} height={16} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
+          <text x={320} y={169} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#9f1239">사전 조회</text>
+          <rect x={348} y={158} width={44} height={16} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
+          <text x={370} y={169} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#9f1239">웹 검색</text>
+          {/* Lines: LangChain → Tools */}
+          <line x1={220} y1={150} x2={216} y2={158} stroke="#fda4af" strokeWidth={0.5} />
+          <line x1={242} y1={150} x2={268} y2={158} stroke="#fda4af" strokeWidth={0.5} />
+          <line x1={270} y1={150} x2={320} y2={158} stroke="#fda4af" strokeWidth={0.5} />
+          <line x1={290} y1={150} x2={370} y2={158} stroke="#fda4af" strokeWidth={0.5} />
+        </motion.g>
+
+        {/* SSE Streaming + LangSmith */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: FLOW_DELAY * 9.5, duration: 0.3 }}
+        >
+          <rect x={192} y={182} width={80} height={14} rx={7} fill="#d1fae5" stroke="#a7f3d0" strokeWidth={0.7} />
+          <text x={232} y={192} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#065f46">SSE Streaming</text>
+          <rect x={280} y={182} width={70} height={14} rx={3} fill="#fff" stroke="#d4d4d8" strokeWidth={0.7} />
+          <text x={315} y={192} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#71717a">LangSmith</text>
+        </motion.g>
+
+        {/* Agent → Qdrant dashed connection */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          transition={{ delay: FLOW_DELAY * 8.5, duration: 0.3 }}
+        >
+          <line x1={362} y1={100} x2={362} y2={76} stroke="#67e8f9" strokeWidth={1} strokeDasharray="3,2" />
+          <text x={374} y={90} fontFamily="monospace" fontSize={4.5} fill="#0891b2">query</text>
+        </motion.g>
+
+        {/* GCS */}
+        <Node x={420} y={115} w={65} h={28} label="GCS" sub="이미지 저장" color="zinc" delay={FLOW_DELAY * 9} fontSize={6} />
+
+        {/* Dual Vector */}
+        <motion.g
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: FLOW_DELAY * 9, duration: 0.35 }}
+        >
+          <rect x={420} y={155} width={78} height={32} rx={3} fill="#cffafe" stroke="#67e8f9" strokeWidth={0.8} />
+          <text x={459} y={168} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fontWeight={600} fill="#155e75">Dual Vector</text>
+          <text x={459} y={179} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#0891b2">이미지 + 텍스트</text>
+        </motion.g>
+
+        {/* Dashed lines to GCS/DualVector */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          transition={{ delay: FLOW_DELAY * 9.5, duration: 0.3 }}
+        >
+          <line x1={392} y1={166} x2={420} y2={140} stroke="#ccc" strokeWidth={0.6} strokeDasharray="2,2" />
+          <line x1={392} y1={166} x2={420} y2={170} stroke="#67e8f9" strokeWidth={0.6} strokeDasharray="2,2" />
+        </motion.g>
+
+        {/* ═══ INFRA BAR ═══ */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: FLOW_DELAY * 10, duration: 0.3 }}
+        >
+          <rect x={90} y={222} width={400} height={16} rx={8} fill="#f4f4f5" stroke="#d4d4d8" strokeWidth={0.8} />
+          <text x={290} y={233} textAnchor="middle" fontFamily="monospace" fontSize={6} fontWeight={600} fill="#52525b">
+            Docker Compose · Vercel · LangSmith Tracing
+          </text>
+        </motion.g>
+
+        {/* Bottom: DB/Storage */}
+        <Node x={100} y={248} w={55} h={16} label="PostgreSQL" color="emerald" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
+        <Node x={160} y={248} w={48} h={16} label="Qdrant" color="cyan" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
+        <Node x={213} y={248} w={38} h={16} label="GCS" color="zinc" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
+
+        <Arrow points="127,238 127,248" delay={FLOW_DELAY * 10.5} dashed />
+        <Arrow points="184,238 184,248" delay={FLOW_DELAY * 10.5} dashed />
+        <Arrow points="232,238 232,248" delay={FLOW_DELAY * 10.5} dashed />
       </svg>
     </motion.div>
   );
