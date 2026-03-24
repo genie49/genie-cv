@@ -1,4 +1,4 @@
-# 왜 Bun + ElysiaJS + LanceDB인가
+# 왜 이 스택인가 — Bun + ElysiaJS + LanceDB
 
 포트폴리오 AI 챗봇의 기술 스택을 선택하면서 "개인 프로젝트에 최적화된 경량 AI 서비스"라는 기준을 세웠습니다. Node.js, Express, Pinecone 같은 익숙한 조합 대신 Bun + ElysiaJS + LanceDB를 선택한 이유를 정리합니다.
 

@@ -47,7 +47,7 @@
       {
         "id": "kimpro-tech-stack",
         "projectSlug": "kimpro",
-        "title": "7개 서비스를 하나의 레포에서 관리하는 이유",
+        "title": "왜 이 스택인가 — Turborepo + Fastify + GCP Pub/Sub",
         "date": "2025-09-15",
         "tags": ["Turborepo", "Monorepo", "Fastify", "GCP Pub/Sub", "Architecture"],
         "summary": "Turborepo 모노레포로 7개 마이크로서비스를 관리하고, Fastify 5 + GCP Pub/Sub + PostgreSQL/MongoDB/Redis 조합을 선택한 기술적 근거"
@@ -357,7 +357,7 @@
       {
         "id": "bonda-tech-stack",
         "projectSlug": "bonda",
-        "title": "왜 Python과 Node.js를 같이 쓰는가",
+        "title": "왜 이 스택인가 — FastAPI + Next.js + Qdrant",
         "date": "2026-02-15",
         "tags": [
           "FastAPI",
@@ -467,7 +467,7 @@
       {
         "id": "vocatoktok-tech-stack",
         "projectSlug": "vocatoktok",
-        "title": "PHP에서 Next.js로 — 전면 리빌드를 결정한 이유",
+        "title": "왜 이 스택인가 — Next.js 14 + Prisma + MySQL",
         "date": "2025-02-15",
         "tags": ["Next.js", "Prisma", "MySQL", "Migration", "Architecture"],
         "summary": "PHP/Vanilla JS 레거시를 Next.js 14로 전면 리빌드한 결정 과정과, Prisma 인트로스펙션으로 기존 MySQL 스키마를 활용한 전략"
@@ -567,7 +567,7 @@
       {
         "id": "bara-tech-stack",
         "projectSlug": "hey-bara",
-        "title": "왜 Sherpa-ONNX와 Koog인가",
+        "title": "왜 이 스택인가 — Sherpa-ONNX + Koog + Kotlin",
         "date": "2026-01-10",
         "tags": ["Sherpa-ONNX", "Koog", "ONNX Runtime", "Kotlin", "Architecture"],
         "summary": "ONNX Runtime vs TFLite, Sherpa-ONNX vs Whisper, Koog vs LangChain — 온디바이스 AI 음성 비서를 위한 프레임워크 선택 근거"
@@ -704,7 +704,7 @@
       {
         "id": "chatbot-tech-stack",
         "projectSlug": "ai-portfolio-chatbot",
-        "title": "왜 Bun + ElysiaJS + LanceDB인가",
+        "title": "왜 이 스택인가 — Bun + ElysiaJS + LanceDB",
         "date": "2026-03-05",
         "tags": [
           "Bun",

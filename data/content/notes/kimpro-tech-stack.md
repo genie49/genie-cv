@@ -1,4 +1,4 @@
-# 7개 서비스를 하나의 레포에서 관리하는 이유
+# 왜 이 스택인가 — Turborepo + Fastify + GCP Pub/Sub
 
 킴프로의 백엔드는 7개 마이크로서비스(API, Auth, Chat, Notification, Tools, Workflow, Workflow-History)와 11개 공유 패키지로 구성됩니다. 이 규모에서 각 서비스를 별도 레포지토리로 분리하면 어떻게 될까요? 타입 하나 바꾸려면 3개 레포에 PR을 올려야 하고, 공유 패키지 버전 맞추다 오전이 다 갑니다. Turborepo 모노레포로 이 문제를 해결한 과정을 정리합니다.
 
