@@ -55,26 +55,15 @@
       {
         "id": "kimpro-multi-agent",
         "projectSlug": "kimpro",
-        "title": "혼자 다 하는 AI는 없다 — 팀장과 전문가 5명의 협업 구조",
+        "title": "여긴 너를 위한 들판이야, 마음껏 뛰어 AI야",
         "date": "2025-10-15",
         "tags": [
-          "LangChain",
+          "Harness Engineering",
           "Multi-Agent",
-          "Orchestration"
-        ],
-        "summary": "하나의 에이전트로는 복잡한 캠페인을 처리할 수 없었다. Account Manager가 상황을 판단하고 5개 전문 에이전트에게 작업을 위임하는 오케스트레이션 구조를 설계한 과정"
-      },
-      {
-        "id": "kimpro-snapshot-rollback",
-        "projectSlug": "kimpro",
-        "title": "AI가 실수하면 어떡하지? — 되돌릴 수 있게 만들자",
-        "date": "2025-11-01",
-        "tags": [
-          "Redis",
-          "State Management",
+          "Orchestration",
           "Rollback"
         ],
-        "summary": "Agent가 데이터를 잘못 수정하면 복구할 수 없었다. Redis에 스냅샷을 찍고 실패 시 원자적으로 롤백하는 CAS 패턴으로 해결한 과정"
+        "summary": "도구 20개를 든 만능 에이전트의 한계에서 시작해, Supervisor + 5 전문 에이전트 분리, 컨텍스트 격리, 스냅샷/롤백 안전망, 미들웨어 파이프라인까지 — 에이전트가 마음껏 뛰어놀 수 있는 하네스를 설계한 과정"
       },
       {
         "id": "kimpro-realtime-streaming",
