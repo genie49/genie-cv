@@ -86,16 +86,17 @@
         "summary": "LangGraph 워크플로우 상태를 PostgreSQL 체크포인터로 영속화하여, 서버 재시작 후에도 중단된 워크플로우를 이어서 진행하는 설계"
       },
       {
-        "id": "kimpro-middleware-pipeline",
+        "id": "kimpro-context-engineering",
         "projectSlug": "kimpro",
-        "title": "에이전트한테 맥락 없이 일 시키면 당연히 못하지",
+        "title": "에이전트의 성능은 컨텍스트가 결정한다",
         "date": "2025-12-01",
         "tags": [
-          "LangChain",
+          "Context Engineering",
+          "Prompt Caching",
           "Middleware",
-          "Context Engineering"
+          "Tool Design"
         ],
-        "summary": "매번 같은 시스템 프롬프트로는 상황에 맞는 응답이 안 나왔다. 5개 미들웨어를 조합해 동적으로 컨텍스트를 주입하고 에러를 처리하는 파이프라인 설계"
+        "summary": "동적 시스템 프롬프트, 도구 결과 설계, 에러 컨텍스트, interrupt 후 정합성 — 에이전트가 보는 전체 그림을 설계하는 컨텍스트 엔지니어링 과정"
       },
       {
         "id": "kimpro-event-driven",
@@ -128,18 +129,6 @@
           "LLM-as-Judge"
         ],
         "summary": "프롬프트를 수정할 때마다 다른 곳이 망가졌다. 자동화된 평가 체계를 구축해 품질을 수치로 측정하고 개선하는 루프를 만든 과정"
-      },
-      {
-        "id": "kimpro-prompt-caching",
-        "projectSlug": "kimpro",
-        "title": "매번 같은 프롬프트를 보내는데 매번 돈을 내야 해?",
-        "date": "2026-02-01",
-        "tags": [
-          "Anthropic",
-          "Prompt Caching",
-          "Cost Optimization"
-        ],
-        "summary": "시스템 프롬프트가 길어지면서 비용과 지연 시간이 급증했다. Anthropic Prompt Caching으로 반복 토큰 비용을 절감한 전략"
       }
     ]
   },
