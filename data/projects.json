@@ -47,7 +47,7 @@
       {
         "id": "kimpro-tech-stack",
         "projectSlug": "kimpro",
-        "title": "왜 이 스택인가 — Turborepo + Fastify + GCP Pub/Sub",
+        "title": "왜 이 스택인가 — Turborepo + Fastify + LangChain.js + GCP Pub/Sub",
         "date": "2025-09-15",
         "tags": ["Turborepo", "Monorepo", "Fastify", "GCP Pub/Sub", "Architecture"],
         "summary": "Turborepo 모노레포로 7개 마이크로서비스를 관리하고, Fastify 5 + GCP Pub/Sub + PostgreSQL/MongoDB/Redis 조합을 선택한 기술적 근거"
