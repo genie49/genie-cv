@@ -79,44 +79,16 @@
         "summary": "동적 시스템 프롬프트, 도구 결과 설계, 에러 컨텍스트, interrupt 후 정합성 — 에이전트가 보는 전체 그림을 설계하는 컨텍스트 엔지니어링 과정"
       },
       {
-        "id": "kimpro-realtime-streaming",
+        "id": "kimpro-agent-ux",
         "projectSlug": "kimpro",
-        "title": "AI가 일하는 동안 사용자는 뭘 보고 있지?",
+        "title": "말많은 수다쟁이를 멋들어진 발표자로",
         "date": "2025-11-15",
         "tags": [
-          "WebSocket",
-          "GCP Pub/Sub",
-          "Streaming"
+          "Streaming",
+          "Agent UX",
+          "WebSocket"
         ],
-        "summary": "Agent 워크플로우가 수십 초 걸리는데 사용자는 빈 화면만 봐야 했다. 3가지 스트리밍 모드로 실시간 진행 상황을 전달한 설계"
-      },
-      {
-        "id": "kimpro-pg-checkpoint",
-        "projectSlug": "kimpro",
-        "title": "서버가 죽어도 워크플로우는 살아있다",
-        "date": "2025-11-20",
-        "tags": ["PostgreSQL", "LangGraph", "Checkpoint", "Recovery"],
-        "summary": "LangGraph 워크플로우 상태를 PostgreSQL 체크포인터로 영속화하여, 서버 재시작 후에도 중단된 워크플로우를 이어서 진행하는 설계"
-      },
-      {
-        "id": "kimpro-event-driven",
-        "projectSlug": "kimpro",
-        "title": "서비스 7개가 서로 직접 호출하면 어떻게 될까?",
-        "date": "2025-12-15",
-        "tags": [
-          "GCP Pub/Sub",
-          "Event-Driven",
-          "Microservices"
-        ],
-        "summary": "서비스 간 직접 호출이 늘어나면서 장애 전파와 결합도 문제가 생겼다. GCP Pub/Sub로 이벤트 기반 비동기 통신으로 전환한 과정"
-      },
-      {
-        "id": "kimpro-redis-concurrency",
-        "projectSlug": "kimpro",
-        "title": "에이전트 5명이 동시에 캠페인을 수정하면",
-        "date": "2025-12-20",
-        "tags": ["Redis", "Concurrency", "CAS", "State Management"],
-        "summary": "5개 서브에이전트가 동시에 캠페인 데이터를 수정할 때 충돌을 방지하기 위해 Redis 기반 낙관적 동시성 제어와 버전 관리를 적용한 설계"
+        "summary": "3분간 침묵하다 결과를 쏟아내는 AI를, 실시간 피드백·TODO 구조·서브에이전트 필터링으로 멋들어진 발표자로 바꾼 과정"
       },
       {
         "id": "kimpro-agent-evaluation",
@@ -129,6 +101,19 @@
           "LLM-as-Judge"
         ],
         "summary": "프롬프트를 수정할 때마다 다른 곳이 망가졌다. 자동화된 평가 체계를 구축해 품질을 수치로 측정하고 개선하는 루프를 만든 과정"
+      },
+      {
+        "id": "kimpro-ai-system-design",
+        "projectSlug": "kimpro",
+        "title": "AI를 시스템에 맞추지 말고, 시스템을 AI에게 맞춰라",
+        "date": "2025-12-20",
+        "tags": [
+          "GCP Pub/Sub",
+          "Redis",
+          "System Design",
+          "Concurrency"
+        ],
+        "summary": "Chat-Workflow 분리, LangGraph state를 Redis로 대체 — 기존 시스템에 AI를 끼워 넣다 성능과 UX를 모두 잃은 뒤, 시스템을 AI에 맞춰 다시 설계한 과정"
       }
     ]
   },
