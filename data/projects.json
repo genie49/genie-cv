@@ -53,7 +53,7 @@
         "summary": "Turborepo 모노레포로 7개 마이크로서비스를 관리하고, Fastify 5 + GCP Pub/Sub + PostgreSQL/MongoDB/Redis 조합을 선택한 기술적 근거"
       },
       {
-        "id": "kimpro-multi-agent",
+        "id": "kimpro-harness-engineering",
         "projectSlug": "kimpro",
         "title": "여긴 너를 위한 들판이야, 마음껏 뛰어 AI야",
         "date": "2025-10-15",
