@@ -66,6 +66,19 @@
         "summary": "도구 20개를 든 만능 에이전트의 한계에서 시작해, Supervisor + 5 전문 에이전트 분리, 컨텍스트 격리, 스냅샷/롤백 안전망, 미들웨어 파이프라인까지 — 에이전트가 마음껏 뛰어놀 수 있는 하네스를 설계한 과정"
       },
       {
+        "id": "kimpro-context-engineering",
+        "projectSlug": "kimpro",
+        "title": "AI에게 500페이지를 주지 마, 필요한 2페이지만 줘",
+        "date": "2025-10-20",
+        "tags": [
+          "Context Engineering",
+          "Prompt Caching",
+          "Middleware",
+          "Tool Design"
+        ],
+        "summary": "동적 시스템 프롬프트, 도구 결과 설계, 에러 컨텍스트, interrupt 후 정합성 — 에이전트가 보는 전체 그림을 설계하는 컨텍스트 엔지니어링 과정"
+      },
+      {
         "id": "kimpro-realtime-streaming",
         "projectSlug": "kimpro",
         "title": "AI가 일하는 동안 사용자는 뭘 보고 있지?",
@@ -84,19 +97,6 @@
         "date": "2025-11-20",
         "tags": ["PostgreSQL", "LangGraph", "Checkpoint", "Recovery"],
         "summary": "LangGraph 워크플로우 상태를 PostgreSQL 체크포인터로 영속화하여, 서버 재시작 후에도 중단된 워크플로우를 이어서 진행하는 설계"
-      },
-      {
-        "id": "kimpro-context-engineering",
-        "projectSlug": "kimpro",
-        "title": "에이전트의 성능은 컨텍스트가 결정한다",
-        "date": "2025-12-01",
-        "tags": [
-          "Context Engineering",
-          "Prompt Caching",
-          "Middleware",
-          "Tool Design"
-        ],
-        "summary": "동적 시스템 프롬프트, 도구 결과 설계, 에러 컨텍스트, interrupt 후 정합성 — 에이전트가 보는 전체 그림을 설계하는 컨텍스트 엔지니어링 과정"
       },
       {
         "id": "kimpro-event-driven",
