@@ -86,18 +86,6 @@
         "summary": "LangGraph 워크플로우 상태를 PostgreSQL 체크포인터로 영속화하여, 서버 재시작 후에도 중단된 워크플로우를 이어서 진행하는 설계"
       },
       {
-        "id": "kimpro-marketing-automation",
-        "projectSlug": "kimpro",
-        "title": "매번 똑같은 일을 왜 사람이 해야 하지?",
-        "date": "2025-10-01",
-        "tags": [
-          "Automation",
-          "Workflow",
-          "Business Impact"
-        ],
-        "summary": "캠페인 기획부터 크리에이터 매칭까지 매번 반복되는 4단계 수동 프로세스를 분석하고, Agent 워크플로우로 전환한 과정과 비즈니스 임팩트"
-      },
-      {
         "id": "kimpro-middleware-pipeline",
         "projectSlug": "kimpro",
         "title": "에이전트한테 맥락 없이 일 시키면 당연히 못하지",
