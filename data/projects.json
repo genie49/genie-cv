@@ -506,18 +506,6 @@
         ],
         "summary": "AccessibilityService로 UI 트리를 캡처하고 LLM이 클릭·입력 액션을 결정하는 범용 앱 제어 Agent 설계. 최대 30스텝 자동화"
       },
-      {
-        "id": "bara-state-machine",
-        "projectSlug": "hey-bara",
-        "title": "IDLE → LISTENING → PROCESSING → CONFIRMING",
-        "date": "2026-03-05",
-        "tags": [
-          "State Machine",
-          "OnDemand",
-          "Session"
-        ],
-        "summary": "4-State 세션 상태 머신으로 음성 비서의 전체 라이프사이클을 관리하고, OnDemand 컴포넌트 로딩으로 대기 시 메모리 10MB를 달성한 설계"
-      }
     ]
   },
   {
