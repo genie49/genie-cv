@@ -2,9 +2,9 @@
 
 AI 챗봇의 응답을 토큰 단위로 실시간 스트리밍하고, 검색 결과를 내부 페이지 링크로 자동 변환하는 인용 시스템을 구현한 과정을 정리한다.
 
-## SSE가 아니라 NDJSON이다
+## SSE 표준 대신 줄 단위 JSON 스트리밍
 
-LLM 응답을 스트리밍하는 방식으로 SSE 표준(`text/event-stream`)이 아닌 **NDJSON(Newline-Delimited JSON)**을 선택했다.
+LLM 응답을 스트리밍하는 방식으로 SSE 표준(`text/event-stream`)이 아닌 **줄 단위 JSON(Newline-Delimited JSON)** 스트리밍을 선택했다. JSON 객체를 한 줄에 하나씩, 줄바꿈으로 구분해서 보내는 포맷이다. 한 줄을 받을 때마다 바로 파싱할 수 있어서 실시간 스트리밍에 적합하다.
 
 SSE 표준의 `EventSource` API는 GET 요청만 지원한다. 채팅 메시지와 히스토리를 요청 본문으로 보내야 하는데 GET으로는 불가능하다. NDJSON은 일반 `fetch` + POST로 요청하고, `ReadableStream` reader로 줄 단위 파싱한다. 커스텀 헤더, abort signal도 자유롭게 쓸 수 있다.
 
