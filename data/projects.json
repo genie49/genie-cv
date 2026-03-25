@@ -579,19 +579,6 @@
         "summary": "파일 기반 벡터 DB LanceDB와 Gemini Embedding을 활용한 경량 RAG 파이프라인 설계"
       },
       {
-        "id": "chatbot-asymmetric-embedding",
-        "projectSlug": "ai-portfolio-chatbot",
-        "title": "질문과 문서는 다르게 임베딩해야 한다",
-        "date": "2026-03-11",
-        "tags": [
-          "Gemini Embedding",
-          "Asymmetric",
-          "RAG",
-          "Retrieval"
-        ],
-        "summary": "Gemini Embedding의 taskType 분리(RETRIEVAL_DOCUMENT vs RETRIEVAL_QUERY)로 검색 정확도를 높인 비대칭 임베딩 전략"
-      },
-      {
         "id": "sse-streaming",
         "projectSlug": "ai-portfolio-chatbot",
         "title": "ElysiaJS ReadableStream SSE 스트리밍과 인용 시스템",
