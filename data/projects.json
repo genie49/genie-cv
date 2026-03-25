@@ -505,7 +505,7 @@
           "App Control"
         ],
         "summary": "AccessibilityService로 UI 트리를 캡처하고 LLM이 클릭·입력 액션을 결정하는 범용 앱 제어 Agent 설계. 최대 30스텝 자동화"
-      },
+      }
     ]
   },
   {
