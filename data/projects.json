@@ -581,14 +581,14 @@
       {
         "id": "sse-streaming",
         "projectSlug": "ai-portfolio-chatbot",
-        "title": "ElysiaJS ReadableStream SSE 스트리밍과 인용 시스템",
+        "title": "답변 아래에 출처 칩이 붙는다",
         "date": "2026-03-12",
         "tags": [
           "SSE",
           "ElysiaJS",
           "Streaming"
         ],
-        "summary": "Newline-Delimited JSON 기반 SSE 스트리밍과 소스 파일 → 내부 라우트 자동 매핑 인용 시스템 구현"
+        "summary": "NDJSON 스트리밍, LLM이 아닌 코드가 제어하는 인용 시스템, 소스 경로 → 내부 라우트 자동 매핑"
       },
       {
         "id": "langchain-agent",
