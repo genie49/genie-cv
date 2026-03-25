@@ -483,19 +483,6 @@
         "summary": "JetBrains Koog 프레임워크로 14개 SimpleTool을 등록하고, Gemini Function Calling으로 음성 명령을 디바이스 액션으로 변환하는 Agent 설계"
       },
       {
-        "id": "bara-dual-llm",
-        "projectSlug": "hey-bara",
-        "title": "클라우드가 안 되면? 폰이 직접 생각한다",
-        "date": "2026-02-05",
-        "tags": [
-          "Gemini",
-          "Gemma",
-          "On-Device",
-          "Architecture"
-        ],
-        "summary": "Gemini API 클라우드와 Gemma 3n 온디바이스 모드를 설계하면서 비용·지연·품질 트레이드오프를 분석한 의사결정 과정"
-      },
-      {
         "id": "bara-confirmation",
         "projectSlug": "hey-bara",
         "title": "AI가 멋대로 전화를 걸면 안 되잖아",
