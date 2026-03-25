@@ -291,49 +291,35 @@
           "FastAPI",
           "Next.js",
           "Qdrant",
-          "Drizzle",
-          "Architecture"
+          "Drizzle"
         ],
-        "summary": "AI 백엔드는 FastAPI(Python), 프론트엔드는 Next.js(Node.js)로 분리한 하이브리드 아키텍처와 Qdrant·Drizzle ORM 선택 근거"
+        "summary": "AI 백엔드는 Python, 프론트엔드는 Node.js로 분리한 하이브리드 아키텍처와 Named Vector가 결정한 벡터 DB 선택"
       },
       {
-        "id": "bonda-rag-pipeline",
+        "id": "bonda-pdf-pipeline",
         "projectSlug": "bonda",
-        "title": "발굴보고서 PDF가 검색 가능해지기까지",
+        "title": "스캔 PDF가 검색 가능해지기까지",
         "date": "2026-03-19",
         "tags": [
-          "RAG",
-          "Qdrant",
-          "Embedding",
-          "Pipeline"
-        ],
-        "summary": "PDF 파싱부터 벡터화, Qdrant 컬렉션 설계까지 End-to-End RAG 파이프라인 전체 흐름"
-      },
-      {
-        "id": "bonda-ocr-fallback",
-        "projectSlug": "bonda",
-        "title": "텍스트가 없는 PDF를 어떻게 읽을까",
-        "date": "2026-03-19",
-        "tags": [
-          "OCR",
           "PaddleOCR",
           "Modal",
-          "PyMuPDF"
+          "RAG",
+          "Pipeline"
         ],
-        "summary": "PyMuPDF 빠른 경로와 PaddleOCR 폴백 전략, 서버리스 GPU 활용 경험"
+        "summary": "스캔 PDF에서 텍스트와 이미지 위치를 동시에 추출하고, 서버리스 GPU로 OCR을 돌리고, 벡터화하는 End-to-End 파이프라인"
       },
       {
-        "id": "bonda-image-search",
+        "id": "bonda-vector-search",
         "projectSlug": "bonda",
-        "title": "유물 사진을 텍스트로도, 이미지로도 찾는다",
+        "title": "하나의 유물을 텍스트로도 이미지로도 찾는다",
         "date": "2026-03-19",
         "tags": [
-          "Image Search",
+          "Qdrant",
+          "Named Vector",
           "Dual Vector",
-          "Multimodal",
-          "Embedding"
+          "Hybrid Search"
         ],
-        "summary": "시각적 유사도 + 텍스트 기반 듀얼 벡터 이미지 검색 설계와 Gemini Vision 연동"
+        "summary": "3개 컬렉션, Named Vector, 시맨틱+필터 하이브리드 — 검색 시나리오가 벡터 DB 설계를 결정한 과정"
       },
       {
         "id": "bonda-agent-tools",
@@ -343,38 +329,9 @@
         "tags": [
           "Agent",
           "LangChain",
-          "Claude",
-          "Gemini",
-          "SSE"
+          "Tool Design"
         ],
-        "summary": "4개 특화 도구 설계, 멀티모델 전환, SSE 스트리밍 기반 에이전트 아키텍처"
-      },
-      {
-        "id": "bonda-modal-gpu",
-        "projectSlug": "bonda",
-        "title": "서버리스 GPU로 수천 페이지 OCR 돌리기",
-        "date": "2026-03-20",
-        "tags": [
-          "Modal",
-          "PaddleOCR",
-          "GPU",
-          "Serverless",
-          "vLLM"
-        ],
-        "summary": "Modal 서버리스 GPU(L40S)에서 PaddleOCR VL-1.5을 vLLM으로 서빙하여 대량 PDF OCR을 처리하는 파이프라인 설계"
-      },
-      {
-        "id": "bonda-qdrant-collections",
-        "projectSlug": "bonda",
-        "title": "보고서, 텍스트 청크, 이미지를 왜 따로 저장하는가",
-        "date": "2026-03-21",
-        "tags": [
-          "Qdrant",
-          "Vector DB",
-          "Schema Design",
-          "Hybrid Search"
-        ],
-        "summary": "archie_reports·archie_chunks·archie_images 3개 Qdrant 컬렉션의 역할 분리와 RAG/Filter/Hybrid 검색 모드 설계"
+        "summary": "보고서 검색, 이미지 검색, 용어 사전, 시간 — 4개 도구를 에이전트가 직접 조합해서 답변하는 구조"
       }
     ]
   },
