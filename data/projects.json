@@ -358,14 +358,6 @@
         "summary": "PHP/Vanilla JS 레거시를 Next.js 14로 전면 리빌드한 결정 과정과, Prisma 인트로스펙션으로 기존 MySQL 스키마를 활용한 전략"
       },
       {
-        "id": "vocatoktok-migration",
-        "projectSlug": "vocatoktok",
-        "title": "PHP에서 Next.js로, 레거시를 버리는 용기",
-        "date": "2025-03-01",
-        "tags": ["Next.js", "Migration", "TypeScript", "Legacy"],
-        "summary": "PHP/Vanilla JS 레거시를 Next.js 14로 전면 리빌드한 이유, 과정, 결과"
-      },
-      {
         "id": "vocatoktok-db-encoding",
         "projectSlug": "vocatoktok",
         "title": "EUC-KR 데이터베이스와의 사투",
@@ -379,15 +371,7 @@
         "title": "원어민 발음을 코드로 만들다",
         "date": "2025-04-01",
         "tags": ["Google TTS", "Pipeline", "Multilingual"],
-        "summary": "Google Cloud TTS 기반 다국어 발음 학습 파이프라인과 RDT/RET 모드 설계"
-      },
-      {
-        "id": "vocatoktok-tts-caching",
-        "projectSlug": "vocatoktok",
-        "title": "수천 단어의 발음을 끊김 없이 재생하려면",
-        "date": "2025-04-10",
-        "tags": ["Google TTS", "SWR", "Caching", "Batch", "Performance"],
-        "summary": "Google Cloud TTS 발음 학습에서 SWR 캐싱과 10단어 배치 분할 병렬 요청으로 대량 단어 발음 재생을 최적화한 설계"
+        "summary": "Google Cloud TTS + 3단계 캐싱(IndexedDB/S3/API) + 프리페치로 끊김 없는 발음 학습을 구현한 파이프라인"
       },
       {
         "id": "vocatoktok-data-encryption",
