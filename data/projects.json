@@ -352,24 +352,32 @@
       {
         "id": "vocatoktok-tech-stack",
         "projectSlug": "vocatoktok",
-        "title": "왜 이 스택인가 — Next.js 14 + Prisma + MySQL",
+        "title": "10년 된 코드를 새로 짓다",
         "date": "2025-02-15",
-        "tags": ["Next.js", "Prisma", "MySQL", "Migration", "Architecture"],
-        "summary": "PHP/Vanilla JS 레거시를 Next.js 14로 전면 리빌드한 결정 과정과, Prisma 인트로스펙션으로 기존 MySQL 스키마를 활용한 전략"
+        "tags": ["Next.js", "Prisma", "MySQL", "Migration", "PWA", "Vercel"],
+        "summary": "PHP + Vanilla JS 레거시의 유지보수 한계에서 시작한 Next.js 전면 리빌드. Prisma db pull로 10년치 DB를 보존하고, PWA와 Vercel로 학습 접근성과 배포를 개선한 과정"
       },
       {
         "id": "vocatoktok-db-encoding",
         "projectSlug": "vocatoktok",
-        "title": "EUC-KR 데이터베이스와의 사투",
+        "title": "카페24에서 AWS로 — DB 마이그레이션 여정",
         "date": "2025-03-15",
-        "tags": ["MySQL", "Migration", "EUC-KR", "UTF-8"],
-        "summary": "구버전 MySQL DB 마이그레이션과 EUC-KR → UTF-8 인코딩 전환 과정의 함정과 해결"
+        "tags": ["MySQL", "AWS RDS", "Migration", "EUC-KR", "UTF-8"],
+        "summary": "카페24 MySQL 5.x에서 AWS RDS 8.x로의 마이그레이션. 인코딩 전환, 학원별 분리 테이블 정규화, 단계별 변환 파이프라인 구성"
+      },
+      {
+        "id": "vocatoktok-learning-algorithm",
+        "projectSlug": "vocatoktok",
+        "title": "학습 알고리즘을 코드로 옮기다",
+        "date": "2025-04-01",
+        "tags": ["Algorithm", "Learning Loop", "Adaptive Learning", "Data Analytics", "UX"],
+        "summary": "특허 학습 알고리즘의 구현과 학습 데이터 활용. 5단계 학습 루프, 모드별 이해도 추적, 코칭용 보조 통계 지표 설계"
       },
       {
         "id": "vocatoktok-tts-pipeline",
         "projectSlug": "vocatoktok",
         "title": "원어민 발음을 코드로 만들다",
-        "date": "2025-04-01",
+        "date": "2025-04-15",
         "tags": ["Google TTS", "Pipeline", "Multilingual"],
         "summary": "Google Cloud TTS + 3단계 캐싱(IndexedDB/S3/API) + 프리페치로 끊김 없는 발음 학습을 구현한 파이프라인"
       },
@@ -377,17 +385,9 @@
         "id": "vocatoktok-data-encryption",
         "projectSlug": "vocatoktok",
         "title": "학습 데이터를 지키는 방법",
-        "date": "2025-04-15",
+        "date": "2025-05-01",
         "tags": ["Encryption", "Security", "Data Protection"],
         "summary": "학습 콘텐츠 데이터 암호화 설계와 구현"
-      },
-      {
-        "id": "vocatoktok-learning-algorithm",
-        "projectSlug": "vocatoktok",
-        "title": "아는 단어와 모르는 단어를 어떻게 판별하는가",
-        "date": "2025-05-01",
-        "tags": ["Algorithm", "Learning Loop", "Assessment", "Adaptive Learning"],
-        "summary": "정답·오답 횟수 기반 아는/모르는 단어 자동 분류, 연습→테스트→오답→재시험 반복 루프, 성적 기반 레벨 자동 조절 알고리즘 기획 문서"
       }
     ]
   },
