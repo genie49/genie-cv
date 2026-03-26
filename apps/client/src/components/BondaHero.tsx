@@ -325,8 +325,8 @@ export function BondaHero({
         <Node x={15} y={45} w={55} h={28} label="Crawler" color="zinc" delay={FLOW_DELAY} fontSize={6.5} />
         <Arrow points="70,59 85,59" delay={FLOW_DELAY * 1.5} />
 
-        {/* PyMuPDF / PaddleOCR */}
-        <Node x={88} y={42} w={65} h={34} label="PyMuPDF" sub="PaddleOCR 폴백" color="amber" delay={FLOW_DELAY * 2} fontSize={6.5} />
+        {/* PaddleOCR / PyMuPDF */}
+        <Node x={88} y={42} w={65} h={34} label="PaddleOCR" sub="Document Parser" color="amber" delay={FLOW_DELAY * 2} fontSize={6.5} />
         <Arrow points="153,59 168,59" delay={FLOW_DELAY * 2.5} />
 
         {/* Chunking */}
