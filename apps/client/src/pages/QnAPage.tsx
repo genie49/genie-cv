@@ -69,10 +69,20 @@ export default function QnAPage() {
                     className="overflow-hidden"
                   >
                     <div className="mx-5 h-px bg-toss-border" />
-                    <div className="px-5 py-4">
-                      <p className="text-[13px] leading-relaxed text-toss-body">
-                        {item.answer}
-                      </p>
+                    <div className="flex flex-col gap-3 px-5 py-4 text-[13px] leading-relaxed text-toss-body">
+                      {item.answer.split("\n\n").map((para, j) => (
+                        <p key={j}>
+                          {para.split(/(\*\*[^*]+\*\*)/).map((seg, k) =>
+                            seg.startsWith("**") && seg.endsWith("**") ? (
+                              <strong key={k} className="font-semibold text-toss-heading">
+                                {seg.slice(2, -2)}
+                              </strong>
+                            ) : (
+                              <span key={k}>{seg}</span>
+                            ),
+                          )}
+                        </p>
+                      ))}
                     </div>
                   </motion.div>
                 )}
