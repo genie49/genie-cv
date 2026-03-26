@@ -1,98 +1,64 @@
-# 7개 서비스를 하나의 레포에서 관리하는 이유
+# 왜 이 스택인가 — Turborepo + Fastify + LangChain.js + GCP Pub/Sub
 
-킴프로의 백엔드는 7개 마이크로서비스(API, Auth, Chat, Notification, Tools, Workflow, Workflow-History)와 11개 공유 패키지로 구성됩니다. 이 규모에서 각 서비스를 별도 레포지토리로 분리하면 어떻게 될까요? 타입 하나 바꾸려면 3개 레포에 PR을 올려야 하고, 공유 패키지 버전 맞추다 오전이 다 갑니다. Turborepo 모노레포로 이 문제를 해결한 과정을 정리합니다.
+인플루언서 마케팅 캠페인을 자동화하려면 AI 에이전트가 핵심이다. 에이전트 프레임워크를 먼저 정하고, 거기에 맞춰 언어, 백엔드, 통신, 저장소를 하나씩 결정해 나갔다.
 
-## 왜 모노레포인가
+## LangGraph에서 시작했다
 
-멀티에이전트 시스템에서 서비스 간 공유되는 것이 많습니다.
+캠페인 자동화는 단순한 질문-응답이 아니다. 기획 → 브리프 분석 → 크리에이터 매칭 → 가이드 생성으로 이어지는 복잡한 워크플로우가 필요했다. 단계별로 분기하고, 실패하면 롤백하고, 사용자 확인이 필요하면 멈췄다가 다시 이어가야 한다.
 
-| 공유 대상 | 예시 | 영향 범위 |
-|---|---|---|
-| 타입 정의 | `Campaign`, `CampaignKey`, `AgentNode` | 전체 서비스 |
-| 메시징 계약 | `WorkflowRequestEvent`, `Topic` enum | Chat ↔ Workflow ↔ History |
-| 데이터 접근 | `CampaignRepository`, `BaseRedisStore` | API, Workflow, Tools |
-| 유틸리티 | Fastify 플러그인, 날짜 변환 | 전체 HTTP 서비스 |
+**LangGraph**가 딱 이 문제를 풀어주고 있었다. 상태 머신 기반 그래프로 노드 간 순환, 조건부 분기, 체크포인팅, Human-in-the-Loop 인터럽트까지 — 프로덕션 수준의 에이전트 워크플로우에 필요한 것들이 프레임워크 수준에서 지원된다.
 
-타입 하나가 바뀌면 최소 3-4개 서비스에 영향이 갑니다. 멀티레포였다면 각 레포에 패키지를 배포하고, 버전을 올리고, 테스트를 돌려야 합니다. 모노레포에서는 타입을 수정하면 `turbo build`가 의존성 순서대로 전체를 빌드합니다. 깨지는 곳이 있으면 한 번의 CI에서 즉시 알 수 있습니다.
+LangGraph를 쓰기로 하면서 자연스럽게 LangChain 생태계 안에 들어오게 됐다. 이후 LangChain이 **v1.0**을 출시하면서 TypeScript 지원이 안정화되고, **LangSmith** 기반 Observability까지 제공하면서 이 생태계에 안주하게 됐다.
 
-## 레포 구조
+## 그런데 왜 Python이 아니라 TypeScript인가
 
-```
-kimpro-agent-service/
-├── kimpro/
-│   ├── apps/
-│   │   ├── api/           # REST API (Fastify 5)
-│   │   ├── auth/          # OAuth 인증 (Fastify 5)
-│   │   ├── chat/          # WebSocket 서버 (Fastify 5)
-│   │   ├── notification/  # 알림 처리 워커
-│   │   ├── tools/         # AI 도구 서버 (Fastify 5)
-│   │   ├── workflow/      # LangGraph 에이전트 워커
-│   │   └── workflow-history/ # 워크플로우 이력 저장
-│   └── frontend/          # Next.js 클라이언트
-├── packages/              # 11개 공유 패키지
-│   ├── database/          # MongoDB/Redis 접근 계층
-│   ├── messaging/         # GCP Pub/Sub 브로커
-│   ├── types-shared/      # 프론트·백엔드 공유 타입
-│   ├── types-backend/     # 백엔드 전용 타입
-│   └── ...
-├── turbo.json
-└── pnpm-workspace.yaml
-```
+LangChain은 Python 버전이 먼저 나왔고 커뮤니티도 더 크다. 그런데 우리 프론트엔드는 Next.js, 백엔드 API도 Node.js였다.
 
-`pnpm-workspace.yaml`에서 워크스페이스를 선언하고, Turborepo가 `package.json`의 의존성 그래프를 분석하여 빌드 순서를 자동으로 결정합니다. `packages/types-shared` → `packages/database` → `kimpro/apps/workflow` 순서로 빌드되는 식입니다.
+여기서 AI 서비스만 Python으로 분리하면 문제가 생긴다. 캠페인 데이터 구조 하나가 바뀌면 Python 쪽과 TypeScript 쪽 **모두 타입을 수정**해야 한다. 두 언어 간 타입 동기화는 수동으로 해야 하고, 누락되면 런타임에 터진다.
 
-## 기술 스택 선택 근거
+TypeScript로 통일하면 타입을 **한 곳에서 관리**할 수 있다. 프론트엔드, API, 에이전트 서비스가 모두 같은 타입 패키지를 참조하니까, 캠페인 스키마가 바뀌면 한 곳만 수정하면 전체에 반영된다. **Single Source of Truth.** LangChain.js는 핵심 기능에서 Python 버전과 기능 패리티가 거의 동일했기 때문에 이 선택이 가능했다.
 
-### Fastify 5
+## NestJS에서 시작했다가 Fastify로
 
-4개 HTTP 서비스(API, Auth, Chat, Tools)에 Fastify 5를 사용합니다. Express가 아닌 이유는 명확합니다.
+초기에는 NestJS로 백엔드를 구축했다. 그런데 LangChain.js를 붙이면서 문제가 생겼다.
 
-- **스키마 기반 직렬화**: Fastify의 JSON Schema 기반 직렬화는 `JSON.stringify` 대비 2-3배 빠릅니다. Agent 응답에 큰 JSON이 자주 오가는 상황에서 유의미한 차이
-- **플러그인 캡슐화**: 각 플러그인이 독립된 컨텍스트를 가지므로, 서비스별로 필요한 미들웨어만 등록 가능
-- **TypeScript 퍼스트**: 제네릭 기반 타입 추론이 내장되어, `@aimers/utils-fastify` 공유 패키지에서 타입 안전한 플러그인 작성 가능
+**NestJS는 CommonJS 기반인데, LangChain.js는 ESM(ECMAScript Modules) 전용**이다. 모듈 시스템이 충돌하면서 임포트 방식을 맞추느라 손이 많이 갔다. 단순히 설정을 바꾸는 수준이 아니라, 프레임워크와 라이브러리의 근본적인 모듈 시스템 불일치였다.
 
-### GCP Pub/Sub
+이 문제를 계기로 NestJS를 걷어내기로 했다. 대안으로 **Hono**와 **Fastify**를 검토했고, **Bun** 런타임도 고려했다.
 
-서비스 간 통신에 GCP Pub/Sub를 선택한 이유는 세 가지입니다.
+- **Hono vs Fastify** — Hono가 오버헤드는 더 적었지만, pnpm 모노레포 환경에서 프로세스가 한 번 올라간 뒤에는 유의미한 성능 차이가 없었다. Fastify가 생태계가 더 성숙하고 플러그인이 풍부했다.
+- **Bun vs Node.js** — Bun의 속도가 매력적이었지만, pnpm 기반 모노레포 생태계와의 호환성을 우선했다.
 
-1. **관리형 서비스**: 자체 Kafka/RabbitMQ 클러스터를 운영할 인프라 여력이 없었습니다. GCP Pub/Sub는 프로비저닝 없이 토픽만 만들면 됩니다.
-2. **Push/Pull 유연성**: Workflow 서비스는 Pull 구독으로 자체 페이스에 맞게 메시지를 처리하고, Chat 서비스는 인스턴스별 필터링된 구독을 사용합니다.
-3. **자동 재시도 + Dead Letter**: 메시지 처리 실패 시 자동 재시도와 Dead Letter 토픽 전달이 내장되어, 별도 재시도 로직 없이 안정적인 메시지 전달 보장
+결론은 **Fastify + Node.js**.
 
-### 3개 데이터 저장소
+## NestJS를 걷어내니 앱이 가벼워졌다
 
-| 저장소 | 역할 | 선택 이유 |
-|---|---|---|
-| PostgreSQL | LangGraph 체크포인트 (대화 히스토리) | `@langchain/langgraph-checkpoint-postgres` 공식 지원, 트랜잭션 보장 |
-| MongoDB | 캠페인·브랜드스페이스·사용자 데이터 | 캠페인 스키마가 유동적 (섹션 추가/변경 빈번), 유연한 도큐먼트 모델 적합 |
-| Redis | 캠페인 스냅샷, 세션, 캐시, 노드 레지스트리 | 워크플로우 실행 중 밀리초 단위 읽기/쓰기 필요, TTL 기반 자동 정리 |
+NestJS의 모듈/데코레이터 구조가 사라지니까, 각 서비스가 정말 필요한 것만 남게 됐다. 그러다 보니 자연스럽게 하나의 설계 원칙이 생겼다. **핵심 비즈니스 로직과 타입은 공유 패키지에서 관리하고, 각 앱은 그 로직을 연결하는 가벼운 통로로만 동작한다.**
 
-세 저장소의 역할이 명확히 분리됩니다. PostgreSQL은 "복구 가능한 상태", MongoDB는 "비즈니스 데이터", Redis는 "빠르게 접근해야 하는 임시 데이터"를 담당합니다.
+7개 서비스 전부가 HTTP 서버일 필요도 없었다. HTTP 요청을 받아야 하는 **4개 서비스**(API, Auth, Chat, Tools)만 Fastify를 사용하고, 나머지 **3개**(Notification, Workflow, Workflow-History)는 HTTP 프레임워크 없이 Pub/Sub 메시지만 구독하는 순수 워커로 구성했다.
 
-## Turborepo 파이프라인
+공유 패키지에 타입, 메시징 계약, 데이터 접근 계층을 두고, 각 앱은 최소한의 연결 코드만 가진다. 이걸 Turborepo 모노레포로 묶으면, 타입 하나가 바뀌어도 의존성 순서대로 빌드되고 깨지는 곳은 한 번의 CI에서 즉시 확인된다.
 
-```json
-{
-  "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**"],
-      "cache": true
-    },
-    "test": {
-      "dependsOn": ["^build"],
-      "cache": true
-    }
-  }
-}
-```
+## 서비스 간 통신 — 왜 메시지 큐가 필요했는가
 
-`"dependsOn": ["^build"]`가 핵심입니다. `^` 접두사는 "내 의존성 패키지들의 build가 먼저 완료되어야 한다"는 의미입니다. `@kimpro/workflow`를 빌드하면 Turborepo가 자동으로 `@aimers/types-shared` → `@aimers/database` → `@aimers/messaging` → `@kimpro/workflow` 순서로 빌드합니다.
+7개 서비스가 서로 통신해야 하는데, 단순 HTTP 호출로는 안 되는 구조적 문제가 있었다.
 
-캐시가 켜져 있으므로, 변경이 없는 패키지는 이전 빌드 결과를 재사용합니다. 11개 패키지 + 7개 앱 전체 빌드에서 실제로 다시 빌드되는 것은 변경된 패키지와 그 하위 의존성뿐입니다.
+AI 에이전트는 한 번의 응답을 생성하는 데 **수십 초에서 몇 분**이 걸린다. LLM이 토큰 단위로 응답을 생성해 나가는 동안 중간중간 도구 호출도 추적하고 전달해야 한다. 에이전트가 작업하는 동안 Chat 서비스는 **토큰 청크, 도구 실행 시작/완료, TODO 업데이트** 등을 실시간으로 받아 사용자에게 전달해야 한다. 이걸 HTTP 요청-응답으로 처리하면 몇 분씩 커넥션을 붙잡고 있어야 하고, 중간에 끊기면 전부 유실된다.
 
-## 핵심 인사이트
+여기에 두 가지 요구사항이 더 있었다. 하나의 워크플로우 실행 결과를 **여러 Chat 인스턴스에 동시에 전달**해야 하고(Fan-out), 스트리밍과 별개로 **모든 이벤트를 History 서비스에 유실 없이 기록**해야 한다(No-loss). 메시지 큐가 필수적인 구조였다.
 
-- **타입 공유가 많은 시스템에서 멀티레포는 버전 지옥**: 공유 타입이 10개 넘어가면 패키지 버전 관리만으로 하루가 끝남. 모노레포는 이 비용을 0으로 만듦
-- **저장소는 데이터 특성에 맞게 분리**: "전부 PostgreSQL"이나 "전부 MongoDB"가 아니라, 각 데이터의 접근 패턴과 일관성 요구 수준에 맞는 저장소를 선택
-- **Turborepo의 의존성 그래프 빌드가 CI 시간을 절반으로**: 변경이 없는 패키지를 건너뛰므로, 전체 빌드 대비 캐시 히트율이 높아 CI 파이프라인 속도가 크게 개선됨
+그룹에서 이미 GCP를 메인 클라우드로 사용하고 있었고, 팀원 수가 매우 적었다. Kafka나 RabbitMQ 클러스터를 직접 운영할 여력이 없었기 때문에, 추후에 변경하더라도 일단 **관리 포인트가 적은 온디맨드 서비스**를 쓰자는 판단을 내렸다. GCP Pub/Sub는 토픽만 생성하면 프로비저닝, 스케일링, 모니터링이 자동이고, 메시지 실패 시 자동 재시도와 Dead Letter 토픽도 내장되어 있다.
+
+## 3개 데이터 저장소
+
+메인 비즈니스 데이터베이스는 **MongoDB**로 결정했다. 캠페인 데이터의 고성능 읽기/쓰기를 담당한다.
+
+그런데 LangGraph 워크플로우 체크포인터가 당시 **PostgreSQL만 지원**했다. 에이전트 상태를 영속화해서 서버 재시작 후에도 워크플로우를 이어가려면 체크포인터가 필수였기 때문에, PostgreSQL을 추가했다. 추후 RAG 시스템 도입 가능성도 고려한 선택이었다.
+
+**Redis**는 여러 서비스에 걸쳐 필요했다. 워크플로우 실행 중 캠페인 스냅샷, 세션 관리, 캐시 등 — 밀리초 단위로 빠르게 읽고 써야 하는 상태 관리가 서비스 곳곳에 있었다.
+
+결과적으로 각 저장소의 역할이 겹치지 않는다. MongoDB는 비즈니스 데이터, PostgreSQL은 워크플로우 상태, Redis는 빠른 캐시와 임시 상태. 하나로 합치면 어딘가에서 타협이 생기는 구조였다.
+
+## 돌이켜보면
+
+**프레임워크 선택이 언어를 결정하고, 언어가 나머지를 결정했다.** LangGraph → TypeScript → Fastify → Turborepo 모노레포. 하나의 선택이 다음 선택을 좁혀갔고, 결과적으로 일관된 스택이 만들어졌다.
