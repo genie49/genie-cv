@@ -20,7 +20,7 @@ export default function QnAPage() {
         <h1 className="font-['Outfit'] text-2xl font-extrabold tracking-tight text-toss-heading">
           Self Q&A
         </h1>
-        <p className="text-[13px] text-toss-sub">
+        <p className="text-sm text-toss-sub">
           자기소개서 대신, 스스로에게 묻고 답한 기록
         </p>
       </motion.div>
@@ -48,7 +48,7 @@ export default function QnAPage() {
               >
                 <div className="flex items-center gap-2.5">
                   <MessageCircle size={14} className="text-toss-sub" />
-                  <span className="text-[13px] font-medium text-toss-heading">
+                  <span className="text-sm font-medium text-toss-heading">
                     {item.question}
                   </span>
                 </div>
@@ -69,7 +69,7 @@ export default function QnAPage() {
                     className="overflow-hidden"
                   >
                     <div className="mx-5 h-px bg-toss-border" />
-                    <div className="flex flex-col gap-3 px-5 py-4 text-[13px] leading-relaxed text-toss-body">
+                    <div className="flex flex-col gap-3 px-5 py-4 text-sm leading-relaxed text-toss-body">
                       {item.answer.split("\n\n").map((para, j) => (
                         <p key={j}>
                           {para.split(/(\*\*[^*]+\*\*)/).map((seg, k) =>
