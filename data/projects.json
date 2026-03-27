@@ -16,7 +16,7 @@
       "Docker",
       "Nginx"
     ],
-    "period": "2025.09 ~",
+    "period": "2025.09 ~ 2026.03",
     "features": [
       {
         "title": "멀티에이전트 캠페인 자동화",
@@ -332,6 +332,19 @@
           "Tool Design"
         ],
         "summary": "보고서 검색, 이미지 검색, 용어 사전, 시간 — 4개 도구를 에이전트가 직접 조합해서 답변하는 구조"
+      },
+      {
+        "id": "bonda-model-serving",
+        "projectSlug": "bonda",
+        "title": "서버리스 GPU에서 OCR 모델 서빙하기",
+        "date": "2026-03-27",
+        "tags": [
+          "vLLM",
+          "Modal",
+          "GPU",
+          "ML Serving"
+        ],
+        "summary": "Modal 서버리스 GPU(L40S)에서 vLLM 기반 OCR 모델 서빙 — fp8 KV-cache, 배치 최적화, Cold start 30초, 페이지당 3.1초 추론"
       }
     ]
   },
