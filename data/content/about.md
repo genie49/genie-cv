@@ -36,11 +36,11 @@
 
 ### 풀스택 E2E 구현력
 
-프론트엔드부터 백엔드, AI, 모바일, 인프라까지 혼자 또는 소규모 팀으로 아이디어를 프로덕트로 완성해왔습니다.
+프론트엔드부터 백엔드, AI, 모바일, 인프라까지 아이디어를 프로덕트로 완성해왔습니다.
 
 - **프론트엔드**: React, Next.js, Jetpack Compose — 채팅 UI, 인터랙티브 차트, 모바일 앱
 - **백엔드**: FastAPI, Fastify, ElysiaJS, NestJS — REST API, WebSocket, SSE 스트리밍
-- **AI/ML**: LangChain, Gemini, Claude, Sherpa-ONNX — 멀티에이전트, RAG, 온디바이스 STT/TTS
+- **AI/ML**: LangChain, LangGraph, vLLM, PyTorch, Sherpa-ONNX — 멀티에이전트, RAG, ML 서빙, 온디바이스 STT/TTS
 - **인프라**: Docker, AWS, GCP, Qdrant, PostgreSQL, MongoDB, Redis — 벡터 DB, 이벤트 드리븐 아키텍처
 - 특히 Agent 시스템에 필수적인 실시간 통신(WebSocket, SSE)과 스트리밍 파이프라인을 여러 프로젝트에서 반복 구현하며 패턴을 체득했습니다.
 
