@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, rmSync, readFileSync, writeFileSync, copyFileSync, readdirSync } from "fs";
-import { join, basename } from "path";
+import { join, dirname } from "path";
 
 const BASE_URL = "https://genie-cv.com";
 const ROOT = join(import.meta.dir, "..");
@@ -24,7 +24,7 @@ function ensureDir(dir: string) {
 
 function writeOut(relativePath: string, content: string) {
   const fullPath = join(LLMS_DIR, relativePath);
-  ensureDir(join(fullPath, ".."));
+  ensureDir(dirname(fullPath));
   writeFileSync(fullPath, content, "utf-8");
   console.log(`  ✓ ${relativePath}`);
 }
@@ -219,7 +219,15 @@ llmsTxt += `
 for (const file of noteFiles) {
   const id = file.replace(/\.md$/, "");
   const meta = allNotesMeta.get(id);
-  const label = meta ? meta.title : id;
+  let label = id;
+  if (meta) {
+    label = meta.title;
+  } else {
+    // orphan note — read title from markdown heading
+    const noteContent = readFileSync(join(notesDir, file), "utf-8");
+    const headingMatch = noteContent.match(/^#\s+(.+)/m);
+    if (headingMatch) label = headingMatch[1];
+  }
   llmsTxt += `- [${label}](${BASE_URL}/llms/notes/${file})\n`;
 }
 
