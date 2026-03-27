@@ -184,7 +184,6 @@ function DesktopProjectsRow() {
   const onPointerDown = useCallback((e: React.PointerEvent) => {
     const el = scrollRef.current;
     if (!el) return;
-    el.setPointerCapture(e.pointerId);
     dragState.current = { isDown: true, startX: e.clientX, scrollLeft: el.scrollLeft };
   }, []);
 
@@ -192,14 +191,21 @@ function DesktopProjectsRow() {
     const d = dragState.current;
     if (!d.isDown || !scrollRef.current) return;
     const dx = e.clientX - d.startX;
-    if (Math.abs(dx) > 4) setIsDragging(true);
+    if (Math.abs(dx) > 5) setIsDragging(true);
     scrollRef.current.scrollLeft = d.scrollLeft - dx;
   }, []);
 
   const onPointerUp = useCallback(() => {
     dragState.current.isDown = false;
-    setTimeout(() => setIsDragging(false), 0);
+    requestAnimationFrame(() => setIsDragging(false));
   }, []);
+
+  const onClickCapture = useCallback((e: React.MouseEvent) => {
+    if (isDragging) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, [isDragging]);
 
   return (
     <motion.div
@@ -214,6 +220,7 @@ function DesktopProjectsRow() {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerLeave={onPointerUp}
+        onClickCapture={onClickCapture}
       >
         {allProjects.map((project) => (
           <div
@@ -221,9 +228,7 @@ function DesktopProjectsRow() {
             className="shrink-0"
             style={{ width: CARD_W, height: 280 }}
           >
-            <div className="h-full" style={{ pointerEvents: isDragging ? "none" : "auto" }}>
-              <ProjectCard project={project} />
-            </div>
+            <ProjectCard project={project} />
           </div>
         ))}
       </div>
