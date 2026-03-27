@@ -6,3 +6,7 @@ dist/
 *.lance/
 !apps/server/db/
 !apps/server/db/**
+
+# Generated LLM files
+apps/client/public/llms.txt
+apps/client/public/llms/
