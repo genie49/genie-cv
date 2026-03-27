@@ -144,6 +144,7 @@ for (const p of projects) {
   md += `- 기간: ${p.period}\n`;
   md += `- 태그: ${p.tags.join(", ")}\n`;
   if (p.demo) md += `- 데모: ${p.demo}\n`;
+  if (p.github) md += `- GitHub: ${p.github}\n`;
 
   md += `\n## 주요 기능\n`;
   for (const feat of p.features) {
