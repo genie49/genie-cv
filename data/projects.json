@@ -48,7 +48,7 @@
         "id": "kimpro-tech-stack",
         "projectSlug": "kimpro",
         "title": "왜 이 스택인가 — Turborepo + Fastify + LangChain.js + GCP Pub/Sub",
-        "date": "2025-09-15",
+        "date": "2026-03-24",
         "tags": ["Turborepo", "Monorepo", "Fastify", "GCP Pub/Sub", "Architecture"],
         "summary": "Turborepo 모노레포로 7개 마이크로서비스를 관리하고, Fastify 5 + GCP Pub/Sub + PostgreSQL/MongoDB/Redis 조합을 선택한 기술적 근거"
       },
@@ -56,7 +56,7 @@
         "id": "kimpro-harness-engineering",
         "projectSlug": "kimpro",
         "title": "여긴 너를 위한 들판이야, 마음껏 뛰어 AI야",
-        "date": "2025-10-15",
+        "date": "2026-03-26",
         "tags": [
           "Harness Engineering",
           "Multi-Agent",
@@ -69,7 +69,7 @@
         "id": "kimpro-context-engineering",
         "projectSlug": "kimpro",
         "title": "AI에게 500페이지를 주지 마, 필요한 2페이지만 줘",
-        "date": "2025-10-20",
+        "date": "2026-03-24",
         "tags": [
           "Context Engineering",
           "Prompt Caching",
@@ -82,7 +82,7 @@
         "id": "kimpro-agent-ux",
         "projectSlug": "kimpro",
         "title": "말많은 수다쟁이를 멋들어진 발표자로",
-        "date": "2025-11-15",
+        "date": "2026-03-24",
         "tags": [
           "Streaming",
           "Agent UX",
@@ -94,7 +94,7 @@
         "id": "kimpro-agent-evaluation",
         "projectSlug": "kimpro",
         "title": "이 에이전트 진짜 잘하고 있는 거 맞아?",
-        "date": "2026-01-15",
+        "date": "2026-03-24",
         "tags": [
           "Evaluation",
           "Quality",
@@ -106,7 +106,7 @@
         "id": "kimpro-ai-system-design",
         "projectSlug": "kimpro",
         "title": "AI를 시스템에 맞추지 말고, 시스템을 AI에게 맞춰라",
-        "date": "2025-12-20",
+        "date": "2026-03-24",
         "tags": [
           "GCP Pub/Sub",
           "Redis",
@@ -174,7 +174,7 @@
         "id": "fingoo-chat-ux",
         "projectSlug": "fingoo",
         "title": "AI야 숫자 나열만 해주면 보기가 힘들어...",
-        "date": "2025-04-20",
+        "date": "2026-03-26",
         "tags": [
           "Socket.io",
           "Visualization",
@@ -187,7 +187,7 @@
         "id": "fingoo-agentic-ai",
         "projectSlug": "fingoo",
         "title": "세 번 갈아엎고 나서야 보였다 — AI에게 필요한 건 정교한 구조가 아니라 맥락이었다",
-        "date": "2025-05-15",
+        "date": "2026-03-25",
         "tags": [
           "LangChain",
           "Multi-Agent",
@@ -199,7 +199,7 @@
         "id": "fingoo-multimodal",
         "projectSlug": "fingoo",
         "title": "투자 분석 해줄려면 내가 정리해둔 엑셀 정도는 볼 줄 알아야지!",
-        "date": "2025-08-01",
+        "date": "2026-03-25",
         "tags": [
           "Multimodal",
           "File Upload",
@@ -211,7 +211,7 @@
         "id": "fingoo-rag-pipeline",
         "projectSlug": "fingoo",
         "title": "AI가 어제 뉴스도 모르면서 투자 분석을 한다고?",
-        "date": "2025-09-10",
+        "date": "2026-03-25",
         "tags": [
           "RAG",
           "pgvector",
@@ -224,7 +224,7 @@
         "id": "fingoo-ssm-deploy",
         "projectSlug": "fingoo",
         "title": "환경변수 어디에 정의돼 있지?",
-        "date": "2025-10-01",
+        "date": "2026-03-25",
         "tags": [
           "AWS SSM",
           "GitHub Actions",
@@ -236,7 +236,7 @@
         "id": "fingoo-wide-event-logging",
         "projectSlug": "fingoo",
         "title": "오류났네, 근데 왜 오류난 거지?",
-        "date": "2025-11-15",
+        "date": "2026-03-25",
         "tags": [
           "Wide Event",
           "FluentBit",
@@ -286,7 +286,7 @@
         "id": "bonda-tech-stack",
         "projectSlug": "bonda",
         "title": "왜 이 스택인가 — FastAPI + Next.js + Qdrant",
-        "date": "2026-02-15",
+        "date": "2026-03-26",
         "tags": [
           "FastAPI",
           "Next.js",
@@ -299,7 +299,7 @@
         "id": "bonda-pdf-pipeline",
         "projectSlug": "bonda",
         "title": "스캔 PDF가 검색 가능해지기까지",
-        "date": "2026-03-19",
+        "date": "2026-03-26",
         "tags": [
           "PaddleOCR",
           "Modal",
@@ -312,7 +312,7 @@
         "id": "bonda-vector-search",
         "projectSlug": "bonda",
         "title": "하나의 유물을 텍스트로도 이미지로도 찾는다",
-        "date": "2026-03-19",
+        "date": "2026-03-26",
         "tags": [
           "Qdrant",
           "Named Vector",
@@ -325,7 +325,7 @@
         "id": "bonda-agent-tools",
         "projectSlug": "bonda",
         "title": "에이전트에게 문화재 전문가의 도구를 쥐어주면",
-        "date": "2026-03-19",
+        "date": "2026-03-26",
         "tags": [
           "Agent",
           "LangChain",
@@ -366,7 +366,7 @@
         "id": "vocatoktok-tech-stack",
         "projectSlug": "vocatoktok",
         "title": "10년 된 코드를 새로 짓다",
-        "date": "2025-02-15",
+        "date": "2026-03-27",
         "tags": ["Next.js", "Prisma", "MySQL", "Migration", "PWA", "Vercel"],
         "summary": "PHP + Vanilla JS 레거시의 유지보수 한계에서 시작한 Next.js 전면 리빌드. Prisma db pull로 10년치 DB를 보존하고, PWA와 Vercel로 학습 접근성과 배포를 개선한 과정"
       },
@@ -374,7 +374,7 @@
         "id": "vocatoktok-db-encoding",
         "projectSlug": "vocatoktok",
         "title": "카페24에서 AWS로 — DB 마이그레이션 여정",
-        "date": "2025-03-15",
+        "date": "2026-03-27",
         "tags": ["MySQL", "AWS RDS", "Migration", "EUC-KR", "UTF-8"],
         "summary": "카페24 MySQL 5.x에서 AWS RDS 8.x로의 마이그레이션. 인코딩 전환, 학원별 분리 테이블 정규화, 단계별 변환 파이프라인 구성"
       },
@@ -382,7 +382,7 @@
         "id": "vocatoktok-learning-algorithm",
         "projectSlug": "vocatoktok",
         "title": "학습 알고리즘을 코드로 옮기다",
-        "date": "2025-04-01",
+        "date": "2026-03-27",
         "tags": ["Algorithm", "Learning Loop", "Adaptive Learning", "Data Analytics", "UX"],
         "summary": "특허 학습 알고리즘의 구현과 학습 데이터 활용. 5단계 학습 루프, 모드별 이해도 추적, 코칭용 보조 통계 지표 설계"
       },
@@ -390,7 +390,7 @@
         "id": "vocatoktok-tts-pipeline",
         "projectSlug": "vocatoktok",
         "title": "원어민 발음을 코드로 만들다",
-        "date": "2025-04-15",
+        "date": "2026-03-27",
         "tags": ["Google TTS", "Pipeline", "Multilingual"],
         "summary": "Google Cloud TTS + 3단계 캐싱(IndexedDB/S3/API) + 프리페치로 끊김 없는 발음 학습을 구현한 파이프라인"
       },
@@ -398,7 +398,7 @@
         "id": "vocatoktok-data-encryption",
         "projectSlug": "vocatoktok",
         "title": "학습 데이터를 지키는 방법",
-        "date": "2025-05-01",
+        "date": "2026-03-27",
         "tags": ["Encryption", "Security", "Data Protection"],
         "summary": "학습 콘텐츠 데이터 암호화 설계와 구현"
       }
@@ -450,7 +450,7 @@
         "id": "bara-tech-stack",
         "projectSlug": "hey-bara",
         "title": "왜 이 스택인가 — Sherpa-ONNX + Koog + Kotlin",
-        "date": "2026-01-10",
+        "date": "2026-03-26",
         "tags": ["Sherpa-ONNX", "Koog", "ONNX Runtime", "Kotlin", "Architecture"],
         "summary": "ONNX Runtime vs TFLite, Sherpa-ONNX vs Whisper, Koog vs LangChain — 온디바이스 AI 음성 비서를 위한 프레임워크 선택 근거"
       },
@@ -458,7 +458,7 @@
         "id": "bara-voice-pipeline",
         "projectSlug": "hey-bara",
         "title": "\"헤이 바라\" — 한마디로 시작되는 4단계 음성 파이프라인",
-        "date": "2026-01-15",
+        "date": "2026-03-26",
         "tags": [
           "Sherpa-ONNX",
           "STT",
@@ -471,7 +471,7 @@
         "id": "bara-koog-agent",
         "projectSlug": "hey-bara",
         "title": "음성 한마디에 14가지 행동 — Koog Agent와 Tool Calling",
-        "date": "2026-01-25",
+        "date": "2026-03-26",
         "tags": [
           "Koog",
           "Agent",
@@ -483,7 +483,7 @@
         "id": "bara-confirmation",
         "projectSlug": "hey-bara",
         "title": "AI가 멋대로 전화를 걸면 안 되잖아",
-        "date": "2026-02-15",
+        "date": "2026-03-26",
         "tags": [
           "HITL",
           "CompletableDeferred",
@@ -495,7 +495,7 @@
         "id": "bara-app-control",
         "projectSlug": "hey-bara",
         "title": "\"스포티파이에서 내 플레이리스트 틀어줘\"",
-        "date": "2026-02-25",
+        "date": "2026-03-26",
         "tags": [
           "Accessibility",
           "Vision-Language",
@@ -554,7 +554,7 @@
         "id": "chatbot-tech-stack",
         "projectSlug": "ai-portfolio-chatbot",
         "title": "왜 이 스택인가 — Bun + ElysiaJS + LanceDB",
-        "date": "2026-03-05",
+        "date": "2026-03-26",
         "tags": [
           "Bun",
           "ElysiaJS",
@@ -567,7 +567,7 @@
         "id": "rag-pipeline",
         "projectSlug": "ai-portfolio-chatbot",
         "title": "LanceDB + Gemini Embedding RAG 파이프라인",
-        "date": "2026-03-10",
+        "date": "2026-03-18",
         "tags": [
           "RAG",
           "LanceDB",
@@ -579,7 +579,7 @@
         "id": "sse-streaming",
         "projectSlug": "ai-portfolio-chatbot",
         "title": "답변 아래에 출처 칩이 붙는다",
-        "date": "2026-03-12",
+        "date": "2026-03-26",
         "tags": [
           "SSE",
           "ElysiaJS",
@@ -591,7 +591,7 @@
         "id": "langchain-agent",
         "projectSlug": "ai-portfolio-chatbot",
         "title": "LangChain ReAct 에이전트와 방어적 운영 설계",
-        "date": "2026-03-15",
+        "date": "2026-03-18",
         "tags": [
           "LangChain",
           "Agent"
@@ -602,7 +602,7 @@
         "id": "chatbot-defensive-ops",
         "projectSlug": "ai-portfolio-chatbot",
         "title": "퍼블릭 AI 사이트를 안전하게 운영하는 법",
-        "date": "2026-03-16",
+        "date": "2026-03-26",
         "tags": [
           "Rate Limiting",
           "Error Handling",
