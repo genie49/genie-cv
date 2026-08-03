@@ -63,9 +63,9 @@ function UserMessage() {
   return (
     <div className="flex justify-end">
       <div className="max-w-[80%] rounded-2xl bg-toss-blue px-4 py-3 text-white shadow-sm">
-        <p className="whitespace-pre-wrap text-[13px] leading-relaxed">
+        <div className="whitespace-pre-wrap text-[13px] leading-relaxed">
           <MessagePrimitive.Content />
-        </p>
+        </div>
       </div>
     </div>
   );
