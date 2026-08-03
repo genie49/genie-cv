@@ -332,11 +332,11 @@ export function VocaTokTokHero({
         {/* Study Modes */}
         <motion.g initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: FLOW_DELAY * 3.5, duration: 0.35 }}>
           <rect x={180} y={54} width={50} height={22} rx={2} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.7} />
-          <text x={205} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">RDT</text>
+          <text x={205} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">회상</text>
           <rect x={234} y={54} width={50} height={22} rx={2} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.7} />
-          <text x={259} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">RET</text>
+          <text x={259} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">인식</text>
           <rect x={288} y={54} width={55} height={22} rx={2} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.7} />
-          <text x={315} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">Selection</text>
+          <text x={315} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">선택형</text>
           <rect x={347} y={54} width={52} height={22} rx={2} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.7} />
           <text x={373} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">다국어</text>
         </motion.g>
@@ -350,26 +350,26 @@ export function VocaTokTokHero({
         {/* Loop steps */}
         <motion.g initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: FLOW_DELAY * 5, duration: 0.35 }}>
           <rect x={186} y={102} width={40} height={14} rx={2} fill="#ede9fe" stroke="#c4b5fd" strokeWidth={0.6} />
-          <text x={206} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#5b21b6">연습</text>
+          <text x={206} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#5b21b6">학습</text>
           <text x={230} y={112} textAnchor="middle" fontFamily="monospace" fontSize={6} fill="#c4b5fd">→</text>
           <rect x={236} y={102} width={40} height={14} rx={2} fill="#ede9fe" stroke="#c4b5fd" strokeWidth={0.6} />
-          <text x={256} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#5b21b6">테스트</text>
+          <text x={256} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#5b21b6">확인</text>
           <text x={280} y={112} textAnchor="middle" fontFamily="monospace" fontSize={6} fill="#c4b5fd">→</text>
           <rect x={286} y={102} width={42} height={14} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.6} />
-          <text x={307} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#9f1239">오답</text>
+          <text x={307} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#9f1239">미습득</text>
           <text x={332} y={112} textAnchor="middle" fontFamily="monospace" fontSize={6} fill="#fda4af">→</text>
           <rect x={338} y={102} width={42} height={14} rx={2} fill="#ede9fe" stroke="#c4b5fd" strokeWidth={0.6} />
-          <text x={359} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#5b21b6">재시험</text>
+          <text x={359} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#5b21b6">재확인</text>
           {/* Loop back arrow (curved path) */}
           <path d="M307,116 C307,128 206,128 206,116" stroke="#c4b5fd" strokeWidth={0.7} fill="none" strokeDasharray="2,2" />
           <polygon points="204,118 206,114 208,118" fill="#c4b5fd" />
         </motion.g>
 
-        {/* Know/Don't Know text */}
+        {/* 습득 판별 */}
         <motion.text initial={{ opacity: 0 }} animate={{ opacity: 0.6 }} transition={{ delay: FLOW_DELAY * 5.5, duration: 0.3 }}
           x={289} y={132} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#7c3aed"
         >
-          corr - inco ≥ 임계값 → 아는 단어 판별
+          모드별 이해도를 독립 추적해 습득 판별
         </motion.text>
 
         {/* ═══ Right side services ═══ */}
@@ -377,11 +377,11 @@ export function VocaTokTokHero({
         <Arrow points="399,60 428,50" delay={FLOW_DELAY * 6} stroke="#fcd34d" />
         <Node x={428} y={35} w={80} h={28} label="Google TTS" sub="발음 학습" color="amber" delay={FLOW_DELAY * 6} fs={6.5} />
 
-        {/* AES-256 */}
+        {/* 데이터 보호 */}
         <motion.g initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} transition={{ delay: FLOW_DELAY * 6.5, duration: 0.3 }}>
           <line x1={399} y1={85} x2={428} y2={83} stroke="#ccc" strokeWidth={0.6} strokeDasharray="2,2" />
         </motion.g>
-        <Node x={428} y={72} w={80} h={22} label="AES-256" color="rose" delay={FLOW_DELAY * 6.5} fs={6} />
+        <Node x={428} y={72} w={80} h={22} label="데이터 보호" color="rose" delay={FLOW_DELAY * 6.5} fs={6} />
 
         {/* Level System */}
         <Arrow points="398,120 428,116" delay={FLOW_DELAY * 7} stroke="#c4b5fd" />
