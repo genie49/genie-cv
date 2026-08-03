@@ -1,33 +1,33 @@
 graph LR
-    subgraph Services
-        Auth[Auth]
-        API[API]
-        Chat[Chat]
+    subgraph 요청 처리
+        S1[인증]
+        S2[조회 API]
+        S3[실시간 채널]
     end
 
-    subgraph "Pub/Sub Topics"
-        WReq[workflow.request]
-        WRes[workflow.response]
-        WHist[workflow.history]
-        WErr[workflow.error]
+    subgraph 메시지 토픽
+        T1[요청 토픽]
+        T2[응답 토픽]
+        T3[이력 토픽]
+        T4[오류 토픽]
     end
 
-    subgraph Workers
-        Workflow[Workflow Worker]
-        Tools[Tools Service]
-        Notification[Notification Worker]
-        History[History Worker]
+    subgraph 비동기 워커
+        WF[에이전트 실행]
+        TL[도구 실행]
+        NT[알림]
+        HS[이력 적재]
     end
 
-    Chat -->|publish| WReq
-    WReq -->|subscribe| Workflow
-    Workflow -->|publish| WRes
-    WRes -->|subscribe| Chat
-    Workflow -->|publish| WHist
-    WHist -->|subscribe| History
-    Workflow -->|publish| WErr
-    WErr -->|subscribe| Chat
+    S3 -->|발행| T1
+    T1 -->|구독| WF
+    WF -->|발행| T2
+    T2 -->|구독| S3
+    WF -->|발행| T3
+    T3 -->|구독| HS
+    WF -->|발행| T4
+    T4 -->|구독| S3
 
-    Workflow --> Tools
-    API -->|publish| Notification
-    Auth --> API
+    WF --> TL
+    S2 -->|발행| NT
+    S1 --> S2

@@ -4,10 +4,10 @@
 
 현장실습생/인턴. 인플루언서-브랜드 매칭 AI 서비스 개발.
 
-- LangChain 기반 멀티에이전트 시스템 설계 — Account Manager가 5개 전문 에이전트를 오케스트레이션하는 캠페인 자동화 워크플로우
-- GCP Pub/Sub 기반 이벤트 드리븐 마이크로서비스 아키텍처 설계 및 운영 (Auth·API·Chat·Workflow·Tools·Notification·History 7개 서비스)
-- WebSocket 실시간 스트리밍 파이프라인 구축 — messages·updates·tasks 3가지 모드로 Agent 실행 상황 전달
-- Redis CAS 패턴 기반 캠페인 스냅샷/롤백 시스템 구현, PostgreSQL 체크포인팅으로 Agent 대화 영속화
+- LangChain 기반 멀티에이전트 시스템 설계 — Supervisor가 영역별 전문 에이전트에게 위임하는 캠페인 자동화 워크플로우
+- 이벤트 드리븐 마이크로서비스 아키텍처 설계 및 운영 — 수 분 걸리는 LLM 응답을 메시지 큐로 유실 없이 전달
+- WebSocket 실시간 스트리밍 파이프라인 구축 — 텍스트·행동·데이터 변화를 층위별로 나눠 전달
+- 작업 스냅샷/롤백 시스템 구현, 체크포인팅으로 Agent 대화 영속화 및 중단 지점 재개
 - Anthropic Prompt Caching을 활용한 비용·지연 시간 최적화
 - Agent 품질 평가 체계 구축 및 자동화된 프롬프트 개선 루프
 
