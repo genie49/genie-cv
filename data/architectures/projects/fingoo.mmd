@@ -1,39 +1,34 @@
 graph LR
-    User[사용자] --> Nginx
-    Nginx --> Web[Next.js 프론트엔드]
-    Nginx --> API[NestJS 백엔드]
-    Nginx --> AI[FastAPI AI 서비스]
+    User[사용자] --> GW[게이트웨이]
+    GW --> Web[Next.js 프론트엔드]
+    GW --> API[NestJS 백엔드]
+    GW --> AI[FastAPI AI 서비스]
 
-    Web -->|Socket.io| AI
+    Web -->|WebSocket| AI
     Web -->|REST| API
     API --> DB[(PostgreSQL + pgvector)]
     AI --> DB
 
     subgraph AI 멀티 에이전트
-        AI --> Supervisor[Supervisor]
-        Supervisor --> Market[시장분석]
-        Supervisor --> Tech[기술분석]
-        Supervisor --> Research[리서치]
-        Supervisor --> Portfolio[포트폴리오]
-        Supervisor --> Quant[퀀트]
+        AI --> Supervisor[Supervisor<br/>위임만 담당]
+        Supervisor --> A[영역별 전문 에이전트]
     end
 
     subgraph 데이터 소스
-        Market --> yfinance
-        Research --> DART[DART 공시]
-        Research --> Tavily[Tavily 웹검색]
-        Tech --> TA[Technical Analysis]
+        A --> Market[시세 · 지표]
+        A --> Filing[공시 데이터]
+        A --> Web2[웹 검색]
     end
 
     subgraph LLM
-        AI --> Grok[Grok 4.1]
-        AI --> Claude[Claude Sonnet]
-        AI --> Gemini[Gemini Embedding]
+        AI --> Main[주 모델]
+        AI -.->|폴백| Alt[대체 모델]
+        AI --> Emb[임베딩]
     end
 
     subgraph 인프라
-        GHA[GitHub Actions] --> EC2[AWS EC2]
-        EC2 --> Nginx
-        SSM[AWS SSM] --> GHA
-        Redis --> API
+        CI[CI/CD] --> Deploy[컨테이너 배포]
+        Deploy --> GW
+        PS[파라미터 스토어] --> CI
+        Cache[(캐시)] --> API
     end

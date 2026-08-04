@@ -16,7 +16,7 @@
 창업팀 활동. 주식 투자 결정 보조 AI 서비스 개발.
 
 - NestJS+Puppeteer 금융 데이터 크롤러, PostgreSQL+pgvector 벡터 DB 파이프라인 구축
-- LangChain 기반 Multi-Agent 시스템 설계 (Supervisor 패턴, 7개 전문 에이전트)
+- LangChain 기반 Multi-Agent 시스템 설계 (Supervisor 패턴, 영역별 전문 에이전트)
 - FastAPI 백엔드 AWS EC2 배포, Next.js 채팅 UI 개발
 
 ## 풀스택 개발자 | 스톰스터디(헬프터) (2024.11 ~ 2025.08)
