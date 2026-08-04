@@ -35,14 +35,14 @@ ReAct 패턴을 선택한 이유: "안녕하세요"에는 RAG 없이 바로 인�
 
 ```typescript
 import { createAgent } from "langchain";
-import { ChatXAI } from "@langchain/xai";
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { SYSTEM_PROMPT } from "./prompts/system.prompt";
 import { ragSearchTool } from "./tools/rag-search.tool";
 import { env } from "../config/env";
 
-const llm = new ChatXAI({
-  apiKey: env.XAI_API_KEY,
-  model: "grok-4-1-fast-reasoning",
+const llm = new ChatGoogleGenerativeAI({
+  apiKey: env.GOOGLE_API_KEY,
+  model: "gemini-3.6-flash",
 });
 
 export const agent = createAgent({
@@ -196,16 +196,11 @@ export function checkRateLimit(ip: string): { allowed: boolean; remaining: numbe
 
 프롬프트 엔지니어링의 핵심: **LLM의 기본 행동을 바꾸려면 금지하는 것보다 올바른 행동을 명시하는 것**이 효과적입니다. "RAG를 남용하지 마세요"보다 "인사말에는 직접 답변하세요"가 더 잘 동작합니다.
 
-## LLM 선택: Grok 4.1
+## LLM 선택
 
-| 모델 | 비용 | 속도 | 한국어 품질 | 선택 이유 |
-|---|---|---|---|---|
-| GPT-4o | 높음 | 보통 | 높음 | 비용 부담 |
-| Claude Sonnet | 높음 | 빠름 | 높음 | 비용 부담 |
-| Gemini Flash | 매우 낮음 | 매우 빠름 | 보통 | 품질 불안정 |
-| **Grok 4.1** | **낮음** | **빠름** | **높음** | **비용 대비 품질 최적** |
+개인 프로젝트에서 API 비용은 직접 부담이므로, 처음에는 **비용 효율**을 기준으로 Grok 4.1 Fast Reasoning을 골랐습니다. 한국어 품질이 충분하면서 단가가 낮았기 때문입니다.
 
-개인 프로젝트에서 API 비용은 직접 부담이므로, 비용 효율이 중요합니다. Grok 4.1은 한국어 답변 품질이 GPT-4o에 준하면서 비용이 크게 낮습니다.
+이후 Gemini 3.6 Flash로 교체했습니다. 다만 이번에는 스펙표를 비교한 게 아니라 **이 챗봇 자체를 대상으로 실험을 설계해서** 결정했습니다. 시스템 프롬프트와 RAG 도구, 벡터DB를 고정하고 LLM만 바꿔가며 실제 대화를 돌린 결과, 후속 질문 처리에서 명확한 차이가 드러났습니다. 실험 설계와 측정 결과는 별도 노트에 정리했습니다.
 
 ## assistant-ui 통합
 

@@ -355,8 +355,8 @@ export function ChatbotHero({
           <text x={287} y={116} textAnchor="middle" fontFamily="monospace" fontSize={7} fontWeight={700} fill="#065f46">ReAct Agent</text>
         </motion.g>
 
-        {/* Grok LLM */}
-        <Node x={198} y={124} w={90} h={26} label="Grok 4.1" sub="LangChain.js" color="emerald" delay={FLOW_DELAY * 7} fontSize={7.5} />
+        {/* LLM */}
+        <Node x={198} y={124} w={90} h={26} label="Gemini 3.6 Flash" sub="LangChain.js" color="emerald" delay={FLOW_DELAY * 7} fontSize={7} />
 
         {/* RAG Search tool */}
         <motion.g initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: FLOW_DELAY * 8, duration: 0.35 }}>

@@ -1,0 +1,362 @@
+[
+  {
+    "id": "direct-backpressure",
+    "kind": "직설",
+    "query": "본다 인제스션 파이프라인에서 역압은 어떻게 걸었나요?",
+    "rank": 4,
+    "top5Sources": [
+      "notes/bonda-onprem-cutover.md",
+      "projects/bonda.md",
+      "notes/bonda-tech-stack.md",
+      "notes/bonda-ingestion-pipeline.md",
+      "projects/bonda.md"
+    ],
+    "offProject5": 0,
+    "latencyMs": 811
+  },
+  {
+    "id": "direct-qdrant",
+    "kind": "직설",
+    "query": "본다는 왜 pgvector 대신 Qdrant를 골랐나요?",
+    "rank": 1,
+    "top5Sources": [
+      "notes/bonda-tech-stack.md",
+      "notes/bonda-tech-stack.md",
+      "notes/chatbot-tech-stack.md",
+      "notes/rag-pipeline.md",
+      "notes/bonda-vector-search.md"
+    ],
+    "offProject5": 2,
+    "latencyMs": 471
+  },
+  {
+    "id": "direct-asym-embed",
+    "kind": "직설",
+    "query": "비대칭 임베딩을 왜 쓰나요?",
+    "rank": 1,
+    "top5Sources": [
+      "notes/bonda-vector-search.md",
+      "notes/rag-pipeline.md",
+      "notes/fingoo-rag-pipeline.md",
+      "notes/bonda-vector-search.md",
+      "notes/chatbot-tech-stack.md"
+    ],
+    "offProject5": 3,
+    "latencyMs": 467
+  },
+  {
+    "id": "direct-sliding-window",
+    "kind": "직설",
+    "query": "바라에서 대화 히스토리를 슬라이딩 윈도우로 관리한 이유",
+    "rank": 1,
+    "top5Sources": [
+      "notes/bara-koog-agent.md",
+      "notes/bara-voice-pipeline.md",
+      "notes/bonda-agent-tools.md",
+      "architectures/projects/hey-bara.mmd",
+      "notes/kimpro-agent-ux.md"
+    ],
+    "offProject5": 2,
+    "latencyMs": 459
+  },
+  {
+    "id": "direct-wide-event",
+    "kind": "직설",
+    "query": "Wide Event 로깅이 뭔가요?",
+    "rank": 1,
+    "top5Sources": [
+      "notes/fingoo-wide-event-logging.md",
+      "notes/fingoo-wide-event-logging.md",
+      "notes/fingoo-wide-event-logging.md",
+      "notes/fingoo-wide-event-logging.md",
+      "notes/fingoo-wide-event-logging.md"
+    ],
+    "offProject5": 0,
+    "latencyMs": 482
+  },
+  {
+    "id": "para-cost-migration",
+    "kind": "우회",
+    "query": "DB 요금이 너무 많이 나와서 인프라를 옮긴 적이 있나요?",
+    "rank": 3,
+    "top5Sources": [
+      "notes/bonda-onprem-cutover.md",
+      "notes/bonda-onprem-cutover.md",
+      "notes/bonda-onprem-cutover.md",
+      "notes/bonda-onprem-cutover.md",
+      "notes/vocatoktok-db-encoding.md"
+    ],
+    "offProject5": 1,
+    "latencyMs": 519
+  },
+  {
+    "id": "para-gpu-idle",
+    "kind": "우회",
+    "query": "그래픽카드가 놀고 있는 걸 발견하고 어떻게 개선했나요?",
+    "rank": 1,
+    "top5Sources": [
+      "notes/bonda-model-serving.md",
+      "notes/bonda-ingestion-pipeline.md",
+      "notes/bonda-ingestion-pipeline.md",
+      "notes/bonda-model-serving.md",
+      "notes/bonda-pdf-pipeline.md"
+    ],
+    "offProject5": 0,
+    "latencyMs": 510
+  },
+  {
+    "id": "para-undo",
+    "kind": "우회",
+    "query": "AI가 실수로 데이터를 망가뜨리면 되돌릴 수 있나요?",
+    "rank": 1,
+    "top5Sources": [
+      "notes/kimpro-harness-engineering.md",
+      "notes/kimpro-harness-engineering.md",
+      "notes/kimpro-harness-engineering.md",
+      "notes/kimpro-harness-engineering.md",
+      "notes/kimpro-ai-system-design.md"
+    ],
+    "offProject5": 0,
+    "latencyMs": 520
+  },
+  {
+    "id": "para-similar-name",
+    "kind": "우회",
+    "query": "이름이 비슷한 회사 때문에 검색이 엉뚱하게 나온 적 있나요?",
+    "rank": 1,
+    "top5Sources": [
+      "notes/fingoo-rag-pipeline.md",
+      "notes/bonda-agent-evaluation.md",
+      "notes/chatbot-model-eval.md",
+      "notes/bonda-onprem-cutover.md",
+      "notes/fingoo-rag-pipeline.md"
+    ],
+    "offProject5": 3,
+    "latencyMs": 440
+  },
+  {
+    "id": "para-secret",
+    "kind": "우회",
+    "query": "비밀번호나 키를 코드에 안 넣고 어떻게 관리했나요?",
+    "rank": 1,
+    "top5Sources": [
+      "notes/fingoo-ssm-deploy.md",
+      "notes/fingoo-ssm-deploy.md",
+      "notes/fingoo-ssm-deploy.md",
+      "notes/fingoo-ssm-deploy.md",
+      "notes/fingoo-ssm-deploy.md"
+    ],
+    "offProject5": 0,
+    "latencyMs": 471
+  },
+  {
+    "id": "para-cheap-model",
+    "kind": "우회",
+    "query": "쉬운 일에 비싼 모델을 쓰지 않으려고 어떻게 했나요?",
+    "rank": 11,
+    "top5Sources": [
+      "notes/bonda-model-serving.md",
+      "notes/bonda-model-serving.md",
+      "notes/bonda-model-serving.md",
+      "notes/chatbot-model-eval.md",
+      "notes/bonda-ingestion-pipeline.md"
+    ],
+    "offProject5": 1,
+    "latencyMs": 438
+  },
+  {
+    "id": "confuse-eval-bonda",
+    "kind": "혼동",
+    "query": "본다에서 검색 품질을 숫자로 어떻게 쟀나요?",
+    "rank": 1,
+    "top5Sources": [
+      "notes/bonda-agent-evaluation.md",
+      "notes/bonda-agent-evaluation.md",
+      "projects/bonda.md",
+      "projects/bonda.md",
+      "notes/bonda-tech-stack.md"
+    ],
+    "offProject5": 0,
+    "latencyMs": 470
+  },
+  {
+    "id": "confuse-eval-kimpro",
+    "kind": "혼동",
+    "query": "김프로에서 AI가 까다로운 사용자를 연기하게 만든 평가",
+    "rank": 1,
+    "top5Sources": [
+      "notes/kimpro-agent-evaluation.md",
+      "notes/bonda-agent-evaluation.md",
+      "notes/kimpro-agent-evaluation.md",
+      "notes/kimpro-agent-evaluation.md",
+      "notes/kimpro-harness-engineering.md"
+    ],
+    "offProject5": 1,
+    "latencyMs": 440
+  },
+  {
+    "id": "confuse-stack-chatbot",
+    "kind": "혼동",
+    "query": "이 포트폴리오 챗봇은 벡터 DB로 뭘 쓰나요?",
+    "rank": 1,
+    "top5Sources": [
+      "notes/chatbot-tech-stack.md",
+      "notes/chatbot-tech-stack.md",
+      "notes/rag-pipeline.md",
+      "notes/rag-pipeline.md",
+      "projects/ai-portfolio-chatbot.md"
+    ],
+    "offProject5": 2,
+    "latencyMs": 501
+  },
+  {
+    "id": "confuse-queue-kimpro",
+    "kind": "혼동",
+    "query": "김프로에서 서비스 사이에 메시지 큐를 왜 넣었나요?",
+    "rank": 1,
+    "top5Sources": [
+      "notes/kimpro-tech-stack.md",
+      "notes/kimpro-ai-system-design.md",
+      "notes/bonda-ingestion-pipeline.md",
+      "qna.json",
+      "notes/bonda-onprem-cutover.md"
+    ],
+    "offProject5": 3,
+    "latencyMs": 510
+  },
+  {
+    "id": "confuse-ratelimit",
+    "kind": "혼동",
+    "query": "챗봇에 무제한으로 질문이 들어오면 어떻게 막나요?",
+    "rank": 1,
+    "top5Sources": [
+      "notes/chatbot-defensive-ops.md",
+      "notes/langchain-agent.md",
+      "notes/chatbot-defensive-ops.md",
+      "notes/chatbot-defensive-ops.md",
+      "notes/bonda-ingestion-pipeline.md"
+    ],
+    "offProject5": 2,
+    "latencyMs": 519
+  },
+  {
+    "id": "confuse-tool-choice",
+    "kind": "혼동",
+    "query": "도구를 잘게 쪼갰더니 오히려 결과가 나빠진 경험",
+    "rank": 2,
+    "top5Sources": [
+      "notes/kimpro-harness-engineering.md",
+      "notes/fingoo-agentic-ai.md",
+      "notes/kimpro-harness-engineering.md",
+      "notes/chatbot-model-eval.md",
+      "notes/fingoo-agentic-ai.md"
+    ],
+    "offProject5": 3,
+    "latencyMs": 460
+  },
+  {
+    "id": "short-k3s",
+    "kind": "짧은질문",
+    "query": "쿠버네티스 어떻게 세팅했나요?",
+    "rank": 1,
+    "top5Sources": [
+      "notes/bonda-onprem-cutover.md",
+      "notes/bonda-model-serving.md",
+      "notes/bonda-ingestion-pipeline.md",
+      "notes/bonda-onprem-cutover.md",
+      "notes/bonda-ingestion-pipeline.md"
+    ],
+    "offProject5": 0,
+    "latencyMs": 437
+  },
+  {
+    "id": "short-backup",
+    "kind": "짧은질문",
+    "query": "DB 백업",
+    "rank": 2,
+    "top5Sources": [
+      "notes/bonda-onprem-cutover.md",
+      "notes/bonda-onprem-cutover.md",
+      "notes/vocatoktok-db-encoding.md",
+      "notes/vocatoktok-db-encoding.md",
+      "notes/bonda-onprem-cutover.md"
+    ],
+    "offProject5": 2,
+    "latencyMs": 450
+  },
+  {
+    "id": "short-tts",
+    "kind": "짧은질문",
+    "query": "TTS 캐싱",
+    "rank": 2,
+    "top5Sources": [
+      "notes/vocatoktok-tts-pipeline.md",
+      "notes/vocatoktok-tts-pipeline.md",
+      "notes/vocatoktok-tts-pipeline.md",
+      "notes/vocatoktok-tts-pipeline.md",
+      "notes/kimpro-context-engineering.md"
+    ],
+    "offProject5": 1,
+    "latencyMs": 493
+  },
+  {
+    "id": "short-onnx",
+    "kind": "짧은질문",
+    "query": "ONNX",
+    "rank": 1,
+    "top5Sources": [
+      "notes/bara-tech-stack.md",
+      "notes/bara-tech-stack.md",
+      "notes/bara-tech-stack.md",
+      "notes/fingoo-multimodal.md",
+      "notes/bonda-model-serving.md"
+    ],
+    "offProject5": 2,
+    "latencyMs": 457
+  },
+  {
+    "id": "short-encoding",
+    "kind": "짧은질문",
+    "query": "한글 깨짐 인코딩 마이그레이션",
+    "rank": 1,
+    "top5Sources": [
+      "notes/vocatoktok-db-encoding.md",
+      "notes/vocatoktok-db-encoding.md",
+      "notes/vocatoktok-db-encoding.md",
+      "projects/vocatoktok.md",
+      "notes/vocatoktok-db-encoding.md"
+    ],
+    "offProject5": 0,
+    "latencyMs": 450
+  },
+  {
+    "id": "recent-model-eval",
+    "kind": "최신",
+    "query": "챗봇 모델을 왜 바꿨나요?",
+    "rank": 2,
+    "top5Sources": [
+      "notes/chatbot-model-eval.md",
+      "notes/chatbot-model-eval.md",
+      "notes/langchain-agent.md",
+      "notes/bonda-agent-tools.md",
+      "notes/chatbot-tech-stack.md"
+    ],
+    "offProject5": 2,
+    "latencyMs": 503
+  },
+  {
+    "id": "recent-streaming-bug",
+    "kind": "최신",
+    "query": "모델 교체하고 나서 스트리밍이 깨진 버그",
+    "rank": 1,
+    "top5Sources": [
+      "notes/chatbot-model-eval.md",
+      "notes/chatbot-model-eval.md",
+      "notes/bara-voice-pipeline.md",
+      "notes/sse-streaming.md",
+      "notes/bonda-agent-tools.md"
+    ],
+    "offProject5": 3,
+    "latencyMs": 528
+  }
+]
