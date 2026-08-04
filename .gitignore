@@ -7,6 +7,9 @@ dist/
 !apps/server/db/
 !apps/server/db/**
 
+# 도구 로컬 상태 (Serena가 자동 생성/갱신)
+.serena/
+
 # Generated LLM files
 apps/client/public/llms.txt
 apps/client/public/llms/

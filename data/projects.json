@@ -566,7 +566,7 @@
       "LangChain",
       "RAG",
       "LanceDB",
-      "Grok"
+      "Gemini"
     ],
     "period": "2026.03",
     "github": "https://github.com/genie49/genie-cv",
@@ -648,6 +648,19 @@
           "Agent"
         ],
         "summary": "16줄의 ReAct 에이전트 구성, 조건부 도구 호출, IP 기반 rate limiting, 에러 분류 시스템 설계"
+      },
+      {
+        "id": "chatbot-model-eval",
+        "projectSlug": "ai-portfolio-chatbot",
+        "title": "모델을 바꾸기 전에 실험부터 짰다",
+        "date": "2026-08-04",
+        "tags": [
+          "Evaluation",
+          "LLM",
+          "Benchmark",
+          "Gemini"
+        ],
+        "summary": "벤치마크 점수 대신 이 챗봇 자체로 실험을 설계했다 — 무엇을 고정하고 무엇을 물어볼지 정하는 과정, 채점기가 먼저 틀렸던 순간, 그리고 실험이 잡아주지 못한 통합 버그"
       },
       {
         "id": "chatbot-defensive-ops",

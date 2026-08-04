@@ -26,7 +26,7 @@ scripts/
 | 영역 | 스택 |
 |------|------|
 | Frontend | React 19, Vite, TailwindCSS, React Router, Motion, assistant-ui |
-| Backend | Elysia, LangGraph, LangChain, xAI |
+| Backend | Elysia, LangGraph, LangChain, Gemini |
 | Embedding | Google AI (Gemini), LanceDB |
 | Runtime | Bun |
 | Shared | TypeScript monorepo (Bun workspaces) |
