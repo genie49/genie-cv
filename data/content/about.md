@@ -43,7 +43,7 @@
 - **백엔드**: FastAPI, Fastify, ElysiaJS, NestJS — REST API, WebSocket, SSE 스트리밍
 - **AI/ML**: LangChain, LangGraph, vLLM, PyTorch, Sherpa-ONNX — 멀티에이전트, RAG, ML 서빙, 온디바이스 STT/TTS
 - **인프라**: Docker, Kubernetes(k3s), AWS, GCP, Terraform, Qdrant, PostgreSQL, MongoDB, Redis — 벡터 DB, 이벤트 드리븐 아키텍처
-- **운영**: bonda의 서빙 스택을 관리형 조합에서 자체 k3s 클러스터로 이전하며 인증 자체 구현, 백업·복구 설계, 로그 파이프라인과 알림까지 직접 세웠습니다. 관리형을 떠날 때의 비용은 컴퓨트가 아니라 앱 전체에 스며든 결합이라는 걸 이때 배웠습니다.
+- **운영**: bonda에서 벡터DB 저장 비용이 적재량에 비례해 오르는 구조가 "데이터가 쌓일수록 좋아지는 제품"과 어긋난다고 판단해, 서빙 스택 전체를 자체 k3s 클러스터로 이전했습니다. 이 과정에서 인증 자체 구현, 백업·복구 설계, 로그 파이프라인과 알림까지 직접 세웠습니다. 관리형을 떠날 때의 비용은 컴퓨트가 아니라 앱 전체에 스며든 결합과 인수해야 할 운영이라는 걸 이때 배웠습니다.
 - 특히 Agent 시스템에 필수적인 실시간 통신(WebSocket, SSE)과 스트리밍 파이프라인을 여러 프로젝트에서 반복 구현하며 패턴을 체득했습니다.
 
 ## 관심 분야
