@@ -21,7 +21,7 @@ const SUGGESTION_POOL = [
   "헤이 바라에서 앱을 AI가 직접 제어하는 구조를 설명해주세요",
   // 기술 깊이 질문
   "AI 시스템에서 Context Engineering이 왜 중요한가요?",
-  "카페24에서 AWS로 DB를 마이그레이션한 경험을 알려주세요",
+  "10년치 EUC-KR 데이터를 마이그레이션한 경험을 알려주세요",
   "서버리스 환경에서 학습 데이터 보안을 어떻게 해결했나요?",
   "Wide Event 로깅이 기존 로깅과 뭐가 다른가요?",
   // 개인/철학 관련
@@ -63,9 +63,9 @@ function UserMessage() {
   return (
     <div className="flex justify-end">
       <div className="max-w-[80%] rounded-2xl bg-toss-blue px-4 py-3 text-white shadow-sm">
-        <p className="whitespace-pre-wrap text-[13px] leading-relaxed">
+        <div className="whitespace-pre-wrap text-[13px] leading-relaxed">
           <MessagePrimitive.Content />
-        </p>
+        </div>
       </div>
     </div>
   );

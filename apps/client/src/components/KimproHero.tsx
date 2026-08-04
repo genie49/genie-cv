@@ -320,7 +320,7 @@ export function KimproHero({
           transition={{ delay: FLOW_DELAY * 2.5, duration: 0.3 }}
           x={117} y={125} fontFamily="monospace" fontSize={5} fill="#a1a1aa" textAnchor="middle"
         >
-          auth_request
+          중앙 인증
         </motion.text>
 
         {/* Arrows: Nginx → Services */}
@@ -329,9 +329,9 @@ export function KimproHero({
         <Arrow points="145,118 168,143" delay={FLOW_DELAY * 3.5} />
 
         {/* ═══ Col 3: Services ═══ */}
-        <Node x={170} y={40} w={52} h={26} label="Auth" color="emerald" delay={FLOW_DELAY * 3} />
-        <Node x={170} y={78} w={52} h={26} label="API" color="emerald" delay={FLOW_DELAY * 3} />
-        <Node x={170} y={135} w={52} h={32} label="Chat" sub="Socket.IO" color="blue" delay={FLOW_DELAY * 4} />
+        <Node x={170} y={40} w={52} h={26} label="인증" color="emerald" delay={FLOW_DELAY * 3} />
+        <Node x={170} y={78} w={52} h={26} label="조회 API" color="emerald" delay={FLOW_DELAY * 3} fontSize={7} />
+        <Node x={170} y={135} w={52} h={32} label="실시간" sub="WebSocket" color="blue" delay={FLOW_DELAY * 4} fontSize={7} />
 
         {/* Arrow: Chat → Workflow (amber, with pub/sub label) */}
         <Arrow points="222,151 253,130" delay={FLOW_DELAY * 4.5} stroke="#fcd34d" />
@@ -352,12 +352,12 @@ export function KimproHero({
         >
           <rect x={255} y={32} width={195} height={175} rx={6} fill="#faf5ff" stroke="#c4b5fd" strokeWidth={1.5} />
           <text x={352} y={49} textAnchor="middle" fontFamily="monospace" fontSize={8} fontWeight={700} fill="#7c3aed">
-            Workflow Service
+            에이전트 실행 서비스
           </text>
         </motion.g>
 
-        {/* Account Manager (main agent node) */}
-        <Node x={272} y={57} w={160} h={38} label="Account Manager" sub="Supervisor · LangGraph · Claude/GPT" color="violet" delay={FLOW_DELAY * 5} />
+        {/* Orchestrator (main agent node) */}
+        <Node x={272} y={57} w={160} h={38} label="오케스트레이터" sub="Supervisor · LangGraph" color="violet" delay={FLOW_DELAY * 5} />
 
         {/* Sub-agents row */}
         <motion.g
@@ -365,23 +365,13 @@ export function KimproHero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: FLOW_DELAY * 6, duration: 0.35 }}
         >
-          {/* Insight */}
-          <rect x={268} y={104} width={38} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
-          <text x={287} y={117} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">Insight</text>
-          {/* Campaign */}
-          <rect x={310} y={104} width={44} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
-          <text x={332} y={117} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">Campaign</text>
-          {/* Content */}
-          <rect x={358} y={104} width={40} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
-          <text x={378} y={117} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">Content</text>
-          {/* Recruit */}
-          <rect x={402} y={104} width={38} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
-          <text x={421} y={117} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">Recruit</text>
-          {/* Lines: Account Manager → sub-agents */}
-          <line x1={305} y1={95} x2={287} y2={104} stroke="#c4b5fd" strokeWidth={0.6} />
-          <line x1={335} y1={95} x2={332} y2={104} stroke="#c4b5fd" strokeWidth={0.6} />
-          <line x1={370} y1={95} x2={378} y2={104} stroke="#c4b5fd" strokeWidth={0.6} />
-          <line x1={400} y1={95} x2={421} y2={104} stroke="#c4b5fd" strokeWidth={0.6} />
+          {/* 겹쳐 쌓인 카드로 "여러 개"를 표현 */}
+          <rect x={276} y={100} width={160} height={20} rx={2} fill="#fff" stroke="#ddd6fe" strokeWidth={0.6} opacity={0.55} />
+          <rect x={272} y={102} width={164} height={20} rx={2} fill="#fff" stroke="#d3c9fd" strokeWidth={0.6} opacity={0.75} />
+          <rect x={268} y={104} width={172} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
+          <text x={354} y={117} textAnchor="middle" fontFamily="monospace" fontSize={6} fill="#7c3aed">SubAgent × N</text>
+          {/* Line: 오케스트레이터 → sub-agents */}
+          <line x1={354} y1={95} x2={354} y2={100} stroke="#c4b5fd" strokeWidth={0.6} />
         </motion.g>
 
         {/* Middleware Pipeline bar */}
@@ -392,7 +382,7 @@ export function KimproHero({
         >
           <rect x={272} y={133} width={168} height={16} rx={8} fill="#f0e7ff" stroke="#ddd6fe" strokeWidth={0.7} />
           <text x={356} y={144} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">
-            Middleware Pipeline × 5
+            미들웨어 파이프라인
           </text>
         </motion.g>
 
@@ -403,19 +393,19 @@ export function KimproHero({
           transition={{ delay: FLOW_DELAY * 7, duration: 0.3 }}
         >
           <rect x={272} y={157} width={78} height={16} rx={3} fill="#fff" stroke="#d4d4d8" strokeWidth={0.7} />
-          <text x={311} y={168} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#71717a">PG Checkpoint</text>
+          <text x={311} y={168} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#71717a">체크포인트</text>
           <rect x={356} y={157} width={84} height={16} rx={3} fill="#fff" stroke="#d4d4d8" strokeWidth={0.7} />
           <text x={398} y={168} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#71717a">Prompt Cache</text>
         </motion.g>
 
-        {/* LLM Factory text */}
+        {/* 모델 티어 배치 */}
         <motion.text
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.5 }}
           transition={{ delay: FLOW_DELAY * 7, duration: 0.3 }}
           x={356} y={190} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#999"
         >
-          Dynamic Model Selection · LLM Factory
+          역할별 모델 티어 배치
         </motion.text>
 
         {/* ═══ Col 5: Tools API ═══ */}
@@ -430,15 +420,7 @@ export function KimproHero({
           HTTP
         </motion.text>
 
-        <Node x={472} y={32} w={98} h={28} label="Tools API" sub="Fastify · 독립 배포" color="amber" delay={FLOW_DELAY * 8} fontSize={8} />
-
-        {/* Tool items (2×3 grid) */}
-        <Node x={472} y={66} w={48} h={16} label="제품 분석" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
-        <Node x={524} y={66} w={43} h={16} label="키워드" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
-        <Node x={472} y={86} w={48} h={16} label="성과 예측" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
-        <Node x={524} y={86} w={43} h={16} label="매칭" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
-        <Node x={472} y={106} w={48} h={16} label="레퍼런스" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
-        <Node x={524} y={106} w={43} h={16} label="크롤링" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
+        <Node x={472} y={32} w={98} h={28} label="도구 실행 API" sub="독립 배포" color="amber" delay={FLOW_DELAY * 8} fontSize={8} />
 
         {/* ═══ Bottom: Pub/Sub Event Bus ═══ */}
         <Arrow points="352,207 352,222" delay={FLOW_DELAY * 8.5} dashed />
@@ -450,18 +432,18 @@ export function KimproHero({
         >
           <rect x={90} y={222} width={470} height={18} rx={9} fill="#fef3c7" stroke="#fcd34d" strokeWidth={1} />
           <text x={325} y={234} textAnchor="middle" fontFamily="monospace" fontSize={7} fontWeight={600} fill="#92400e">
-            GCP Pub/Sub Event Bus
+            메시지 큐 이벤트 버스
           </text>
         </motion.g>
 
         {/* Workers */}
-        <Node x={95} y={250} w={85} h={20} label="Notification WK" color="zinc" delay={FLOW_DELAY * 10} fontSize={7} />
-        <Node x={188} y={250} w={65} h={20} label="History WK" color="zinc" delay={FLOW_DELAY * 10} fontSize={7} />
+        <Node x={95} y={250} w={85} h={20} label="알림 워커" color="zinc" delay={FLOW_DELAY * 10} fontSize={7} />
+        <Node x={188} y={250} w={65} h={20} label="이력 워커" color="zinc" delay={FLOW_DELAY * 10} fontSize={7} />
 
         {/* DB */}
-        <Node x={350} y={250} w={65} h={20} label="PostgreSQL" color="emerald" delay={FLOW_DELAY * 10} fontSize={7} />
-        <Node x={420} y={250} w={55} h={20} label="MongoDB" color="emerald" delay={FLOW_DELAY * 10} fontSize={7} />
-        <Node x={480} y={250} w={42} h={20} label="Redis" color="emerald" delay={FLOW_DELAY * 10} fontSize={7} />
+        <Node x={350} y={250} w={65} h={20} label="관계형 DB" color="emerald" delay={FLOW_DELAY * 10} fontSize={7} />
+        <Node x={420} y={250} w={55} h={20} label="문서 DB" color="emerald" delay={FLOW_DELAY * 10} fontSize={7} />
+        <Node x={480} y={250} w={42} h={20} label="캐시" color="emerald" delay={FLOW_DELAY * 10} fontSize={7} />
 
         {/* Dashed lines: Pub/Sub → Workers/DB */}
         <Arrow points="137,240 137,250" delay={FLOW_DELAY * 9.5} dashed />

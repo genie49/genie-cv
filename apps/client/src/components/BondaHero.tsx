@@ -325,8 +325,8 @@ export function BondaHero({
         <Node x={15} y={45} w={55} h={28} label="Crawler" color="zinc" delay={FLOW_DELAY} fontSize={6.5} />
         <Arrow points="70,59 85,59" delay={FLOW_DELAY * 1.5} />
 
-        {/* PaddleOCR / PyMuPDF */}
-        <Node x={88} y={42} w={65} h={34} label="PaddleOCR" sub="Document Parser" color="amber" delay={FLOW_DELAY * 2} fontSize={6.5} />
+        {/* 문서 파서 / PyMuPDF */}
+        <Node x={88} y={42} w={65} h={34} label="dots.ocr" sub="Document Parser" color="amber" delay={FLOW_DELAY * 2} fontSize={6.5} />
         <Arrow points="153,59 168,59" delay={FLOW_DELAY * 2.5} />
 
         {/* Chunking */}
@@ -338,12 +338,12 @@ export function BondaHero({
         <Arrow points="310,59 325,59" delay={FLOW_DELAY * 4.5} />
 
         {/* Qdrant */}
-        <Node x={327} y={42} w={70} h={34} label="Qdrant" sub="3 Collections" color="cyan" delay={FLOW_DELAY * 5} fontSize={7} />
+        <Node x={327} y={42} w={70} h={34} label="Qdrant" sub="Named Vector" color="cyan" delay={FLOW_DELAY * 5} fontSize={7} />
 
-        {/* Modal GPU */}
-        <Node x={420} y={45} w={65} h={28} label="Modal GPU" sub="L40S · vLLM" color="zinc" delay={FLOW_DELAY * 3} fontSize={5.5} />
+        {/* GPU Pod */}
+        <Node x={420} y={45} w={65} h={28} label="GPU Pod × N" sub="vLLM · FP8" color="zinc" delay={FLOW_DELAY * 3} fontSize={5.5} />
 
-        {/* Dashed line: PaddleOCR → Modal GPU */}
+        {/* Dashed line: 문서 파서 → GPU Pod */}
         <motion.g
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.4 }}

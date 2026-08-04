@@ -1,45 +1,39 @@
 graph LR
-    User[사용자] --> Nginx
-    Nginx --> Frontend[Next.js 프론트엔드]
-    Nginx --> Auth[Auth 서비스]
-    Nginx --> API[API 서비스]
-    Nginx --> Chat[Chat 서비스]
-    Nginx --> Tools[Tools API]
+    User[사용자] --> GW[게이트웨이<br/>중앙 인증]
+    GW --> FE[프론트엔드]
+    GW --> S1[인증 서비스]
+    GW --> S2[조회 API]
+    GW --> S3[실시간 채널]
+    GW --> S4[도구 실행 API]
 
-    Frontend -->|Socket.IO| Chat
-    Frontend -->|REST| API
-    Chat -->|Pub/Sub| Workflow[Workflow 서비스]
+    FE -->|WebSocket| S3
+    FE -->|REST| S2
+    S3 -->|메시지 큐| WF[에이전트 실행 서비스]
 
-    subgraph AI 멀티에이전트
-        Workflow --> AM[Account Manager]
-        AM --> IA[Insight Analyst]
-        AM --> CM[Campaign Manager]
-        AM --> CP[Content Planner]
-        AM --> RM[Recruitment Manager]
-        AM --> CTM[Contract Manager]
+    subgraph 멀티에이전트
+        WF --> ORCH[오케스트레이터]
+        ORCH --> SUBS["SubAgent × N"]
     end
 
-    subgraph 워커
-        PubSub[GCP Pub/Sub] --> NW[Notification Worker]
-        PubSub --> HW[History Worker]
-        Workflow -->|이벤트 발행| PubSub
-        NW --> SendGrid[SendGrid]
+    subgraph 비동기 워커
+        MQ[(메시지 큐)] --> NW[알림 워커]
+        MQ --> HW[이력 워커]
+        WF -->|이벤트 발행| MQ
+        NW --> MAIL[외부 메일 발송]
     end
 
-    subgraph 데이터 레이어
-        API --> MongoDB[(MongoDB)]
-        API --> PostgreSQL[(PostgreSQL)]
-        Workflow --> PostgreSQL
-        Chat --> Redis[(Redis)]
+    subgraph 데이터 계층
+        S2 --> DOC[(문서 DB)]
+        S2 --> REL[(관계형 DB)]
+        WF --> REL
+        S3 --> KV[(인메모리 저장소)]
     end
 
-    subgraph 외부 도구
-        IA --> Tools
-        CM --> Tools
-        RM --> Tools
+    subgraph 도구 계층
+        SUBS --> S4
     end
 
     subgraph 인프라
-        GCS[Google Cloud Storage] --> API
-        GSM[Secret Manager] --> Auth
+        OBJ[오브젝트 스토리지] --> S2
+        SEC[시크릿 관리] --> S1
     end

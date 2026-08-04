@@ -312,107 +312,91 @@ export function VocaTokTokHero({
         </defs>
 
         {/* ═══ Col 1: Client ═══ */}
-        <Node x={12} y={80} w={58} h={35} label="Client" sub="Next.js 14" color="blue" delay={FLOW_DELAY} fs={7} />
-        <Arrow points="70,97 85,97" delay={FLOW_DELAY * 1.5} />
+        <Node x={12} y={112} w={58} h={34} label="Client" sub="Next.js 14" color="blue" delay={FLOW_DELAY} fs={7} />
+        <Arrow points="70,129 82,129" delay={FLOW_DELAY * 1.5} />
 
-        {/* ═══ Col 2: API Routes ═══ */}
-        <Node x={88} y={72} w={65} h={50} label="API Routes" sub="Route Handlers" color="emerald" delay={FLOW_DELAY * 2} fs={6.5} />
+        {/* ═══ Col 2: API Routes — 여기서 학습/관리자로 갈린다 ═══ */}
+        <Node x={86} y={104} w={66} h={50} label="API Routes" sub="Route Handlers" color="emerald" delay={FLOW_DELAY * 2} fs={6.5} />
 
-        {/* Arrows to services */}
-        <Arrow points="153,85 170,55" delay={FLOW_DELAY * 2.5} />
-        <Arrow points="153,97 170,97" delay={FLOW_DELAY * 2.5} />
-        <Arrow points="153,109 170,155" delay={FLOW_DELAY * 2.5} />
+        {/* ═══ Col 3: 두 갈래 페이지 ═══ */}
+        <Arrow points="152,116 160,116 160,90 166,90" delay={FLOW_DELAY * 2.5} />
+        <Node x={170} y={76} w={64} h={28} label="학습 페이지" color="blue" delay={FLOW_DELAY * 2.5} fs={6} />
 
-        {/* ═══ Col 3: 학습 시스템 (big box) ═══ */}
+        <Arrow points="152,142 160,142 160,184 166,184" delay={FLOW_DELAY * 2.5} />
+        <Node x={170} y={170} w={64} h={28} label="관리자 페이지" color="amber" delay={FLOW_DELAY * 2.5} fs={5.5} />
+
+        {/* ═══ Col 4: 학습 시스템 (big box) ═══ */}
+        <Arrow points="234,86 245,78" delay={FLOW_DELAY * 3} />
         <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 3, duration: 0.4 }}>
-          <rect x={168} y={30} width={240} height={115} rx={6} fill="#eff6ff" stroke="#93c5fd" strokeWidth={1.5} />
-          <text x={288} y={46} textAnchor="middle" fontFamily="monospace" fontSize={7} fontWeight={700} fill="#1e40af">학습 시스템</text>
+          <rect x={248} y={30} width={222} height={88} rx={6} fill="#eff6ff" stroke="#93c5fd" strokeWidth={1.5} />
+          <text x={359} y={46} textAnchor="middle" fontFamily="monospace" fontSize={7} fontWeight={700} fill="#1e40af">학습 시스템</text>
         </motion.g>
 
-        {/* Study Modes */}
-        <motion.g initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: FLOW_DELAY * 3.5, duration: 0.35 }}>
-          <rect x={180} y={54} width={50} height={22} rx={2} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.7} />
-          <text x={205} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">RDT</text>
-          <rect x={234} y={54} width={50} height={22} rx={2} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.7} />
-          <text x={259} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">RET</text>
-          <rect x={288} y={54} width={55} height={22} rx={2} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.7} />
-          <text x={315} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">Selection</text>
-          <rect x={347} y={54} width={52} height={22} rx={2} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.7} />
-          <text x={373} y={68} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#1e40af">다국어</text>
+        {/* 학습 모드 · 반복 학습 루프 — 존재만 드러낸다 */}
+        <motion.g initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: FLOW_DELAY * 4, duration: 0.35 }}>
+          <rect x={264} y={58} width={92} height={32} rx={3} fill="#dbeafe" stroke="#93c5fd" strokeWidth={0.9} />
+          <text x={310} y={71} textAnchor="middle" fontFamily="monospace" fontSize={6} fontWeight={600} fill="#1e40af">학습 모드</text>
+          <text x={310} y={81} textAnchor="middle" fontFamily="monospace" fontSize={4.8} fill="#2563eb" opacity={0.85}>유형별 출제</text>
+
+          <rect x={362} y={58} width={92} height={32} rx={3} fill="#ede9fe" stroke="#c4b5fd" strokeWidth={0.9} />
+          <text x={408} y={71} textAnchor="middle" fontFamily="monospace" fontSize={6} fontWeight={600} fill="#5b21b6">반복 학습 루프</text>
+          <text x={408} y={81} textAnchor="middle" fontFamily="monospace" fontSize={4.8} fill="#7c3aed" opacity={0.85}>미습득 재출제</text>
         </motion.g>
 
-        {/* ═══ Learning Loop (violet box inside) ═══ */}
-        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 4, duration: 0.4 }}>
-          <rect x={180} y={82} width={218} height={55} rx={4} fill="#faf5ff" stroke="#c4b5fd" strokeWidth={1.2} />
-          <text x={289} y={96} textAnchor="middle" fontFamily="monospace" fontSize={6} fontWeight={700} fill="#5b21b6">반복 학습 루프</text>
-        </motion.g>
-
-        {/* Loop steps */}
-        <motion.g initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: FLOW_DELAY * 5, duration: 0.35 }}>
-          <rect x={186} y={102} width={40} height={14} rx={2} fill="#ede9fe" stroke="#c4b5fd" strokeWidth={0.6} />
-          <text x={206} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#5b21b6">연습</text>
-          <text x={230} y={112} textAnchor="middle" fontFamily="monospace" fontSize={6} fill="#c4b5fd">→</text>
-          <rect x={236} y={102} width={40} height={14} rx={2} fill="#ede9fe" stroke="#c4b5fd" strokeWidth={0.6} />
-          <text x={256} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#5b21b6">테스트</text>
-          <text x={280} y={112} textAnchor="middle" fontFamily="monospace" fontSize={6} fill="#c4b5fd">→</text>
-          <rect x={286} y={102} width={42} height={14} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.6} />
-          <text x={307} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#9f1239">오답</text>
-          <text x={332} y={112} textAnchor="middle" fontFamily="monospace" fontSize={6} fill="#fda4af">→</text>
-          <rect x={338} y={102} width={42} height={14} rx={2} fill="#ede9fe" stroke="#c4b5fd" strokeWidth={0.6} />
-          <text x={359} y={112} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#5b21b6">재시험</text>
-          {/* Loop back arrow (curved path) */}
-          <path d="M307,116 C307,128 206,128 206,116" stroke="#c4b5fd" strokeWidth={0.7} fill="none" strokeDasharray="2,2" />
-          <polygon points="204,118 206,114 208,118" fill="#c4b5fd" />
-        </motion.g>
-
-        {/* Know/Don't Know text */}
-        <motion.text initial={{ opacity: 0 }} animate={{ opacity: 0.6 }} transition={{ delay: FLOW_DELAY * 5.5, duration: 0.3 }}
-          x={289} y={132} textAnchor="middle" fontFamily="monospace" fontSize={4.5} fill="#7c3aed"
+        {/* 습득 판별 */}
+        <motion.text initial={{ opacity: 0 }} animate={{ opacity: 0.6 }} transition={{ delay: FLOW_DELAY * 5, duration: 0.3 }}
+          x={359} y={104} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#7c3aed"
         >
-          corr - inco ≥ 임계값 → 아는 단어 판별
+          모드별 이해도를 독립 추적해 습득 판별
         </motion.text>
 
         {/* ═══ Right side services ═══ */}
         {/* Google TTS */}
-        <Arrow points="399,60 428,50" delay={FLOW_DELAY * 6} stroke="#fcd34d" />
-        <Node x={428} y={35} w={80} h={28} label="Google TTS" sub="발음 학습" color="amber" delay={FLOW_DELAY * 6} fs={6.5} />
-
-        {/* AES-256 */}
-        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} transition={{ delay: FLOW_DELAY * 6.5, duration: 0.3 }}>
-          <line x1={399} y1={85} x2={428} y2={83} stroke="#ccc" strokeWidth={0.6} strokeDasharray="2,2" />
-        </motion.g>
-        <Node x={428} y={72} w={80} h={22} label="AES-256" color="rose" delay={FLOW_DELAY * 6.5} fs={6} />
+        <Arrow points="470,46 482,44" delay={FLOW_DELAY * 6} stroke="#fcd34d" />
+        <Node x={484} y={30} w={95} h={26} label="Google TTS" sub="발음 학습" color="amber" delay={FLOW_DELAY * 6} fs={6.5} />
 
         {/* Level System */}
-        <Arrow points="398,120 428,116" delay={FLOW_DELAY * 7} stroke="#c4b5fd" />
-        <Node x={428} y={102} w={80} h={28} label="레벨 시스템" sub="난이도 자동 조절" color="violet" delay={FLOW_DELAY * 7} fs={5.5} />
+        <Arrow points="470,79 482,79" delay={FLOW_DELAY * 6.5} stroke="#c4b5fd" />
+        <Node x={484} y={66} w={95} h={26} label="레벨 시스템" sub="난이도 자동 조절" color="violet" delay={FLOW_DELAY * 6.5} fs={5.5} />
 
-        {/* ═══ Bottom: Academy + DB ═══ */}
-        <Node x={168} y={150} w={115} h={34} label="학원 관리" sub="학교·반·학생·강사" color="amber" delay={FLOW_DELAY * 8} fs={6} />
+        {/* 데이터 보호 */}
+        <motion.g initial={{ opacity: 0 }} animate={{ opacity: 0.7 }} transition={{ delay: FLOW_DELAY * 7, duration: 0.3 }}>
+          <line x1={470} y1={112} x2={482} y2={112} stroke="#fda4af" strokeWidth={0.9} strokeDasharray="2,2" />
+        </motion.g>
+        <Node x={484} y={100} w={95} h={24} label="데이터 보호" color="rose" delay={FLOW_DELAY * 7} fs={6} />
 
-        <Node x={300} y={150} w={55} h={34} label="Prisma" sub="ORM" color="cyan" delay={FLOW_DELAY * 8} fs={6.5} />
-        <Arrow points="355,167 370,167" delay={FLOW_DELAY * 8.5} />
-        <Node x={372} y={150} w={75} h={34} label="MySQL" sub="AWS RDS · UTF-8" color="cyan" delay={FLOW_DELAY * 8.5} fs={6.5} />
+        {/* ═══ 학습 기록 저장 (학습 시스템 → DB) ═══ */}
+        <Arrow points="382,118 382,166" delay={FLOW_DELAY * 7.5} />
+        <motion.text initial={{ opacity: 0 }} animate={{ opacity: 0.75 }} transition={{ delay: FLOW_DELAY * 7.5, duration: 0.3 }}
+          x={388} y={145} fontFamily="monospace" fontSize={5} fill="#2563eb"
+        >
+          학습 기록 저장
+        </motion.text>
 
-        <Node x={460} y={155} w={48} h={24} label="PWA" color="zinc" delay={FLOW_DELAY * 9} fs={5.5} />
+        {/* ═══ Bottom: 관리자 경로 + DB ═══ */}
+        <Arrow points="234,184 245,184" delay={FLOW_DELAY * 8} />
+        <Node x={248} y={168} w={92} h={32} label="학원 관리" sub="학교·반·학생" color="amber" delay={FLOW_DELAY * 8} fs={6} />
+
+        <Arrow points="340,184 353,184" delay={FLOW_DELAY * 8.5} />
+        <Node x={356} y={168} w={52} h={32} label="Prisma" sub="ORM" color="cyan" delay={FLOW_DELAY * 8.5} fs={6.5} />
+        <Arrow points="408,184 421,184" delay={FLOW_DELAY * 9} />
+        <Node x={424} y={168} w={78} h={32} label="MySQL" sub="AWS RDS · UTF-8" color="cyan" delay={FLOW_DELAY * 9} fs={6.5} />
+
+        {/* ═══ 진도 조회 (DB → 관리자 페이지) ═══ */}
+        <Arrow points="463,200 463,214 202,214 202,198" delay={FLOW_DELAY * 9.5} dashed />
+        <motion.text initial={{ opacity: 0 }} animate={{ opacity: 0.75 }} transition={{ delay: FLOW_DELAY * 9.5, duration: 0.3 }}
+          x={332} y={208} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#d97706"
+        >
+          학생별 진도·성적 조회
+        </motion.text>
 
         {/* ═══ Infra bar ═══ */}
         <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: FLOW_DELAY * 10, duration: 0.3 }}>
-          <rect x={90} y={210} width={420} height={16} rx={8} fill="#f4f4f5" stroke="#d4d4d8" strokeWidth={0.8} />
-          <text x={300} y={221} textAnchor="middle" fontFamily="monospace" fontSize={6} fontWeight={600} fill="#52525b">
+          <rect x={110} y={236} width={400} height={16} rx={8} fill="#f4f4f5" stroke="#d4d4d8" strokeWidth={0.8} />
+          <text x={310} y={247} textAnchor="middle" fontFamily="monospace" fontSize={6} fontWeight={600} fill="#52525b">
             Vercel · AWS RDS/S3/Lambda · Sentry · PWA
           </text>
         </motion.g>
-
-        <Node x={100} y={236} w={50} h={14} label="Vercel" color="emerald" delay={FLOW_DELAY * 10.5} fs={5.5} />
-        <Node x={155} y={236} w={55} h={14} label="AWS S3" color="zinc" delay={FLOW_DELAY * 10.5} fs={5.5} />
-        <Node x={215} y={236} w={60} h={14} label="Lambda" color="zinc" delay={FLOW_DELAY * 10.5} fs={5.5} />
-        <Node x={280} y={236} w={50} h={14} label="Sentry" color="zinc" delay={FLOW_DELAY * 10.5} fs={5.5} />
-
-        <Arrow points="125,226 125,236" delay={FLOW_DELAY * 10.5} dashed />
-        <Arrow points="182,226 182,236" delay={FLOW_DELAY * 10.5} dashed />
-        <Arrow points="245,226 245,236" delay={FLOW_DELAY * 10.5} dashed />
-        <Arrow points="305,226 305,236" delay={FLOW_DELAY * 10.5} dashed />
       </svg>
     </motion.div>
   );

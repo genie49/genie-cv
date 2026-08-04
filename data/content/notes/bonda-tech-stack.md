@@ -34,8 +34,8 @@ flowchart LR
     end
 
     subgraph "데이터 파이프라인"
-        Crawler["Crawler<br/>PDF 수집"] --> Pipeline["archie-pipeline<br/>파싱 · 청킹 · 임베딩"]
-        Pipeline --> Modal["Modal GPU<br/>PaddleOCR"]
+        Crawler["Crawler<br/>PDF 수집"] --> Pipeline["전처리 파이프라인<br/>파싱 · 청킹 · 임베딩"]
+        Pipeline --> GPU["GPU Pod × N<br/>문서 파서"]
     end
 
     subgraph "저장소"
@@ -57,7 +57,7 @@ flowchart LR
 
 AI 백엔드는 Python(FastAPI), 프론트엔드는 Node.js(Next.js)로 분리했다. Python을 선택한 이유가 여러 겹이었다.
 
-첫째, **팀원 모두가 Python에 익숙**했다. 둘째, 데이터 크롤링부터 PDF 전처리, 임베딩 파이프라인까지 **전처리 스택이 전부 Python**이다. 이 생태계 안에서 백엔드도 Python으로 가는 게 자연스러웠다. LangChain, qdrant-client, Google GenAI 같은 AI 라이브러리의 1st-class 지원도 Python에 집중되어 있다. 셋째, FastAPI는 **경량 프레임워크라 서버리스(Cloud Run)에 적합**하다. 콜드 스타트가 빠르고, 불필요한 오버헤드가 없다.
+첫째, **팀의 공통 언어가 Python**이었다. 둘째, 데이터 크롤링부터 PDF 전처리, 임베딩 파이프라인까지 **전처리 스택이 전부 Python**이다. 이 생태계 안에서 백엔드도 Python으로 가는 게 자연스러웠다. LangChain, qdrant-client, Google GenAI 같은 AI 라이브러리의 1st-class 지원도 Python에 집중되어 있다. 셋째, FastAPI는 **경량 프레임워크라 서버리스(Cloud Run)에 적합**하다. 콜드 스타트가 빠르고, 불필요한 오버헤드가 없다.
 
 Python 백엔드는 순수하게 **LLM 응답을 위한 서비스**다. 에이전트 실행, 도구 호출, SSE 스트리밍 — 이 세 가지만 담당한다. 프론트엔드의 관계형 데이터(사용자, 채팅 세션)는 Next.js 쪽에서 직접 관리한다.
 
