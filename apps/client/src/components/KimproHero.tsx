@@ -422,14 +422,6 @@ export function KimproHero({
 
         <Node x={472} y={32} w={98} h={28} label="도구 실행 API" sub="독립 배포" color="amber" delay={FLOW_DELAY * 8} fontSize={8} />
 
-        {/* Tool items (2×3 grid) */}
-        <Node x={472} y={66} w={48} h={16} label="분석 도구" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
-        <Node x={524} y={66} w={43} h={16} label="탐색" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
-        <Node x={472} y={86} w={48} h={16} label="생성 도구" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
-        <Node x={524} y={86} w={43} h={16} label="검증" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
-        <Node x={472} y={106} w={48} h={16} label="수집 도구" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
-        <Node x={524} y={106} w={43} h={16} label="변환" color="orange" delay={FLOW_DELAY * 8} fontSize={6.5} />
-
         {/* ═══ Bottom: Pub/Sub Event Bus ═══ */}
         <Arrow points="352,207 352,222" delay={FLOW_DELAY * 8.5} dashed />
 
