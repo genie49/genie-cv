@@ -35,7 +35,7 @@ flowchart LR
 
     subgraph "데이터 파이프라인"
         Crawler["Crawler<br/>PDF 수집"] --> Pipeline["전처리 파이프라인<br/>파싱 · 청킹 · 임베딩"]
-        Pipeline --> Modal["Modal GPU<br/>문서 파서"]
+        Pipeline --> GPU["GPU Pod × N<br/>문서 파서"]
     end
 
     subgraph "저장소"

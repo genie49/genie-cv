@@ -76,7 +76,7 @@
     "AI/ML": ["LangChain", "LangGraph", "RAG", "vLLM", "PyTorch", "HuggingFace Transformers", "Sherpa-ONNX"],
     "BACKEND": ["FastAPI", "Fastify", "NestJS", "ElysiaJS", "Prisma"],
     "DB/MESSAGE": ["PostgreSQL", "pgvector", "Qdrant", "LanceDB", "MongoDB", "Redis", "GCP Pub/Sub", "MySQL"],
-    "DEVOPS/INFRA": ["Docker", "AWS", "GCP", "Modal", "GitHub Actions", "Linux"],
+    "DEVOPS/INFRA": ["Docker", "AWS", "GCP", "Modal", "RunPod", "GitHub Actions", "Linux"],
     "FRONTEND": ["React", "Next.js", "Tailwind CSS", "Zustand", "Recoil", "Drizzle ORM"],
     "MOBILE": ["Kotlin", "Jetpack Compose", "Android"]
   }
