@@ -325,8 +325,8 @@ export function BondaHero({
         <Node x={15} y={45} w={55} h={28} label="Crawler" color="zinc" delay={FLOW_DELAY} fontSize={6.5} />
         <Arrow points="70,59 85,59" delay={FLOW_DELAY * 1.5} />
 
-        {/* PaddleOCR / PyMuPDF */}
-        <Node x={88} y={42} w={65} h={34} label="PaddleOCR" sub="Document Parser" color="amber" delay={FLOW_DELAY * 2} fontSize={6.5} />
+        {/* 문서 파서 / PyMuPDF */}
+        <Node x={88} y={42} w={65} h={34} label="dots.ocr" sub="Document Parser" color="amber" delay={FLOW_DELAY * 2} fontSize={6.5} />
         <Arrow points="153,59 168,59" delay={FLOW_DELAY * 2.5} />
 
         {/* Chunking */}
@@ -338,12 +338,12 @@ export function BondaHero({
         <Arrow points="310,59 325,59" delay={FLOW_DELAY * 4.5} />
 
         {/* Qdrant */}
-        <Node x={327} y={42} w={70} h={34} label="Qdrant" sub="3 Collections" color="cyan" delay={FLOW_DELAY * 5} fontSize={7} />
+        <Node x={327} y={42} w={70} h={34} label="Qdrant" sub="Named Vector" color="cyan" delay={FLOW_DELAY * 5} fontSize={7} />
 
-        {/* Modal GPU */}
-        <Node x={420} y={45} w={65} h={28} label="Modal GPU" sub="L40S · vLLM" color="zinc" delay={FLOW_DELAY * 3} fontSize={5.5} />
+        {/* GPU Pod */}
+        <Node x={420} y={45} w={65} h={28} label="GPU Pod × N" sub="vLLM · FP8" color="zinc" delay={FLOW_DELAY * 3} fontSize={5.5} />
 
-        {/* Dashed line: PaddleOCR → Modal GPU */}
+        {/* Dashed line: 문서 파서 → GPU Pod */}
         <motion.g
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.4 }}
@@ -395,25 +395,20 @@ export function BondaHero({
         {/* LangChain */}
         <Node x={192} y={122} w={100} h={28} label="LangChain" sub="Claude / Gemini" color="emerald" delay={FLOW_DELAY * 8} fontSize={7.5} />
 
-        {/* 4 Tools */}
+        {/* Tools — 데이터를 가져오는 쪽 / 화면을 조작하는 쪽 */}
         <motion.g
           initial={{ opacity: 0, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: FLOW_DELAY * 9, duration: 0.35 }}
         >
-          <rect x={192} y={158} width={48} height={16} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
-          <text x={216} y={169} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#9f1239">문서 검색</text>
-          <rect x={244} y={158} width={48} height={16} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
-          <text x={268} y={169} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#9f1239">이미지 검색</text>
-          <rect x={296} y={158} width={48} height={16} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
-          <text x={320} y={169} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#9f1239">사전 조회</text>
-          <rect x={348} y={158} width={44} height={16} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
-          <text x={370} y={169} textAnchor="middle" fontFamily="monospace" fontSize={5} fill="#9f1239">웹 검색</text>
+          <rect x={192} y={158} width={92} height={18} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
+          <text x={238} y={170} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#9f1239">검색 도구 × N</text>
+          <rect x={292} y={158} width={100} height={18} rx={2} fill="#ffe4e6" stroke="#fda4af" strokeWidth={0.7} />
+          <text x={342} y={167} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#9f1239">지도 도구 × N</text>
+          <text x={342} y={174} textAnchor="middle" fontFamily="monospace" fontSize={4} fill="#be123c">클라이언트 실행</text>
           {/* Lines: LangChain → Tools */}
-          <line x1={220} y1={150} x2={216} y2={158} stroke="#fda4af" strokeWidth={0.5} />
-          <line x1={242} y1={150} x2={268} y2={158} stroke="#fda4af" strokeWidth={0.5} />
-          <line x1={270} y1={150} x2={320} y2={158} stroke="#fda4af" strokeWidth={0.5} />
-          <line x1={290} y1={150} x2={370} y2={158} stroke="#fda4af" strokeWidth={0.5} />
+          <line x1={228} y1={150} x2={238} y2={158} stroke="#fda4af" strokeWidth={0.5} />
+          <line x1={266} y1={150} x2={342} y2={158} stroke="#fda4af" strokeWidth={0.5} />
         </motion.g>
 
         {/* SSE Streaming + LangSmith */}
@@ -438,8 +433,8 @@ export function BondaHero({
           <text x={374} y={90} fontFamily="monospace" fontSize={4.5} fill="#0891b2">query</text>
         </motion.g>
 
-        {/* GCS */}
-        <Node x={420} y={115} w={65} h={28} label="GCS" sub="이미지 저장" color="zinc" delay={FLOW_DELAY * 9} fontSize={6} />
+        {/* Object Storage */}
+        <Node x={420} y={115} w={65} h={28} label="S3" sub="이미지 저장" color="zinc" delay={FLOW_DELAY * 9} fontSize={6} />
 
         {/* Dual Vector */}
         <motion.g
@@ -470,14 +465,14 @@ export function BondaHero({
         >
           <rect x={90} y={222} width={400} height={16} rx={8} fill="#f4f4f5" stroke="#d4d4d8" strokeWidth={0.8} />
           <text x={290} y={233} textAnchor="middle" fontFamily="monospace" fontSize={6} fontWeight={600} fill="#52525b">
-            Docker Compose · Vercel · LangSmith Tracing
+            k3s · Kustomize · CNPG · Traefik · Grafana/Loki
           </text>
         </motion.g>
 
         {/* Bottom: DB/Storage */}
         <Node x={100} y={248} w={55} h={16} label="PostgreSQL" color="emerald" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
         <Node x={160} y={248} w={48} h={16} label="Qdrant" color="cyan" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
-        <Node x={213} y={248} w={38} h={16} label="GCS" color="zinc" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
+        <Node x={213} y={248} w={38} h={16} label="S3" color="zinc" delay={FLOW_DELAY * 10.5} fontSize={5.5} />
 
         <Arrow points="127,238 127,248" delay={FLOW_DELAY * 10.5} dashed />
         <Arrow points="184,238 184,248" delay={FLOW_DELAY * 10.5} dashed />

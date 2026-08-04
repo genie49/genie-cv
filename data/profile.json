@@ -38,7 +38,7 @@
     {
       "title": "백엔드/AI 엔지니어",
       "company": "아이머스",
-      "period": "2025.09 ~ 2026.03",
+      "period": "2025.09 ~ 2026.07",
       "type": "현장실습생/인턴",
       "description": "인플루언서-브랜드 매칭 AI 서비스 개발. 백엔드 및 AI 엔지니어링 담당"
     },
@@ -76,7 +76,7 @@
     "AI/ML": ["LangChain", "LangGraph", "RAG", "vLLM", "PyTorch", "HuggingFace Transformers", "Sherpa-ONNX"],
     "BACKEND": ["FastAPI", "Fastify", "NestJS", "ElysiaJS", "Prisma"],
     "DB/MESSAGE": ["PostgreSQL", "pgvector", "Qdrant", "LanceDB", "MongoDB", "Redis", "GCP Pub/Sub", "MySQL"],
-    "DEVOPS/INFRA": ["Docker", "AWS", "GCP", "Modal", "GitHub Actions", "Linux"],
+    "DEVOPS/INFRA": ["Docker", "Kubernetes", "Terraform", "AWS", "GCP", "Modal", "RunPod", "GitHub Actions", "Grafana", "Linux"],
     "FRONTEND": ["React", "Next.js", "Tailwind CSS", "Zustand", "Recoil", "Drizzle ORM"],
     "MOBILE": ["Kotlin", "Jetpack Compose", "Android"]
   }
