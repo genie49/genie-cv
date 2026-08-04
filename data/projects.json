@@ -386,28 +386,16 @@
       {
         "id": "bonda-onprem-cutover",
         "projectSlug": "bonda",
-        "title": "관리형을 하나씩 걷어내고 우리 박스로 옮겼다",
+        "title": "클라우드를 떠나며 인수한 것들",
         "date": "2026-08-02",
         "tags": [
           "k3s",
-          "Kustomize",
+          "Migration",
           "Auth.js",
-          "Migration"
-        ],
-        "summary": "클라우드를 옮기고 서빙 스택 전체를 자체 클러스터로 들이기까지 — 컴퓨트는 쉬웠고 인증이 어려웠던 이유, 그리고 관리형을 고를 때 실제로 재야 하는 비용"
-      },
-      {
-        "id": "bonda-backup-observability",
-        "projectSlug": "bonda",
-        "title": "백업이 안 돌았다는 걸 어떻게 알 것인가",
-        "date": "2026-08-01",
-        "tags": [
           "Backup",
-          "PITR",
-          "Observability",
-          "Loki"
+          "Observability"
         ],
-        "summary": "사고 시나리오에서 백업 층을 역산하고, 실패가 아니라 성공의 부재를 감시하고, 재해 대비 장치가 이사 수단까지 겸하게 된 과정"
+        "summary": "서빙 스택을 관리형에서 자체 클러스터로 옮기며 배운 것 — 컴퓨트는 쉬웠고 인증이 어려웠던 이유, 그리고 백업과 관측성이라는 진짜 청구서"
       }
     ]
   },
