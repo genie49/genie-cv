@@ -358,19 +358,6 @@
         "summary": "보고서 검색, 이미지 검색, 용어 사전 — 도구를 에이전트가 직접 조합하고, 그 결과가 다음 질문의 출발점이 되는 구조"
       },
       {
-        "id": "bonda-map-agent",
-        "projectSlug": "bonda",
-        "title": "에이전트에게 지도를 맡기고, 승인 버튼은 뗐다",
-        "date": "2026-05-18",
-        "tags": [
-          "Agent",
-          "LangGraph",
-          "HITL",
-          "Geospatial"
-        ],
-        "summary": "서버가 모르는 브라우저 상태를 도구로 읽고, 액션 실행은 클라이언트에 맡기고, 되돌릴 수 있는 액션에서 승인 게이트를 걷어낸 과정"
-      },
-      {
         "id": "bonda-agent-evaluation",
         "projectSlug": "bonda",
         "title": "검색이 틀린 건지 에이전트가 틀린 건지",
