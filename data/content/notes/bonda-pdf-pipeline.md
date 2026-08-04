@@ -55,10 +55,10 @@ OCR 서비스는 서버리스 GPU(Modal) 위에서 실행된다. 요청이 없�
 
 ```mermaid
 flowchart LR
-    subgraph "Modal Container (GPU)"
-        Paddle["PaddleOCR 파이프라인<br/>레이아웃 분석 (CPU)"] -->|HTTP| vLLM["vLLM 서버<br/>VLM 추론 (GPU)"]
+    subgraph "서버리스 GPU 컨테이너"
+        Paddle["문서 파서<br/>레이아웃 분석 (CPU)"] -->|HTTP| vLLM["추론 서버<br/>VLM 추론 (GPU)"]
     end
-    Pipeline["archie-pipeline<br/>페이지 이미지 배치"] -->|base64| Paddle
+    Pipeline["전처리 파이프라인<br/>페이지 이미지 배치"] -->|base64| Paddle
     Paddle -->|마크다운 + bbox| Pipeline
 ```
 

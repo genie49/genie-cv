@@ -338,7 +338,7 @@ export function BondaHero({
         <Arrow points="310,59 325,59" delay={FLOW_DELAY * 4.5} />
 
         {/* Qdrant */}
-        <Node x={327} y={42} w={70} h={34} label="Qdrant" sub="3 Collections" color="cyan" delay={FLOW_DELAY * 5} fontSize={7} />
+        <Node x={327} y={42} w={70} h={34} label="Qdrant" sub="Named Vector" color="cyan" delay={FLOW_DELAY * 5} fontSize={7} />
 
         {/* Modal GPU */}
         <Node x={420} y={45} w={65} h={28} label="Modal GPU" sub="L40S · vLLM" color="zinc" delay={FLOW_DELAY * 3} fontSize={5.5} />
