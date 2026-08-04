@@ -278,6 +278,10 @@
       {
         "title": "OCR 폴백 파이프라인",
         "description": "PyMuPDF 빠른 추출 + 문서 파싱 VLM 폴백. 수요에 따라 켜지는 GPU 파드"
+      },
+      {
+        "title": "대량 인제스션 오케스트레이션",
+        "description": "Redis 큐로 단계 분리, 역압으로 흐름 제어, GPU 파드 6대 부하 분산"
       }
     ],
     "notes": [
@@ -306,6 +310,19 @@
           "Pipeline"
         ],
         "summary": "스캔 PDF에서 텍스트와 이미지 위치를 동시에 추출하고, 필요할 때만 켜지는 GPU에서 OCR을 돌리고, 벡터화하는 End-to-End 파이프라인"
+      },
+      {
+        "id": "bonda-ingestion-pipeline",
+        "projectSlug": "bonda",
+        "title": "GPU 6대를 놀리지 않으려면",
+        "date": "2026-07-05",
+        "tags": [
+          "Redis",
+          "Queue",
+          "Back-pressure",
+          "Rate Limit"
+        ],
+        "summary": "수천 건을 며칠에 걸쳐 밀어 넣으며 배운 것 — 단계를 큐로 떼어놓고, 역압으로 앞서 달리지 못하게 막고, 중복과 429를 구조로 없앤 과정"
       },
       {
         "id": "bonda-vector-search",
