@@ -10,7 +10,7 @@ AI 챗봇이 탑재된 개인 이력서/포트폴리오 웹사이트.
 
 - **프론트엔드**: React + Vite + Tailwind CSS + React Router + assistant-ui
 - **백엔드**: ElysiaJS (Bun 런타임)
-- **AI**: LangChain.js ReAct Agent + Grok 4.1
+- **AI**: LangChain.js ReAct Agent + Gemini 3.6 Flash
 - **RAG**: LanceDB (파일 기반 벡터 DB) + Gemini Embedding
 - **배포**: Railway
 

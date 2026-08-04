@@ -22,9 +22,11 @@ Express나 Fastify 대신 ElysiaJS를 선택했다. Bun을 쓰기로 했으니, 
 
 LanceDB는 SQLite처럼 파일 기반으로 동작한다. 배포 시 폴더만 함께 올리면 끝이다. Railway에서 추가 데이터베이스 서비스 없이 바로 동작한다. 문서 수가 수백 개 수준인 포트폴리오 프로젝트에서 클라우드 벡터 DB를 쓰는 건 오버엔지니어링이다.
 
-## Grok — 비용이 가장 낮았다
+## LLM — 처음엔 비용이 가장 낮은 걸 골랐다
 
-LLM으로 Grok 4.1 Fast Reasoning을 선택했다. 포트폴리오 챗봇은 복잡한 추론보다 빠른 응답이 중요하고, 사용량이 예측 불가능하다. **비용이 가장 낮은 모델**을 골라야 퍼블릭으로 열어둘 수 있었다.
+LLM은 Grok 4.1 Fast Reasoning으로 시작했다. 포트폴리오 챗봇은 복잡한 추론보다 빠른 응답이 중요하고, 사용량이 예측 불가능하다. **비용이 가장 낮은 모델**을 골라야 퍼블릭으로 열어둘 수 있었다.
+
+나중에 Gemini 3.6 Flash로 바꿨다. 벤치마크를 보고 바꾼 게 아니라 **이 챗봇으로 직접 실험을 돌려서** 바꿨는데, 그 얘기는 따로 정리했다.
 
 임베딩은 Gemini Embedding을 사용한다. 인덱싱과 검색 양쪽에서 비대칭 임베딩을 적용하는데, 이건 별도 문서에서 다룬다.
 
@@ -33,7 +35,7 @@ flowchart LR
     Client["React Client"] --> Elysia["ElysiaJS<br/>Bun Runtime"]
     Elysia --> Agent["LangChain<br/>ReAct Agent"]
     Agent --> RAG["RAG Tool"]
-    Agent --> LLM["Grok 4.1<br/>Fast Reasoning"]
+    Agent --> LLM["Gemini 3.6 Flash"]
     RAG --> Embed["Gemini Embedding"]
     Embed --> Lance["LanceDB<br/>파일 기반"]
 ```
