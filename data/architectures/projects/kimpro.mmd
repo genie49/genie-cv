@@ -12,7 +12,7 @@ graph LR
 
     subgraph 멀티에이전트
         WF --> ORCH[오케스트레이터]
-        ORCH --> SUBS[전문 에이전트들]
+        ORCH --> SUBS["SubAgent × N"]
     end
 
     subgraph 비동기 워커

@@ -365,23 +365,13 @@ export function KimproHero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: FLOW_DELAY * 6, duration: 0.35 }}
         >
-          {/* 전문 에이전트 A */}
-          <rect x={268} y={104} width={38} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
-          <text x={287} y={117} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">전문 A</text>
-          {/* 전문 에이전트 B */}
-          <rect x={310} y={104} width={44} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
-          <text x={332} y={117} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">전문 B</text>
-          {/* 전문 에이전트 C */}
-          <rect x={358} y={104} width={40} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
-          <text x={378} y={117} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">전문 C</text>
-          {/* 전문 에이전트 D */}
-          <rect x={402} y={104} width={38} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
-          <text x={421} y={117} textAnchor="middle" fontFamily="monospace" fontSize={5.5} fill="#7c3aed">전문 D</text>
-          {/* Lines: 오케스트레이터 → sub-agents */}
-          <line x1={305} y1={95} x2={287} y2={104} stroke="#c4b5fd" strokeWidth={0.6} />
-          <line x1={335} y1={95} x2={332} y2={104} stroke="#c4b5fd" strokeWidth={0.6} />
-          <line x1={370} y1={95} x2={378} y2={104} stroke="#c4b5fd" strokeWidth={0.6} />
-          <line x1={400} y1={95} x2={421} y2={104} stroke="#c4b5fd" strokeWidth={0.6} />
+          {/* 겹쳐 쌓인 카드로 "여러 개"를 표현 */}
+          <rect x={276} y={100} width={160} height={20} rx={2} fill="#fff" stroke="#ddd6fe" strokeWidth={0.6} opacity={0.55} />
+          <rect x={272} y={102} width={164} height={20} rx={2} fill="#fff" stroke="#d3c9fd" strokeWidth={0.6} opacity={0.75} />
+          <rect x={268} y={104} width={172} height={20} rx={2} fill="#fff" stroke="#c4b5fd" strokeWidth={0.7} />
+          <text x={354} y={117} textAnchor="middle" fontFamily="monospace" fontSize={6} fill="#7c3aed">SubAgent × N</text>
+          {/* Line: 오케스트레이터 → sub-agents */}
+          <line x1={354} y1={95} x2={354} y2={100} stroke="#c4b5fd" strokeWidth={0.6} />
         </motion.g>
 
         {/* Middleware Pipeline bar */}

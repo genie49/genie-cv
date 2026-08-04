@@ -23,11 +23,8 @@
 ```mermaid
 graph TB
     User[사용자] --> AM[Supervisor<br/>의도 파악 · 작업 분배 · 결과 종합]
-    AM --> Sub1[전문 에이전트 A]
-    AM --> Sub2[전문 에이전트 B]
-    AM --> Sub3[전문 에이전트 C]
-    AM --> Sub4[전문 에이전트 D]
-    AM --> Sub5[전문 에이전트 E]
+    AM -->|위임| Sub["SubAgent × N<br/>영역별 전문 에이전트"]
+    Sub -->|최종 결과만| AM
 ```
 
 핵심은 **Tool Calling 기반 라우팅**이다. Supervisor가 별도의 라우팅 로직 없이 LLM의 Function Calling으로 서브에이전트를 호출한다. LLM이 한 번의 응답에서 여러 서브에이전트를 동시에 호출할 수도 있어서, "이것과 저것을 병렬로" 같은 판단을 모델이 스스로 내린다.
