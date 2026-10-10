@@ -20,5 +20,24 @@
   display: none;
 }
 
+/* 타임라인 레일이 스크롤을 따라 채워진다. 미지원 브라우저에서는 처음부터 다 채워진 선으로 보인다. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .rail-fill {
+      transform-origin: top;
+      animation: rail-fill linear both;
+      animation-timeline: view();
+    }
+  }
+}
+@keyframes rail-fill {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
 /* highlight.js 구문 강조 — Tailwind 레이어 밖에서 로드해야 우선순위 보장 */
 @import "highlight.js/styles/github-dark.min.css";

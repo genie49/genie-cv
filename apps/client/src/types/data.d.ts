@@ -5,6 +5,7 @@ declare module "@data/profile.json" {
     email: string;
     github: string;
     about: string;
+    intro: string;
     education: Array<{
       school: string;
       major: string;
@@ -16,7 +17,12 @@ declare module "@data/profile.json" {
       title: string;
       company: string;
       period: string;
+      type: string;
       description: string;
+      summary?: string;
+      highlights?: string[];
+      project?: string;
+      minor?: boolean;
     }>;
     techStack: Record<string, string[]>;
   };
