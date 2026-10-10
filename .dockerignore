@@ -7,5 +7,4 @@ node_modules
 .agents
 docs
 design
-scripts
 *.md
