@@ -1,184 +1,122 @@
-import { motion, AnimatePresence } from "motion/react";
-import { useRef, useState, useCallback, useEffect } from "react";
-import { ChevronLeft, ChevronRight, User, Cpu, X } from "lucide-react";
-import AboutPanel from "../components/dashboard/AboutPanel";
-import TechStackPanel from "../components/dashboard/TechStackPanel";
+import { useCallback, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { motion } from "motion/react";
+import { useAssistantRuntime } from "@assistant-ui/react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import ProjectCard from "../components/dashboard/ProjectCard";
-import EducationPanel from "../components/dashboard/EducationPanel";
-import ExperiencePanel from "../components/dashboard/ExperiencePanel";
+import profile from "@data/profile.json";
 import projects from "@data/projects.json";
-import type { Project } from "@genie-cv/shared";
 
-const allProjects = projects as Project[];
+const CARD = "rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)]";
 
-const CARD_W = 380;
+const DOT_COLORS: Record<string, string> = {
+  당근: "bg-[#FF6F0F]",
+  아이머스: "bg-cyan-600",
+  꿈담길: "bg-emerald-600",
+};
+const DEFAULT_DOT_COLOR = "bg-toss-sub";
 
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-  return isMobile;
+// 경력 카드에 들어간 프로젝트를 뺀 나머지
+const linkedSlugs = new Set(profile.experience.map((e) => e.project));
+const otherProjects = projects.filter((p) => !linkedSlugs.has(p.slug));
+const school = profile.education[0];
+
+// 첫 페이지에서 사라진 기술 스택과 최근 작업 위주의 질문
+const QUESTIONS = [
+  "주로 어떤 기술 스택을 사용하나요?",
+  "당근에서는 어떤 일을 하고 있나요?",
+  "Heirloom은 어떤 프로젝트인가요?",
+  "Bonda에서 스캔 PDF를 어떻게 검색 가능하게 만들었나요?",
+  "아이머스에서 AI 에이전트 시스템을 어떻게 설계했나요?",
+  "아이머스의 에이전트 평가 체계는 어떻게 구축했나요?",
+];
+
+function renderBold(text: string) {
+  return text.split(/\*\*(.+?)\*\*/g).map((part, i) =>
+    i % 2 === 1 ? (
+      <strong key={i} className="font-semibold text-toss-heading">
+        {part}
+      </strong>
+    ) : (
+      part
+    ),
+  );
 }
 
-/* ── Mobile: single card carousel with swipe + arrows ── */
-function MobileProjectCarousel() {
-  const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const touchRef = useRef<{ startX: number; startY: number } | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const go = useCallback(
-    (dir: number) => {
-      setDirection(dir);
-      setCurrent((prev) => {
-        const next = prev + dir;
-        if (next < 0) return 0;
-        if (next >= allProjects.length) return allProjects.length - 1;
-        return next;
-      });
-    },
-    [],
+function TimelineItem({
+  year,
+  dot,
+  children,
+}: {
+  year: string;
+  dot: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <motion.li
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10% 0px" }}
+      transition={{ duration: 0.3 }}
+      className="relative flex gap-6"
+    >
+      <span className="w-10 shrink-0 pt-5 text-right font-['Outfit'] text-sm font-bold text-toss-sub">
+        {year}
+      </span>
+      <span
+        className={`absolute left-[47px] top-6 h-2.5 w-2.5 rounded-full ring-4 ring-toss-bg ${dot}`}
+      />
+      <div className="min-w-0 flex-1">{children}</div>
+    </motion.li>
   );
+}
 
-  const onTouchStart = useCallback((e: React.TouchEvent) => {
-    touchRef.current = { startX: e.touches[0].clientX, startY: e.touches[0].clientY };
-  }, []);
-
-  const onTouchEnd = useCallback(
-    (e: React.TouchEvent) => {
-      if (!touchRef.current) return;
-      const dx = e.changedTouches[0].clientX - touchRef.current.startX;
-      const dy = e.changedTouches[0].clientY - touchRef.current.startY;
-      touchRef.current = null;
-      if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
-      go(dx < 0 ? 1 : -1);
-    },
-    [go],
-  );
-
-  // 수평 스와이프 시 페이지 스크롤 방지
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    let startX = 0;
-    let startY = 0;
-    let decided = false;
-    let isHorizontal = false;
-
-    const onStart = (e: TouchEvent) => {
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-      decided = false;
-      isHorizontal = false;
-    };
-    const onMove = (e: TouchEvent) => {
-      if (!decided) {
-        const dx = Math.abs(e.touches[0].clientX - startX);
-        const dy = Math.abs(e.touches[0].clientY - startY);
-        if (dx > 10 || dy > 10) {
-          decided = true;
-          isHorizontal = dx > dy;
-        }
-      }
-      if (isHorizontal) e.preventDefault();
-    };
-
-    el.addEventListener("touchstart", onStart, { passive: true });
-    el.addEventListener("touchmove", onMove, { passive: false });
-    return () => {
-      el.removeEventListener("touchstart", onStart);
-      el.removeEventListener("touchmove", onMove);
-    };
-  }, []);
-
-  const variants = {
-    enter: (dir: number) => ({ x: dir > 0 ? 200 : -200, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (dir: number) => ({ x: dir > 0 ? -200 : 200, opacity: 0 }),
-  };
+function ExperienceCard({ exp }: { exp: (typeof profile.experience)[number] }) {
+  const project = projects.find((p) => p.slug === exp.project);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: 0.1 }}
-      className="flex flex-col gap-3"
-    >
-      <div
-        ref={containerRef}
-        className="relative overflow-hidden"
-        style={{ height: 280 }}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-      >
-        <AnimatePresence initial={false} custom={direction} mode="popLayout">
-          <motion.div
-            key={current}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="absolute inset-0"
-          >
-            <div className="h-full">
-              <ProjectCard project={allProjects[current]} />
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Nav: arrows + dots */}
-      <div className="flex items-center justify-between px-1">
-        <button
-          onClick={() => go(-1)}
-          disabled={current === 0}
-          className="rounded-full p-1.5 text-toss-sub transition-colors hover:bg-toss-bg hover:text-toss-heading disabled:opacity-30"
-        >
-          <ChevronLeft size={18} />
-        </button>
-
-        <div className="flex gap-1.5">
-          {allProjects.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                setDirection(i > current ? 1 : -1);
-                setCurrent(i);
-              }}
-              className={`h-1.5 rounded-full transition-all ${
-                i === current ? "w-4 bg-toss-heading" : "w-1.5 bg-toss-border"
-              }`}
-            />
-          ))}
+    <div className={`${CARD} flex flex-col gap-3 p-5`}>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h3 className="font-['Outfit'] text-base font-bold text-toss-heading">
+            {exp.company}
+          </h3>
+          <p className="text-[13px] text-toss-body">
+            {exp.title} · {exp.type}
+          </p>
         </div>
-
-        <button
-          onClick={() => go(1)}
-          disabled={current === allProjects.length - 1}
-          className="rounded-full p-1.5 text-toss-sub transition-colors hover:bg-toss-bg hover:text-toss-heading disabled:opacity-30"
-        >
-          <ChevronRight size={18} />
-        </button>
+        <span className="shrink-0 pt-1 text-xs text-toss-sub">{exp.period}</span>
       </div>
-    </motion.div>
+
+      {exp.summary && (
+        <p className="text-[13px] font-medium text-toss-heading">{exp.summary}</p>
+      )}
+
+      {exp.highlights && (
+        <ul className="flex flex-col gap-1 text-[13px] leading-relaxed text-toss-body">
+          {exp.highlights.map((h) => (
+            <li key={h}>· {h}</li>
+          ))}
+        </ul>
+      )}
+
+      {project && (
+        <Link
+          to={`/projects/${project.slug}`}
+          className="flex items-center justify-between gap-3 rounded-xl bg-toss-bg px-4 py-3 text-[13px] font-medium text-toss-heading transition-colors hover:text-toss-blue"
+        >
+          <span className="truncate">{project.title}</span>
+          <ArrowRight size={14} className="shrink-0" />
+        </Link>
+      )}
+    </div>
   );
 }
 
-/* ── Desktop: horizontal scroll + drag ── */
-function DesktopProjectsRow() {
+/* 가로 스크롤 + 드래그 */
+function ProjectsRow() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const dragState = useRef<{ isDown: boolean; startX: number; scrollLeft: number }>({
-    isDown: false,
-    startX: 0,
-    scrollLeft: 0,
-  });
+  const dragState = useRef({ isDown: false, startX: 0, scrollLeft: 0 });
   const [isDragging, setIsDragging] = useState(false);
 
   const onPointerDown = useCallback((e: React.PointerEvent) => {
@@ -200,235 +138,142 @@ function DesktopProjectsRow() {
     requestAnimationFrame(() => setIsDragging(false));
   }, []);
 
-  const onClickCapture = useCallback((e: React.MouseEvent) => {
-    if (isDragging) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  }, [isDragging]);
+  const onClickCapture = useCallback(
+    (e: React.MouseEvent) => {
+      if (isDragging) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    },
+    [isDragging],
+  );
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: 0.1 }}
+    <div
+      ref={scrollRef}
+      className="-mx-6 flex cursor-grab items-stretch gap-5 overflow-x-auto px-6 hide-scrollbar select-none active:cursor-grabbing"
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerLeave={onPointerUp}
+      onClickCapture={onClickCapture}
     >
-      <div
-        ref={scrollRef}
-        className="flex items-stretch gap-5 overflow-x-auto hide-scrollbar cursor-grab active:cursor-grabbing select-none"
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerLeave={onPointerUp}
-        onClickCapture={onClickCapture}
-      >
-        {allProjects.map((project) => (
-          <div
-            key={project.slug}
-            className="shrink-0"
-            style={{ width: CARD_W, height: 280 }}
-          >
-            <ProjectCard project={project} />
-          </div>
-        ))}
+      {otherProjects.map((project) => (
+        <div key={project.slug} className="w-[340px] shrink-0" style={{ height: 280 }}>
+          <ProjectCard project={project} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function AskSection() {
+  const runtime = useAssistantRuntime();
+  const navigate = useNavigate();
+
+  const ask = (question: string) => {
+    runtime.switchToNewThread();
+    runtime.thread.append(question);
+    navigate("/chat");
+  };
+
+  return (
+    <section className={`${CARD} p-6`}>
+      <div className="mb-4 flex items-center gap-2">
+        <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-toss-blue">
+          <Sparkles size={12} className="fill-white/20 text-white" />
+        </div>
+        <h2 className="font-['Outfit'] text-base font-bold text-toss-heading">
+          더 궁금한 점은 AI에게 물어보세요
+        </h2>
       </div>
-    </motion.div>
-  );
-}
-
-function ProjectsRow() {
-  const isMobile = useIsMobile();
-  return isMobile ? <MobileProjectCarousel /> : <DesktopProjectsRow />;
-}
-
-/* ── Modal ── */
-function Modal({ open, onClose, children }: { open: boolean; onClose: () => void; children: React.ReactNode }) {
-  useEffect(() => {
-    if (open) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    return () => { document.body.style.overflow = ""; };
-  }, [open]);
-
-  return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[60] flex items-center justify-center p-6"
-          onClick={onClose}
-        >
-          <div className="absolute inset-0 bg-black/40" />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="relative max-h-[80vh] w-full max-w-md overflow-y-auto rounded-2xl bg-toss-bg p-1"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={onClose}
-              className="absolute right-3 top-3 z-10 rounded-full bg-toss-card p-1.5 text-toss-sub shadow-sm hover:text-toss-heading"
-            >
-              <X size={16} />
-            </button>
-            {children}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
-/* ── Mobile About/TechStack Buttons ── */
-function MobileTopButtons() {
-  const [modal, setModal] = useState<"about" | "tech" | null>(null);
-
-  return (
-    <>
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="flex gap-3 md:hidden"
-      >
-        <motion.button
-          onClick={() => setModal("about")}
-          whileTap={{ scale: 0.95 }}
-          className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-toss-card py-3 shadow-[0_1px_3px_rgba(0,0,0,0.06)] text-sm font-semibold text-toss-heading"
-        >
-          <User size={16} className="text-toss-blue" />
-          About
-        </motion.button>
-        <motion.button
-          onClick={() => setModal("tech")}
-          whileTap={{ scale: 0.95 }}
-          className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-toss-card py-3 shadow-[0_1px_3px_rgba(0,0,0,0.06)] text-sm font-semibold text-toss-heading"
-        >
-          <Cpu size={16} className="text-toss-blue" />
-          Tech Stack
-        </motion.button>
-      </motion.div>
-
-      <Modal open={modal === "about"} onClose={() => setModal(null)}>
-        <AboutPanel />
-      </Modal>
-      <Modal open={modal === "tech"} onClose={() => setModal(null)}>
-        <TechStackPanel bare />
-      </Modal>
-    </>
-  );
-}
-
-/* ── Mobile Education/Experience Tab Card ── */
-function MobileEduExpTabs() {
-  const [tab, setTab] = useState<"edu" | "exp">("edu");
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: 0.2 }}
-      className="md:hidden rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-5"
-    >
-      {/* Tab buttons */}
-      <div className="flex gap-2 mb-4">
-        {(["edu", "exp"] as const).map((t) => (
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+        {QUESTIONS.map((q) => (
           <button
-            key={t}
-            onClick={() => setTab(t)}
-            className="relative rounded-lg px-3 py-1.5 text-xs font-semibold"
+            key={q}
+            onClick={() => ask(q)}
+            className="cursor-pointer rounded-xl border border-toss-border bg-toss-card px-4 py-3 text-left text-[13px] text-toss-body transition-all hover:border-toss-blue hover:bg-blue-50/40 hover:text-toss-blue"
           >
-            {tab === t && (
-              <motion.div
-                layoutId="edu-exp-tab"
-                className="absolute inset-0 rounded-lg bg-toss-heading"
-                transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
-              />
-            )}
-            <span className={`relative z-10 ${tab === t ? "text-white" : "text-toss-sub"}`}>
-              {t === "edu" ? "Education" : "Experience"}
-            </span>
+            {q}
           </button>
         ))}
       </div>
-
-      {/* Tab content */}
-      <AnimatePresence mode="wait">
-        {tab === "edu" ? (
-          <motion.div
-            key="edu"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 10 }}
-            transition={{ duration: 0.15 }}
-          >
-            <EducationPanel bare />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="exp"
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -10 }}
-            transition={{ duration: 0.15 }}
-          >
-            <ExperiencePanel bare />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+    </section>
   );
 }
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col gap-5 p-6">
-      {/* Mobile: About + Tech Stack buttons */}
-      <MobileTopButtons />
-
-      {/* Desktop: About + Tech Stack panels */}
-      <motion.div
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 p-6">
+      {/* Intro */}
+      <motion.section
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="hidden md:flex items-stretch gap-5"
+        className={`${CARD} flex flex-col gap-3 p-6`}
       >
-        <div className="flex-1 flex">
-          <div className="flex-1 rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-6">
-            <AboutPanel bare />
-          </div>
+        <div>
+          <h1 className="font-['Outfit'] text-2xl font-bold text-toss-heading">
+            {profile.name}
+          </h1>
+          <p className="text-sm font-semibold text-toss-blue">{profile.role}</p>
         </div>
-        <div className="flex-1 flex">
-          <div className="flex-1">
-            <TechStackPanel />
-          </div>
+        <p className="text-[15px] leading-relaxed text-toss-body">
+          {renderBold(profile.intro)}
+        </p>
+        <div className="flex gap-4 text-[13px] font-medium text-toss-sub">
+          <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-toss-blue">
+            GitHub
+          </a>
+          <a href={`mailto:${profile.email}`} className="hover:text-toss-blue">
+            Email
+          </a>
         </div>
-      </motion.div>
+      </motion.section>
 
-      {/* Projects Row */}
-      <ProjectsRow />
+      {/* Timeline — 현재 → 과거 */}
+      <ol className="relative flex flex-col gap-5">
+        <div className="absolute bottom-2 left-[51.5px] top-7 w-px bg-toss-border" />
+        <div className="rail-fill absolute bottom-2 left-[51.5px] top-7 w-px bg-toss-blue" />
 
-      {/* Mobile: Education + Experience tab card */}
-      <MobileEduExpTabs />
+        {profile.experience.map((exp) => (
+          <TimelineItem
+            key={`${exp.company}-${exp.period}`}
+            year={exp.period.slice(0, 4)}
+            dot={DOT_COLORS[exp.company] ?? DEFAULT_DOT_COLOR}
+          >
+            {exp.minor ? (
+              <p className="flex flex-wrap justify-between gap-x-3 py-5 text-[13px] text-toss-body">
+                <span>
+                  {exp.title} · {exp.company}
+                </span>
+                <span className="text-xs text-toss-sub">{exp.period}</span>
+              </p>
+            ) : (
+              <ExperienceCard exp={exp} />
+            )}
+          </TimelineItem>
+        ))}
 
-      {/* Desktop: Education + Experience side by side */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, delay: 0.2 }}
-        className="hidden md:flex gap-5"
-      >
-        <div className="flex-1">
-          <EducationPanel />
-        </div>
-        <div className="flex-1">
-          <ExperiencePanel />
-        </div>
-      </motion.div>
+        <TimelineItem year={school.period.slice(0, 4)} dot={DEFAULT_DOT_COLOR}>
+          <p className="flex flex-wrap justify-between gap-x-3 py-5 text-[13px] text-toss-body">
+            <span>
+              {school.school} {school.major}
+            </span>
+            <span className="text-xs text-toss-sub">{school.period}</span>
+          </p>
+        </TimelineItem>
+      </ol>
+
+      {/* 회사 밖에서 만든 프로젝트 */}
+      <section className="flex flex-col gap-3">
+        <h2 className="font-['Outfit'] text-base font-bold text-toss-heading">
+          그 밖에 만든 것
+        </h2>
+        <ProjectsRow />
+      </section>
+
+      <AskSection />
     </div>
   );
 }
