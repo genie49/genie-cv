@@ -7,6 +7,7 @@ import { KimproHero } from "../components/KimproHero";
 import { HeyBaraHero } from "../components/HeyBaraHero";
 import { ChatbotHero } from "../components/ChatbotHero";
 import { BondaHero } from "../components/BondaHero";
+import { HeirloomHero } from "../components/HeirloomHero";
 import { VocaTokTokHero } from "../components/VocaTokTokHero";
 import projects from "@data/projects.json";
 import type { Project } from "@genie-cv/shared";
@@ -80,6 +81,8 @@ export default function ProjectDetailPage() {
         <ChatbotHero className="h-[360px]" interactive />
       ) : project.slug === "bonda" ? (
         <BondaHero className="h-[360px]" interactive />
+      ) : project.slug === "heirloom" ? (
+        <HeirloomHero className="h-[360px]" interactive />
       ) : project.slug === "vocatoktok" ? (
         <VocaTokTokHero className="h-[360px]" interactive />
       ) : (
