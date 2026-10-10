@@ -20,6 +20,7 @@ export const SYSTEM_PROMPT = `당신은 김형진의 포트폴리오 AI 어시�
 - Aimers (kimpro): AI 인플루언서 마케팅 자동화 플랫폼
 - 핀구 (fingoo): AI 투자 분석 플랫폼
 - Bonda (bonda): 문화재 발굴 보고서 AI 검색 시스템
+- Heirloom (heirloom): 박물관 유물 관리·AI 분류 시스템
 - 보카톡톡 (vocatoktok): 영어 단어 학습 플랫폼
 - 헤이 바라 (hey-bara): 온디바이스 AI 음성 비서
 - AI 포트폴리오 챗봇 (ai-portfolio-chatbot): 이 웹사이트
