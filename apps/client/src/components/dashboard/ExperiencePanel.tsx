@@ -14,6 +14,7 @@ const profile = {
 };
 
 const BAR_COLORS: Record<string, string> = {
+  당근: "bg-[#FF6F0F]",
   아이머스: "bg-cyan-600",
   핀구: "bg-violet-600",
   스톰스터디: "bg-emerald-600",
@@ -28,6 +29,10 @@ const ROW_GROUPS: Record<string, string[]> = {
 };
 
 function monthIndex(ym: string) {
+  if (ym === "현재") {
+    const now = new Date();
+    return (now.getFullYear() - 2021) * 12 + now.getMonth();
+  }
   const [y, m] = ym.split(".").map(Number);
   return (y - 2021) * 12 + (m - 1);
 }
