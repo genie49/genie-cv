@@ -146,6 +146,55 @@ function ExperienceCard({
   );
 }
 
+/* 사이드 프로젝트는 경력 카드 대신 한 줄짜리 박스로 */
+function SideRow({
+  exp,
+  playing,
+  onPlay,
+}: {
+  exp: Experience;
+  playing: boolean;
+  onPlay: () => void;
+}) {
+  const linked = (exp.projects ?? []).flatMap(
+    (slug) => projects.find((p) => p.slug === slug) ?? [],
+  );
+
+  return (
+    <div
+      onClick={exp.video ? onPlay : undefined}
+      className={`${CARD} mt-2 flex items-center gap-3 px-5 py-3 text-[13px] ${
+        exp.video ? "cursor-pointer" : ""
+      } ${playing ? "ring-2 ring-toss-blue" : ""}`}
+    >
+      <span className="shrink-0 font-['Outfit'] text-sm font-bold text-toss-heading">
+        {exp.company}
+      </span>
+      <span className="min-w-0 flex-1 truncate text-toss-body">{exp.summary}</span>
+      {linked.map((project) => (
+        <Link
+          key={project.slug}
+          to={`/projects/${project.slug}`}
+          onClick={(e) => e.stopPropagation()}
+          className="shrink-0 font-medium text-toss-sub transition-colors hover:text-toss-blue"
+        >
+          {project.title.split(" — ")[0]}
+        </Link>
+      ))}
+      {exp.video && (
+        <button
+          type="button"
+          aria-pressed={playing}
+          aria-label={`${exp.company} 영상 ${playing ? "닫기" : "보기"}`}
+          className="shrink-0 cursor-pointer text-toss-sub transition-colors hover:text-toss-blue"
+        >
+          {playing ? <X size={14} /> : <Play size={14} />}
+        </button>
+      )}
+    </div>
+  );
+}
+
 /* 큰 화면: 타임라인 오른쪽에 붙는 패널 / 작은 화면: 전체 화면 오버레이 */
 function VideoPanel({ exp, onClose }: { exp: Experience; onClose: () => void }) {
   return (
@@ -327,6 +376,12 @@ export default function DashboardPage() {
                 </span>
                 <span className="text-xs text-toss-sub">{exp.period}</span>
               </p>
+            ) : exp.side ? (
+              <SideRow
+                exp={exp}
+                playing={playing === exp}
+                onPlay={() => setPlaying(playing === exp ? null : exp)}
+              />
             ) : (
               <ExperienceCard
                 exp={exp}

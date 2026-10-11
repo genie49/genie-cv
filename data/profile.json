@@ -59,7 +59,8 @@
       "type": "한양대학교 박물관 협력 프로젝트",
       "description": "학예 업무와 고고학 연구를 지원하는 AI 서비스 개발. 학예사의 유물 관리 서비스와 AI 분류 기능, 고고학 연구 자료 검색 에이전트와 탐색 화면, 문서 데이터 수집/처리 파이프라인, GPU 서버 기반 OCR 서빙, 개발/배포 인프라와 관측 체계 구축",
       "summary": "학예 업무와 고고학 연구를 지원하는 AI 서비스 개발",
-      "projects": ["heirloom", "bonda"]
+      "projects": ["heirloom", "bonda"],
+      "side": true
     },
     {
       "title": "백엔드/AI 엔지니어",
