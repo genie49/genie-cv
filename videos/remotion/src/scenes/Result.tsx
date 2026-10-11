@@ -1,7 +1,8 @@
+import { useContext } from "react";
 import { AbsoluteFill } from "remotion";
-import { C, Card, Chip, FONT, Rise, useProgress } from "../ui";
+import { Accent, C, Card, Chip, FONT, Rise, useProgress } from "../ui";
 
-const Stat: React.FC<{
+export const Stat: React.FC<{
   label: string;
   from: number;
   to: number;
@@ -14,6 +15,7 @@ const Stat: React.FC<{
   const p = useProgress(at + 0.5, 1.2);
   const now = from + (to - from) * p;
   const badge = useProgress(at + 1.6, 0.4);
+  const accent = useContext(Accent);
   return (
     <Rise at={at}>
       <Card style={{ padding: "44px 48px" }}>
@@ -34,7 +36,7 @@ const Stat: React.FC<{
               height: "100%",
               width: `${(now / max) * 100}%`,
               borderRadius: 16,
-              backgroundColor: C.orange,
+              backgroundColor: accent,
             }}
           />
         </div>

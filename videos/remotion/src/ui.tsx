@@ -29,6 +29,7 @@ export const C = {
   orange: "#FF6F0F",
   red: "#f04452",
   cyan: "#0891b2",
+  violet: "#7c3aed",
 };
 
 /** 영상별 강조색. 사이트 타임라인의 회사 점 색과 맞춘다. */

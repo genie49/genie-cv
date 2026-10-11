@@ -1,7 +1,7 @@
 import { AbsoluteFill } from "remotion";
 import { C, Card, Chip, FONT, Rise, useProgress } from "../ui";
 
-const Bar: React.FC<{ label: string; width: number; color: string }> = ({ label, width, color }) => (
+export const Bar: React.FC<{ label: string; width: number; color: string }> = ({ label, width, color }) => (
   <div style={{ display: "flex", alignItems: "center", gap: 20, marginTop: 18 }}>
     <div style={{ width: 90, fontSize: 38, fontWeight: 800, color: C.sub }}>{label}</div>
     <div style={{ flex: 1, height: 44, borderRadius: 22, backgroundColor: C.bg }}>

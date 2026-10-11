@@ -11,13 +11,14 @@ const CARD = "rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)]";
 
 const DOT_COLORS: Record<string, string> = {
   당근: "bg-[#FF6F0F]",
+  HEIR: "bg-violet-600",
   아이머스: "bg-cyan-600",
   꿈담길: "bg-emerald-600",
 };
 const DEFAULT_DOT_COLOR = "bg-toss-sub";
 
 // 경력 카드에 들어간 프로젝트를 뺀 나머지
-const linkedSlugs = new Set(profile.experience.map((e) => e.project));
+const linkedSlugs = new Set(profile.experience.flatMap((e) => e.projects ?? []));
 const otherProjects = projects.filter((p) => !linkedSlugs.has(p.slug));
 const school = profile.education[0];
 
@@ -82,7 +83,10 @@ function ExperienceCard({
   playing: boolean;
   onPlay: () => void;
 }) {
-  const project = projects.find((p) => p.slug === exp.project);
+  // profile.json에 적은 순서대로 보여준다
+  const linked = (exp.projects ?? []).flatMap(
+    (slug) => projects.find((p) => p.slug === slug) ?? [],
+  );
 
   return (
     <div
@@ -116,8 +120,9 @@ function ExperienceCard({
         </ul>
       )}
 
-      {project && (
+      {linked.map((project) => (
         <Link
+          key={project.slug}
           to={`/projects/${project.slug}`}
           onClick={(e) => e.stopPropagation()}
           className="flex items-center justify-between gap-3 rounded-xl bg-toss-bg px-4 py-3 text-[13px] font-medium text-toss-heading transition-colors hover:text-toss-blue"
@@ -125,7 +130,7 @@ function ExperienceCard({
           <span className="truncate">{project.title}</span>
           <ArrowRight size={14} className="shrink-0" />
         </Link>
-      )}
+      ))}
 
       {exp.video && (
         <button

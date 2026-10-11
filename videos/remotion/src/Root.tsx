@@ -1,6 +1,7 @@
 import { Composition, Folder } from "remotion";
 import { AimersShort } from "./aimers/AimersShort";
 import { DaangnShort } from "./DaangnShort";
+import { HeirShort } from "./heir/HeirShort";
 import { Title } from "./scenes/Title";
 import { Why } from "./scenes/Why";
 import { Caching } from "./scenes/Caching";
@@ -29,6 +30,8 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="DaangnShort" component={DaangnShort} width={1080} height={1920} fps={30} durationInFrames={1803} />
       {/* 장면 합 2125프레임 - 전환 14프레임 × 8 */}
       <Composition id="AimersShort" component={AimersShort} width={1080} height={1920} fps={30} durationInFrames={2013} />
+      {/* 장면 합 2175프레임 - 전환 14프레임 × 8 */}
+      <Composition id="HeirShort" component={HeirShort} width={1080} height={1920} fps={30} durationInFrames={2063} />
     </>
   );
 };
