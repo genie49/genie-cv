@@ -27,6 +27,8 @@
     "render:daangn": "remotion render DaangnShort ../../apps/client/public/videos/daangn.mp4 --scale=0.75",
     "render:aimers": "remotion render AimersShort ../../apps/client/public/videos/aimers.mp4 --scale=0.75",
     "render:heir": "remotion render HeirShort ../../apps/client/public/videos/heir.mp4 --scale=0.75",
+    "render:fingoo": "remotion render FingooShort ../../apps/client/public/videos/fingoo.mp4 --scale=0.75",
+    "render:kkumdamgil": "remotion render KkumdamgilShort ../../apps/client/public/videos/kkumdamgil.mp4 --scale=0.75",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"
   }

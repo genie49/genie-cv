@@ -1,6 +1,8 @@
 import { createContext, useContext } from "react";
 import type React from "react";
 import { loadFont } from "@remotion/google-fonts/Outfit";
+import { linearTiming, TransitionSeries } from "@remotion/transitions";
+import { slide } from "@remotion/transitions/slide";
 import {
   AbsoluteFill,
   Easing,
@@ -30,6 +32,8 @@ export const C = {
   red: "#f04452",
   cyan: "#0891b2",
   violet: "#7c3aed",
+  rose: "#e11d48",
+  emerald: "#059669",
 };
 
 /** 영상별 강조색. 사이트 타임라인의 회사 점 색과 맞춘다. */
@@ -176,3 +180,124 @@ export const Card: React.FC<{
     {children}
   </div>
 );
+
+/** 이름 + 설명 한 덩어리. tone: card(흰색) / accent(강조색) / dark */
+export const Box: React.FC<{
+  name: string;
+  desc?: string;
+  tone?: "card" | "accent" | "dark";
+  style?: React.CSSProperties;
+}> = ({ name, desc, tone = "card", style }) => {
+  const accent = useContext(Accent);
+  const bg = tone === "accent" ? accent : tone === "dark" ? C.heading : C.card;
+  return (
+    <div
+      style={{
+        backgroundColor: bg,
+        color: tone === "card" ? C.heading : "white",
+        borderRadius: 28,
+        padding: "26px 40px",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
+        ...style,
+      }}
+    >
+      <div style={{ fontSize: 48, fontWeight: 800 }}>{name}</div>
+      {desc && <div style={{ fontSize: 36, fontWeight: 600, opacity: 0.8 }}>{desc}</div>}
+    </div>
+  );
+};
+
+export const Down: React.FC<{ children?: string }> = ({ children }) => (
+  <div style={{ textAlign: "center", fontSize: 40, fontWeight: 800, color: C.sub, margin: "12px 0" }}>
+    ↓ {children}
+  </div>
+);
+
+/** 배경 장면: 제목 → 상황 → 목표 */
+export const Background: React.FC<{ title: string; situation: string; goal: string }> = ({
+  title,
+  situation,
+  goal,
+}) => {
+  const accent = useContext(Accent);
+  return (
+    <AbsoluteFill
+      style={{
+        backgroundColor: C.bg,
+        fontFamily: FONT,
+        color: C.heading,
+        padding: "150px 80px 170px",
+        justifyContent: "center",
+        gap: 50,
+      }}
+    >
+      <Rise at={0.1}>
+        <div style={{ fontSize: 44, fontWeight: 800, color: accent }}>배경</div>
+        <div
+          style={{
+            fontSize: 88,
+            fontWeight: 800,
+            lineHeight: 1.2,
+            marginTop: 16,
+            letterSpacing: "-0.02em",
+            whiteSpace: "pre-line",
+          }}
+        >
+          {title}
+        </div>
+      </Rise>
+      <Rise at={1.0}>
+        <Box name={situation} style={{ padding: "36px 44px" }} />
+      </Rise>
+      <Rise at={1.8}>
+        <div style={{ fontSize: 64, fontWeight: 800, color: C.sub }}>↓</div>
+        <div
+          style={{
+            marginTop: 20,
+            backgroundColor: accent,
+            color: "white",
+            borderRadius: 32,
+            padding: "36px 44px",
+            fontSize: 54,
+            fontWeight: 800,
+            lineHeight: 1.35,
+            whiteSpace: "pre-line",
+          }}
+        >
+          {goal}
+        </div>
+      </Rise>
+    </AbsoluteFill>
+  );
+};
+
+export const TRANSITION = 14;
+
+/** 장면들을 아래에서 위로 밀어 올리며 잇는다. 전체 길이 = 장면 합 - TRANSITION × (장면 수 - 1) */
+export const Short: React.FC<{
+  accent: string;
+  scenes: { name: string; frames: number; node: React.ReactNode }[];
+}> = ({ accent, scenes }) => {
+  const { fps } = useVideoConfig();
+  return (
+    <Accent.Provider value={accent}>
+      <TransitionSeries>
+        {scenes.flatMap((s, i) => [
+          i > 0 && (
+            <TransitionSeries.Transition
+              key={`${s.name}-in`}
+              presentation={slide({ direction: "from-bottom" })}
+              timing={linearTiming({
+                durationInFrames: TRANSITION,
+                easing: Easing.bezier(0.65, 0, 0.35, 1),
+              })}
+            />
+          ),
+          <TransitionSeries.Sequence key={s.name} name={s.name} durationInFrames={s.frames} premountFor={fps}>
+            {s.node}
+          </TransitionSeries.Sequence>,
+        ])}
+      </TransitionSeries>
+    </Accent.Provider>
+  );
+};

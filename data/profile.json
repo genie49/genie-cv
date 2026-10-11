@@ -78,8 +78,20 @@
       "projects": ["kimpro"]
     },
     {
+      "title": "AI/프론트엔드 개발",
+      "company": "핀구",
+      "period": "2024.12 ~ 2026.03",
+      "video": "/videos/fingoo.mp4",
+      "type": "프로젝트",
+      "description": "투자 학습과 AI 분석을 연결하는 실시간 서비스 개발. 금융 분석 에이전트와 SSE 스트리밍, 차트 조작과 투자 교육을 잇는 사용자 흐름, 비용과 환경 이전을 고려한 배포 구조 구축",
+      "summary": "투자 학습과 AI 분석을 연결하는 실시간 서비스 개발",
+      "projects": ["fingoo"],
+      "side": true
+    },
+    {
       "title": "풀스택 개발자",
       "company": "꿈담길",
+      "video": "/videos/kkumdamgil.mp4",
       "period": "2024.11 ~ 2025.08",
       "type": "정규직",
       "description": "영어 단어 학습 플랫폼 신규 기능 개발 및 서비스 운영. AI 기반 학습 기능 고도화, 사용자 피드백 반영한 UX 개선",
@@ -100,6 +112,7 @@
     {
       "title": "풀스택 개발자",
       "company": "꿈담길",
+      "video": "/videos/kkumdamgil.mp4",
       "period": "2021.02 ~ 2023.04",
       "type": "프리랜서/정규직",
       "description": "영어 단어 학습 플랫폼 '스톰스터디'의 풀스택 개발. PHP/Vanilla JS 레거시를 Next.js로 마이그레이션, TypeScript 전면 도입, MySQL DB 설계, Vercel AI SDK로 AI 학습 기능 및 개인화 알고리즘 구현",

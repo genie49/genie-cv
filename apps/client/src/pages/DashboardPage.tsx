@@ -12,6 +12,7 @@ const CARD = "rounded-2xl bg-toss-card shadow-[0_1px_3px_rgba(0,0,0,0.06)]";
 const DOT_COLORS: Record<string, string> = {
   당근: "bg-[#FF6F0F]",
   HEIR: "bg-violet-600",
+  핀구: "bg-rose-600",
   아이머스: "bg-cyan-600",
   꿈담길: "bg-emerald-600",
 };
@@ -181,7 +182,8 @@ function SideRow({
           onClick={(e) => e.stopPropagation()}
           className="shrink-0 font-medium text-toss-sub transition-colors hover:text-toss-blue"
         >
-          {project.title.split(" — ")[0]}
+          {/* 프로젝트가 하나면 이름이 회사명과 겹치므로 '자세히'로 */}
+          {linked.length > 1 ? project.title.split(" — ")[0] : "자세히"}
         </Link>
       ))}
       {exp.video && (
