@@ -37,22 +37,38 @@
   ],
   "experience": [
     {
-      "title": "Data Analyst",
+      "title": "AI Engineer",
       "company": "당근",
       "period": "2026.08 ~ 현재",
+      "video": "/videos/daangn.mp4",
       "type": "인턴",
-      "description": "사내 데이터 분석 AI 에이전트의 기능 개선과 운영 안정화. 검색 로직 개선, 세션 저장·복원, 평가 파이프라인 구축, 프롬프트 캐시·비용 계측 담당",
-      "summary": "사내 데이터 분석 AI 에이전트의 기능 개선과 운영 안정화",
+      "description": "팀의 AI 실험/개발을 지원하는 백엔드 구축. 사내 데이터 분석 에이전트 제품의 데이터베이스/백엔드 설계 및 개발, 에이전트 실행/평가 환경 구축, 에이전트용 지식 관리 시스템 개발 및 연동, 기존 AI 서비스의 성능/운영 안정성 개선",
+      "summary": "팀의 AI 실험/개발을 지원하는 백엔드 구축",
       "highlights": [
-        "자연어 질문에 필요한 데이터를 더 잘 찾도록 검색 로직 개선",
-        "배포·재시작 이후에도 대화 맥락을 이어가는 세션 저장·복원 기능 구현",
-        "실제 사용자 질문 기반 평가셋과 실행 결과 비교 평가 파이프라인 구축",
-        "프롬프트 캐시 구조 개선, 토큰 사용량·비용 계측 보강"
+        "사내 데이터 분석 에이전트 제품의 데이터베이스/백엔드 설계 및 개발",
+        "에이전트 실행/평가 환경 구축",
+        "에이전트용 지식 관리 시스템 개발 및 연동",
+        "기존 AI 서비스의 성능/운영 안정성 개선"
       ]
+    },
+    {
+      "title": "개발 리드",
+      "company": "HEIR",
+      "period": "2026.01 ~ 현재",
+      "video": "/videos/heir.mp4",
+      "type": "한양대학교 박물관 협력 프로젝트",
+      "description": "학예 업무와 고고학 연구를 지원하는 AI 서비스 개발. 학예사의 유물 관리 서비스와 AI 분류 기능, 고고학 연구 자료 검색 에이전트와 탐색 화면, 문서 데이터 수집/처리 파이프라인, GPU 서버 기반 OCR 서빙, 개발/배포 인프라와 관측 체계 구축",
+      "summary": "학예 업무와 고고학 연구를 지원하는 AI 서비스 개발",
+      "projects": [
+        "heirloom",
+        "bonda"
+      ],
+      "side": true
     },
     {
       "title": "백엔드/AI 엔지니어",
       "company": "아이머스",
+      "video": "/videos/aimers.mp4",
       "period": "2025.09 ~ 2026.07",
       "type": "현장실습생/인턴",
       "description": "인플루언서-브랜드 매칭 AI 서비스 개발. 백엔드 및 AI 엔지니어링 담당",
@@ -62,18 +78,34 @@
         "이벤트 드리븐 마이크로서비스 아키텍처 설계 및 운영",
         "Agent 품질 평가 체계와 프롬프트 개선 루프 구축"
       ],
-      "project": "kimpro"
+      "projects": [
+        "kimpro"
+      ]
     },
     {
-      "title": "풀스택 개발자",
+      "title": "AI/프론트엔드 개발",
+      "company": "핀구",
+      "period": "2024.12 ~ 2026.03",
+      "video": "/videos/fingoo.mp4",
+      "type": "프로젝트",
+      "description": "투자 학습과 AI 분석을 연결하는 실시간 서비스 개발. 금융 분석 에이전트와 SSE 스트리밍, 차트 조작과 투자 교육을 잇는 사용자 흐름, 비용과 환경 이전을 고려한 배포 구조 구축",
+      "summary": "투자 학습과 AI 분석을 연결하는 실시간 서비스 개발",
+      "projects": [
+        "fingoo"
+      ],
+      "side": true
+    },
+    {
+      "title": "풀스택 개발",
       "company": "꿈담길",
+      "video": "/videos/kkumdamgil.mp4",
       "period": "2024.11 ~ 2025.08",
       "type": "정규직",
-      "description": "영어 단어 학습 플랫폼 신규 기능 개발 및 서비스 운영. AI 기반 학습 기능 고도화, 사용자 피드백 반영한 UX 개선",
-      "summary": "영어 단어 학습 플랫폼 신규 기능 개발 및 서비스 운영",
+      "description": "영어 학습 서비스 보카톡톡의 기능 개발과 운영. Google Cloud TTS 도입 및 음성 재사용 구조 구축, 선생님 요구사항을 반영한 학습 관리 및 LLM 콘텐츠 생성 기능 개발",
+      "summary": "레거시 학습 플랫폼 개편과 교육 현장 사용성 개선",
       "highlights": [
-        "AI 기반 학습 기능 고도화",
-        "사용자 피드백을 반영한 UX 개선"
+        "Google Cloud TTS 도입 및 음성 재사용 구조 구축",
+        "선생님 요구사항을 반영한 학습 관리 및 LLM 콘텐츠 생성 기능 개발"
       ]
     },
     {
@@ -85,18 +117,20 @@
       "minor": true
     },
     {
-      "title": "풀스택 개발자",
+      "title": "풀스택 개발",
       "company": "꿈담길",
+      "video": "/videos/kkumdamgil.mp4",
       "period": "2021.02 ~ 2023.04",
       "type": "프리랜서/정규직",
-      "description": "영어 단어 학습 플랫폼 '스톰스터디'의 풀스택 개발. PHP/Vanilla JS 레거시를 Next.js로 마이그레이션, TypeScript 전면 도입, MySQL DB 설계, Vercel AI SDK로 AI 학습 기능 및 개인화 알고리즘 구현",
-      "summary": "영어 단어 학습 플랫폼 '스톰스터디' 풀스택 개발",
+      "description": "영어 학습 서비스 보카톡톡의 레거시 개편. PHP 기반 학습 서비스를 Next.js로 마이그레이션, 레거시 MySQL 데이터 이전 및 스키마 정규화",
+      "summary": "레거시 학습 플랫폼 개편과 교육 현장 사용성 개선",
       "highlights": [
-        "PHP/Vanilla JS 레거시를 Next.js로 마이그레이션",
-        "TypeScript 전면 도입, MySQL DB 설계",
-        "Vercel AI SDK로 AI 학습 기능과 개인화 알고리즘 구현"
+        "PHP 기반 학습 서비스를 Next.js로 마이그레이션",
+        "레거시 MySQL 데이터 이전 및 스키마 정규화"
       ],
-      "project": "vocatoktok"
+      "projects": [
+        "vocatoktok"
+      ]
     }
   ],
   "techStack": {
