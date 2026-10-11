@@ -167,6 +167,9 @@ function SideRow({
         exp.video ? "cursor-pointer" : ""
       } ${playing ? "ring-2 ring-toss-blue" : ""}`}
     >
+      <span className="shrink-0 rounded-md bg-toss-bg px-2 py-0.5 text-[11px] font-semibold text-toss-sub">
+        프로젝트
+      </span>
       <span className="shrink-0 font-['Outfit'] text-sm font-bold text-toss-heading">
         {exp.company}
       </span>
