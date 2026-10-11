@@ -1,0 +1,32 @@
+{
+  "name": "genie-cv-videos",
+  "version": "1.0.0",
+  "description": "포트폴리오 첫 페이지 경력 카드 옆에서 재생되는 소개 영상",
+  "repository": {},
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@remotion/cli": "4.0.534",
+    "@remotion/google-fonts": "4.0.534",
+    "@remotion/transitions": "4.0.534",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.534",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "eslint": "9.39.5",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "render:daangn": "remotion render DaangnShort ../../apps/client/public/videos/daangn.mp4 --scale=0.75",
+    "render:aimers": "remotion render AimersShort ../../apps/client/public/videos/aimers.mp4 --scale=0.75",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc"
+  }
+}

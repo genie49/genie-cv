@@ -22,6 +22,7 @@ declare module "@data/profile.json" {
       summary?: string;
       highlights?: string[];
       project?: string;
+      video?: string;
       minor?: boolean;
     }>;
     techStack: Record<string, string[]>;

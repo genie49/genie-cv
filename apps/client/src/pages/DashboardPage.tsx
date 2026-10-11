@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useAssistantRuntime } from "@assistant-ui/react";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Play, Sparkles, X } from "lucide-react";
 import ProjectCard from "../components/dashboard/ProjectCard";
 import profile from "@data/profile.json";
 import projects from "@data/projects.json";
@@ -60,22 +60,38 @@ function TimelineItem({
       transition={{ duration: 0.3 }}
       className="relative flex gap-6"
     >
-      <span className="w-10 shrink-0 pt-5 text-right font-['Outfit'] text-sm font-bold text-toss-sub">
+      <span className="w-10 shrink-0 pt-[22px] text-right font-['Outfit'] text-sm font-bold text-toss-sub">
         {year}
       </span>
       <span
-        className={`absolute left-[47px] top-6 h-2.5 w-2.5 rounded-full ring-4 ring-toss-bg ${dot}`}
+        className={`absolute left-[47px] top-[27px] h-2.5 w-2.5 rounded-full ring-4 ring-toss-bg ${dot}`}
       />
       <div className="min-w-0 flex-1">{children}</div>
     </motion.li>
   );
 }
 
-function ExperienceCard({ exp }: { exp: (typeof profile.experience)[number] }) {
+type Experience = (typeof profile.experience)[number];
+
+function ExperienceCard({
+  exp,
+  playing,
+  onPlay,
+}: {
+  exp: Experience;
+  playing: boolean;
+  onPlay: () => void;
+}) {
   const project = projects.find((p) => p.slug === exp.project);
 
   return (
-    <div className={`${CARD} flex flex-col gap-3 p-5`}>
+    <div
+      // 카드 어디를 눌러도 영상이 열린다. 키보드 사용자는 아래 버튼으로 같은 동작을 한다.
+      onClick={exp.video ? onPlay : undefined}
+      className={`${CARD} flex flex-col gap-3 p-5 transition-shadow ${
+        exp.video ? "cursor-pointer hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)]" : ""
+      } ${playing ? "ring-2 ring-toss-blue" : ""}`}
+    >
       <div className="flex items-start justify-between gap-3">
         <div>
           <h3 className="font-['Outfit'] text-base font-bold text-toss-heading">
@@ -103,13 +119,62 @@ function ExperienceCard({ exp }: { exp: (typeof profile.experience)[number] }) {
       {project && (
         <Link
           to={`/projects/${project.slug}`}
+          onClick={(e) => e.stopPropagation()}
           className="flex items-center justify-between gap-3 rounded-xl bg-toss-bg px-4 py-3 text-[13px] font-medium text-toss-heading transition-colors hover:text-toss-blue"
         >
           <span className="truncate">{project.title}</span>
           <ArrowRight size={14} className="shrink-0" />
         </Link>
       )}
+
+      {exp.video && (
+        <button
+          type="button"
+          aria-pressed={playing}
+          className="flex cursor-pointer items-center justify-between gap-3 rounded-xl bg-toss-bg px-4 py-3 text-[13px] font-medium text-toss-heading transition-colors hover:text-toss-blue"
+        >
+          <span>{playing ? "영상 닫기" : "영상으로 보기"}</span>
+          {playing ? <X size={14} /> : <Play size={14} />}
+        </button>
+      )}
     </div>
+  );
+}
+
+/* 큰 화면: 타임라인 오른쪽에 붙는 패널 / 작은 화면: 전체 화면 오버레이 */
+function VideoPanel({ exp, onClose }: { exp: Experience; onClose: () => void }) {
+  return (
+    <motion.aside
+      initial={{ opacity: 0, x: 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 40 }}
+      transition={{ duration: 0.3 }}
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6 lg:sticky lg:inset-auto lg:top-6 lg:z-auto lg:block lg:w-[360px] lg:shrink-0 lg:self-start lg:bg-transparent lg:p-0"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative aspect-[9/16] max-h-[calc(100vh-3rem)] overflow-hidden rounded-2xl bg-toss-card shadow-[0_8px_30px_rgba(0,0,0,0.12)] lg:w-full"
+      >
+        <video
+          src={exp.video}
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls
+          className="h-full w-full"
+        />
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label={`${exp.company} 영상 닫기`}
+          className="absolute right-3 top-3 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white hover:bg-black/60"
+        >
+          <X size={16} />
+        </button>
+      </div>
+    </motion.aside>
   );
 }
 
@@ -203,8 +268,16 @@ function AskSection() {
 }
 
 export default function DashboardPage() {
+  const [playing, setPlaying] = useState<Experience | null>(null);
+
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 p-6">
+    <div className="flex w-full justify-center gap-8 p-6">
+    {/* 영상 패널이 열리면 가운데 정렬이 다시 잡히면서 이 열이 왼쪽으로 밀린다 */}
+    <motion.div
+      layout="position"
+      transition={{ duration: 0.3 }}
+      className="flex w-full min-w-0 max-w-3xl flex-col gap-8"
+    >
       {/* Intro */}
       <motion.section
         initial={{ opacity: 0, y: 12 }}
@@ -233,8 +306,8 @@ export default function DashboardPage() {
 
       {/* Timeline — 현재 → 과거 */}
       <ol className="relative flex flex-col gap-5">
-        <div className="absolute bottom-2 left-[51.5px] top-7 w-px bg-toss-border" />
-        <div className="rail-fill absolute bottom-2 left-[51.5px] top-7 w-px bg-toss-blue" />
+        <div className="absolute bottom-2 left-[51px] top-8 w-0.5 bg-toss-border" />
+        <div className="rail-fill absolute bottom-2 left-[51px] top-8 w-0.5 bg-toss-blue" />
 
         {profile.experience.map((exp) => (
           <TimelineItem
@@ -250,7 +323,11 @@ export default function DashboardPage() {
                 <span className="text-xs text-toss-sub">{exp.period}</span>
               </p>
             ) : (
-              <ExperienceCard exp={exp} />
+              <ExperienceCard
+                exp={exp}
+                playing={playing === exp}
+                onPlay={() => setPlaying(playing === exp ? null : exp)}
+              />
             )}
           </TimelineItem>
         ))}
@@ -274,6 +351,11 @@ export default function DashboardPage() {
       </section>
 
       <AskSection />
+    </motion.div>
+
+    <AnimatePresence>
+      {playing && <VideoPanel exp={playing} onClose={() => setPlaying(null)} />}
+    </AnimatePresence>
     </div>
   );
 }
